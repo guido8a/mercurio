@@ -1,6 +1,8 @@
-package seguridad
+package ventas
 
-class Accs {
+import seguridad.Accn
+
+class Acceso {
 
     Accn accion
     String url

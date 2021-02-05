@@ -170,10 +170,12 @@ class MenuTagLib {
             strItems += '</li>'
         }
 
+/*
         def alertas = "("
         def count = monitor.Alerta.countByPersonaAndFechaRecibidoIsNull(usuario)
         alertas += count
         alertas += ")"
+*/
 
         def html = "<nav class=\"navbar navbar-default navbar-fixed-top navbar-inverse\" role=\"navigation\">"
 

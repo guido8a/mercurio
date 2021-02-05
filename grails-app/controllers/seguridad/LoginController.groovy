@@ -228,16 +228,6 @@ class LoginController {
                         session.perfil = perfiles.first().perfil
                         cargarPermisos()
 
-                        def permisos = Prpf.findAllByPerfil(session.perfil)
-                        permisos.each {
-                            def perm = PermisoUsuario.findAllByPersonaAndPermisoTramite(session.usuario, it.permiso)
-                            perm.each { pr ->
-                                if (pr.estaActivo) {
-                                    session.usuario.permisos.add(pr.permisoTramite)
-                                }
-                            }
-                        }
-
                         def count = borrarAlertas()
                         if (count > 0) {
                             redirect(controller: 'alertas', action: 'list')

@@ -2,6 +2,8 @@ package seguridad
 
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.WordUtils
+import ventas.Acceso
+
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import static java.awt.RenderingHints.KEY_INTERPOLATION
@@ -432,7 +434,7 @@ class PersonaController {
 
     def accesos() {
         def usu = Persona.get(params.id)
-        def accesos = Accs.findAllByUsuario(usu, [sort: 'accsFechaInicial'])
+        def accesos = Acceso.findAllByUsuario(usu, [sort: 'accsFechaInicial'])
         return [accesos: accesos]
     }
 
@@ -968,10 +970,10 @@ class PersonaController {
                 mnsj += "La persona posee actividades que realziar\n"
             }
 */
-            if (Accs.findByUsuario(personaInstance)) {
+            if (Acceso.findByUsuario(personaInstance)) {
                 mnsj += "La persona tiene permisos de ausentismo\n"
             }
-            if (Accs.findByAsignadoPor(personaInstance)) {
+            if (Acceso.findByAsignadoPor(personaInstance)) {
                 mnsj += "La persona ha registrado ausentismo\n"
             }
             if (PermisoUsuario.findByAsignadoPor(personaInstance)) {
