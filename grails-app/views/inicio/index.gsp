@@ -157,7 +157,7 @@
 
     <div style="text-align: center;margin-bottom: 20px"><h2 class="titl">
         %{--            <p class="text-warning">${inst.institucion}</p>--}%
-        <p class="text-warning">Sistema Monitor del COVID-19</p>
+        <p class="text-warning">Sistema de Ventas</p>
     </h2>
     </div>
 
@@ -170,8 +170,8 @@
                     <asset:image src="apli/proyecto.png" title="Mapa de semáforos"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Mapa</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Semáforos y Documentación Generada por la Emergencia del COVID-19</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Categorías</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Categorías de ventas</p>
                 </div>
             </div>
         </div>
@@ -184,8 +184,8 @@
                     <asset:image src="apli/proyecto.png" title="Períodos y semáforos por cantón"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Períodos</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de nuevos períodos y semáforos</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Promotores</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de promotores</p>
                 </div>
             </div>
         </div>
@@ -198,8 +198,8 @@
                     <asset:image src="apli/proyecto.png" title="Documentos por cantón"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Documentos</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de documentos y acuerdos generados</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Planes de publicación</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de períodos de publicación</p>
                 </div>
             </div>
         </div>
@@ -212,8 +212,8 @@
                     <asset:image src="apli/proyecto.png" title="Cantones"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Cantones</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de cantones</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Bienes y Servicios</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de bienes y servicios</p>
                 </div>
             </div>
         </div>

@@ -48,6 +48,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#">Contact</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${createLink(controller: 'login', action: 'login')}">Admin</a>
+				</li>
 			</ul>
 		</div>
 	</div>
