@@ -147,7 +147,7 @@ class LoginController {
             eq("login", params.login, [ignoreCase: true])
             eq("activo", 1)
         }
-//        println "usuario: ${user.nombre} pass: ${user.password}"
+        println "usuario: ${user.nombre} pass: ${user.password}"
 
         if (user.size() == 0) {
             flash.message = "No se ha encontrado el usuario"

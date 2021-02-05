@@ -7,7 +7,6 @@ class Sesn {
     Prfl perfil
     Date fechaInicio
     Date fechaFin
-    Prpf permisoPerfil
 
     static mapping = {
         table 'sesn'
