@@ -10,33 +10,6 @@ class LoginController {
         redirect(controller: 'login', action: 'login')
     }
 
-    private int borrarAlertas() {
-//        def esTriangulo = session.usuario.esTriangulo()
-        def fecha = new Date() - 3
-
-        def fechaStr = fecha.format("yyyy-MM-dd")
-
-        def sqlDeleteRecibidos = ""
-        def sqlDeleteAntiguos = ""
-
-        def cn = dbConnectionService.getConnection()
-        cn.execute(sqlDeleteRecibidos.toString())
-        cn.execute(sqlDeleteAntiguos.toString())
-        cn.close()
-
-//        return Alerta.withCriteria {
-//            if (esTriangulo) {
-//                eq("departamento", session.departamento)
-//            } else {
-//                eq("persona", session.usuario)
-//            }
-//            isNull("fechaRecibido")
-//        }.size()
-
-        0  //retorna zona de alertas
-
-    }
-
     def conecta(user, pass) {
 
         def prmt = Parametros.findAll()[0]
@@ -158,7 +131,7 @@ class LoginController {
         } else {
             user = user[0]
 
-//            println "está activo " + user.estaActivo
+            println "está activo " + user.estaActivo
 
             if (!user.estaActivo) {
                 flash.message = "El usuario ingresado no esta activo."
@@ -171,7 +144,7 @@ class LoginController {
                 session.time = new Date()
 //                session.unidad = user.unidadEjecutora
 
-//                println "pone valores " + session.usuario
+                println "pone valores " + session.usuario
 
                 def perf = Sesn.findAllByUsuario(user)
                 def perfiles = []
@@ -189,7 +162,7 @@ class LoginController {
                     session.usuario = null
                 } else {
 
-//                    println "el md5 del pass: ${params.pass} es ${params.pass.encodeAsMD5()} contraseña: ${user.password}"
+                    println "el md5 del pass: ${params.pass} es ${params.pass.encodeAsMD5()} contraseña: ${user.password}"
                     if (params.pass.encodeAsMD5() != user.password) {
                             flash.message = "Contraseña incorrecta"
                             flash.tipo = "error"
@@ -221,19 +194,13 @@ class LoginController {
                     }
                     // ------------------fin de sesion activa --------------
 
-
-
+                    println "perfiles: ${perfiles.size()}"
                     if (perfiles.size() == 1) {
                         session.usuario.vaciarPermisos()
                         session.perfil = perfiles.first().perfil
                         cargarPermisos()
 
-                        def count = borrarAlertas()
-                        if (count > 0) {
-                            redirect(controller: 'alertas', action: 'list')
-                        } else {// llama a reporte
-                            redirect(controller: 'inicio', action: 'index', id: 1)
-                        }
+                        redirect(controller: 'inicio', action: 'index', id: 1)
 
                         return
 
@@ -364,8 +331,8 @@ class LoginController {
 
     def cargarPermisos() {
         def permisos = Prms.findAllByPerfil(session.perfil)
-//        println "CARGAR PERMISOS  perfil: " + session.perfil + "  " + session.perfil.id
-//        println "Permisos:    " + permisos
+        println "CARGAR PERMISOS  perfil: " + session.perfil + "  " + session.perfil.id
+        println "Permisos:    " + permisos
         def hp = [:]
         permisos.each {
 //                println(it.accion.accnNombre+ " " + it.accion.control.ctrlNombre)
@@ -377,7 +344,7 @@ class LoginController {
 
         }
         session.permisos = hp
-//        println "permisos menu " + session.permisos
+        println "permisos menu " + session.permisos
     }
 
 }

@@ -34,16 +34,17 @@ class Sesn {
         def now = new Date()
         if(fechaInicio == null)
             return false
-        else
-        if (fechaInicio <= now && fechaFin == null) {
-//            println "perfil activo "
-            return true
-        }
         else {
-            if (fechaInicio < now && fechaFin > now)
+            if (fechaInicio <= now && fechaFin == null) {
+            println "Sessn --> perfil activo "
                 return true
-            else
-                return false
+            }
+            else {
+                if (fechaInicio <= now && fechaFin > now)
+                    return true
+                else
+                    return false
+            }
         }
 
     }
