@@ -197,16 +197,18 @@ class LoginController {
                     println "perfiles: ${perfiles.size()}"
                     if (perfiles.size() == 1) {
                         session.usuario.vaciarPermisos()
-                        session.perfil = perfiles.first().perfil
+                        session.perfil = perfiles.first().perfil  /* carga permisos */
                         cargarPermisos()
+                        println "lg--> usuario: ${session.usuario} , perfil: ${session?.perfil}"
 
-                        redirect(controller: 'inicio', action: 'index', id: 1)
-
+                        redirect(controller: 'inicio', action: 'index')
+                        println "...1"
                         return
 
                     } else {
+                        println "...2"
                         session.usuario.vaciarPermisos()
-                        redirect(action: "perfiles")
+                        redirect(controller: 'login', action: "perfiles")
                         return
                     }
                 }
@@ -236,88 +238,37 @@ class LoginController {
         if (perf) {
 
             def permisos = Prpf.findAllByPerfil(perf)
-//            println "perfil "+perf.descripcion+"  "+perf.codigo
             permisos.each {
-//                println "perm "+it.permiso+"  "+it.permiso.codigo
                 def perm = PermisoUsuario.findAllByPersonaAndPermisoTramite(session.usuario, it.permiso)
-//                println "***************************** " + perm
                 perm.each { pr ->
-//                    println pr.permisoTramite.descripcion + "  fechas " + pr.fechaInicio + "  " + pr.fechaFin + " " + pr.id + " " + pr.estaActivo
                     if (pr.estaActivo) {
                         session.usuario.permisos.add(pr.permisoTramite)
                     }
                 }
 
             }
-//            println "permisos " + session.usuario.permisos.id + "  " + session.usuario.permisos
-//            println "add " + session.usuario.permisos
-//            println "puede recibir " + session.usuario.getPuedeRecibir()
-//            println "puede getPuedeVer " + session.usuario.getPuedeVer()
-//            println "puede getPuedeAdmin " + session.usuario.getPuedeAdmin()
-//            println "puede getPuedeJefe " + session.usuario.getPuedeJefe()
-//            println "puede getPuedeDirector " + session.usuario.getPuedeDirector()
-//            println "puede getPuedeExternos " + session.usuario.getPuedeExternos()
-//            println "puede getPuedeAnular " + session.usuario.getPuedeAnular()
-//            println "puede getPuedeTramitar " + session.usuario.getPuedeTramitar()
             session.perfil = perf
             cargarPermisos()
-//            if (session.an && session.cn) {
-//                if (session.an.toString().contains("ajax")) {
-//                    redirect(controller: "inicio", action: "index")
-//                } else {
-//                    redirect(controller: session.cn, action: session.an, params: session.pr)
-//                }
-//            } else {
-//            def count = 0
-//            if (session.usuario.esTriangulo()) {
-//                count = Alerta.countByDepartamentoAndFechaRecibidoIsNull(session.departamento)
-//            } else {
-//                count = Alerta.countByPersonaAndFechaRecibidoIsNull(session.usuario)
-//            }
-
-            def count = borrarAlertas()
-            if (count > 0) {
-                println("entro 1")
-                redirect(controller: 'alertas', action: 'list')
-            } else {
-                println("entro 2")
-//                if (session.usuario.getPuedeDirector() || session.usuario.getPuedeJefe()) {
-//
-//                    redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidadoDir", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1", dir: "1"])
-//                } else {
-//                    if (session.usuario.getPuedeJefe()) {
-//                        redirect(controller: "retrasadosWeb", action: "reporteRetrasadosConsolidado", params: [dpto: Persona.get(session.usuario.id).departamento.id, inicio: "1"])
-//                    } else {
-                        redirect(controller: "inicio", action: "index")
-//                    }
-
-//                }
-            }
-//            }
         } else {
-            redirect(action: "login")
+            redirect(controller: 'login', action: "login")
         }
     }
 
     def logout() {
-
-        // registra fin de sesion activa --------------
         def activo = SesionActiva.findByIdSesion(session.id)
-//        println "sesion out: $session.id, activo: $activo"  //activo
         if (activo) {
             activo.fechaFin = new Date()
             activo.activo = 'N'
             activo.save(flush: true)
-//            println "grabando... ${activo.fechaFin}"
         }
         // -------------- fin -------------------------
 
         session.usuario = null
         session.perfil = null
         session.permisos = null
-        session.menu = null
-        session.an = null
-        session.cn = null
+//        session.menu = null
+//        session.an = null
+//        session.cn = null
         session.invalidate()
 
         redirect(controller: 'login', action: 'login')
@@ -335,7 +286,6 @@ class LoginController {
         println "Permisos:    " + permisos
         def hp = [:]
         permisos.each {
-//                println(it.accion.accnNombre+ " " + it.accion.control.ctrlNombre)
             if (hp[it.accion.control.ctrlNombre.toLowerCase()]) {
                 hp[it.accion.control.ctrlNombre.toLowerCase()].add(it.accion.accnNombre.toLowerCase())
             } else {

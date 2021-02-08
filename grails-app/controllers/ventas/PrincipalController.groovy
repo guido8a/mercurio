@@ -13,7 +13,6 @@ class PrincipalController {
 //        def quanto = Articulo.findAllByProducto(Producto.get(3))
 
         return [anuncio: anuncio, secciones: secciones]
-
     }
 
     def enviarMail_ajax () {

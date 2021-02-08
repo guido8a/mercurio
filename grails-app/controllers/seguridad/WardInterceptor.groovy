@@ -3,16 +3,14 @@ package seguridad
 class WardInterceptor {
 
     WardInterceptor () {
-//        matchAll().excludes(controller: 'login')
         matchAll().excludes(controller:'login')
                 .excludes(controller:'shield')
-                .excludes(controller:'principal')  /** mapa **/
+                .excludes(controller:'principal')  /** principal **/
     }
 
     boolean before() {
-        println "acción: " + actionName + " controlador: " + controllerName + " params: $params"
-//        println "shield sesión: " + session
-//        println "usuario: " + session.usuario
+        println "before acción: " + actionName + " controlador: " + controllerName + " params: $params"
+        println "usuario: ${session.usuario} , perfil: ${session?.perfil}"
         session.an = actionName
         session.cn = controllerName
         session.pr = params
