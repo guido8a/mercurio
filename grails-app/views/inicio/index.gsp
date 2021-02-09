@@ -177,7 +177,7 @@
         </div>
     </a>
 
-    <a href= "${createLink(controller:'periodo', action: 'list')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'promotor', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">

@@ -15,6 +15,7 @@ class Promotor {
     String direccion
     String observaciones
     String estado
+    String logo
 
     static mapping = {
         table 'prmt'
@@ -35,19 +36,21 @@ class Promotor {
             direccion column: 'prmtdire'
             observaciones column: 'prmtobsr'
             estado column: 'prmtactv'
+            logo column: 'prmtimgn'
         }
     }
     static constraints = {
         canton(blank: false, nullable: false)
         tipo(blank: false, nullable: false)
         nombre(size: 1..63, blank: false, nullable: false)
-        apellido(size: 1..63, blank: false, nullable: false)
+        apellido(size: 1..31, blank: true, nullable: true)
         ruc(size: 1..13, blank: false, nullable: false)
-        telefono(size: 1..127, blank: false, nullable: false)
+        telefono(size: 1..127, blank: true, nullable: true)
         mail(size: 1..63, blank: true, nullable: true)
         fecha(blank: true, nullable: true)
-        direccion(size: 1..63, blank: true, nullable: true)
+        direccion(size: 1..255, blank: true, nullable: true)
+        logo(size: 1..255, blank: true, nullable: true)
         observaciones(size: 1..8,blank: true, nullable: true)
-        estado(blank:false, nullable: false)
+        estado(blank:true, nullable: true)
     }
 }

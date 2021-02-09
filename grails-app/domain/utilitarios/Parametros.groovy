@@ -9,26 +9,18 @@ class Parametros implements Auditable {
     String institucion
 
     static mapping = {
-        table 'prmt'
+        table 'prax'
         cache usage: 'read-write', include: 'non-lazy'
-        id column: 'prmt__id'
+        id column: 'prax__id'
         id generator: 'identity'
         version false
         columns {
-            imagenes column: 'prmtimgn'
-            institucion column: 'prmtinst'
+            imagenes column: 'praximgn'
+            institucion column: 'praxinst'
         }
     }
     static constraints = {
         imagenes(blank: true, nullable: true, attributes: [title: 'Imagen'])
         institucion(blank: false, nullable: false, attributes: [title: 'Nombre de la Institución'])
-    }
-
-    def getInicioJornada() {
-        return this.horaInicio.toString().padLeft(2, '0') + ":" + this.minutoInicio.toString().padLeft(2, '0')
-    }
-
-    def getFinJornada() {
-        return this.horaFin.toString().padLeft(2, '0') + ":" + this.minutoFin.toString().padLeft(2, '0')
     }
 }
