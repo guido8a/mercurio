@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.*
 
 class AnuncioController {
 
-    AnuncioService anuncioService
+//    AnuncioService anuncioService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
