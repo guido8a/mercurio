@@ -4,15 +4,14 @@ class PrincipalController {
 //    def mailService
 
     def index() {
-
         def anuncio = Anuncio.get(1)
-        def secciones = Producto.findAllByAnuncio(anuncio, [sort: 'orden', order: 'asc'])
 
-//        println("secciones " + secciones)
+        def categorias = Categoria.findAll([sort: 'orden', order: 'asc'])
+//        def categorias = Categoria.findAll()
 
-//        def quanto = Articulo.findAllByProducto(Producto.get(3))
+        println "categorias $categorias"
 
-        return [anuncio: anuncio, secciones: secciones]
+        return [anuncio: anuncio, categorias: categorias]
     }
 
     def enviarMail_ajax () {

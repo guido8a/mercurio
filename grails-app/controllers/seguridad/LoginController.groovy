@@ -271,8 +271,8 @@ class LoginController {
 //        session.cn = null
         session.invalidate()
 
-        redirect(controller: 'login', action: 'login')
-//        redirect uri: '/'
+//        redirect(controller: 'login', action: 'login')
+        redirect uri: '/'
 
     }
 

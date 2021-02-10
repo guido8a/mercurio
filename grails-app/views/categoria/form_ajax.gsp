@@ -28,7 +28,20 @@
                     Descripción
                 </label>
                 <div class="col-md-6">
-                    <g:textArea name="descripcion" maxlength="255" required="" style="width: 430px; height: 100px; resize: none" class="form-control required" value="${categoria?.descripcion}"/>
+                    <g:textArea name="descripcion" maxlength="255" required="" style="width: 400px; height: 40px;
+                    resize: none" class="form-control required" value="${categoria?.descripcion}"/>
+                </div>
+                *
+            </span>
+        </div>
+        <div class="form-group ${hasErrors(bean: 'categoria', field: 'descripcion', 'error')} required">
+            <span class="grupo">
+                <label for="orden" class="col-md-2 control-label text-info">
+                    Orden
+                </label>
+                <div class="col-md-2">
+                    <g:textField name="orden" maxlength="2" required="" class="digits form-control required"
+                                 value="${categoria?.orden}"/>
                 </div>
                 *
             </span>

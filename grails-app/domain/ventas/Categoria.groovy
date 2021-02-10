@@ -3,6 +3,7 @@ package ventas
 class Categoria {
 
     String descripcion
+    int orden
 
     static mapping = {
         table 'ctgr'
@@ -13,9 +14,11 @@ class Categoria {
         columns {
             id column: 'ctgr__id'
             descripcion column: 'ctgrdscr'
+            orden column: 'ctgrordn'
         }
     }
     static constraints = {
         descripcion(size: 1..255, blank: false, nullable: false)
+        orden(blank: false, nullable: false)
     }
 }

@@ -3,7 +3,7 @@ package ventas
 class CategoriaController {
 
     def list(){
-        def categorias = Categoria.list().sort{it.descripcion}
+        def categorias = Categoria.list().sort{it.orden}
         return[categorias: categorias]
     }
 
