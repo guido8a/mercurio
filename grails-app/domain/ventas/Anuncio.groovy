@@ -1,6 +1,9 @@
 package ventas
 
 class Anuncio {
+
+    Promotor promotor
+    Categoria categoria
     String nombre
     String descripcion
     String estado
@@ -13,6 +16,8 @@ class Anuncio {
 
         columns {
             id          column: 'anun__id'
+            categoria column: 'ctgr__id'
+            promotor column: 'prmt__id'
             nombre      column: 'anunnmbr'
             descripcion column: 'anundscr'
             estado      column: 'anunetdo'
@@ -20,6 +25,8 @@ class Anuncio {
     }
 
     static constraints = {
+        categoria(blank:false, nullable: false)
+        promotor(blank:false, nullable: false)
         nombre(blank:false,size:4..63)
         descripcion(blank:false,size:0..255)
         estado(blank:false, inList: ["A", "N"])

@@ -5,13 +5,6 @@
   Time: 15:41
 --%>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 09/02/21
-  Time: 12:58
---%>
-
 <g:if test="${!vendedor}">
     No se encontró vendedor
 </g:if>
