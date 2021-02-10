@@ -30,7 +30,8 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 20%">Descripción</th>
+        <th style="width: 10%">Orden</th>
+        <th style="width: 90%">Descripción</th>
     </tr>
     </thead>
 </table>
@@ -40,7 +41,8 @@
         <tbody id="tabla_bandeja">
         <g:each in="${categorias}" var="categoria">
             <tr data-id="${categoria?.id}" style="width: 100%">
-                <td style="width: 20%">${categoria?.descripcion}</td>
+                <td style="width: 10%">${categoria?.orden}</td>
+                <td style="width: 90%">${categoria?.descripcion}</td>
             </tr>
         </g:each>
         </tbody>

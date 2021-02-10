@@ -5,13 +5,6 @@
   Time: 10:04
 --%>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 09/02/21
-  Time: 14:01
---%>
-
 <asset:javascript src="/apli/jquery.switcher.js"/>
 <asset:stylesheet src="/apli/switcher.css"/>
 

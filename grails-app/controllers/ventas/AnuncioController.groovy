@@ -1,99 +1,56 @@
 package ventas
 
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.*
-
 class AnuncioController {
 
-//    AnuncioService anuncioService
+    def list(){
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+        def promotor = Promotor.get(params.id)
+        def anuncios = Anuncio.findAllByPromotor(promotor)
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond anuncioService.list(params), model:[anuncioCount: anuncioService.count()]
+        return[promotor:promotor, anuncios:anuncios]
     }
 
-    def show(Long id) {
-        respond anuncioService.get(id)
+    def form_ajax(){
+        def promotor = Promotor.get(params.promotor)
+        def anuncio
+        if(params.id){
+            anuncio = Anuncio.get(params.id)
+        }else{
+            anuncio = new Anuncio()
+        }
+
+        return[anuncio:anuncio, promotor: promotor]
     }
 
-    def create() {
-        respond new Anuncio(params)
-    }
+    def saveAnuncio(){
 
-    def save(Anuncio anuncio) {
-        if (anuncio == null) {
-            notFound()
-            return
+        println("params " + params)
+
+        def anuncio
+        if(params.id){
+            anuncio = Anuncio.get(params.id)
+        }else{
+            anuncio = new Anuncio()
         }
 
-        try {
-            anuncioService.save(anuncio)
-        } catch (ValidationException e) {
-            respond anuncio.errors, view:'create'
-            return
+        if(params.estado){
+            params.estado = 1
+        }else{
+            params.estado = 0
         }
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'anuncio.label', default: 'Anuncio'), anuncio.id])
-                redirect anuncio
-            }
-            '*' { respond anuncio, [status: CREATED] }
-        }
-    }
+        anuncio.properties = params
 
-    def edit(Long id) {
-        respond anuncioService.get(id)
-    }
-
-    def update(Anuncio anuncio) {
-        if (anuncio == null) {
-            notFound()
-            return
-        }
-
-        try {
-            anuncioService.save(anuncio)
-        } catch (ValidationException e) {
-            respond anuncio.errors, view:'edit'
-            return
-        }
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'anuncio.label', default: 'Anuncio'), anuncio.id])
-                redirect anuncio
-            }
-            '*'{ respond anuncio, [status: OK] }
+        if(!anuncio.save(flush:true)){
+            println("error al guardar el anuncio")
+            render "no"
+        }else{
+            render "ok"
         }
     }
 
-    def delete(Long id) {
-        if (id == null) {
-            notFound()
-            return
-        }
+    def delete_ajax(){
 
-        anuncioService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'anuncio.label', default: 'Anuncio'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
     }
 
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'anuncio.label', default: 'Anuncio'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
 }

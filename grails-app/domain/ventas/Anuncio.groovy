@@ -28,8 +28,8 @@ class Anuncio {
         categoria(blank:false, nullable: false)
         promotor(blank:false, nullable: false)
         nombre(blank:false,size:4..63)
-        descripcion(blank:false,size:0..255)
-        estado(blank:false, inList: ["A", "N"])
+        descripcion(blank:true,size:1..255)
+        estado(blank:false, nullable: false)
     }
 
     String toString(){
