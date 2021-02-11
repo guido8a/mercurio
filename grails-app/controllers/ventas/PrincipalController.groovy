@@ -5,11 +5,21 @@ class PrincipalController {
 
     def index() {
         println "params: $params"
+        params.id = params.id?:1
+
 //        def anuncio = Anuncio.get(1)
         def categoria = Categoria.get(params.id)
+        def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.findAllByCategoria(categoria, [sort: 'orden', order: 'asc'])
+        println "consultas: ${consultas[0].logo}"
+        def ruta
+        consultas.each { cn ->
+            cn.logo = g.assetPath(src: "${cn.logo}")
+        }
 
-        return [anuncio: 1, categorias: sbct, activo: params.id]
+        println "logo: ${consultas}"
+
+        return [anuncio: 1, categorias: sbct, activo: params.id, consultas: consultas]
     }
 
     def enviarMail_ajax () {

@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-
+	<asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Shop Homepage - Start Bootstrap Template</title>
+	<title>Ventas</title>
 
 	<!-- Bootstrap core CSS -->
 %{--	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--}%
@@ -69,10 +69,19 @@
 
 		<div class="col-lg-3">
 
-			<h1 class="my-4">Categorías</h1>
+			<h2 class="my-2">Categorías</h2>
 			<div class="list-group">
 				<g:each in="${categorias}" var="ct">
 					<a href="#${ct?.id}" class="list-group-item">${ct.descripcion}</a>
+				</g:each>
+			</div>
+
+
+			<h2 class="my-4 text-info">Consultas</h2>
+			<div class="list-group">
+				<g:each in="${consultas}" var="cs">
+					<a href="${cs?.link}" class="list-group-item text-info" title="${cs.texto}" target="_blank">
+						&nbsp;${cs.titulo}<img src="${cs.logo}" style='float:left; height:30px'></a>
 				</g:each>
 			</div>
 

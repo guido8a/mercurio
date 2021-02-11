@@ -3,7 +3,7 @@ package ventas
 class Anuncio {
 
     Promotor promotor
-    Categoria categoria
+    Subcategoria subcategoria
     String nombre
     String descripcion
     String estado
@@ -16,7 +16,7 @@ class Anuncio {
 
         columns {
             id          column: 'anun__id'
-            categoria column: 'ctgr__id'
+            subcategoria column: 'sbct__id'
             promotor column: 'prmt__id'
             nombre      column: 'anunnmbr'
             descripcion column: 'anundscr'

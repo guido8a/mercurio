@@ -7,6 +7,7 @@ class Link {
     String logo
     int orden
     String texto
+    String activo
 
     static mapping = {
         table 'link'
@@ -16,11 +17,12 @@ class Link {
         version false
         columns {
             id column: 'link__id'
-            titulo column: 'bscdtitl'
-            link column: 'bscdlink'
-            logo column: 'bscdlogo'
-            orden column: 'bscdordn'
-            texto column: 'bscdtxto'
+            titulo column: 'linktitl'
+            link column: 'linklink'
+            logo column: 'linklogo'
+            orden column: 'linkordn'
+            texto column: 'linktxto'
+            activo column: 'linkactv'
         }
     }
     static constraints = {
@@ -29,6 +31,7 @@ class Link {
         logo(size: 1..255, blank: true, nullable: true)
         orden(blank: false, nullable: false)
         texto(blank: true, nullable: true)
+        activo(blank: false, nullable: false)
     }
 }
 
