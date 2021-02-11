@@ -21,11 +21,14 @@
 	<asset:javascript src="/merc/jquery.min.js"/>
 	<asset:javascript src="/merc/bootstrap.bundle.js"/>
 
+
 </head>
 
 <body>
 
+<mn:menuHg activo="${activo}"/>
 <!-- Navigation -->
+%{--
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container">
 		<a class="navbar-brand" href="#">Hg</a>
@@ -55,6 +58,9 @@
 		</div>
 	</div>
 </nav>
+--}%
+
+
 
 <!-- Page Content -->
 <div class="container">
@@ -215,8 +221,13 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+		<div style="text-align: center">
+			<span class="text-white">Copyright &copy; Tedein S.A. 2021
+				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>
+			</span>
+		</div>
 	</div>
+
 	<!-- /.container -->
 </footer>
 

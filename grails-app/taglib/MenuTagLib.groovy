@@ -1,4 +1,5 @@
 import seguridad.Prms
+import ventas.Categoria
 
 class MenuTagLib {
     static namespace = "mn"
@@ -227,6 +228,40 @@ class MenuTagLib {
 //        println "---> $txt"
 
         out << html
+    }
+
+    def menuHg = { attrs ->
+        def items = [:]
+        def activo = attrs.activo? attrs.activo.toInteger() : 1
+        def strItems = ""
+
+        def acciones = Categoria.findAll([sort: 'orden', order: 'asc'])
+//        println "acciones: $acciones"
+
+        acciones.each { ac ->
+            items.put(ac.descripcion, [g.createLink(controller: 'principal', action: 'index', id: ac.id), ac.id])
+        }
+        println "items: $items"
+
+        def html1 = "<nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>" +
+            "<div class='container'>" +
+            "<a class='navbar-brand' href='/?id=1'><img src=" + g.assetPath(src: 'apli/logo.png') +
+            " style='float:left; height:40px'></a>" +
+		    "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarResponsive' " +
+            "aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation'>" +
+            "<span class='navbar-toggler-icon'></span></button>" +
+		    "<div class='collapse navbar-collapse' id='navbarResponsive'><ul class='navbar-nav ml-auto'>"
+
+        items.each { item ->
+            strItems += "<li class='nav-item ${activo == item.value[1]? 'active':''}'>"
+            strItems +=  "<a class='nav-link' href='${item.value[0]}'>${item.key}</a>"
+            strItems += '</li>'
+        }
+
+//        def admin = "<li class='nav-item'><a class='nav-link' " +
+//                "href=\"${createLink(controller: 'login', action: 'login')}\">Admin</a></li>"
+        def admin = ""
+        out << html1 + strItems + admin + "</ul></div></div></nav>"
     }
 
 }
