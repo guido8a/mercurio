@@ -53,4 +53,20 @@ class AnuncioController {
 
     }
 
+    def subcategoria_ajax(){
+
+        println("id " + params)
+
+        def categoria = Categoria.get(params.id)
+        def subCategorias = Subcategoria.findAllByCategoria(categoria).sort{it.descripcion}
+        def anuncio
+        if(params.anuncio){
+            anuncio = Anuncio.get(params.anuncio)
+        }else{
+            anuncio = new Anuncio()
+        }
+
+        return[subCategorias: subCategorias, anuncio: anuncio]
+    }
+
 }

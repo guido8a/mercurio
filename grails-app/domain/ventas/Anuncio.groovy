@@ -25,7 +25,7 @@ class Anuncio {
     }
 
     static constraints = {
-        categoria(blank:false, nullable: false)
+        subcategoria(blank:false, nullable: false)
         promotor(blank:false, nullable: false)
         nombre(blank:false,size:4..63)
         descripcion(blank:true,size:1..255)

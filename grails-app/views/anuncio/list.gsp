@@ -49,7 +49,7 @@
         <tbody id="tabla_bandeja">
         <g:each in="${anuncios}" var="anuncio">
             <tr data-id="${promotor?.id}" style="width: 100%">
-                <td style="width: 20%; text-align: center">${anuncio?.categoria?.descripcion}</td>
+                <td style="width: 20%; text-align: center">${anuncio?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${anuncio?.nombre}</td>
                 <td style="width: 20%">${anuncio?.descripcion}</td>
                 <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
@@ -189,15 +189,16 @@
                             className : "btn-primary",
                             callback  : function () {
                             }
-                        },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
-                                return submitFormPublicacion();
-                            } //callback
-                        } //guardar
+                        }
+                        // ,
+                        // guardar  : {
+                        //     id        : "btnSave",
+                        //     label     : "<i class='fa fa-save'></i> Guardar",
+                        //     className : "btn-success",
+                        //     callback  : function () {
+                        //         return submitFormPublicacion();
+                        //     } //callback
+                        // } //guardar
                     } //buttons
                 }); //dialog
                 setTimeout(function () {

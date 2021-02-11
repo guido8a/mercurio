@@ -22,7 +22,17 @@
                     Categoría
                 </label>
                 <div class="col-md-6">
-                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionKey="id" optionValue="descripcion" value="${anuncio?.categoria?.id}"/>
+                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionKey="id" optionValue="descripcion" value="${anuncio?.subcategoria?.categoria?.id}"/>
+                </div>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: 'anuncio', field: 'categoria', 'error')}">
+            <span class="grupo">
+                <label for="categoria" class="col-md-2 control-label text-info">
+                    Subcategoría
+                </label>
+                <div class="col-md-6" id="divSubcategoria">
                 </div>
             </span>
         </div>
@@ -65,6 +75,27 @@
     </g:form>
 
     <script type="text/javascript">
+
+        $("#categoria").change(function () {
+            var id = $(this).val();
+            cargarSubcategoria(id)
+        });
+
+        cargarSubcategoria($("#categoria").val());
+
+        function cargarSubcategoria(id){
+            $.ajax({
+                type: 'POST',
+                url: '${createLink(controller: 'anuncio', action: 'subcategoria_ajax')}',
+                data:{
+                    id: id,
+                    anuncio: $("#id").val()
+                },
+                success: function (msg) {
+                    $("#divSubcategoria").html(msg)
+                }
+            });
+        }
 
         $.switcher('input[type=checkbox]');
 
