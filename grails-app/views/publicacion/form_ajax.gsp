@@ -99,52 +99,24 @@
     </div>
 
 
-
-%{--    <g:form class="form-horizontal" name="frmSueldo" role="form" action="save_ajax" method="POST">--}%
-%{--        <g:hiddenField name="id" value="${sueldoInstance?.id}" />--}%
-%{--        <g:hiddenField name="empleado" value="${empleado?.id}" />--}%
-
-%{--        <div class="form-group keeptogether ${hasErrors(bean: sueldoInstance, field: 'anio', 'error')} ${hasErrors(bean: sueldoInstance, field: 'valor', 'error')}">--}%
-%{--            <span class="grupo">--}%
-%{--                <label for="anio" class="col-md-2 control-label">--}%
-%{--                    Año--}%
-%{--                </label>--}%
-%{--                <div class="col-md-4">--}%
-%{--                    <g:select id="anio" name="anio.id" from="${utilitarios.Anio.list()}" optionKey="id" optionValue="numero" required="" value="${sueldoInstance?.anio?.id}" class="many-to-one form-control"/>--}%
-%{--                </div>--}%
-%{--            </span>--}%
-%{--            <span class="grupo">--}%
-%{--                <label for="valor" class="col-md-1 control-label">--}%
-%{--                    Valor--}%
-%{--                </label>--}%
-%{--                <div class="col-md-3">--}%
-%{--                    <g:textField name="valor" class="number form-control" value="${sueldoInstance?.valor ?: 0}"/>--}%
-%{--                </div>--}%
-%{--            </span>--}%
-%{--            <span>--}%
-%{--                <a href="#" class="btn btn-success btnAgregar" title="Agregar sueldo"><i class="fa fa-plus"></i> </a>--}%
-%{--                <a href="#" class="btn btn-success btn-sm btnGuardarS hidden" title="Guardar sueldo"><i class="fa fa-save"></i> </a>--}%
-%{--                <a href="#" class="btn btn-warning btn-sm btnCancelar hidden" title="Cancelar edición"><i class="fa fa-times"></i> </a>--}%
-%{--            </span>--}%
-%{--        </div>--}%
-%{--    </g:form>--}%
-
-
     <script type="text/javascript">
 
-        $(".btnAgregar").click(function () {
+        $(".btnAgregar, .btnGuardarS").click(function () {
             var $form = $("#frmPublicacion");
             if ($form.valid()) {
                 var l = cargarLoader("Grabando...");
                 $.ajax({
                     type: 'POST',
                     url: '${createLink(controller: 'publicacion', action: 'savePublicacion')}',
-                    data:{
-                        anuncio: '${anuncio?.id}',
-                        id: $("#id").val(),
-                        fechaInicio: $("#datetimepicker1").val(),
-                        fechaFin: $("#datetimepicker2").val()
-                    },
+                    // data:{
+                        %{--anuncio: '${anuncio?.id}',--}%
+                        %{--id: $("#id").val(),--}%
+                        %{--fechaInicio: $("#datetimepicker1").val(),--}%
+                        %{--fechaFin: $("#datetimepicker2").val(),--}%
+                        %{--destacado : $("#des option:checked").val()--}%
+
+                    // },
+                    data    : $form.serialize(),
                     success: function (msg) {
                         l.modal("hide");
                         var parts = msg.split("_");
@@ -162,7 +134,16 @@
                     }
                 })
             }
+        });
 
+        $(".btnCancelar").click(function () {
+           $("#datetimepicker1").val('');
+            $("#datetimepicker2").val('');
+             $(".ui-switcher").attr("aria-checked",false)
+            $("#id").val('');
+            $(".btnAgregar").removeClass("hidden");
+            $(".btnGuardarS").addClass("hidden");
+            $(".btnCancelar").addClass("hidden");
         });
 
         cargarTablaPublicacion();

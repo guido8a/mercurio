@@ -19,7 +19,7 @@
             <td>${publicacion?.fechaInicio?.format("dd-MM-yyyy")}</td>
             <td>${publicacion?.fechaFin?.format("dd-MM-yyyy")}</td>
 %{--            <td>${g.formatNumber(number: sueldo?.valor ?: 0, format: '##,##0', maxFractionDigits: 2, minFractionDigits: 2, locale: 'en_US')}</td>--}%
-            <td><a href="#" class="btn btn-sm btn-info btnEditar" title="Editar sueldo" data-fi="${publicacion?.fechaInicio}" data-ff="${publicacion?.fechaFin}" data-id="${publicacion?.id}"><i class="fa fa-edit"></i> </a> </td>
+            <td><a href="#" class="btn btn-sm btn-info btnEditar" title="Editar publicacion" data-fi="${publicacion?.fechaInicio?.format("dd-MM-yyyy")}" data-ff="${publicacion?.fechaFin?.format("dd-MM-yyyy")}" data-d="${publicacion?.destacado}" data-id="${publicacion?.id}"><i class="fa fa-edit"></i> </a> </td>
         </tr>
     </g:each>
     </tbody>
@@ -28,12 +28,20 @@
 <script type="text/javascript">
 
     $(".btnEditar").click(function () {
-        var anio = $(this).data("anio");
-        var valor = $(this).data("valor");
-        var sueldo = $(this).data("id");
-        $("#anio").val(anio);
-        $("#valor").val(valor);
-        $("#id").val(sueldo);
+        var fi = $(this).data("fi");
+        var ff = $(this).data("ff");
+        var des = $(this).data("d");
+        var id = $(this).data("id");
+        $("#datetimepicker1").val(fi);
+        $("#datetimepicker2").val(ff);
+        if(des == '1'){
+            // $("#inlineCheckbox1").ariaChecked = true
+            $(".ui-switcher").attr("aria-checked",true)
+        }else{
+            $(".ui-switcher").attr("aria-checked",false)
+        }
+
+        $("#id").val(id);
         $(".btnAgregar").addClass("hidden");
         $(".btnGuardarS").removeClass("hidden");
         $(".btnCancelar").removeClass("hidden");

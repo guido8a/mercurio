@@ -6,14 +6,7 @@ class PublicacionController {
     def form_ajax(){
 
         def anuncio = Anuncio.get(params.id)
-        def publicacion
-        def publicacionExiste = Publicacion.findByAnuncio(anuncio)
-
-        if(publicacionExiste){
-            publicacion = publicacionExiste
-        }else{
-            publicacion = new Publicacion()
-        }
+        def publicacion = new Publicacion()
 
         return[publicacion:publicacion, anuncio: anuncio]
     }
@@ -23,30 +16,37 @@ class PublicacionController {
         println("params " + params)
 
         def fi = new Date().parse("dd-MM-yyyy", params.fechaInicio)
-        def ff = new Date().parse("dd-MM-yyyy", params.fechaFin)
+        params.fechaInicio = fi
+
+        def ff
+        if(params.fechaFin){
+            ff = new Date().parse("dd-MM-yyyy", params.fechaFin)
+            params.fechaFin = ff
+        }else{
+            params.fechaFin = null
+        }
+
+        println("fi " + params.fechaInicio)
+        println("ff " + params.fechaFin)
+
+        if(params.destacado){
+            params.destacado = 1
+        }else{
+            params.destacado = 0
+        }
+
 
         def anuncio = Anuncio.get(params.anuncio)
         def publicacion
-        def publicacionExiste = Publicacion.withCriteria {
-                eq("anuncio", anuncio)
 
-            or{
-                gt("fechaFin", new Date())
-            }
+        def publicacionExiste1 = Publicacion.findAllByAnuncioAndFechaFinGreaterThan(anuncio, new Date())
+        def publicacionExiste2 = Publicacion.findAllByAnuncioAndFechaInicioLessThanEqualsAndFechaFinIsNull(anuncio, new Date())
 
-            or{
-                lt("fechaInicio", new Date())
-                eq("fechaFin", null)
-            }
-        }
+        println("existe1 " + publicacionExiste1.size())
+        println("existe2 " + publicacionExiste2.size())
 
-        println("existe " + publicacionExiste.size())
-
-        if(publicacionExiste.size() > 0){
-            render "er_No se puede crear una publicación del anuncio, ya existe una publicación activa"
-        }else{
-            publicacion = new Publicacion()
-
+        if(params.id){
+            publicacion = Publicacion.get(params.id)
             publicacion.properties = params
 
             if(!publicacion.save(flush: true)){
@@ -55,7 +55,24 @@ class PublicacionController {
             }else{
                 render "ok"
             }
+        }else{
+            if(publicacionExiste1.size() > 0 || publicacionExiste2.size() > 0 ){
+                render "er_No se puede crear una publicación del anuncio, ya existe una publicación activa"
+            }else{
+                publicacion = new Publicacion()
+
+                publicacion.properties = params
+
+                if(!publicacion.save(flush: true)){
+                    println("error al guardar la publicación" + publicacion.errors)
+                    render "no"
+                }else{
+                    render "ok"
+                }
+            }
         }
+
+
     }
 
     def tablaPublicacion_ajax(){
