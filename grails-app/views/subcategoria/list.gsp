@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Categorías</title>
+    <title>Subcategorías</title>
 </head>
 <body>
 
@@ -18,11 +18,11 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="subcategoria" action="list" class="btn btn-primary">
-            <i class="fa fa-file"></i> Subcategorías
+        <g:link controller="categoria" action="list" class="btn btn-primary btnVolver">
+            <i class="fa fa-arrow-left"></i> Volver
         </g:link>
         <g:link action="form" class="btn btn-info btnCrear">
-            <i class="fa fa-file"></i> Nueva categoría
+            <i class="fa fa-file"></i> Nueva subcategoría
         </g:link>
     </div>
 </div>
@@ -30,8 +30,9 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
+        <th style="width: 30%">Categoría</th>
         <th style="width: 10%">Orden</th>
-        <th style="width: 90%">Descripción</th>
+        <th style="width: 60%">Descripción</th>
     </tr>
     </thead>
 </table>
@@ -39,10 +40,11 @@
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
-        <g:each in="${categorias}" var="categoria">
-            <tr data-id="${categoria?.id}" style="width: 100%">
-                <td style="width: 10%">${categoria?.orden}</td>
-                <td style="width: 90%">${categoria?.descripcion}</td>
+        <g:each in="${subcategorias}" var="subcategoria">
+            <tr data-id="${subcategoria?.id}" style="width: 100%">
+                <td style="width: 30%">${subcategoria?.categoria?.descripcion}</td>
+                <td style="width: 10%">${subcategoria?.orden}</td>
+                <td style="width: 90%">${subcategoria?.descripcion}</td>
             </tr>
         </g:each>
         </tbody>
@@ -52,24 +54,24 @@
 <script type="text/javascript">
     var id = null;
     function submitForm() {
-        var $form = $("#frmCategoria");
+        var $form = $("#frmSubcategoria");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             $btn.replaceWith(spinner);
             var l = cargarLoader("Grabando...");
             $.ajax({
                 type    : "POST",
-                url     : '${createLink(action:'saveCategoria')}',
+                url     : '${createLink(action:'saveSubcategoria')}',
                 data    : $form.serialize(),
                 success : function (msg) {
                     l.modal("hide");
                     if (msg == "ok") {
-                        log("Categoría guardada correctamente","success");
+                        log("Subcategoría guardada correctamente","success");
                         setTimeout(function () {
                             location.reload(true);
                         }, 1000);
                     } else {
-                        log("Error al guardar la categoría","error");
+                        log("Error al guardar la subcategoría","error");
                     }
                 }
             });
@@ -80,7 +82,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar la categoría seleccionada? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar la subcategoría seleccionada? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -102,12 +104,12 @@
                             success : function (msg) {
                                 l1.modal("hide");
                                 if (msg == "ok") {
-                                    log("Categoría borrada correctamente","success");
+                                    log("Subcategoría borrada correctamente","success");
                                     setTimeout(function () {
                                         location.reload(true);
                                     }, 1000);
                                 } else {
-                                    log("Error al borrar la categoría","error");
+                                    log("Error al borrar la subcategoría","error");
                                 }
                             }
                         });
@@ -121,12 +123,12 @@
         var data = id ? { id: id } : {};
         $.ajax({
             type    : "POST",
-            url     : "${createLink(controller: 'categoria', action:'form_ajax')}",
+            url     : "${createLink(controller: 'subcategoria', action:'form_ajax')}",
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Categoría",
+                    title   : title + " Subcategoría",
                     message : msg,
                     buttons : {
                         cancelar : {
