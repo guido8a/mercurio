@@ -3,11 +3,14 @@ package ventas
 class SubcategoriaController {
 
     def list(){
-        def subcategorias = Subcategoria.list().sort{a,b -> a.orden <=> b.orden ?: a.descripcion <=> b.descripcion}
-        return[subcategorias: subcategorias]
+        def categoria = Categoria.get(params.id)
+//        def subcategorias = Subcategoria.list().sort{a,b -> a.orden <=> b.orden ?: a.descripcion <=> b.descripcion}
+        def subcategorias = Subcategoria.findAllByCategoria(categoria).sort{it.orden}
+        return[subcategorias: subcategorias, categoria:categoria]
     }
 
     def form_ajax(){
+        def categoria = Categoria.get(params.categoria)
         def subcategoria
         if(params.id){
             subcategoria = Subcategoria.get(params.id)
@@ -15,7 +18,7 @@ class SubcategoriaController {
             subcategoria = new Subcategoria()
         }
 
-        return[subcategoria: subcategoria]
+        return[subcategoria: subcategoria, categoria: categoria]
     }
 
     def saveSubcategoria () {

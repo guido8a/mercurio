@@ -124,7 +124,10 @@
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'subcategoria', action:'form_ajax')}",
-            data    : data,
+            data    : {
+                id:  id ? id : null,
+                categoria: '${categoria?.id}'
+            },
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",

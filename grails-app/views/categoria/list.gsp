@@ -18,9 +18,9 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="subcategoria" action="list" class="btn btn-primary">
-            <i class="fa fa-file"></i> Subcategorías
-        </g:link>
+%{--        <g:link controller="subcategoria" action="list" class="btn btn-primary">--}%
+%{--            <i class="fa fa-file"></i> Subcategorías--}%
+%{--        </g:link>--}%
         <g:link action="form" class="btn btn-info btnCrear">
             <i class="fa fa-file"></i> Nueva categoría
         </g:link>
@@ -171,6 +171,15 @@
                     action : function ($element) {
                         var id = $element.data("id");
                         createEditRow(id);
+                    }
+                },
+                sub : {
+                    label            : "Subcategoría",
+                    icon             : "fa fa-file",
+                    separator_before : true,
+                    action           : function ($element) {
+                        var id = $element.data("id");
+                        location.href="${createLink(controller: 'subcategoria', action: 'list')}?id=" + id
                     }
                 },
                 eliminar : {

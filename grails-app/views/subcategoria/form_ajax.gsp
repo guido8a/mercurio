@@ -11,17 +11,17 @@
 <g:else>
     <g:form class="form-horizontal" name="frmSubcategoria" role="form" action="saveSubcategoria" method="POST">
         <g:hiddenField name="id" value="${subcategoria?.id}" />
+        <g:hiddenField name="categoria" value="${categoria?.id}" />
 
-        <div class="form-group ${hasErrors(bean: 'subcategoria', field: 'categoria', 'error')} required">
+        <div class="form-group ${hasErrors(bean: 'subcategoria', field: 'categoria', 'error')}">
             <span class="grupo">
                 <label for="categoria" class="col-md-2 control-label text-info">
                     Categoría
                 </label>
                 <div class="col-md-6">
-                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" optionValue="descripcion" optionKey="id" class="form-control" value="${subcategoria?.categoria?.id}"/>
+                    <span class="badge bg-primary">${categoria?.descripcion}</span>
                 </div>
-                *
-            </span>
+           </span>
         </div>
 
         <div class="form-group ${hasErrors(bean: 'categoria', field: 'descripcion', 'error')} required">
