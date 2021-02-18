@@ -1,14 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: fabricio
-  Date: 10/02/21
-  Time: 11:12
+  Date: 17/02/21
+  Time: 10:30
 --%>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Lista de anuncios del promotor: ${promotor?.nombre + (promotor?.apellido ? (' ' +  promotor?.apellido) : '')}</title>
+    <title>Lista de productos</title>
 </head>
 <body>
 
@@ -17,11 +18,11 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="promotor" action="list" class="btn btn-primary btnVolver">
+        <g:link controller="anuncio" action="list" id="${anuncio?.id}" class="btn btn-primary btnVolver">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
         <g:link action="form" class="btn btn-info btnCrear">
-            <i class="fa fa-file"></i> Nuevo anuncio
+            <i class="fa fa-file"></i> Nuevo producto
         </g:link>
     </div>
 </div>
@@ -29,17 +30,11 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 70%" colspan="4">Anuncio</th>
-        <th style="width: 30%" colspan="3">Publicación</th>
-    </tr>
-    <tr style="width: 100%">
-        <th style="width: 20%">Categoría</th>
-        <th style="width: 20%">Nombre</th>
-        <th style="width: 20%">Descripción</th>
+        <th style="width: 10%">Orden</th>
+        <th style="width: 20%">Título</th>
+        <th style="width: 20%">Subtítulo</th>
+%{--        <th style="width: 20%">Texto</th>--}%
         <th style="width: 10%">Estado</th>
-        <th style="width: 10%">Fecha Inicio</th>
-        <th style="width: 10%">Fecha Fin</th>
-        <th style="width: 10%">Destacado</th>
     </tr>
     </thead>
 </table>
@@ -47,42 +42,42 @@
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
-        <g:each in="${anuncios}" var="anuncio">
-            <tr data-id="${promotor?.id}" style="width: 100%">
-                <td style="width: 20%; text-align: center">${anuncio?.subcategoria?.categoria?.descripcion}</td>
-                <td style="width: 20%">${anuncio?.nombre}</td>
-                <td style="width: 20%">${anuncio?.descripcion}</td>
-                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
-                <td style="width: 10%; text-align: center">${ventas.Publicacion.findByAnuncio(anuncio)?.fechaInicio?.format("dd-MM-yyyy")}</td>
-                <td style="width: 10%; text-align: center">${ventas.Publicacion.findByAnuncio(anuncio)?.fechaFin?.format("dd-MM-yyyy")}</td>
-                <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findByAnuncio(anuncio)?.destacado == '1' ? '#67a153' : '#cba51d'}">${ventas.Publicacion.findByAnuncio(anuncio)?.destacado == '1' ? 'SI' : 'NO'}</td>
+        <g:each in="${productos}" var="producto">
+            <tr data-id="${producto?.id}" style="width: 100%">
+                <td style="width: 10%; text-align: center">${producto?.orden}</td>
+                <td style="width: 20%">${producto?.titulo}</td>
+                <td style="width: 20%;">${producto?.subtitulo}</td>
+%{--                <td style="width: 20%; text-align: center">${producto?.texto}</td>--}%
+                <td style="width: 10%; text-align: center">${producto?.estado == '1' ? 'Activo' : 'Inactivo'}</td>
             </tr>
         </g:each>
         </tbody>
     </table>
 </div>
 
+
+
 <script type="text/javascript">
     var id = null;
     function submitForm() {
-        var $form = $("#frmAnuncio");
+        var $form = $("#frmProducto");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             $btn.replaceWith(spinner);
             var l = cargarLoader("Grabando...");
             $.ajax({
                 type    : "POST",
-                url     : '${createLink(action:'saveAnuncio')}',
+                url     : '${createLink(action:'saveProducto')}',
                 data    : $form.serialize(),
                 success : function (msg) {
                     l.modal("hide");
                     if (msg == "ok") {
-                        log("Anuncio guardado correctamente","success");
+                        log("Producto guardado correctamente","success");
                         setTimeout(function () {
                             location.reload(true);
                         }, 1000);
                     } else {
-                        log("Error al guardar el anuncio","error");
+                        log("Error al guardar el producto","error");
                     }
                 }
             });
@@ -93,7 +88,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar el anuncio seleccionado? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar el producto seleccionado? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -115,12 +110,12 @@
                             success : function (msg) {
                                 l1.modal("hide");
                                 if (msg == "ok") {
-                                    log("Anuncio borrado correctamente","success");
+                                    log("Producto borrado correctamente","success");
                                     setTimeout(function () {
                                         location.reload(true);
                                     }, 1000);
                                 } else {
-                                    log("Error al borrar el anuncio","error");
+                                    log("Error al borrar el producto","error");
                                 }
                             }
                         });
@@ -131,18 +126,18 @@
     }
     function createEditRow(id) {
         var title = id ? "Editar" : "Crear";
-        // var data = id ? { id: id } : {};
+        var data = id ? { id: id } : {};
         $.ajax({
             type    : "POST",
-            url     : "${createLink(controller: 'anuncio', action:'form_ajax')}",
+            url     : "${createLink(controller: 'producto', action:'form_ajax')}",
             data    : {
-                id: id ?  id : null,
-                promotor: '${promotor?.id}'
+                anuncio: '${anuncio?.id}',
+                id: id ? id : ''
             },
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Anuncio",
+                    title   : title + " Producto",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -168,63 +163,6 @@
         }); //ajax
     } //createEdit
 
-    function fijarPublicacion(id) {
-        var title = id ? "Editar" : "Crear";
-        // var data = id ? { id: id } : {};
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller: 'publicacion', action:'form_ajax')}",
-            data    : {
-                id: id ?  id : null
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgCreateEditP",
-                    title   : title + " Publicación",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").not(".datepicker").first().focus()
-                }, 500);
-            } //success
-        }); //ajax
-    } //createEdit
-
-    function submitFormPublicacion() {
-        var $form = $("#frmPublicacion");
-        var $btn = $("#dlgCreateEditP").find("#btnSave");
-        if ($form.valid()) {
-            $btn.replaceWith(spinner);
-            var l = cargarLoader("Grabando...");
-            $.ajax({
-                type    : "POST",
-                url     : '${createLink(controller: 'publicacion', action:'savePublicacion')}',
-                data    : $form.serialize(),
-                success : function (msg) {
-                    l.modal("hide");
-                    if (msg == "ok") {
-                        log("Publicación guardada correctamente","success");
-                        setTimeout(function () {
-                            location.reload(true);
-                        }, 1000);
-                    } else {
-                        log("Error al guardar la Publicación","error");
-                    }
-                }
-            });
-        } else {
-            return false;
-        } //else
-    }
-
     $(function () {
 
         $(".btnCrear").click(function() {
@@ -238,6 +176,34 @@
                     label  : "Acciones",
                     header : true
                 },
+                ver      : {
+                    label  : "Ver",
+                    icon   : "fa fa-search",
+                    action : function ($element) {
+                        var id = $element.data("id");
+                        $.ajax({
+                            type    : "POST",
+                            url     : "${createLink(controller: 'producto', action:'show_ajax')}",
+                            data    : {
+                                id : id
+                            },
+                            success : function (msg) {
+                                bootbox.dialog({
+                                    title   : "Ver promotor",
+                                    message : msg,
+                                    buttons : {
+                                        ok : {
+                                            label     : "Aceptar",
+                                            className : "btn-primary",
+                                            callback  : function () {
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                },
                 editar   : {
                     label  : "Editar",
                     icon   : "fa fa-edit",
@@ -246,22 +212,22 @@
                         createEditRow(id);
                     }
                 },
-                producto : {
-                    label            : "Producto",
-                    icon             : "fa fa-briefcase",
+                texto : {
+                    label            : "Texto",
+                    icon             : "fa fa-pen",
                     separator_before : true,
                     action           : function ($element) {
                         var id = $element.data("id");
-                        location.href="${createLink(controller: 'producto', action: 'list')}?id=" + id
+                        location.href="${createLink(controller: 'producto', action: 'texto')}?id=" + id
                     }
                 },
-                publicacion : {
-                    label            : "Publicación",
-                    icon             : "fa fa-user-clock",
+                imas : {
+                    label            : "Imágenes",
+                    icon             : "fa fa-image",
                     separator_before : true,
                     action           : function ($element) {
                         var id = $element.data("id");
-                        fijarPublicacion(id);
+
                     }
                 },
                 eliminar : {

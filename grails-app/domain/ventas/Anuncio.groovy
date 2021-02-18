@@ -7,6 +7,7 @@ class Anuncio {
     String nombre
     String descripcion
     String estado
+    String imagen
 
     static mapping = {
         table 'anun'
@@ -21,6 +22,7 @@ class Anuncio {
             nombre      column: 'anunnmbr'
             descripcion column: 'anundscr'
             estado      column: 'anunetdo'
+            imagen column: 'anunimag'
         }
     }
 
@@ -29,6 +31,7 @@ class Anuncio {
         promotor(blank:false, nullable: false)
         nombre(blank:false,size:4..63)
         descripcion(blank:true,size:1..255)
+        imagen(blank:true, nullable: true)
         estado(blank:false, nullable: false)
     }
 
