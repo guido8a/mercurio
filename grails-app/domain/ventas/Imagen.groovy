@@ -26,7 +26,7 @@ class Imagen {
     }
 
     static constraints = {
-        ruta(blank:false,size:4..63)
+        ruta(blank:false,size:4..255)
         texto(blank: true, nullable: true)
         principal(blank: true, nullable: true)
         estado(blank:false, nullable: false)

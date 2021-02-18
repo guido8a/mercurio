@@ -11,7 +11,7 @@
 <g:else>
     <div class="media">
             <div class="row">
-                <div class="col-md-3 text-info">
+                <div class="col-md-2 text-info">
                     Anuncio:
                 </div>
 
@@ -23,7 +23,7 @@
 
         <g:if test="${producto?.orden}">
             <div class="row">
-                <div class="col-md-3 text-info">
+                <div class="col-md-2 text-info">
                     Orden:
                 </div>
 
@@ -35,7 +35,7 @@
 
         <g:if test="${producto?.titulo}">
             <div class="row">
-                <div class="col-md-3 text-info">
+                <div class="col-md-2 text-info">
                     Título:
                 </div>
 
@@ -47,7 +47,7 @@
 
         <g:if test="${producto?.subtitulo}">
             <div class="row">
-                <div class="col-md-3 text-info">
+                <div class="col-md-2 text-info">
                     Subtítulo:
                 </div>
 
@@ -59,7 +59,7 @@
 
         <g:if test="${producto?.estado}">
             <div class="row">
-                <div class="col-md-3 text-info">
+                <div class="col-md-2 text-info">
                     Estado:
                 </div>
 
@@ -71,15 +71,17 @@
 
         <g:if test="${producto?.texto}">
             <div class="row">
-                <div class="col-md-3 text-info">
+                <div class="col-md-2 text-info">
                     Texto:
                 </div>
 
                 <div class="col-md-9">
-                    <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
+                    <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto;">
                         <table class="table-bordered table-condensed table-hover" width="100%">
                             <tbody id="tabla_txt">
-
+                                <g:applyCodec encodeAs="none">
+                                    ${producto?.texto}
+                                </g:applyCodec>
                             </tbody>
                         </table>
                     </div>

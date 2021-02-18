@@ -66,7 +66,16 @@ class ProductoController {
         }else{
             render "ok"
         }
+    }
 
+    def imagenes_ajax() {
+        def producto = Producto.get(params.id)
+        def imagenes = Imagen.findAllByProducto(producto)
+        return[imagenes: imagenes, producto: producto]
+    }
+
+    def upload_ajax(){
+        println("params " + params)
     }
 
 }

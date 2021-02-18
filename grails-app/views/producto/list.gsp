@@ -163,6 +163,32 @@
         }); //ajax
     } //createEdit
 
+    function cargarImagenes(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'producto', action:'imagenes_ajax')}",
+            data    : {
+                id:id,
+                anuncio: '${anuncio?.id}'
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgImas",
+                    title   : "Imágenes",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
     $(function () {
 
         $(".btnCrear").click(function() {
@@ -227,6 +253,7 @@
                     separator_before : true,
                     action           : function ($element) {
                         var id = $element.data("id");
+                        cargarImagenes(id)
 
                     }
                 },
