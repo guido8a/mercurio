@@ -144,42 +144,60 @@
 
 </div>
 
+<div id="divImagenes">
 
-<g:if test="${imagenes.size() > 0}">
-    <div class="row">
-        %{--        <g:each in="${files}" var="file" status="i">--}%
-        %{--            <div class="col-sm-3 ${i}">--}%
-        %{--                <div class="thumbnail">--}%
-        %{--                    <a href="#" class="btn btn-success btn-sm btn-add" style="margin-bottom: 5px">--}%
-        %{--                        <i class="fa fa-check"></i> Seleccionar--}%
-        %{--                    </a>--}%
-        %{--                    <a href="#" class="btn btn-danger btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">--}%
-        %{--                        <i class="fa fa-trash"></i>--}%
-        %{--                    </a>--}%
-        %{--                                                <a class="img" href="${resource(dir: file.dir, file: file.file)}">--}%
-        %{--                                                    <img src="${resource(dir: file.dir, file: file.file)}"/>--}%
-        %{--                                                </a>--}%
+</div>
 
-        %{--                    <img src="${createLink(controller: 'tramiteImagenes', action: 'getImage', id: file.file)}"/>--}%
+%{--<g:if test="${imagenes.size() > 0}">--}%
+%{--    <div class="row">--}%
+%{--                <g:each in="${imagenes}" var="file" status="i">--}%
+%{--                    <div class="col-sm-3 ${i}">--}%
+%{--                        <div class="thumbnail">--}%
+%{--                            <a href="#" class="btn btn-success btn-sm btn-add" style="margin-bottom: 5px">--}%
+%{--                                <i class="fa fa-check"></i> Seleccionar--}%
+%{--                            </a>--}%
+%{--                            <a href="#" class="btn btn-danger btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">--}%
+%{--                                <i class="fa fa-trash"></i>--}%
+%{--                            </a>--}%
+%{--                                                        <a class="img" href="${resource(dir: file.dir, file: file.file)}">--}%
+%{--                                                            <img src="${resource(dir: file.dir, file: file.file)}"/>--}%
+%{--                                                        </a>--}%
 
-        %{--                    <div class="caption">--}%
-        %{--                        <p>${file.file}</p>--}%
-        %{--                    </div>--}%
-        %{--                </div>--}%
-        %{--            </div>--}%
-        %{--        </g:each>--}%
-    </div>
-</g:if>
-<g:else>
-    <div class="alert alert-warning">
-        <i class="fa fa-exclamation-triangle fa-2x"></i>
-        No tiene imágenes cargadas en el servidor.
-    </div>
-</g:else>
+%{--                            <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"/>--}%
+
+%{--                            <div class="caption">--}%
+%{--                                <p>${file.file}</p>--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
+%{--                </g:each>--}%
+%{--    </div>--}%
+%{--</g:if>--}%
+%{--<g:else>--}%
+%{--    <div class="alert alert-warning">--}%
+%{--        <i class="fa fa-exclamation-triangle fa-2x"></i>--}%
+%{--        No tiene imágenes cargadas en el servidor.--}%
+%{--    </div>--}%
+%{--</g:else>--}%
 
 
 
 <script type="text/javascript">
+
+    cargarTablaImagenes();
+
+    function cargarTablaImagenes() {
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'tablaImagenes_ajax')}',
+            data:{
+                id: '${producto?.id}'
+            },
+            success: function (msg) {
+                $("#divImagenes").html(msg)
+            }
+        })
+    }
 
     var archivos = [];
 
@@ -194,6 +212,7 @@
         for (i = 0; i < length; i++) {
             createContainer();
         }
+        boundBotones();
     });
 
     function createContainer() {
@@ -222,6 +241,22 @@
             $("#linea-arch").hide();
         }
     }
+
+    function boundBotones() {
+        $(".subir").unbind("click");
+        $(".subir").bind("click", function () {
+            error = false;
+            $("." + $(this).attr("clase")).each(function () {
+                if ($(this).val().trim() == "") {
+                    error = true;
+                }
+            });
+                upload($(this).attr("clase") * 1 - 1);
+        });
+    }
+
+    var request = [];
+    var tam = 0;
 
     function upload(indice) {
         var tramite = "${producto.id}";
@@ -276,6 +311,7 @@
                             height     : 50,
                             fontWeight : "bold"
                         }).removeClass("subiendo");
+                        cargarTablaImagenes();
                   }
                 };
             } else {

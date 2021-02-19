@@ -175,6 +175,7 @@
                 var b = bootbox.dialog({
                     id      : "dlgImas",
                     title   : "Imágenes",
+                    class : "modal-lg",
                     message : msg,
                     buttons : {
                         cancelar : {
