@@ -225,6 +225,32 @@
         } //else
     }
 
+    function cargarImagenes(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'anuncio', action:'imagen_ajax')}",
+            data    : {
+                id:id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgImas",
+                    title   : "Imágenes",
+                    // class : "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
     $(function () {
 
         $(".btnCrear").click(function() {
@@ -262,6 +288,15 @@
                     action           : function ($element) {
                         var id = $element.data("id");
                         fijarPublicacion(id);
+                    }
+                },
+                imagen : {
+                    label            : "Imagen",
+                    icon             : "fa fa-image",
+                    separator_before : true,
+                    action           : function ($element) {
+                        var id = $element.data("id");
+                        cargarImagenes(id)
                     }
                 },
                 eliminar : {

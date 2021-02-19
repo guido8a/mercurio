@@ -79,26 +79,6 @@ class ProductoController {
 
     def imagenes_ajax() {
         def producto = Producto.get(params.id)
-//
-//        def path = "/var/ventas/productos/pro_" + producto.id + "/"
-//        new File(path).mkdirs()
-//
-//        def files = []
-//
-//        def dir = new File(path)
-//        dir.eachFileRecurse(FileType.FILES) { file ->
-//            def img = ImageIO.read(file)
-//            if (img) {
-//                files.add([
-//                        dir : path,
-//                        file: file.name,
-//                        w   : img?.getWidth(),
-//                        h   : img?.getHeight(),
-//                ])
-//            }
-//        }
-
-//        return[imagenes: files, producto: producto]
         return[producto: producto]
     }
 
@@ -148,7 +128,11 @@ class ProductoController {
                 }
                 try {
                     f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
-//                    println ("--> " + pathFile)
+                    def imagenNueva = new Imagen()
+                    imagenNueva.producto = producto
+                    imagenNueva.estado = 1
+                    imagenNueva.ruta = nombre
+                    imagenNueva.save(flush:true)
                 } catch (e) {
                     println ("error al subir la imagen " + e)
                 }
@@ -202,10 +186,16 @@ class ProductoController {
         def fileDel = new File(path + file)
 
         try{
-            fileDel.delete()
-            render "ok"
+            def imagen = Imagen.findByProductoAndRuta(producto,file)
+            if(imagen){
+                fileDel.delete()
+                imagen.delete(flush: true)
+                render "ok"
+            }else{
+                render  "no"
+            }
         }catch(e){
-            println("errro al borrar la imagen " + e)
+            println("error al borrar la imagen " + e)
             render "no"
         }
     }

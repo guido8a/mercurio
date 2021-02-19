@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: fabricio
-  Date: 18/02/21
-  Time: 12:30
+  Date: 19/02/21
+  Time: 13:44
 --%>
 
 <style type="text/css">
@@ -102,22 +102,27 @@
 
 </style>
 
-<span class="btn btn-success fileinput-button" style="position: relative;margin-top: 5px">
-    <i class="glyphicon glyphicon-plus"></i>
-    <span>Seleccionar imagen</span>
-    <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
-</span>
+<div id="divCarga">
+    <g:if test="${anuncio?.imagen == null}">
+        <span class="btn btn-success fileinput-button" style="position: relative;margin-top: 5px">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Seleccionar imagen</span>
+            <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
+        </span>
 
-<div class="alert alert-info" style="margin-top: 5px;">
-    <i class="fa fa-info-circle fa-2x"></i>
-    Se recuerda que puede cargar archivos de <strong>hasta 5 mb</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
+        <div class="alert alert-info" style="margin-top: 5px;">
+            <i class="fa fa-info-circle fa-2x"></i>
+            Se recuerda que puede cargar archivos de <strong>hasta 5 mb</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
+        </div>
+
+        <div style="margin-top:5px;margin-bottom: 5px" id="files">
+        </div>
+
+        <div id="anexos">
+        </div>
+    </g:if>
 </div>
 
-<div style="margin-top:5px;margin-bottom: 5px" id="files">
-</div>
-
-<div id="anexos">
-</div>
 
 <div id="divImagenes">
 </div>
@@ -129,9 +134,9 @@
     function cargarTablaImagenes() {
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'producto', action: 'tablaImagenes_ajax')}',
+            url: '${createLink(controller: 'anuncio', action: 'tablaImagen_ajax')}',
             data:{
-                id: '${producto?.id}'
+                id: '${anuncio?.id}'
             },
             success: function (msg) {
                 $("#divImagenes").html(msg)
@@ -199,7 +204,7 @@
     var tam = 0;
 
     function upload(indice) {
-        var tramite = "${producto.id}";
+        var tramite = "${anuncio.id}";
         var file = document.getElementById("file");
         /* Create a FormData instance */
         var formData = new FormData();
@@ -225,7 +230,7 @@
                     fontWeight : "bold"
                 });
                 request[rs] = new XMLHttpRequest();
-                request[rs].open("POST", "${g.createLink(controller: 'producto',action: 'upload_ajax')}");
+                request[rs].open("POST", "${g.createLink(controller: 'anuncio',action: 'upload_ajax')}");
                 request[rs].upload.onprogress = function (ev) {
                     var loaded = ev.loaded;
                     var width = (loaded * 100 / tam);
@@ -252,6 +257,8 @@
                             fontWeight : "bold"
                         }).removeClass("subiendo");
                         cargarTablaImagenes();
+                        $("#divCarga").addClass('hidden');
+
                     }
                 };
             } else {
@@ -281,68 +288,5 @@
             window.close();
         });
         var effects = ["blind", "bounce", "clip", "drop", "explode", "fold", "highlight", "puff", "pulsate", "scale", "shake", "size", "slide"];
-        $(".btn-delete").click(function () {
-            var file = $(this).data("file");
-            var i = $(this).data("i");
-            var pos = Math.floor((Math.random() * effects.length) + 1);
-            var effect = effects[pos];
-
-            var msg = "<i class='fa fa-trash fa-4x pull-left text-danger text-shadow'></i>" +
-                "<p>¿Está seguro que desea eliminar esta imagen del servidor?</p>" +
-                "<p><b>Esta acción no se puede deshacer. Una vez eliminada la imagen no podrá ser recuperada.</b></p>";
-            bootbox.dialog({
-                title   : "Alerta",
-                message : msg,
-                buttons : {
-                    cancelar : {
-                        label     : "<i class='fa fa-times'></i> Cancelar",
-                        className : "btn-primary",
-                        callback  : function () {
-                        }
-                    },
-                    eliminar : {
-                        label     : "<i class='fa fa-trash'></i> Eliminar",
-                        className : "btn-danger",
-                        callback  : function () {
-                            openLoader("Eliminando");
-                            $.ajax({
-                                type    : "POST",
-                                url     : '${createLink(action:'delete_ajax')}',
-                                data    : {
-                                    file : file
-                                },
-                                success : function (msg) {
-                                    var parts = msg.split("_");
-                                    log(parts[1], parts[0] == "OK" ? "success" : "error"); // log(msg, type, title, hide)
-                                    if (parts[0] == "OK") {
-                                        closeLoader();
-                                        setTimeout(function () {
-                                            $("." + i).hide({
-                                                effect   : effect,
-                                                duration : 1000,
-                                                complete : function () {
-                                                    $("." + i).remove();
-                                                    if ($(".col-sm-3").length == 0) {
-                                                        var alert = '<div class="alert alert-info">';
-                                                        alert += '<span class="fa-stack fa-lg">';
-                                                        alert += '<i class="fa fa-picture-o fa-stack-1x text-muted"></i>';
-                                                        alert += '<i class="fa fa-folder-o fa-stack-2x text-muted"></i>';
-                                                        alert += '</span>';
-                                                        alert += 'No tiene imágenes cargadas en el servidor.';
-                                                        alert += '</div>';
-                                                        $(".row").html(alert);
-                                                    }
-                                                }
-                                            });
-                                        }, 400);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-            });
-            return false;
-        });
     });
 </script>
