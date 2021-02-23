@@ -83,6 +83,11 @@ class Persona implements Auditable{
         discapacidad(size: 0..15, blank: true, nullable: true)
         direccion(size: 0..255, blank: true, nullable: true)
         referencia(size: 0..255, blank: true, nullable: true)
+        observaciones(size: 0..255, blank: true, nullable: true)
+        contacto(blank: true, nullable: true)
+        telefonoContacto(blank: true, nullable: true)
+        mailContacto(blank: true, nullable: true)
+
     }
 
     String toString() {
