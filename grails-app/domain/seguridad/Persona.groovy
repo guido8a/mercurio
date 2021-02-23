@@ -73,7 +73,7 @@ class Persona implements Auditable{
         fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de inicio'])
         fechaFin(blank: true, nullable: true, attributes: [title: 'Fecha de finalización'])
         sexo(inList: ["F", "M"], size: 1..1, blank: false, attributes: ['mensaje': 'Sexo de la persona'])
-        mail(size: 3..63, blank: true, nullable: true)
+        mail(size: 3..63, blank: false, nullable: false)
         login(size: 4..15, blank: false, unique: true)
         password(size: 3..63, blank: false, nullable: false)
         fecha(blank: true, nullable: true)
