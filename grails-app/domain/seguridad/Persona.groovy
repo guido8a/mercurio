@@ -68,7 +68,7 @@ class Persona implements Auditable{
         cedula(blank: false, nullable: false)
         canton(blank: false, nullable: false)
         nombre(size: 3..31, blank: false)
-        apellido(size: 3..31, blank: false)
+        apellido(size: 0..31, blank: true, nullable: true)
         fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de inicio'])
         fechaFin(blank: true, nullable: true, attributes: [title: 'Fecha de finalización'])
         sexo(inList: ["F", "M"], size: 1..1, blank: false, attributes: ['mensaje': 'Sexo de la persona'])
