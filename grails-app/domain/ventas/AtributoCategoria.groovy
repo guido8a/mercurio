@@ -2,7 +2,7 @@ package ventas
 
 class AtributoCategoria {
 
-    Categoria categoria
+    Subcategoria subcategoria
     Atributo atributo
 
     static mapping = {
@@ -13,12 +13,12 @@ class AtributoCategoria {
         version false
         columns {
             id column: 'atct__id'
-            categoria column: 'ctgr__id'
+            subcategoria column: 'sbct__id'
             atributo column: 'atrb__id'
         }
     }
     static constraints = {
-        categoria(blank: false, nullable: false)
+        subcategoria(blank: false, nullable: false)
         atributo(blank: false, nullable: false)
     }
 }

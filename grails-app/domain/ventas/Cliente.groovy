@@ -2,7 +2,7 @@ package ventas
 
 class Cliente {
 
-    Producto producto
+    Anuncio anuncio
     String nombre
     String apellido
     String mail
@@ -18,7 +18,7 @@ class Cliente {
         version false
         columns {
             id column: 'clnt__id'
-            producto column: 'prod__id'
+            anuncio column: 'anun__id'
             nombre column: 'cnttnmbr'
             apellido column: 'cnttapll'
             mail column: 'cnttmail'
@@ -28,7 +28,7 @@ class Cliente {
         }
     }
     static constraints = {
-        producto(blank: false, nullable: false)
+        anuncio(blank: false, nullable: false)
         nombre(size: 1..31, blank: false, nullable: false)
         apellido(size: 1..31, blank: false, nullable: false)
         telefono(size: 1..15, blank: false, nullable: false)

@@ -1,29 +1,32 @@
 package seguridad
 
 import audita.Auditable
+import geografia.Canton
 
 class Persona implements Auditable{
 
+    Canton canton
+    String tipoPersona
     String cedula
     String nombre
     String apellido
     Date fechaInicio
     Date fechaFin
-    String titulo
-    String cargo
     String mail
     String login
     String password
     int activo
     Date fecha
     String telefono
-    String sigla
     String autorizacion
     String sexo
     String discapacidad
     String direccion
     String referencia
-//    String representante = 'N'
+    String observaciones
+    String contacto
+    String telefonoContacto
+    String mailContacto
 
     static auditable = true
 
@@ -39,27 +42,28 @@ class Persona implements Auditable{
 
         columns {
             id column: 'prsn__id'
-            unidadEjecutora column: 'unej__id'
+            canton column: 'cntn__id'
+            tipoPersona column: 'prsntppr'
             cedula column: 'prsncdla'
             nombre column: 'prsnnmbr'
             apellido column: 'prsnapll'
             fechaInicio column: 'prsnfcin'
             fechaFin column: 'prsnfcfn'
-            titulo column: 'prsntitl'
-            cargo column: 'prsncrgo'
             mail column: 'prsnmail'
             login column: 'prsnlogn'
             password column: 'prsnpass'
             activo column: 'prsnactv'
             telefono column: 'prsntelf'
             fecha column: 'prsnfcps'
-            sigla column: 'prsnsgla'
             autorizacion column: 'prsnatrz'
             sexo column: 'prsnsexo'
             discapacidad column: 'prsndscp'
             direccion column: 'prsndire'
             referencia column: 'prsnrefe'
-//            representante column: 'prsnrplg'
+            observaciones column: 'prsnobsr'
+            contacto column: 'prsncntc'
+            telefonoContacto column: 'prsntfct'
+            mailContacto column: 'prsnmlct'
         }
     }
     static constraints = {
@@ -68,21 +72,17 @@ class Persona implements Auditable{
         apellido(size: 3..31, blank: false)
         fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de inicio'])
         fechaFin(blank: true, nullable: true, attributes: [title: 'Fecha de finalización'])
-        titulo(size: 0..4, blank: true, nullable: true)
-        cargo(blank: true, nullable: true, size: 1..127, attributes: [mensaje: 'Cargo'])
         sexo(inList: ["F", "M"], size: 1..1, blank: false, attributes: ['mensaje': 'Sexo de la persona'])
         mail(size: 3..63, blank: true, nullable: true)
         login(size: 4..15, blank: false, unique: true)
         password(size: 3..63, blank: false, nullable: false)
         fecha(blank: true, nullable: true)
         telefono(size: 0..31, blank: true, nullable: true, attributes: [title: 'teléfono'])
-        sigla(size: 0..5, blank: true, nullable: true)
         autorizacion(matches: /^[a-zA-Z0-9ñÑáéíóúÁÉÍÚÓüÜ_-]+$/, blank: true, nullable: true, attributes: [mensaje: 'Contraseña para autorizaciones'])
         activo(blank: false, attributes: [title: 'activo'])
         discapacidad(size: 0..15, blank: true, nullable: true)
         direccion(size: 0..255, blank: true, nullable: true)
         referencia(size: 0..255, blank: true, nullable: true)
-//        representante(blank: true, nullable: true)
     }
 
     String toString() {
@@ -93,34 +93,12 @@ class Persona implements Auditable{
         if (this.activo != 1) {
             return false
         }
-/*
-        def now = new Date()
-        println "---> ${this.activo}"
-        def accs = Acceso.findAllByUsuarioAndAccsFechaFinalGreaterThanEquals(this, now)
-        println "accs "+accs?.accsFechaInicial+"  "+accs?.accsFechaFinal
-        def res = true
-        accs.each {
-            if (res) {
-                if (it.accsFechaInicial <= now) {
-                    res = false
-                }
-            }
-        }
-*/
+
         return true
     }
 
     def vaciarPermisos() {
         this.permisos = []
-    }
-
-    def getNombreCompleto() {
-        if(this.titulo) {
-            return "${this?.titulo} ${this.nombre} ${this.apellido}"
-        } else {
-            return "${this.nombre} ${this.apellido}"
-        }
-
     }
 
 }

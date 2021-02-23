@@ -17,7 +17,7 @@ class ActividadSitio {
         version false
         columns {
             id column: 'actv__id'
-            link column: 'bscd__id'
+            link column: 'link__id'
             accion column: 'accn__id'
             consulta column: 'actvcnsl'
             fecha column: 'actvfcha'

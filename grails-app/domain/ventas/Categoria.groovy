@@ -18,7 +18,7 @@ class Categoria {
         }
     }
     static constraints = {
-        descripcion(size: 1..255, blank: false, nullable: false)
+        descripcion(size: 1..31, blank: false, nullable: false)
         orden(blank: false, nullable: false)
     }
 }

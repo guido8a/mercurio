@@ -3,7 +3,7 @@ package ventas
 class Valores {
 
     Producto producto
-    Atributo atributo
+    AtributoCategoria atributoCategoria
     String valor
     int orden
 
@@ -16,15 +16,15 @@ class Valores {
         columns {
             id column: 'atvl__id'
             producto column: 'prod__id'
-            atributo column: 'atbr__id'
+            atributoCategoria column: 'atct__id'
             valor column: 'atvlvlor'
             orden column: 'atvlordn'
         }
     }
     static constraints = {
         producto(blank: false, nullable: false)
-        atributo(blank: false, nullable: false)
-        valor(blank: false, nullable: false)
+        atributoCategoria(blank: false, nullable: false)
+        valor(size: 1..63, blank: false, nullable: false)
         orden(blank: true, nullable: true)
     }
 }

@@ -1,12 +1,16 @@
 package ventas
 
+import seguridad.Persona
+
 class Producto {
-    Anuncio anuncio
+
+    Subcategoria subcategoria
+    Persona persona
     String titulo
     String subtitulo
-    int orden
     String estado
     String texto
+    Date fecha
 
     static mapping = {
         table 'prod'
@@ -16,21 +20,24 @@ class Producto {
 
         columns {
             id column: 'prod__id'
-            anuncio column: 'anun__id'
+            subcategoria column: 'sbct__id'
+            persona column: 'prsn__id'
             titulo column: 'prodtitl'
-            subtitulo column: 'prodsbtt'
-            orden column: 'prodordn'
+            subtitulo column: 'prodsbtl'
             estado column: 'prodetdo'
             texto column: 'prodtxto'
+            fecha column: 'prodfcha'
         }
     }
 
     static constraints = {
-        titulo(blank:false,size:0..255)
-        subtitulo(blank:true,size:0..255)
-        orden(blank:false)
+        subcategoria(blank:false, nullable: false)
+        persona(blank:false, nullable: false)
+        titulo(blank:false,size:1..255)
+        subtitulo(blank:true,size:1..255)
         estado(blank:false)
         texto(blank: true, nullable: true)
+        fecha(blank: false, nullable:false)
     }
 
    String toString(){

@@ -21,7 +21,6 @@ class Imagen {
             texto column: 'imagtxto'
             estado column: 'imagetdo'
             principal column: 'imagpncp'
-
         }
     }
 
