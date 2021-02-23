@@ -68,6 +68,7 @@ class Persona implements Auditable{
     }
     static constraints = {
         cedula(blank: false, nullable: false)
+        canton(blank: false, nullable: false)
         nombre(size: 3..31, blank: false)
         apellido(size: 3..31, blank: false)
         fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de inicio'])
