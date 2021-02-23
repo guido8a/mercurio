@@ -11,15 +11,21 @@
 	<title>Ventas</title>
 
 	<!-- Bootstrap core CSS -->
-%{--	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--}%
 	<asset:stylesheet src="/merc/bootstrap.min.css"/>
 
 	<!-- Custom styles for this template -->
-%{--	<link href="css/shop-homepage.css" rel="stylesheet">--}%
 	<asset:stylesheet src="/apli/shop-homepage.css"/>
 
+
+%{--	<asset:javascript src="/jquery/jquery-2.2.4.js"/>--}%
+%{--	<asset:javascript src="/jquery/jquery-ui.js"/>--}%
+
 	<asset:javascript src="/merc/jquery.min.js"/>
+	<asset:javascript src="/apli/bootbox.js"/>
 	<asset:javascript src="/merc/bootstrap.bundle.js"/>
+%{--	<asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>--}%
+%{--	<asset:javascript src="/bootstrap-3.3.2/dist/js/bootstrap.min.js"/>--}%
+
 
 
 </head>
@@ -232,7 +238,8 @@
 	<div class="container">
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
-				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>
+%{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
+				<a href="#" id="registro" style="text-decoration: none">Vender</a>
 			</span>
 		</div>
 	</div>
@@ -243,6 +250,47 @@
 <!-- Bootstrap core JavaScript -->
 %{--<script src="vendor/jquery/jquery.min.js"></script>--}%
 %{--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}%
+
+<script type="text/javascript">
+
+	$("#registro").click(function () {
+		// $("#modalBodyRegistro").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
+		// $("#modal-registro").modal('show');
+		createEditRow();
+	});
+
+	function createEditRow(){
+		$.ajax({
+			type    : "POST",
+			url     : "${createLink(controller: 'persona', action: 'registro_ajax')}",
+			data    : {},
+			success : function (msg) {
+				var b = bootbox.dialog({
+					id      : "dlgCreateEdit",
+					// class   : "long",
+					title   : "Registro de usuarios",
+					message : msg,
+					buttons : {
+						cancelar : {
+							label     : "Cancelar",
+							className : "btn-primary",
+							callback  : function () {
+							}
+						},
+						guardar  : {
+							id        : "btnSave",
+							label     : "<i class='fa fa-save'></i> Guardar",
+							className : "btn-success",
+							callback  : function () {
+								return submitForm();
+							} //callback
+						} //guardar
+					} //buttons
+				}); //dialog
+			} //success
+		}); //ajax
+	} //createEdit
+</script>
 
 </body>
 

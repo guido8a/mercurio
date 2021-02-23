@@ -1255,4 +1255,9 @@ class PersonaController {
             render "ok"
         }
     }
+
+    def registro_ajax(){
+        def persona = new Persona()
+        return[persona: persona]
+    }
 }

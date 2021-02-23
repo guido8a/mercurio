@@ -21,10 +21,13 @@
 
 %{--    <asset:javascript src="/jquery-3.3.1.min.js"/>--}%
 
-    <asset:javascript src="/jquery/jquery-1.9.1.js"/>
+    <asset:javascript src="/jquery/jquery-2.2.4.js"/>
+    <asset:javascript src="/jquery/jquery-ui.js"/>
+
+%{--    <asset:javascript src="/jquery/jquery-1.9.1.js"/>--}%
     <asset:javascript src="/jquery/jquery.validate.min.js"/>
     <asset:javascript src="/jquery/jquery.validate.custom.js"/>
-    <asset:javascript src="/jquery/jquery-ui-1.10.3.custom.min.js"/>
+%{--    <asset:javascript src="/jquery/jquery-ui-1.10.3.custom.min.js"/>--}%
     <asset:javascript src="/jquery/messages_es.js"/>
 
     <asset:javascript src="/apli/fontawesome.all.min.js"/>

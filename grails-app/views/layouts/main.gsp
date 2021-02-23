@@ -33,8 +33,6 @@
     <asset:stylesheet src="/apli/CustomSvt.css"/>
     <asset:stylesheet src="/apli/tulpen/stylesheet.css"/>
 
-
-
     <asset:stylesheet src="/fonts/fontawesome-webfont.woff"/>
     <asset:stylesheet src="/apli/bootstrap-datetimepicker.min.css"/>
 
