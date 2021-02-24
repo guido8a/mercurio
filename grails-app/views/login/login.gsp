@@ -42,45 +42,45 @@
         </p>
     </div>
 
-    <div class="modal fade" id="modal-ingreso" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog" id="modalBody" style="width: 380px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Ingreso al Sistema</h4>
-                </div>
+%{--    <div class="modal fade" id="modal-ingreso" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">--}%
+%{--        <div class="modal-dialog" id="modalBody" style="width: 380px;">--}%
+%{--            <div class="modal-content">--}%
+%{--                <div class="modal-header">--}%
+%{--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}%
+%{--                    <h4 class="modal-title">Ingreso al Sistema</h4>--}%
+%{--                </div>--}%
 
-                <div class="modal-body" style="width: 280px; margin: auto">
-                    <g:form name="frmLogin" action="validar" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-md-5" for="login">Usuario</label>
-                            <div class="controls col-md-5">
-                                <input name="login" id="login" type="text" class="form-control required"
-                                       placeholder="Usuario" required autofocus style="width: 160px;">
-                            </div>
-                        </div>
+%{--                <div class="modal-body" style="width: 280px; margin: auto">--}%
+%{--                    <g:form name="frmLogin" action="validar" class="form-horizontal">--}%
+%{--                        <div class="form-group">--}%
+%{--                            <label class="col-md-5" for="login">Usuario</label>--}%
+%{--                            <div class="controls col-md-5">--}%
+%{--                                <input name="login" id="login" type="text" class="form-control required"--}%
+%{--                                       placeholder="Usuario" required autofocus style="width: 160px;">--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
 
-                        <div class="form-group">
-                            <label class="col-md-5" for="pass">Contraseña</label>
+%{--                        <div class="form-group">--}%
+%{--                            <label class="col-md-5" for="pass">Contraseña</label>--}%
 
-                            <div class="controls col-md-5">
-                                <input name="pass" id="pass" type="password" class="form-control required"
-                                       placeholder="Contraseña" required style="width: 160px;">
-                            </div>
-                        </div>
+%{--                            <div class="controls col-md-5">--}%
+%{--                                <input name="pass" id="pass" type="password" class="form-control required"--}%
+%{--                                       placeholder="Contraseña" required style="width: 160px;">--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
 
-                        <div class="divBtn" style="width: 100%">
-                            <a href="#" class="btn btn-primary btn-lg btn-block" id="btn-login"
-                               style="width: 140px; margin: auto">
-                                <i class="fa fa-lock"></i> Validar
-                            </a>
-                        </div>
+%{--                        <div class="divBtn" style="width: 100%">--}%
+%{--                            <a href="#" class="btn btn-primary btn-lg btn-block" id="btn-login"--}%
+%{--                               style="width: 140px; margin: auto">--}%
+%{--                                <i class="fa fa-lock"></i> Validar--}%
+%{--                            </a>--}%
+%{--                        </div>--}%
 
-                    </g:form>
-                </div>
-            </div>
-        </div>
-    </div>
+%{--                    </g:form>--}%
+%{--                </div>--}%
+%{--            </div>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
 %{--    <div class="modal fade" id="modal-registro" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">--}%
 %{--        <div class="modal-dialog" id="modalBodyRegistro" style="width: 380px;">--}%
