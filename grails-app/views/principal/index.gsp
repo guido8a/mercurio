@@ -29,8 +29,23 @@
 %{--	<asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>--}%
 %{--	<asset:javascript src="/bootstrap-3.3.2/dist/js/bootstrap.min.js"/>--}%
 
+%{--	**************************--}%
+	<asset:javascript src="/apli/bootbox.js"/>
 
-
+	<style type="text/css">
+	.lista-item {
+		position: relative;
+		display: block;
+		padding: .5rem 1.0rem;
+		background-color: #fff;
+		border: 1px solid rgba(0,0,0,.125);
+		border-top-width: 1px;
+	}
+	.consulta{
+		font-size: small;
+		background-color: #fdfffd;
+	}
+	</style>
 </head>
 
 <body>
@@ -81,7 +96,7 @@
 			<h2 class="my-2">Categorías</h2>
 			<div class="list-group">
 				<g:each in="${categorias}" var="ct">
-					<a href="#${ct?.id}" class="list-group-item">${ct.descripcion}</a>
+					<a href="#${ct?.id}" class="lista-item">${ct.descripcion}</a>
 				</g:each>
 			</div>
 
@@ -89,8 +104,10 @@
 			<h2 class="my-4 text-info">Consultas</h2>
 			<div class="list-group">
 				<g:each in="${consultas}" var="cs">
-					<a href="${cs?.link}" class="list-group-item text-info" title="${cs.texto}" target="_blank">
-						&nbsp;${cs.titulo}<img src="${cs.logo}" style='float:left; height:30px'></a>
+					<a href="${cs?.link}" class="lista-item consulta text-info" title="${cs.texto}" target="_blank">
+						<img src="${request.contextPath}/principal/getImage?ruta=${cs.logo}" style='float:left; height:30px'>
+						${cs.titulo}</a>
+%{--						<img src="${cs.logo}" style='float:left; height:30px'></a>--}%
 				</g:each>
 			</div>
 
@@ -133,14 +150,14 @@
 						<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 						<div class="card-body">
 							<h4 class="card-title">
-								<a href="#">Item One</a>
+								<a href="#">Anuncio Uno</a>
 							</h4>
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-						</div>
+%{--						<div class="card-footer">--}%
+%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--						</div>--}%
 					</div>
 				</div>
 
@@ -149,14 +166,14 @@
 						<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 						<div class="card-body">
 							<h4 class="card-title">
-								<a href="#">Item Two</a>
+								<a href="#">Anuncio Dos</a>
 							</h4>
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-						</div>
+%{--						<div class="card-footer">--}%
+%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--						</div>--}%
 					</div>
 				</div>
 
@@ -165,14 +182,14 @@
 						<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 						<div class="card-body">
 							<h4 class="card-title">
-								<a href="#">Item Three</a>
+								<a href="#">Anuncio Tres</a>
 							</h4>
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-						</div>
+%{--						<div class="card-footer">--}%
+%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--						</div>--}%
 					</div>
 				</div>
 
@@ -186,9 +203,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-						</div>
+%{--						<div class="card-footer">--}%
+%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--						</div>--}%
 					</div>
 				</div>
 
@@ -202,9 +219,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-						</div>
+%{--						<div class="card-footer">--}%
+%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--						</div>--}%
 					</div>
 				</div>
 
@@ -218,9 +235,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-						</div>
+%{--						<div class="card-footer">--}%
+%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--						</div>--}%
 					</div>
 				</div>
 
@@ -241,8 +258,8 @@
 	<div class="container">
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
-				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>
-%{--				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Vender</a>--}%
+%{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
+				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Vender</a>
 			</span>
 		</div>
 	</div>
@@ -259,10 +276,12 @@
 	$("#registro").click(function () {
 		// $("#modalBodyRegistro").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
 		// $("#modal-registro").modal('show');
+		console.log("inicia")
 		cargarD();
 	});
 
 	function cargarD(){
+		console.log("cargar")
 		$.ajax({
 			type    : "POST",
 			url     : "${createLink(controller: 'persona', action: 'registro_ajax')}",
