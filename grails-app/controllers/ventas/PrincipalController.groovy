@@ -1,5 +1,8 @@
 package ventas
 
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
+
 class PrincipalController {
 //    def mailService
 
@@ -11,6 +14,7 @@ class PrincipalController {
         def categoria = Categoria.get(params.id)
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.findAllByCategoria(categoria, [sort: 'orden', order: 'asc'])
+/*
         println "consultas: ${consultas[0].logo}"
         def ruta
         consultas.each { cn ->
@@ -18,12 +22,35 @@ class PrincipalController {
         }
 
         println "logo: ${consultas}"
+*/
 
         return [anuncio: 1, categorias: sbct, activo: params.id, consultas: consultas]
     }
 
-    def enviarMail_ajax () {
 
+    def getImage(){
+        println "image: $params"
+        def path = "/var/ventas/imagen/consultas/" + params.ruta
+//        def path = "/var/ventas/cedula.jpeg"
+        //returns an image to display
+        BufferedImage imagen = ImageIO.read(new File(path));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        def fileext = path.substring(path.indexOf(".")+1, path.length())
+
+        ImageIO.write( imagen, fileext, baos );
+        baos.flush();
+
+        byte[] img = baos.toByteArray();
+        baos.close();
+        response.setHeader('Content-length', img.length.toString())
+        response.contentType = "image/"+fileext // or the appropriate image content type
+        response.outputStream << img
+        response.outputStream.flush()
+    }
+
+
+    def enviarMail_ajax () {
 //        println("params enviar mail " + params)
         def mailTedein = "informacion@tedein.com.ec"
         def mailTedein2 = "guido8a@gmail.com"
@@ -65,10 +92,8 @@ class PrincipalController {
         }else{
             render "no"
         }
-
-
-
     }
+
 
     def dialogos_ajax () {
         def articulo = Articulo.get(params.id)

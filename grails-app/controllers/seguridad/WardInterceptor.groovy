@@ -6,6 +6,7 @@ class WardInterceptor {
         matchAll().excludes(controller:'login')
                 .excludes(controller:'shield')
                 .excludes(controller:'principal')  /** principal **/
+                .excludes(controller:'persona')  /** ventas **/
     }
 
     boolean before() {

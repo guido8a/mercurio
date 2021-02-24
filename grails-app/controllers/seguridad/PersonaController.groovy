@@ -1257,6 +1257,7 @@ class PersonaController {
     }
 
     def registro_ajax(){
+        println "registro_ajax $params"
         def persona = new Persona()
         return[persona: persona]
     }
