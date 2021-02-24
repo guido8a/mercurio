@@ -16,11 +16,11 @@
     <elm:flashMessage tipo="${flash.tipo}" icon="${flash.icon}" clase="${flash.clase}">${flash.message}</elm:flashMessage>
 
     <div class="dialog ui-corner-all" style="height: 295px;padding: 10px;width: 910px;margin: auto;margin-top: 5px">
-        <a href= "${createLink(controller:'principal', action: 'index', id:1)}" style="text-decoration: none">
-            <div>
-                <asset:image src="apli/portada.png" style="padding: 10px;"/>
-            </div>
-        </a>
+%{--        <a href= "${createLink(controller:'principal', action: 'index', id:1)}" style="text-decoration: none">--}%
+%{--            <div>--}%
+%{--                <asset:image src="apli/portada.png" style="padding: 10px;"/>--}%
+%{--            </div>--}%
+%{--        </a>--}%
 
         <div>
             <a href="#" id="ingresar" class="btn btn-primary btn-sm" style="width: 160px;" title="Ingresar al sistema">
@@ -82,77 +82,76 @@
         </div>
     </div>
 
+%{--    <div class="modal fade" id="modal-registro" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">--}%
+%{--        <div class="modal-dialog" id="modalBodyRegistro" style="width: 380px;">--}%
+%{--            <div class="modal-content">--}%
+%{--                <div class="modal-header">--}%
+%{--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}%
+%{--                    <h4 class="modal-title">Registro en el Sistema</h4>--}%
+%{--                </div>--}%
 
-    <div class="modal fade" id="modal-registro" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog" id="modalBodyRegistro" style="width: 380px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Registro en el Sistema</h4>
-                </div>
+%{--                <div class="modal-body" style="width: 280px; margin: auto">--}%
 
-                <div class="modal-body" style="width: 280px; margin: auto">
+%{--                    <g:form class="form-horizontal" name="frmRegistro" role="form" controller="persona" action="saveRegistro_ajax" method="POST">--}%
+%{--                        <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'tipoPersona', 'error')} required">--}%
+%{--                            <div class="col-md-6">--}%
+%{--                                <span class="grupo">--}%
+%{--                                    <label for="tipoPersona" class="col-md-4 control-label">--}%
+%{--                                        Tipo Persona--}%
+%{--                                    </label>--}%
+%{--                                    <div class="col-md-8">--}%
+%{--                                        <g:select name="tipoPersona" from="${[0: 'Natural', 1:'Jurídica']}" optionKey="key" optionValue="value" class="form-control"/>--}%
+%{--                                    </div>--}%
+%{--                                </span>--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
 
-                    <g:form class="form-horizontal" name="frmRegistro" role="form" controller="persona" action="saveRegistro_ajax" method="POST">
-                        <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'tipoPersona', 'error')} required">
-                            <div class="col-md-6">
-                                <span class="grupo">
-                                    <label for="tipoPersona" class="col-md-4 control-label">
-                                        Tipo Persona
-                                    </label>
-                                    <div class="col-md-8">
-                                        <g:select name="tipoPersona" from="${[0: 'Natural', 1:'Jurídica']}" optionKey="key" optionValue="value" class="form-control"/>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
+%{--                        <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'nombre', 'error')} ${hasErrors(bean: persona, field: 'apellido', 'error')} required">--}%
+%{--                            <div class="col-md-6">--}%
+%{--                                <span class="grupo">--}%
+%{--                                    <label for="nombre" class="col-md-4 control-label">--}%
+%{--                                        Nombre--}%
+%{--                                    </label>--}%
 
-                        <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'nombre', 'error')} ${hasErrors(bean: persona, field: 'apellido', 'error')} required">
-                            <div class="col-md-6">
-                                <span class="grupo">
-                                    <label for="nombre" class="col-md-4 control-label">
-                                        Nombre
-                                    </label>
+%{--                                    <div class="col-md-8">--}%
+%{--                                        <g:textField name="nombre" maxlength="40" required="" class="form-control input-sm required"/>--}%
+%{--                                    </div>--}%
+%{--                                </span>--}%
+%{--                            </div>--}%
 
-                                    <div class="col-md-8">
-                                        <g:textField name="nombre" maxlength="40" required="" class="form-control input-sm required"/>
-                                    </div>
-                                </span>
-                            </div>
+%{--                            <div class="col-md-6" id="divApellido">--}%
+%{--                                <span class="grupo">--}%
+%{--                                    <label for="apellido" class="col-md-4 control-label">--}%
+%{--                                        Apellido--}%
+%{--                                    </label>--}%
 
-                            <div class="col-md-6" id="divApellido">
-                                <span class="grupo">
-                                    <label for="apellido" class="col-md-4 control-label">
-                                        Apellido
-                                    </label>
+%{--                                    <div class="col-md-8">--}%
+%{--                                        <g:textField name="apellido" maxlength="40" required="" class="form-control input-sm"/>--}%
+%{--                                    </div>--}%
+%{--                                </span>--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
 
-                                    <div class="col-md-8">
-                                        <g:textField name="apellido" maxlength="40" required="" class="form-control input-sm"/>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
+%{--                        <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'mail', 'error')} required">--}%
+%{--                            <div class="col-md-6">--}%
+%{--                                <span class="grupo">--}%
+%{--                                    <label for="mail" class="col-md-4 control-label">--}%
+%{--                                        E-mail--}%
+%{--                                    </label>--}%
 
-                        <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'mail', 'error')} required">
-                            <div class="col-md-6">
-                                <span class="grupo">
-                                    <label for="mail" class="col-md-4 control-label">
-                                        E-mail
-                                    </label>
-
-                                    <div class="col-md-8">
-                                        <div class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-envelope"></i>
-                                        </span><g:field type="email" name="mail" maxlength="63" class="form-control input-sm unique noEspacios"/>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </g:form>
-                </div>
-            </div>
-        </div>
-    </div>
+%{--                                    <div class="col-md-8">--}%
+%{--                                        <div class="input-group input-group-sm"><span class="input-group-addon"><i class="fa fa-envelope"></i>--}%
+%{--                                        </span><g:field type="email" name="mail" maxlength="63" class="form-control input-sm unique noEspacios"/>--}%
+%{--                                        </div>--}%
+%{--                                    </div>--}%
+%{--                                </span>--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
+%{--                    </g:form>--}%
+%{--                </div>--}%
+%{--            </div>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
 
     <div id="cargando" class="text-center hidden">
@@ -162,19 +161,17 @@
     <script type="text/javascript">
 
         $("#registro").click(function () {
-            // $("#modalBodyRegistro").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
-            // $("#modal-registro").modal('show');
-            createEditRow();
+            regis();
         });
 
-        function createEditRow(){
+        function regis(){
             $.ajax({
                 type    : "POST",
                 url     : "${createLink(controller: 'persona', action: 'registro_ajax')}",
                 data    : {},
                 success : function (msg) {
                     var b = bootbox.dialog({
-                        id      : "dlgCreateEdit",
+                        id      : "dlgReg",
                         // class   : "long",
                         title   : "Registro de usuarios",
                         message : msg,
@@ -190,7 +187,7 @@
                                 label     : "<i class='fa fa-save'></i> Guardar",
                                 className : "btn-success",
                                 callback  : function () {
-                                    return submitForm();
+                                    // return submitForm();
                                 } //callback
                             } //guardar
                         } //buttons
@@ -199,68 +196,68 @@
             }); //ajax
         } //createEdit
 
-        var $frm = $("#frmLogin");
-        var recargar = true;
+        // var $frm = $("#frmLogin");
+        // var recargar = true;
 
-        function timedRefresh(timeoutPeriod) {
-            if(recargar) {
-                setTimeout("location.reload(true);",timeoutPeriod);
-            }
-            recargar = false
-        }
+        // function timedRefresh(timeoutPeriod) {
+        //     if(recargar) {
+        //         setTimeout("location.reload(true);",timeoutPeriod);
+        //     }
+        //     recargar = false
+        // }
 
-        function doLogin() {
-            if ($frm.valid()) {
-                // $("#cargando").removeClass('hidden');
-                cargarLoader("Cargando...");
-                $(".btn-login").replaceWith($("#cargando"));
-                $("#frmLogin").submit();
-            }
-        }
+        // function doLogin() {
+        //     if ($frm.valid()) {
+        //         // $("#cargando").removeClass('hidden');
+        //         cargarLoader("Cargando...");
+        //         $(".btn-login").replaceWith($("#cargando"));
+        //         $("#frmLogin").submit();
+        //     }
+        // }
+        //
+        // function doPass() {
+        //     if ($("#frmPass").valid()) {
+        //         $("#btn-pass").replaceWith(spinner);
+        //         $("#frmPass").submit();
+        //     }
+        // }
 
-        function doPass() {
-            if ($("#frmPass").valid()) {
-                $("#btn-pass").replaceWith(spinner);
-                $("#frmPass").submit();
-            }
-        }
-
-        $(function () {
-
-            $("#ingresar").click(function () {
-                var initModalHeight = $('#modal-ingreso').outerHeight();
-                //alto de la ventana de login: 270
-                // console.log("ventana")
-                $("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
-                // console.log("antes modeal")
-                $("#modal-ingreso").modal('show');
-                // console.log("luego modeal")
-                setTimeout(function () {
-                    $("#login").focus();
-                }, 500);
-
-            });
-
-            $("#btnOlvidoPass").click(function () {
-                $("#recuperarPass-dialog").modal("show");
-                $("#modal-ingreso").modal("hide");
-            });
-
-            $("#btn-login").click(function () {
-                doLogin();
-            });
-
-            $("#btn-pass").click(function () {
-                doPass();
-            });
-
-            $("input").keyup(function (ev) {
-                if (ev.keyCode == 13) {
-                    doLogin();
-                }
-            })
-
-        });
+        // $(function () {
+        //
+        //     $("#ingresar").click(function () {
+        //         var initModalHeight = $('#modal-ingreso').outerHeight();
+        //         //alto de la ventana de login: 270
+        //         // console.log("ventana")
+        //         $("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
+        //         // console.log("antes modeal")
+        //         $("#modal-ingreso").modal('show');
+        //         // console.log("luego modeal")
+        //         setTimeout(function () {
+        //             $("#login").focus();
+        //         }, 500);
+        //
+        //     });
+        //
+        //     $("#btnOlvidoPass").click(function () {
+        //         $("#recuperarPass-dialog").modal("show");
+        //         $("#modal-ingreso").modal("hide");
+        //     });
+        //
+        //     $("#btn-login").click(function () {
+        //         doLogin();
+        //     });
+        //
+        //     $("#btn-pass").click(function () {
+        //         doPass();
+        //     });
+        //
+        //     $("input").keyup(function (ev) {
+        //         if (ev.keyCode == 13) {
+        //             doLogin();
+        //         }
+        //     })
+        //
+        // });
     </script>
 </body>
 </html>

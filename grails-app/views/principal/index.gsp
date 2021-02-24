@@ -25,7 +25,7 @@
 	<asset:javascript src="/merc/jquery.min.js"/>
 
 	<asset:javascript src="/merc/bootstrap.bundle.js"/>
-	<asset:javascript src="/apli/bootbox.js"/>
+%{--	<asset:javascript src="/apli/bootbox.js"/>--}%
 %{--	<asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>--}%
 %{--	<asset:javascript src="/bootstrap-3.3.2/dist/js/bootstrap.min.js"/>--}%
 
@@ -241,8 +241,8 @@
 	<div class="container">
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
-%{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
-				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Vender</a>
+				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>
+%{--				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Vender</a>--}%
 			</span>
 		</div>
 	</div>
@@ -259,10 +259,10 @@
 	$("#registro").click(function () {
 		// $("#modalBodyRegistro").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
 		// $("#modal-registro").modal('show');
-		createEditRow();
+		cargarD();
 	});
 
-	function createEditRow(){
+	function cargarD(){
 		$.ajax({
 			type    : "POST",
 			url     : "${createLink(controller: 'persona', action: 'registro_ajax')}",
