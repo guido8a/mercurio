@@ -5,7 +5,7 @@
   Time: 12:21
 --%>
 
-<div class="modal-contenido">
+%{--<div class="modal-contenido">--}%
     <g:form class="form-horizontal" name="frmRegistro" role="form" controller="persona" action="saveRegistro_ajax" method="POST">
         <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'tipoPersona', 'error')} required">
             <div class="col-md-6">
@@ -62,7 +62,7 @@
             </div>
         </div>
     </g:form>
-</div>
+%{--</div>--}%
 
 <script type="text/javascript">
 

@@ -3,10 +3,12 @@
 
 <head>
 	<asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+%{--	<meta charset="utf-8">--}%
+%{--	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}%
+%{--	<meta name="description" content="">--}%
+%{--	<meta name="author" content="">--}%
+
+%{--	<meta name="layout" content="main">--}%
 
 	<title>Ventas</title>
 
@@ -21,8 +23,9 @@
 %{--	<asset:javascript src="/jquery/jquery-ui.js"/>--}%
 
 	<asset:javascript src="/merc/jquery.min.js"/>
-	<asset:javascript src="/apli/bootbox.js"/>
+
 	<asset:javascript src="/merc/bootstrap.bundle.js"/>
+	<asset:javascript src="/apli/bootbox.js"/>
 %{--	<asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>--}%
 %{--	<asset:javascript src="/bootstrap-3.3.2/dist/js/bootstrap.min.js"/>--}%
 
@@ -239,7 +242,7 @@
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
 %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
-				<a href="#" id="registro" style="text-decoration: none">Vender</a>
+				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Vender</a>
 			</span>
 		</div>
 	</div>
