@@ -196,68 +196,68 @@
             }); //ajax
         } //createEdit
 
-        // var $frm = $("#frmLogin");
-        // var recargar = true;
+        var $frm = $("#frmLogin");
+        var recargar = true;
 
-        // function timedRefresh(timeoutPeriod) {
-        //     if(recargar) {
-        //         setTimeout("location.reload(true);",timeoutPeriod);
-        //     }
-        //     recargar = false
-        // }
+        function timedRefresh(timeoutPeriod) {
+            if(recargar) {
+                setTimeout("location.reload(true);",timeoutPeriod);
+            }
+            recargar = false
+        }
 
-        // function doLogin() {
-        //     if ($frm.valid()) {
-        //         // $("#cargando").removeClass('hidden');
-        //         cargarLoader("Cargando...");
-        //         $(".btn-login").replaceWith($("#cargando"));
-        //         $("#frmLogin").submit();
-        //     }
-        // }
-        //
-        // function doPass() {
-        //     if ($("#frmPass").valid()) {
-        //         $("#btn-pass").replaceWith(spinner);
-        //         $("#frmPass").submit();
-        //     }
-        // }
+        function doLogin() {
+            if ($frm.valid()) {
+                // $("#cargando").removeClass('hidden');
+                cargarLoader("Cargando...");
+                $(".btn-login").replaceWith($("#cargando"));
+                $("#frmLogin").submit();
+            }
+        }
 
-        // $(function () {
-        //
-        //     $("#ingresar").click(function () {
-        //         var initModalHeight = $('#modal-ingreso').outerHeight();
-        //         //alto de la ventana de login: 270
-        //         // console.log("ventana")
-        //         $("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
-        //         // console.log("antes modeal")
-        //         $("#modal-ingreso").modal('show');
-        //         // console.log("luego modeal")
-        //         setTimeout(function () {
-        //             $("#login").focus();
-        //         }, 500);
-        //
-        //     });
-        //
-        //     $("#btnOlvidoPass").click(function () {
-        //         $("#recuperarPass-dialog").modal("show");
-        //         $("#modal-ingreso").modal("hide");
-        //     });
-        //
-        //     $("#btn-login").click(function () {
-        //         doLogin();
-        //     });
-        //
-        //     $("#btn-pass").click(function () {
-        //         doPass();
-        //     });
-        //
-        //     $("input").keyup(function (ev) {
-        //         if (ev.keyCode == 13) {
-        //             doLogin();
-        //         }
-        //     })
-        //
-        // });
+        function doPass() {
+            if ($("#frmPass").valid()) {
+                $("#btn-pass").replaceWith(spinner);
+                $("#frmPass").submit();
+            }
+        }
+
+        $(function () {
+
+            $("#ingresar").click(function () {
+                var initModalHeight = $('#modal-ingreso').outerHeight();
+                //alto de la ventana de login: 270
+                // console.log("ventana")
+                $("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
+                // console.log("antes modeal")
+                $("#modal-ingreso").modal('show');
+                // console.log("luego modeal")
+                setTimeout(function () {
+                    $("#login").focus();
+                }, 500);
+
+            });
+
+            $("#btnOlvidoPass").click(function () {
+                $("#recuperarPass-dialog").modal("show");
+                $("#modal-ingreso").modal("hide");
+            });
+
+            $("#btn-login").click(function () {
+                doLogin();
+            });
+
+            $("#btn-pass").click(function () {
+                doPass();
+            });
+
+            $("input").keyup(function (ev) {
+                if (ev.keyCode == 13) {
+                    doLogin();
+                }
+            })
+
+        });
     </script>
 </body>
 </html>

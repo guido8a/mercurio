@@ -17,20 +17,14 @@
 
 	<!-- Custom styles for this template -->
 	<asset:stylesheet src="/apli/shop-homepage.css"/>
-
-
-%{--	<asset:javascript src="/jquery/jquery-2.2.4.js"/>--}%
-%{--	<asset:javascript src="/jquery/jquery-ui.js"/>--}%
-
 	<asset:javascript src="/merc/jquery.min.js"/>
-
 	<asset:javascript src="/merc/bootstrap.bundle.js"/>
-%{--	<asset:javascript src="/apli/bootbox.js"/>--}%
-%{--	<asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>--}%
-%{--	<asset:javascript src="/bootstrap-3.3.2/dist/js/bootstrap.min.js"/>--}%
-
-%{--	**************************--}%
 	<asset:javascript src="/apli/bootbox.js"/>
+	<asset:javascript src="/jquery-validation-1.11.1/js/jquery.validate.min.js"/>
+	<asset:javascript src="/jquery-validation-1.11.1/js/jquery.validate.js"/>
+	<asset:javascript src="/jquery-validation-1.11.1/localization/messages_es.js"/>
+	<asset:javascript src="/apli/functions.js"/>
+	<asset:javascript src="/apli/loader.js"/>
 
 	<style type="text/css">
 	.lista-item {
@@ -101,15 +95,14 @@
 			</div>
 
 
-			<h2 class="my-4 text-info">Consultas</h2>
-			<div class="list-group">
-				<g:each in="${consultas}" var="cs">
-					<a href="${cs?.link}" class="lista-item consulta text-info" title="${cs.texto}" target="_blank">
-						<img src="${request.contextPath}/principal/getImage?ruta=${cs.logo}" style='float:left; height:30px'>
-						${cs.titulo}</a>
-%{--						<img src="${cs.logo}" style='float:left; height:30px'></a>--}%
-				</g:each>
-			</div>
+%{--			<h2 class="my-4 text-info">Consultas</h2>--}%
+%{--			<div class="list-group">--}%
+%{--				<g:each in="${consultas}" var="cs">--}%
+%{--					<a href="${cs?.link}" class="lista-item consulta text-info" title="${cs.texto}" target="_blank">--}%
+%{--						<img src="${request.contextPath}/principal/getImage?ruta=${cs.logo}" style='float:left; height:30px'>--}%
+%{--						${cs.titulo}</a>--}%
+%{--				</g:each>--}%
+%{--			</div>--}%
 
 		</div>
 		<!-- /.col-lg-3 -->
@@ -253,13 +246,20 @@
 </div>
 <!-- /.container -->
 
+
+
+
+
+
+
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
 %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
-				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Vender</a>
+				<a href="#" id="ingresar" class="btn btn-success" style="text-decoration: none">Ingresar</a>
+				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Crear usuario</a>
 			</span>
 		</div>
 	</div>
@@ -273,24 +273,110 @@
 
 <script type="text/javascript">
 
-	$("#registro").click(function () {
-		// $("#modalBodyRegistro").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
-		// $("#modal-registro").modal('show');
-		console.log("inicia")
-		cargarD();
+	// var $frm = $("#frmLogin");
+	// var recargar = true;
+
+	// function timedRefresh(timeoutPeriod) {
+	// 	if(recargar) {
+	// 		setTimeout("location.reload(true);",timeoutPeriod);
+	// 	}
+	// 	recargar = false
+	// }
+
+	// function doLogin() {
+	// 	if ($frm.valid()) {
+	// 		// $("#cargando").removeClass('hidden');
+	// 		cargarLoader("Cargando...");
+	// 		$(".btn-login").replaceWith($("#cargando"));
+	// 		$("#frmLogin").submit();
+	// 	}
+	// }
+	//
+	// function doPass() {
+	// 	if ($("#frmPass").valid()) {
+	// 		$("#btn-pass").replaceWith(spinner);
+	// 		$("#frmPass").submit();
+	// 	}
+	// }
+
+	$(function () {
+
+		// $("#ingresar").click(function () {
+		// 	var initModalHeight = $('#modal-ingreso').outerHeight();
+		// 	//alto de la ventana de login: 270
+		// 	// console.log("ventana")
+		// 	$("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
+		// 	// console.log("antes modeal")
+		// 	$("#modal-ingreso").modal('show');
+		// 	// console.log("luego modeal")
+		// 	setTimeout(function () {
+		// 		$("#login").focus();
+		// 	}, 500);
+		//
+		// });
+
+		// $("#btnOlvidoPass").click(function () {
+		// 	$("#recuperarPass-dialog").modal("show");
+		// 	$("#modal-ingreso").modal("hide");
+		// });
+		//
+		// $("#btn-login").click(function () {
+		// 	doLogin();
+		// });
+		//
+		// $("#btn-pass").click(function () {
+		// 	doPass();
+		// });
+		//
+		// $("input").keyup(function (ev) {
+		// 	if (ev.keyCode == 13) {
+		// 		doLogin();
+		// 	}
+		// })
+
 	});
 
-	function cargarD(){
-		console.log("cargar")
+	$("#ingresar").click(function () {
+		cargarIngreso();
+	});
+
+	function cargarIngreso(){
+		$.ajax({
+			type    : "POST",
+			url     : "${createLink(controller: 'principal', action: 'login_ajax')}",
+			data    : {},
+			success : function (msg) {
+				var b = bootbox.dialog({
+					id      : "dlgCreateEditIngreso",
+					message : msg,
+					buttons : {
+						cancelar : {
+							label     : "Cancelar",
+							className : "btn-primary",
+							callback  : function () {
+							}
+						}
+					} //buttons
+				}); //dialog
+			} //success
+		}); //ajax
+	} //createEdit
+
+	$("#registro").click(function () {
+		cargarRegistro();
+	});
+
+	function cargarRegistro(){
+		// console.log("cargar")
 		$.ajax({
 			type    : "POST",
 			url     : "${createLink(controller: 'persona', action: 'registro_ajax')}",
 			data    : {},
 			success : function (msg) {
 				var b = bootbox.dialog({
-					id      : "dlgCreateEdit",
+					id      : "dlgCreateEditRegistro",
 					// class   : "long",
-					title   : "Registro de usuarios",
+					// title   : "Registro de usuarios",
 					message : msg,
 					buttons : {
 						cancelar : {
@@ -304,7 +390,7 @@
 							label     : "<i class='fa fa-save'></i> Guardar",
 							className : "btn-success",
 							callback  : function () {
-								return submitForm();
+								return submitFormRegistro();
 							} //callback
 						} //guardar
 					} //buttons
@@ -312,6 +398,29 @@
 			} //success
 		}); //ajax
 	} //createEdit
+
+	function submitFormRegistro() {
+		var $form = $("#frmRegistro");
+		if ($form.valid()) {
+			openLoader("Guardando...");
+			$.ajax({
+				type    : "POST",
+				url     : '${createLink(controller: 'persona', action:'saveRegistro_ajax')}',
+				data    : $form.serialize(),
+				success : function (msg) {
+					closeLoader();
+					if(msg == 'ok'){
+						bootbox.alert("Un mail de verificación ha sido enviado a su correo")
+					}else{
+						bootbox.alert("Error al crear el usuario")
+					}
+				}
+			});
+		} else {
+			return false;
+		} //else
+	}
+
 </script>
 
 </body>

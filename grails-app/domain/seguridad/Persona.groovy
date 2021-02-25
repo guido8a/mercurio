@@ -65,16 +65,16 @@ class Persona implements Auditable{
         }
     }
     static constraints = {
-        cedula(blank: false, nullable: false)
-        canton(blank: false, nullable: false)
+        cedula(blank: true, nullable: true)
+        canton(blank: true, nullable: true)
         nombre(size: 3..31, blank: false)
         apellido(size: 0..31, blank: true, nullable: true)
         fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de inicio'])
         fechaFin(blank: true, nullable: true, attributes: [title: 'Fecha de finalización'])
-        sexo(inList: ["F", "M"], size: 1..1, blank: false, attributes: ['mensaje': 'Sexo de la persona'])
+        sexo(blank: true, nullable: true, attributes: ['mensaje': 'Sexo de la persona'])
         mail(size: 3..63, blank: false, nullable: false)
-        login(size: 4..15, blank: false, unique: true)
-        password(size: 3..63, blank: false, nullable: false)
+        login(size: 0..15, blank: true, nullable: true, unique: true)
+        password(size: 0..63, blank: true, nullable: true)
         fecha(blank: true, nullable: true)
         telefono(size: 0..31, blank: true, nullable: true, attributes: [title: 'teléfono'])
         autorizacion(matches: /^[a-zA-Z0-9ñÑáéíóúÁÉÍÚÓüÜ_-]+$/, blank: true, nullable: true, attributes: [mensaje: 'Contraseña para autorizaciones'])

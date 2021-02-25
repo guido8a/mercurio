@@ -12,6 +12,7 @@ import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
 class PersonaController {
 
     def tramitesService
+    def mailService
 
     static allowedMethods = [save: "POST", delete: "POST", save_ajax: "POST", delete_ajax: "POST"]
 
@@ -1260,5 +1261,52 @@ class PersonaController {
         println "registro_ajax $params"
         def persona = new Persona()
         return[persona: persona]
+    }
+
+    def saveRegistro_ajax(){
+
+        println("params" + params)
+        def band  = 0
+
+        params.fecha = new Date()
+        params.activo = 0
+        params.login = params.mail
+
+        def persona = new Persona()
+        persona.properties = params
+
+        if(!persona.save(flush:true)){
+            println("error al crear el usuario " + persona.errors)
+            render "no"
+        }else{
+            enviarCorreoRegistro(persona)
+        }
+    }
+
+    def enviarCorreoRegistro(Persona persona){
+
+        def mail = persona.mail
+        def errores = ''
+
+        try{
+            mailService.sendMail {
+                to mail
+                subject "Correo de verificación desde VENTAS"
+                body "Pregunta o información: " +
+                        "\n Nombre: ${''} " +
+                        "\n Teléfono: ${''} " +
+                        "\n Email: ${''} " +
+                        "\n Mensaje: ${''}"
+            }
+        }catch (e){
+            println("Error al enviar el mail")
+            errores += e
+        }
+
+        if(errores == ''){
+            render "ok"
+        }else{
+            render "no"
+        }
     }
 }

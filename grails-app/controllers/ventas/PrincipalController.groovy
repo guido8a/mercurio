@@ -24,13 +24,16 @@ class PrincipalController {
         println "logo: ${consultas}"
 */
 
+
+
+
         return [anuncio: 1, categorias: sbct, activo: params.id, consultas: consultas]
     }
 
 
     def getImage(){
         println "image: $params"
-        def path = "/var/ventas/imagen/consultas/" + params.ruta
+        def path = "/var/ventas/imagen/" + params.ruta
 //        def path = "/var/ventas/cedula.jpeg"
         //returns an image to display
         BufferedImage imagen = ImageIO.read(new File(path));
@@ -94,10 +97,7 @@ class PrincipalController {
         }
     }
 
-
-    def dialogos_ajax () {
-        def articulo = Articulo.get(params.id)
-        return [art: articulo]
+    def login_ajax(){
 
     }
 
