@@ -78,7 +78,7 @@
     });
 
     function cargarTipo(tipo){
-        if(tipo == '1'){
+        if(tipo == 'J'){
             $("#divApellido").hide()
         }else{
             $("#divApellido").show()

@@ -14,22 +14,22 @@
     <h4 class="modal-title" style="text-align: center">Ingreso al Sistema</h4>
 </div>
 
-<div class="modal-body" style="width: 280px; margin: auto">
-    <g:form name="frmLogin" action="validar" class="form-horizontal">
+<div class="modal-body" style="width: 480px; margin: auto">
+    <g:form name="frmLogin" controller="login" action="validar" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-5" for="login">Usuario</label>
-            <div class="controls col-md-5">
+            <div class="controls col-md-9">
                 <input name="login" id="login" type="text" class="form-control required"
-                       placeholder="Usuario" required autofocus style="width: 160px;">
+                       placeholder="Usuario" required autofocus>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-5" for="pass">Contraseña</label>
 
-            <div class="controls col-md-5">
+            <div class="controls col-md-9">
                 <input name="pass" id="pass" type="password" class="form-control required"
-                       placeholder="Contraseña" required style="width: 160px;">
+                       placeholder="Contraseña" required >
             </div>
         </div>
 

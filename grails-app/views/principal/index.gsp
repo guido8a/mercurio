@@ -25,6 +25,7 @@
 	<asset:javascript src="/jquery-validation-1.11.1/localization/messages_es.js"/>
 	<asset:javascript src="/apli/functions.js"/>
 	<asset:javascript src="/apli/loader.js"/>
+	<asset:javascript src="/apli/fontawesome.all.min.js"/>
 
 	<style type="text/css">
 	.lista-item {
@@ -87,6 +88,25 @@
 
 		<div class="col-lg-3">
 
+
+			<g:if test="${usuario}">
+				<label style="margin-top: 10px">Usuario del sistema: ${usuario.nombre}</label>
+			</g:if>
+
+
+			<div class="btn-group" style="margin-top: 20px">
+				<g:if test="${usuario}">
+					<a href="${createLink(controller: 'login', action: 'logout')}" class="btn btn-warning" style="text-decoration: none"><i class="fa fa-user-times"></i> Salir</a>
+				</g:if>
+				<g:else>
+					<a href="#" id="ingresar" class="btn btn-success" style="text-decoration: none"><i class="fa fa-user-check"></i> Ingresar</a>
+				</g:else>
+
+				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none"><i class="fa fa-cog"></i> Crear usuario</a>
+			</div>
+
+%{--			<a href="${createLink(controller: 'persona', action: 'crearContrasenia')}" id="rrr" class="btn btn-info" style="text-decoration: none"><i class="fa fa-cog"></i> Crear cc</a>--}%
+
 			<h2 class="my-2">Categorías</h2>
 			<div class="list-group">
 				<g:each in="${categorias}" var="ct">
@@ -108,6 +128,10 @@
 		<!-- /.col-lg-3 -->
 
 		<div class="col-lg-9">
+
+		<div style="margin-top: 10px">
+			<elm:flashMessage tipo="${flash.tipo}" icon="${flash.icon}" clase="${flash.clase}">${flash.message}</elm:flashMessage>
+		</div>
 
 			<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
 				<ol class="carousel-indicators">
@@ -258,8 +282,6 @@
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
 %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
-				<a href="#" id="ingresar" class="btn btn-success" style="text-decoration: none">Ingresar</a>
-				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none">Crear usuario</a>
 			</span>
 		</div>
 	</div>
@@ -403,12 +425,14 @@
 		var $form = $("#frmRegistro");
 		if ($form.valid()) {
 			openLoader("Guardando...");
+			var d = cargarLoader("Guardando...");
 			$.ajax({
 				type    : "POST",
 				url     : '${createLink(controller: 'persona', action:'saveRegistro_ajax')}',
 				data    : $form.serialize(),
 				success : function (msg) {
-					closeLoader();
+					// closeLoader();
+					d.modal('hide');
 					if(msg == 'ok'){
 						bootbox.alert("Un mail de verificación ha sido enviado a su correo")
 					}else{

@@ -120,6 +120,7 @@ class LoginController {
             eq("login", params.login, [ignoreCase: true])
             eq("activo", 1)
         }
+
         println "usuario: ${user.nombre} pass: ${user.password}"
 
         if (user.size() == 0) {
@@ -136,7 +137,8 @@ class LoginController {
             if (!user.estaActivo) {
                 flash.message = "El usuario ingresado no esta activo."
                 flash.tipo = "error"
-                redirect(controller: 'login', action: "login")
+//                redirect(controller: 'login', action: "login")
+                redirect(controller: 'principal', action: "index")
                 return
             } else {
                 session.usuario = user
@@ -169,7 +171,8 @@ class LoginController {
                             flash.icon = "icon-warning"
                             session.usuario = null
                             session.departamento = null
-                            redirect(controller: 'login', action: "login")
+//                            redirect(controller: 'login', action: "login")
+                            redirect(controller: 'principal', action: "index")
                             return
                     }
 
@@ -199,14 +202,15 @@ class LoginController {
                         session.usuario.vaciarPermisos()
                         session.perfil = perfiles.first().perfil  /* carga permisos */
                         cargarPermisos()
-                        println "lg--> usuario: ${session.usuario} , perfil: ${session?.perfil}"
+                        println "logeado usuario: ${session.usuario} , perfil: ${session?.perfil}"
 
-                        redirect(controller: 'inicio', action: 'index')
-                        println "...1"
+//                        redirect(controller: 'inicio', action: 'index')
+                        redirect(controller: 'principal', action: 'index')
+//                        println "...1"
                         return
 
                     } else {
-                        println "...2"
+//                        println "...2"
                         session.usuario.vaciarPermisos()
                         redirect(controller: 'login', action: "perfiles")
                         return
@@ -214,7 +218,8 @@ class LoginController {
                 }
             }
         }
-        redirect(controller: 'login', action: "login")
+//        redirect(controller: 'login', action: "login")
+        redirect(controller: 'principal', action: "index")
     }
 
     def perfiles() {

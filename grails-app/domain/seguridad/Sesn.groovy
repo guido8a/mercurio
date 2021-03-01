@@ -16,7 +16,6 @@ class Sesn {
         sort "perfil"
         columns {
             id column: 'sesn__id'
-            permisoPerfil column: 'prpf__id'
             perfil column: 'prfl__id'
             usuario column: 'prsn__id'
             fechaInicio column: 'sesnfcin'
@@ -27,7 +26,6 @@ class Sesn {
     static constraints = {
         fechaInicio(blank: true, nullable: true)
         fechaFin(blank: true, nullable: true)
-        permisoPerfil(blank:true, nullable: true)
     }
 
     boolean getEstaActivo() {

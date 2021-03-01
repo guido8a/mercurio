@@ -2,6 +2,7 @@ package seguridad
 
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.WordUtils
+import sun.security.provider.MD5
 import ventas.Acceso
 
 import javax.imageio.ImageIO
@@ -1269,7 +1270,7 @@ class PersonaController {
         def band  = 0
 
         params.fecha = new Date()
-        params.activo = 0
+        params.activo = 1
         params.login = params.mail
 
         def persona = new Persona()
@@ -1279,34 +1280,67 @@ class PersonaController {
             println("error al crear el usuario " + persona.errors)
             render "no"
         }else{
-            enviarCorreoRegistro(persona)
+
+            def sesion = new Sesn()
+            sesion.usuario = persona
+            sesion.fechaInicio = new Date()
+            sesion.perfil = Prfl.findByCodigo('USUV')
+
+            if(!sesion.save(flush:true)){
+                println("error al asignar el perfil del usuario " + sesion.errors)
+                render "no"
+            }else{
+                println("persona p " + persona)
+
+                def ec = enviarCorreoRegistro(persona)
+                if(ec){
+                    render "ok"
+                }else{
+                    render "no"
+                }
+            }
         }
     }
 
-    def enviarCorreoRegistro(Persona persona){
+    def enviarCorreoRegistro(Persona per){
 
-        def mail = persona.mail
+//        println("persona -> " + per)
+
+        def pass = crearContrasenia()
+        per.password = pass.encodeAsMD5()
+        per.save(flush: true)
+
+        def mail = per.mail
         def errores = ''
 
         try{
             mailService.sendMail {
                 to mail
                 subject "Correo de verificación desde VENTAS"
-                body "Pregunta o información: " +
-                        "\n Nombre: ${''} " +
-                        "\n Teléfono: ${''} " +
-                        "\n Email: ${''} " +
-                        "\n Mensaje: ${''}"
+                body "Datos de ingreso: " +
+                        "\n Usuario: ${per.mail} " +
+                        "\n Contraseña: ${pass} "
             }
         }catch (e){
-            println("Error al enviar el mail")
+            println("Error al enviar el mail: " + e)
             errores += e
         }
 
         if(errores == ''){
-            render "ok"
+            return true
         }else{
-            render "no"
+            return false
         }
+    }
+
+    def crearContrasenia(){
+
+        String charset = (('A'..'Z') + ('0'..'9')).join()
+        Integer length = 9
+        String randomString = org.apache.commons.lang.RandomStringUtils.random(length, charset.toCharArray())
+
+        println("--> " + randomString)
+
+        return randomString
     }
 }
