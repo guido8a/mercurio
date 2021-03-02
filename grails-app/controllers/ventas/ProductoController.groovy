@@ -31,15 +31,31 @@ class ProductoController {
     }
 
     def producto(){
+        println "params: $params"
         def persona = Persona.get(params.persona)
         def producto
+        def path = "/var/ventas/productos/pro_"
+        def imagenes = []
+
         if(params.id){
             producto = Producto.get(params.id)
         }else{
             producto = new Producto()
         }
 
-        return[producto: producto, persona: persona]
+        /**** imágenes ****/
+        if(producto?.id){
+            path += producto.id + "/"
+            def imag = new File(path)
+            imag.eachFileRecurse(FileType.FILES) { file ->
+                def img = ImageIO.read(file)
+                if (img) {
+                    imagenes.add([file: file.name])
+                }
+            }
+        }
+
+        return[producto: producto, persona: persona, imagenes: imagenes]
     }
 
 

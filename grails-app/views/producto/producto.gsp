@@ -22,6 +22,58 @@
         height: 1px;
         background-color: #5596ff;
     }
+
+    /********    */
+    #carrusel {
+        float:left;
+        width:600px;
+        overflow:hidden;
+        height:203px;
+        position:relative;
+        margin-top:20px;
+        margin-bottom:20px;
+    }
+
+    #carrusel .left-arrow {
+        position:absolute;
+        left:10px;
+        z-index:1;
+        top:50%;
+        margin-top:-9px;
+    }
+
+    #carrusel .right-arrow {
+        position:absolute;
+        right:10px;
+        z-index:1;
+        top:50%;
+        margin-top:-9px;
+    }
+
+    .carrusel {
+        width:4000px;
+        left:0px;
+        position:absolute;
+        z-index:0;
+    }
+
+    .carrusel>div {
+        float: left;
+        height: 203px;
+        margin-right: 5px;
+        width: 195px;
+        text-align:center;
+    }
+
+    .carrusel img {
+        cursor:pointer;
+    }
+
+    .product {
+        border:#CCCCCC 1px solid;
+    }
+
+
     </style>
 </head>
 <body>
@@ -43,11 +95,27 @@
 
 <div class="col-md-12">
     <g:if test="${producto?.id}">
-        <h2 style="margin-top: 10px; text-align: center">Producto del usuario:<p style="color: #ff8f5b"> ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre} </p></h2>
+        <h2 style="margin-top: 10px; text-align: center">Producto de: ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</h2>
     </g:if>
     <g:else>
-        <h2 style="margin-top: 10px; text-align: center">Nuevo Producto del usuario: <p style="color: #ff8f5b"> ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</p></h2>
+        <h2 style="margin-top: 10px; text-align: center">Nuevo Producto de: ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</h2>
     </g:else>
+</div>
+
+<div class="col-md-12">
+    <div id="carrusel">
+        <a href="#" class="left-arrow"><img src="images/left-arrow.png" /></a>
+        <a href="#" class="right-arrow"><img src="images/right-arrow.png" /></a>
+        <div class="carrusel">
+            <g:each in="${imagenes}" var="im" status="i">
+            <div class="product" id="product_${i+1}">
+                <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: "${im.file}", pro: producto?.id] )}"  width="195" height="100"/>
+%{--                <h5>Lorem ipsum 1</h5>--}%
+                <p>165.00 €</p>
+            </div>
+            </g:each>
+        </div>
+    </div>
 </div>
 
 <g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
@@ -285,7 +353,7 @@
     $(function () {
 
         CKEDITOR.replace( 'texto', {
-            height: "200px",
+            height: "100px",
             width: "100%",
             toolbar                 : [
                 ['Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'Bold', 'Italic', 'Underline'],
@@ -542,6 +610,58 @@
             }
         });
     });
+
+
+
+
+    // **********
+    var current = 0;
+    var imagenes = new Array();
+
+    $(document).ready(function() {
+        var numImages = 6;
+        if (numImages <= 3) {
+            $('.right-arrow').css('display', 'none');
+            $('.left-arrow').css('display', 'none');
+        }
+
+        $('.left-arrow').on('click',function() {
+            if (current > 0) {
+                current = current - 1;
+            } else {
+                current = numImages - 3;
+            }
+
+            $(".carrusel").animate({"left": -($('#product_'+current).position().left)}, 600);
+
+            return false;
+        });
+
+        $('.left-arrow').on('hover', function() {
+            $(this).css('opacity','0.5');
+        }, function() {
+            $(this).css('opacity','1');
+        });
+
+        $('.right-arrow').on('hover', function() {
+            $(this).css('opacity','0.5');
+        }, function() {
+            $(this).css('opacity','1');
+        });
+
+        $('.right-arrow').on('click', function() {
+            if (numImages > current + 3) {
+                current = current+1;
+            } else {
+                current = 0;
+            }
+
+            $(".carrusel").animate({"left": -($('#product_'+current).position().left)}, 600);
+
+            return false;
+        });
+    });
+
 </script>
 
 </body>
