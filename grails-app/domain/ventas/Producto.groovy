@@ -34,7 +34,7 @@ class Producto {
         subcategoria(blank:false, nullable: false)
         persona(blank:false, nullable: false)
         titulo(blank:false,size:1..255)
-        subtitulo(blank:true,size:1..255)
+        subtitulo(blank:true, nullable: true, size:0..255)
         estado(blank:false)
         texto(blank: true, nullable: true)
         fecha(blank: false, nullable:false)

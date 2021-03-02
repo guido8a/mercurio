@@ -10,28 +10,28 @@
 </g:if>
 <g:else>
     <div class="media">
-            <div class="row">
-                <div class="col-md-2 text-info">
-                    Anuncio:
-                </div>
+%{--            <div class="row">--}%
+%{--                <div class="col-md-2 text-info">--}%
+%{--                    Anuncio:--}%
+%{--                </div>--}%
 
-                <div class="col-md-9">
-                    ${producto?.anuncio?.nombre}
-                </div>
+%{--                <div class="col-md-9">--}%
+%{--                    ${producto?.anuncio?.nombre}--}%
+%{--                </div>--}%
 
-            </div>
+%{--            </div>--}%
 
-        <g:if test="${producto?.orden}">
-            <div class="row">
-                <div class="col-md-2 text-info">
-                    Orden:
-                </div>
+%{--        <g:if test="${producto?.orden}">--}%
+%{--            <div class="row">--}%
+%{--                <div class="col-md-2 text-info">--}%
+%{--                    Orden:--}%
+%{--                </div>--}%
 
-                <div class="col-md-9">
-                    ${producto?.orden}
-                </div>
-            </div>
-        </g:if>
+%{--                <div class="col-md-9">--}%
+%{--                    ${producto?.orden}--}%
+%{--                </div>--}%
+%{--            </div>--}%
+%{--        </g:if>--}%
 
         <g:if test="${producto?.titulo}">
             <div class="row">
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-md-9">
-                    ${producto?.estado == '1' ? 'Activo' : 'Inactivo'}
+                    ${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En revisión' : 'Inactivo')}
                 </div>
             </div>
         </g:if>

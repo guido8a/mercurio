@@ -12,13 +12,14 @@ import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
 class ProductoController {
 
     def list(){
-        def anuncio = Anuncio.get(params.id)
-        def productos = Producto.findAllByAnuncio(anuncio)
-        return[productos: productos, anuncio: anuncio]
+        println("params " + params)
+        def persona = Persona.get(params.id)
+        def productos = Producto.findAllByPersona(persona)
+        return[productos: productos, persona: persona]
     }
 
     def form_ajax(){
-        def anuncio = Anuncio.get(params.anuncio)
+        def persona = Persona.get(params.persona)
         def producto
         if(params.id){
             producto = Producto.get(params.id)
@@ -26,23 +27,34 @@ class ProductoController {
             producto = new Producto()
         }
 
-        return[producto: producto, anuncio: anuncio]
+        return[producto: producto, persona: persona]
     }
+
+    def producto(){
+        def persona = Persona.get(params.persona)
+        def producto
+        if(params.id){
+            producto = Producto.get(params.id)
+        }else{
+            producto = new Producto()
+        }
+
+        return[producto: producto, persona: persona]
+    }
+
 
     def saveProducto(){
 
+        println("params " + params)
+
         def producto
 
         if(params.id){
             producto = Producto.get(params.id)
         }else{
             producto = new Producto()
-        }
-
-        if(params.estado){
-            params.estado = 1
-        }else{
-            params.estado = 0
+            params.estado = 'R'
+            params.fecha = new Date()
         }
 
         producto.properties = params
@@ -51,7 +63,7 @@ class ProductoController {
             println("error al guardar el producto " + producto.errors)
             render "no"
         }else{
-            render "ok"
+            render "ok_" + producto.id
         }
     }
 
@@ -239,6 +251,13 @@ class ProductoController {
         }
 
         return[imagenes: files, producto: producto]
+    }
+
+    def tablaAtributos_ajax(){
+        println("params ta " + params)
+        def producto = Producto.get(params.id)
+        def atributos = AtributoCategoria.findAllBySubcategoria(Subcategoria.get(producto.subcategoria.id))
+        return[atributos: atributos]
     }
 
 }

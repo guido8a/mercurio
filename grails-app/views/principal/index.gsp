@@ -3,12 +3,12 @@
 
 <head>
 	<asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-%{--	<meta charset="utf-8">--}%
-%{--	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}%
-%{--	<meta name="description" content="">--}%
-%{--	<meta name="author" content="">--}%
+	%{--	<meta charset="utf-8">--}%
+	%{--	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}%
+	%{--	<meta name="description" content="">--}%
+	%{--	<meta name="author" content="">--}%
 
-%{--	<meta name="layout" content="main">--}%
+	%{--	<meta name="layout" content="main">--}%
 
 	<title>Ventas</title>
 
@@ -105,7 +105,11 @@
 				<a href="#" id="registro" class="btn btn-info" style="text-decoration: none"><i class="fa fa-cog"></i> Crear usuario</a>
 			</div>
 
-%{--			<a href="${createLink(controller: 'persona', action: 'crearContrasenia')}" id="rrr" class="btn btn-info" style="text-decoration: none"><i class="fa fa-cog"></i> Crear cc</a>--}%
+			<div class="btn-group" style="margin-top: 5px">
+				<g:if test="${usuario}">
+					<a href="${createLink(controller: 'producto', action: 'list', id: usuario?.id)}" class="btn btn-success" style="text-decoration: none"><i class="fa fa-plus-circle"></i> Vender </a>
+				</g:if>
+			</div>
 
 			<h2 class="my-2">Categorías</h2>
 			<div class="list-group">
@@ -115,23 +119,23 @@
 			</div>
 
 
-%{--			<h2 class="my-4 text-info">Consultas</h2>--}%
-%{--			<div class="list-group">--}%
-%{--				<g:each in="${consultas}" var="cs">--}%
-%{--					<a href="${cs?.link}" class="lista-item consulta text-info" title="${cs.texto}" target="_blank">--}%
-%{--						<img src="${request.contextPath}/principal/getImage?ruta=${cs.logo}" style='float:left; height:30px'>--}%
-%{--						${cs.titulo}</a>--}%
-%{--				</g:each>--}%
-%{--			</div>--}%
+			%{--			<h2 class="my-4 text-info">Consultas</h2>--}%
+			%{--			<div class="list-group">--}%
+			%{--				<g:each in="${consultas}" var="cs">--}%
+			%{--					<a href="${cs?.link}" class="lista-item consulta text-info" title="${cs.texto}" target="_blank">--}%
+			%{--						<img src="${request.contextPath}/principal/getImage?ruta=${cs.logo}" style='float:left; height:30px'>--}%
+			%{--						${cs.titulo}</a>--}%
+			%{--				</g:each>--}%
+			%{--			</div>--}%
 
 		</div>
 		<!-- /.col-lg-3 -->
 
 		<div class="col-lg-9">
 
-		<div style="margin-top: 10px">
-			<elm:flashMessage tipo="${flash.tipo}" icon="${flash.icon}" clase="${flash.clase}">${flash.message}</elm:flashMessage>
-		</div>
+			<div style="margin-top: 10px">
+				<elm:flashMessage tipo="${flash.tipo}" icon="${flash.icon}" clase="${flash.clase}">${flash.message}</elm:flashMessage>
+			</div>
 
 			<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
 				<ol class="carousel-indicators">
@@ -172,9 +176,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-%{--						<div class="card-footer">--}%
-%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--						</div>--}%
+						%{--						<div class="card-footer">--}%
+						%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+						%{--						</div>--}%
 					</div>
 				</div>
 
@@ -188,9 +192,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
 						</div>
-%{--						<div class="card-footer">--}%
-%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--						</div>--}%
+						%{--						<div class="card-footer">--}%
+						%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+						%{--						</div>--}%
 					</div>
 				</div>
 
@@ -204,9 +208,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-%{--						<div class="card-footer">--}%
-%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--						</div>--}%
+						%{--						<div class="card-footer">--}%
+						%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+						%{--						</div>--}%
 					</div>
 				</div>
 
@@ -220,9 +224,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-%{--						<div class="card-footer">--}%
-%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--						</div>--}%
+						%{--						<div class="card-footer">--}%
+						%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+						%{--						</div>--}%
 					</div>
 				</div>
 
@@ -236,9 +240,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
 						</div>
-%{--						<div class="card-footer">--}%
-%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--						</div>--}%
+						%{--						<div class="card-footer">--}%
+						%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+						%{--						</div>--}%
 					</div>
 				</div>
 
@@ -252,9 +256,9 @@
 							<h5>$24.99</h5>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
 						</div>
-%{--						<div class="card-footer">--}%
-%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--						</div>--}%
+						%{--						<div class="card-footer">--}%
+						%{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+						%{--						</div>--}%
 					</div>
 				</div>
 
@@ -281,7 +285,7 @@
 	<div class="container">
 		<div style="text-align: center">
 			<span class="text-white">Copyright &copy; Tedein S.A. 2021
-%{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
+			%{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
 			</span>
 		</div>
 	</div>

@@ -14,7 +14,7 @@
 <g:else>
     <g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
         <g:hiddenField name="id" value="${producto?.id}" />
-        <g:hiddenField name="anuncio" value="${anuncio?.id}" />
+        <g:hiddenField name="persona" value="${persona?.id}" />
 
         <div class="form-group">
             <span class="grupo">

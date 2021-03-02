@@ -1,0 +1,6 @@
+package ventas
+
+class AtributoController {
+
+
+}
