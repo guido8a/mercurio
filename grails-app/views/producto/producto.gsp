@@ -145,11 +145,11 @@
         </label>
 
         <div class="col-md-2">
-            <g:textField name="valor" maxlength="63" class="form-control" value="${producto?.subtitulo}"/>
+            <g:textField name="valor" maxlength="63" class="form-control required" required=""/>
         </div>
 
         <div class="col-md-1">
-            <a href="#" class="btn btn-success" id="btnAgregarAt" title="Agregar atributo adicional"><i class="fa fa-plus"></i></a>
+            <a href="#" class="btn btn-success" id="btnAgregarAt" title="Agregar atributo"><i class="fa fa-plus"></i></a>
         </div>
 
 
@@ -167,7 +167,34 @@
 
 <script type="text/javascript">
 
+    $("#btnAgregarAt").click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'agregarAtributo_ajax')}',
+            data:{
+                id: $("#id").val(),
+                atributo: $("#atributo").val(),
+                valor:$("#valor").val()
+            },
+            success: function (msg) {
+                var parts = msg.split("_")
+                if(parts[0] == 'ok'){
+                    log("Agregado correctamente","success");
+                    cargarAtributos();
+                }else{
+                    if(parts[0] == 'er'){
+                        bootbox.alert(parts[1])
+                    }else{
+                        log("Error al agregar","error")
+                    }
+                }
+            }
+        });
+    });
+
+    <g:if test="${producto?.id}">
     cargarAtributos();
+    </g:if>
 
     function cargarAtributos(){
         $.ajax({

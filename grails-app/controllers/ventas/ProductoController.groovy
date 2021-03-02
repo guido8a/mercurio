@@ -256,8 +256,47 @@ class ProductoController {
     def tablaAtributos_ajax(){
         println("params ta " + params)
         def producto = Producto.get(params.id)
-        def atributos = AtributoCategoria.findAllBySubcategoria(Subcategoria.get(producto.subcategoria.id))
+        def atributos = Valores.findAllByProducto(producto)
         return[atributos: atributos]
     }
 
+    def agregarAtributo_ajax(){
+        println("params " + params)
+
+        def producto = Producto.get(params.id)
+        def ac = AtributoCategoria.get(params.atributo)
+
+        if(!params.valor){
+            render "er_Ingrese un valor"
+        }else{
+            def existe = Valores.findAllByProductoAndAtributoCategoria(producto, ac)
+
+            if(existe){
+                render "er_El atributo seleccionado ya se encuentra agregado"
+            }else{
+                def v = new Valores()
+                v.atributoCategoria = ac
+                v.producto = producto
+                v.valor = params.valor
+
+                if(!v.save(flush:true)){
+                    println("error al guardar el atributo")
+                    render "no"
+                }else{
+                    render "ok"
+                }
+            }
+        }
+    }
+
+    def borrarAtributo_ajax() {
+        def valor = Valores.get(params.id)
+        try{
+            valor.delete(flush:true)
+            render "ok"
+        }catch(e){
+            println("error al borrar el valor " + valor.errors)
+            render "no"
+        }
+    }
 }
