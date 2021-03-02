@@ -82,7 +82,8 @@
    <mn:menu title="${g.layoutTitle(default: 'Monitor')}"/>
 %{--</g:if>--}%
 
-<div class="container" style="min-width: 1000px !important; margin-top: 0px; overflow-y: hidden">
+%{--<div class="container" style="min-width: 1000px !important; margin-top: 0px; overflow-y: hidden">--}%
+<div class="container" style="min-width: 60% !important; margin-top: 0px; overflow-y: hidden">
     <g:layoutBody/>
 </div>
 

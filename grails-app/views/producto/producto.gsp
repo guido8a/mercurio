@@ -59,10 +59,15 @@
             <label for="categoria" class="col-md-2 control-label text-info">
                 Categoría
             </label>
-            <div class="col-md-4">
+            <div class="col-md-10">
                 <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
             </div>
+        </span>
+    </div>
 
+%{--
+    <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+        <span class="grupo">
             <g:if test="${producto?.id}">
                 <label class="col-md-1 control-label text-info">
                     Estado
@@ -74,6 +79,7 @@
             </g:if>
         </span>
     </div>
+--}%
 
     <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
         <span class="grupo">
@@ -115,10 +121,10 @@
         Texto adicional
     </label>
 
-    <div class="form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}" style="margin-left: 195px">
-        <div class="card">
-            <textarea id="texto" class="editor" rows="100" cols="80" >${producto?.texto}</textarea>
-        </div>
+    <div class="col-md-10 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
+%{--        <div class="card">--}%
+            <textarea id="texto" class="editor" rows="6" cols="10" >${producto?.texto}</textarea>
+%{--        </div>--}%
     </div>
 
     <g:if test="${producto?.id}">
@@ -253,15 +259,10 @@
 
         CKEDITOR.replace( 'texto', {
             height: "200px",
-            width: "750px",
+            width: "100%",
             toolbar                 : [
-                ['Font', 'FontSize', 'Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
-                ['Find', 'Replace', '-', 'SelectAll'],
-                ['Table', 'HorizontalRule', 'PageBreak'],
-                ['-', 'TextColor', 'BGColor', '-', 'About'],
-                // '/',
-                ['Bold', 'Italic', 'Underline'],
-                ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']
+                ['Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'Bold', 'Italic', 'Underline'],
+                ['NumberedList', 'BulletedList', '-']
             ]
         });
 
