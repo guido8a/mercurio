@@ -31,8 +31,8 @@
         <tbody id="tabla_bandeja">
         <g:each in="${atributos}" var="atributo">
             <tr style="width: 100%">
-                <td style="width: 70%; text-align: center">
-                    <span class="badge bg-warning" style="background-color:  #67a153 ">${atributo?.atributoCategoria?.atributo?.descripcion}</span>
+                <td style="width: 70%; text-align: left">
+                    <span>${atributo?.atributoCategoria?.atributo?.descripcion}</span>
                 </td>
                 <td style="width: 20%">${atributo?.valor}</td>
                 <td style="width: 10%">

@@ -104,7 +104,7 @@
 
 <span class="btn btn-success fileinput-button" style="position: relative;margin-top: 5px">
     <i class="glyphicon glyphicon-plus"></i>
-    <span>Seleccionar imagen</span>
+    <span>Agregar una imagen</span>
     <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
 </span>
 
