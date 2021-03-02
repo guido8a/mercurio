@@ -130,7 +130,8 @@
         </label>
 
         <div class="col-md-4">
-            <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}" class="form-control" optionKey="id" optionValue="atributo"/>
+            <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}"
+                      class="form-control" optionKey="id"/>
         </div>
 
         <label class="col-md-1 control-label text-info">

@@ -21,4 +21,9 @@ class AtributoCategoria {
         subcategoria(blank: false, nullable: false)
         atributo(blank: false, nullable: false)
     }
+
+    @Override
+    String toString() {
+        "${this.atributo.descripcion}"
+    }
 }
