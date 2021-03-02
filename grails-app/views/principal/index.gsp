@@ -144,6 +144,14 @@
 					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 				</ol>
 				<div class="carousel-inner" role="listbox">
+
+%{--					<g:each in="${imagenes}" var="file" status="i">--}%
+%{--						<div class="carousel-item active">--}%
+%{--                  		<img class="d-block img-fluid" alt="First slide" src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: 2] )}"/>--}%
+%{--						</div>--}%
+%{--					</g:each>--}%
+
+
 					<div class="carousel-item active">
 						<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
 					</div>
@@ -168,7 +176,11 @@
 
 				<div class="col-lg-4 col-md-6 mb-4">
 					<div class="card h-100">
-						<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+						<a href="#">
+%{--							<img class="card-img-top" src="http://placehold.it/700x400" alt="">--}%
+							<img class="card-img-top" src="${createLink(controller: 'producto', action: 'getImage', params: [id: 'gatos.jpeg', pro: '2'] )}"/>
+
+						</a>
 						<div class="card-body">
 							<h4 class="card-title">
 								<a href="#">Anuncio Uno</a>

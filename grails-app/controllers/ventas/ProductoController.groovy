@@ -213,7 +213,7 @@ class ProductoController {
     }
 
     def getImage() {
-        println("params " + params)
+        println("params get image " + params)
         byte[] imageInBytes = im(params.id, params.format, params.pro)
         response.with{
             setHeader('Content-length', imageInBytes.length.toString())

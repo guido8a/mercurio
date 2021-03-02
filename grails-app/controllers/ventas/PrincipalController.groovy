@@ -1,5 +1,7 @@
 package ventas
 
+import groovy.io.FileType
+
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
@@ -7,7 +9,7 @@ class PrincipalController {
 //    def mailService
 
     def index() {
-        println "params: $params"
+//        println "params: $params"
 
         params.id = params.id?:1
 
