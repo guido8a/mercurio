@@ -44,17 +44,17 @@
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
-        <g:each in="${anuncios}" var="anuncio">
-            <tr data-id="${promotor?.id}" style="width: 100%">
-                <td style="width: 20%; text-align: center">${anuncio?.subcategoria?.categoria?.descripcion}</td>
-                <td style="width: 20%">${anuncio?.nombre}</td>
-                <td style="width: 20%">${anuncio?.descripcion}</td>
-                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
-                <td style="width: 10%; text-align: center">${ventas.Publicacion.findByAnuncio(anuncio)?.fechaInicio?.format("dd-MM-yyyy")}</td>
-                <td style="width: 10%; text-align: center">${ventas.Publicacion.findByAnuncio(anuncio)?.fechaFin?.format("dd-MM-yyyy")}</td>
-                <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findByAnuncio(anuncio)?.destacado == '1' ? '#67a153' : '#cba51d'}">${ventas.Publicacion.findByAnuncio(anuncio)?.destacado == '1' ? 'SI' : 'NO'}</td>
-            </tr>
-        </g:each>
+%{--        <g:each in="${anuncios}" var="anuncio">--}%
+%{--            <tr data-id="${promotor?.id}" style="width: 100%">--}%
+%{--                <td style="width: 20%; text-align: center">${anuncio?.subcategoria?.categoria?.descripcion}</td>--}%
+%{--                <td style="width: 20%">${anuncio?.nombre}</td>--}%
+%{--                <td style="width: 20%">${anuncio?.descripcion}</td>--}%
+%{--                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>--}%
+%{--                <td style="width: 10%; text-align: center">${ventas.Publicacion.findByAnuncio(anuncio)?.fechaInicio?.format("dd-MM-yyyy")}</td>--}%
+%{--                <td style="width: 10%; text-align: center">${ventas.Publicacion.findByAnuncio(anuncio)?.fechaFin?.format("dd-MM-yyyy")}</td>--}%
+%{--                <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findByAnuncio(anuncio)?.destacado == '1' ? '#67a153' : '#cba51d'}">${ventas.Publicacion.findByAnuncio(anuncio)?.destacado == '1' ? 'SI' : 'NO'}</td>--}%
+%{--            </tr>--}%
+%{--        </g:each>--}%
         </tbody>
     </table>
 </div>
