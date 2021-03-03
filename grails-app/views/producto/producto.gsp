@@ -86,9 +86,18 @@
         <g:link controller="producto" action="list" id="${persona?.id}" class="btn btn-primary btnVolver">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
-        <a href="#" class="btn btn-success" id="btnGuardarProducto" title="Guardar cambios en producto"><i class="fa fa-save"></i> Guardar </a>
+        <a href="#" class="btn btn-success" id="btnGuardarProducto" title="Guardar cambios en producto">
+            <i class="fa fa-save"></i> Guardar </a>
         <g:if test="${producto?.id}">
-            <a href="#" class="btn btn-warning" id="btnImasProducto" title="Imágenes asociadas al producto"><i class="fa fa-images"></i> Agregar imágenes </a>
+            <a href="#" class="btn btn-warning" id="btnImasProducto" title="Imágenes asociadas al producto">
+                <i class="fa fa-images"></i> Agregar imágenes </a>
+
+            <a href="#" class="btn btn-primary" id="btnImasProducto" title="Visualizar como se presentará el anuncio">
+                <i class="fa fa-search-dollar"></i> Previsualizar el Anuncio</a>
+
+            <a href="#" class="btn btn-primary" id="btnImasProducto" title="Visualizar como se presentará el anuncio">
+                <i class="fas fa-lightbulb"></i> Destacar este Anuncio</a>
+
         </g:if>
     </div>
 </div>
