@@ -264,6 +264,45 @@
 
 <script type="text/javascript">
 
+    $("#btnAprobacion").click(function () {
+        bootbox.dialog({
+            title   : "Alerta",
+            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> <p style='font-size: 14px; font-weight: bold'>El producto será publicado con la información guardada hasta el momento.</p>",
+            buttons : {
+                cancelar : {
+                    label     : "<i class='fa fa-times'></i> Cancelar",
+                    className : "btn-primary",
+                    callback  : function () {
+                    }
+                },
+                publicar : {
+                    label     : "<i class='fa fa-check'></i> Publicar",
+                    className : "btn-success",
+                    callback  : function () {
+                            publicarProducto();
+                    }
+                }
+            }
+        });
+    });
+
+    function publicarProducto(){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'alerta', action: 'generarAlerta_ajax')}',
+            data:{
+                id: $("#id").val()
+            },
+            success: function (msg) {
+                if(msg == 'ok'){
+                    bootbox.alert("<i class='fa fa-check fa-3x pull-left text-success text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>")
+                }else{
+                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")
+                }
+            }
+        });
+    }
+
     $("#btnAgregarAt").click(function () {
         $.ajax({
             type: 'POST',
@@ -274,7 +313,7 @@
                 valor:$("#valor").val()
             },
             success: function (msg) {
-                var parts = msg.split("_")
+                var parts = msg.split("_");
                 if(parts[0] == 'ok'){
                     log("Agregado correctamente","success");
                     cargarAtributos();

@@ -27,9 +27,9 @@ class Alerta {
     }
     static constraints = {
         producto(blank: false, nullable: false)
-        persona(blank: false, nullable: false)
+        persona(blank: true, nullable: true)
         fechaIngreso(blank: false, nullable: false)
         fechaAprobacion(blank: true, nullable: true)
-        observaciones(blank: true, nullable: true, size: 1..255)
+        observaciones(blank: true, nullable: true, size: 0..255)
     }
 }
