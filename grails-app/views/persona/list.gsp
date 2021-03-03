@@ -1,4 +1,4 @@
-<%@ page import="seguridad.Permiso; seguridad.Permiso; seguridad.Prfl; seguridad.PermisoUsuario; seguridad.Sesn; seguridad.Accs; seguridad.Persona" %>
+<%@ page import="seguridad.Prfl; seguridad.Sesn; seguridad.Persona" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,8 +42,6 @@
 %{--        </div><!-- /input-group -->--}%
 %{--    </div>--}%
 </div>
-
-<g:set var="admin" value="${seguridad.Permiso.findByCodigo('P013')}"/>
 
 <table class="table table-condensed table-bordered" width='100%'>
     <thead>

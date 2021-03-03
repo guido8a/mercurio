@@ -207,7 +207,7 @@ class ProductoController {
     }
 
     def deleteImagen_ajax() {
-        println("parmas " + params)
+        println "deleteImagen_ajax params $params"
         def producto = Producto.get(params.id)
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         def file = params.file
@@ -229,7 +229,7 @@ class ProductoController {
     }
 
     def getImage() {
-        println("params get image " + params)
+        println "params get image $params"
         byte[] imageInBytes = im(params.id, params.format, params.pro)
         response.with{
             setHeader('Content-length', imageInBytes.length.toString())

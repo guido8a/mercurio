@@ -26,8 +26,29 @@ class PrincipalController {
 
 
     def getImage(){
+        println "getImage: $params"
+        def path = "/var/ventas/" + params.ruta
+//        def path = "/var/ventas/cedula.jpeg"
+        //returns an image to display
+        BufferedImage imagen = ImageIO.read(new File(path));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        def fileext = path.substring(path.indexOf(".")+1, path.length())
+
+        ImageIO.write( imagen, fileext, baos );
+        baos.flush();
+
+        byte[] img = baos.toByteArray();
+        baos.close();
+        response.setHeader('Content-length', img.length.toString())
+        response.contentType = "image/"+fileext // or the appropriate image content type
+        response.outputStream << img
+        response.outputStream.flush()
+    }
+
+    def getImageCnsl(){
         println "image: $params"
-        def path = "/var/ventas/imagen/" + params.ruta
+        def path = "/var/ventas/imagen/consultas/" + params.ruta
 //        def path = "/var/ventas/cedula.jpeg"
         //returns an image to display
         BufferedImage imagen = ImageIO.read(new File(path));
