@@ -178,7 +178,7 @@
 					<div class="card h-100">
 						<a href="#">
 %{--							<img class="card-img-top" src="http://placehold.it/700x400" alt="">--}%
-							<img class="card-img-top" src="${createLink(controller: 'producto', action: 'getImage', params: [id: 'ai.jpeg', pro: '1'] )}"/>
+							<img class="card-img-top" src="${createLink(controller: 'producto', action: 'getImage', params: [id: 'gatos.jpeg', pro: '2'] )}"/>
 
 						</a>
 						<div class="card-body">

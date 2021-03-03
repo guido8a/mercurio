@@ -100,6 +100,12 @@
 
         </g:if>
     </div>
+
+    <div class="btn-group">
+        <g:if test="${producto?.id}">
+            <a href="#" class="btn btn-info" id="btnAprobacion" title="Publicar producto"><i class="fa fa-check"></i> Publicar producto </a>
+        </g:if>
+    </div>
 </div>
 
 %{--
