@@ -41,6 +41,10 @@
         font-size: small;
         background-color: #fdfffd;
     }
+    .cs900 {
+        width: 900px;
+        height: 350px;
+    }
     </style>
 </head>
 
@@ -96,7 +100,7 @@
             <div class="list-group">
                 <g:each in="${consultas}" var="cs">
                     <a href="${cs?.link}" class="lista-item consulta text-info" title="${cs.texto}" target="_blank">
-                        <img src="${request.contextPath}/principal/getImageCnsl?ruta=${cs.logo}"
+                        <img src="${request.contextPath}/principal/getImgnCnsl?ruta=${cs.logo}"
                              style='float:left; height:30px'>
                         ${cs.titulo}</a>
                 </g:each>
@@ -121,24 +125,12 @@
 
                 <div class="carousel-inner" role="listbox">
 
-                    %{--					<g:each in="${imagenes}" var="file" status="i">--}%
-                    %{--						<div class="carousel-item active">--}%
-                    %{--                  		<img class="d-block img-fluid" alt="First slide" src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: 2] )}"/>--}%
-                    %{--						</div>--}%
-                    %{--					</g:each>--}%
-
-
-                    <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-                    </div>
-
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-                    </div>
-
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-                    </div>
+   					<g:each in="${carrusel}" var="prod" status="i">
+                    	<div class="carousel-item ${i==0? 'active': ''}">
+                            <img class="d-block img-fluid cs900" alt="First slide"
+                                 src="${request.contextPath}/principal/getImgnProd?ruta=${prod}"/>
+                    	</div>
+                    </g:each>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
