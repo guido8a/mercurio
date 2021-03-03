@@ -138,7 +138,7 @@
                         var id = $element.data("id");
                         // generarAnuncio(id)
                     }
-                }
+                },
                 %{--, </g:if>--}%
                 retornar : {
                     label            : "Retornar alerta",
