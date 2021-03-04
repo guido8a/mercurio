@@ -37,6 +37,8 @@ class PublicacionController {
 
 
         def anuncio = Anuncio.get(params.anuncio)
+        def producto = anuncio.producto
+
         def publicacion
 
         def publicacionExiste1 = Publicacion.findAllByAnuncioAndFechaFinGreaterThan(anuncio, new Date())
@@ -53,6 +55,18 @@ class PublicacionController {
                 println("error al guardar la publicación" + publicacion.errors)
                 render "no"
             }else{
+
+                if(publicacion.fechaFin && publicacion.fechaFin <= new Date()){
+                    anuncio.estado = 0
+                    producto.estado = 'I'
+                }else{
+                    anuncio.estado = 1
+                    producto.estado = 'A'
+                }
+
+                anuncio.save(flush:true)
+                producto.save(flush:true)
+
                 render "ok"
             }
         }else{
@@ -60,7 +74,6 @@ class PublicacionController {
                 render "er_No se puede crear una publicación del anuncio, ya existe una publicación activa"
             }else{
                 publicacion = new Publicacion()
-
                 publicacion.properties = params
 
                 if(!publicacion.save(flush: true)){
@@ -68,13 +81,16 @@ class PublicacionController {
                     render "no"
                 }else{
 
-                    anuncio.estado = 1
+                    if(publicacion.fechaFin && publicacion.fechaFin <= new Date()){
+                        anuncio.estado = 0
+                        producto.estado = 'I'
+                    }else{
+                        anuncio.estado = 1
+                        producto.estado = 'A'
+                    }
+
                     anuncio.save(flush:true)
-
-                    def producto = anuncio.producto
-                    producto.estado = 'A'
                     producto.save(flush:true)
-
                     render "ok"
                 }
             }

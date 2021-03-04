@@ -32,7 +32,7 @@ class Producto {
 
     static constraints = {
         subcategoria(blank:false, nullable: false)
-        persona(blank:false, nullable: false)
+        persona(blank:true, nullable: true)
         titulo(blank:false,size:1..255)
         subtitulo(blank:true, nullable: true, size:0..255)
         estado(blank:false)

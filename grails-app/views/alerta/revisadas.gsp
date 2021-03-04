@@ -1,3 +1,4 @@
+<%@ page import="ventas.Producto" %>
 <%--
   Created by IntelliJ IDEA.
   User: fabricio
@@ -40,7 +41,7 @@
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${alertas}" var="alerta">
-            <tr data-id="${alerta?.id}" style="width: 100%">
+            <tr data-id="${alerta?.id}" data-est="${alerta?.producto?.estado}" data-anu="${ventas.Anuncio.findByProducto(ventas.Producto.get(alerta?.producto?.id))}" style="width: 100%">
                 <td style="width: 15%; text-align: center">${alerta?.producto?.persona?.nombre}</td>
                 <td style="width: 35%">${alerta?.producto?.titulo}</td>
                 <td style="width: 20%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
@@ -93,9 +94,9 @@
                                     });
                                 }else{
                                     if(parts[0] == 'er'){
-                                        bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i>" + parts[1])
+                                        bootbox.alert("<i class='fa fa-times-circle fa-3x pull-left text-danger text-shadow'></i>" + parts[1])
                                     }else{
-                                        bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al retornar la alerta</p>")
+                                        log("Error al retornar la alerta","error")
                                     }
                                 }
                             }
@@ -105,6 +106,46 @@
             }
         });
     }
+
+   function forzarAnuncio(id){
+       bootbox.dialog({
+           title   : "Alerta",
+           message : "<i class='fa fa-arrow-left fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea volver a crear el anuncio para este producto?.</p>",
+           buttons : {
+               cancelar : {
+                   label     : "<i class='fa fa-times'></i> Cancelar",
+                   className : "btn-primary",
+                   callback  : function () {
+                   }
+               },
+               aceptar : {
+                   label     : "<i class='fa fa-check'></i> Aceptar",
+                   className : "btn-danger",
+                   callback  : function () {
+                       $.ajax({
+                           type: 'POST',
+                           url: '${createLink(controller: 'anuncio', action: 'forzarAnuncio')}',
+                           data:{
+                               id: id
+                           },
+                           success: function (msg){
+                               var parts = msg.split("_");
+                               if(parts[0] == 'ok'){
+                                    log("Anuncio creado correctamente","success")
+                               }else{
+                                   if(parts[0] == 'er'){
+                                       bootbox.alert("<i class='fa fa-times-circle fa-3x pull-left text-danger text-shadow'></i>" + parts[1])
+                                   }else{
+                                       log("Error al crear el anuncio","error")
+                                   }
+                               }
+                           }
+                       })
+                   }
+               }
+           }
+       });
+   }
 
 
     // $(function () {
@@ -153,7 +194,8 @@
 
     function createContextMenu(node) {
         var $tr = $(node);
-        var estadoAnuncio = $tr.data("est");
+        var estadoProducto = $tr.data("est");
+        var existeAnuncio = $tr.data("anu");
 
         var items = {
             header: {
@@ -177,11 +219,11 @@
             separator_before : true,
             action           : function ($element) {
                 var id = $tr.data("id");
-                // generarAnuncio(id)
+                forzarAnuncio(id)
             }
         };
 
-        var retonar = {
+        var retornarAlerta = {
             label            : "Retornar alerta",
             icon             : "fa fa-arrow-left",
             separator_before : true,
@@ -192,10 +234,12 @@
         };
 
         items.producto = producto;
-        if(estadoAnuncio == '1'){
-            items.publicacion = publicacion;
+        if(estadoProducto != 'N'){
+            if(!existeAnuncio){
+                items.forzar = forzar;
+            }
         }
-        items.retornar = retornar;
+        items.retornar = retornarAlerta;
         return items;
     }
 

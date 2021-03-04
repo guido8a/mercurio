@@ -33,6 +33,7 @@ class ProductoController {
     def producto(){
         println "params: $params"
         def persona = Persona.get(params.persona)
+        println("persona " + persona)
         def producto
         def path = "/var/ventas/productos/pro_"
         def imagenes = []
@@ -69,8 +70,9 @@ class ProductoController {
             producto = Producto.get(params.id)
         }else{
             producto = new Producto()
-            params.estado = 'R'
+            params.estado = 'I'
             params.fecha = new Date()
+
         }
 
         producto.properties = params

@@ -17,6 +17,7 @@ class AlertaController {
     def generarAlerta_ajax(){
 
         def producto = Producto.get(params.id)
+
         def existe = Alerta.findByProductoAndFechaAprobacionIsNull(producto)
         def alerta
 
@@ -32,6 +33,8 @@ class AlertaController {
             println("error al generar la alerta" + alerta.errors)
             render "no"
         }else{
+            producto.estado = 'R'
+            producto.save(flush:true)
             render "ok"
         }
     }

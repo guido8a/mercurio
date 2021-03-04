@@ -143,6 +143,23 @@
     <div class="col-lg-6" style="border-right: #0a193b; border-style: solid; border-width: 1px; border-left: none; border-top: none; border-bottom: none">
 
         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+            <span class="grupo" >
+                <div style="text-align: center">
+                    <g:if test="${producto?.id}">
+                        <label class="col-md-3 control-label text-info">
+                            Estado del producto
+                        </label>
+
+                        <div class="col-md-4">
+                            <span class="badge bg-warning" style="font-size: x-large; background-color:  ${producto?.estado == 'A' ? '#78B665' : (producto?.estado == 'R' ? '#cba51d' : '#C42623')} ">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : 'Inactivo')}</span>
+                        </div>
+                    </g:if>
+                </div>
+            </span>
+        </div>
+
+
+        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
             <span class="grupo">
                 <label for="categoria" class="col-md-2 control-label text-info">
                     Categoría
@@ -154,21 +171,8 @@
             </span>
         </div>
 
-        %{--
-            <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-                <span class="grupo">
-                    <g:if test="${producto?.id}">
-                        <label class="col-md-1 control-label text-info">
-                            Estado
-                        </label>
 
-                        <div class="col-md-4">
-                            <span class="badge bg-warning" style="font-size: x-large; background-color:  ${producto?.estado == 'A' ? '#78B665' : (producto?.estado == 'R' ? '#cba51d' : '#C42623')} ">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : 'Inactivo')}</span>
-                        </div>
-                    </g:if>
-                </span>
-            </div>
-        --}%
+
 
         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
             <span class="grupo">
@@ -235,7 +239,7 @@
             </label>
 
             <div class="col-md-2">
-                <g:textField name="valor" maxlength="63" class="form-control required" required=""/>
+                <g:textField name="valor" maxlength="63" class="form-control"/>
             </div>
 
             <div class="col-md-1">
@@ -406,7 +410,7 @@
                     if (parts[0] == "ok") {
                         log("Producto guardado correctamente","success");
                         setTimeout(function () {
-                            location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + parts[1] + "&persona=" + ${persona?.id};
+                            location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
                         }, 1000);
                     } else {
                         log("Error al guardar el producto","error");
@@ -638,7 +642,7 @@
                     action : function ($element) {
                         var id = $element.data("id");
                         // createEditRow(id);
-                        location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + id + "&persona=" + ${persona?.id};
+                        location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + id + "&persona=" + '${persona?.id}';
                     }
                 },
                 texto : {
