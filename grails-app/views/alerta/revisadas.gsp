@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Lista alertas</title>
+    <title>Lista de alertas</title>
 </head>
 <body>
 
