@@ -67,6 +67,14 @@ class PublicacionController {
                     println("error al guardar la publicación" + publicacion.errors)
                     render "no"
                 }else{
+
+                    anuncio.estado = 1
+                    anuncio.save(flush:true)
+
+                    def producto = anuncio.producto
+                    producto.estado = 'A'
+                    producto.save(flush:true)
+
                     render "ok"
                 }
             }

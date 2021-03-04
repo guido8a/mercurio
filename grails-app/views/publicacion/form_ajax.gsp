@@ -30,7 +30,7 @@
                         Anuncio
                     </label>
                     <div class="col-md-5">
-                       <span class="badge bg-primary"> ${anuncio?.nombre}</span>
+                       <span class="badge bg-primary"> ${anuncio?.titulo}</span>
                     </div>
                 </span>
 

@@ -22,6 +22,11 @@
             <i class="fa fa-user-check"></i> Alertas revisadas
         </g:link>
     </div>
+    <div class="btn-group">
+        <g:link controller="anuncio" action="list" class="btn btn-info btnAnuncios">
+            <i class="fa fa-copy"></i> Anuncios
+        </g:link>
+    </div>
 </div>
 
 <table class="table table-condensed table-bordered">

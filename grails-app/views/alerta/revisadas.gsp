@@ -107,49 +107,101 @@
     }
 
 
+    // $(function () {
+    //
+    //     $("tbody tr").contextMenu({
+    //         items  : {
+    //             header   : {
+    //                 label  : "Acciones",
+    //                 header : true
+    //             },
+    //             producto : {
+    //                 label            : "Ver Producto",
+    //                 icon             : "fa fa-clipboard",
+    //                 separator_before : true,
+    //                 action           : function ($element) {
+    //                     var id = $element.data("id");
+    //                 }
+    //             },
+    //             forzar : {
+    //                 label            : "Volver a crear anuncio",
+    //                 icon             : "fa fa-cog",
+    //                 separator_before : true,
+    //                 action           : function ($element) {
+    //                     var id = $element.data("id");
+    //                     // generarAnuncio(id)
+    //                 }
+    //             },
+    //             retornar : {
+    //                 label            : "Retornar alerta",
+    //                 icon             : "fa fa-arrow-left",
+    //                 separator_before : true,
+    //                 action           : function ($element) {
+    //                     var id = $element.data("id");
+    //                     retornar(id)
+    //                 }
+    //             }
+    //         },
+    //         onShow : function ($element) {
+    //             $element.addClass("trHighlight");
+    //         },
+    //         onHide : function ($element) {
+    //             $(".trHighlight").removeClass("trHighlight");
+    //         }
+    //     });
+    // });
+
+    function createContextMenu(node) {
+        var $tr = $(node);
+        var estadoAnuncio = $tr.data("est");
+
+        var items = {
+            header: {
+                label: "Acciones",
+                header: true
+            }
+        };
+
+        var producto = {
+            label            : "Ver Producto",
+            icon             : "fa fa-clipboard",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+            }
+        };
+
+        var forzar = {
+            label            : "Volver a crear anuncio",
+            icon             : "fa fa-cog",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+                // generarAnuncio(id)
+            }
+        };
+
+        var retonar = {
+            label            : "Retornar alerta",
+            icon             : "fa fa-arrow-left",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+                retornar(id)
+            }
+        };
+
+        items.producto = producto;
+        if(estadoAnuncio == '1'){
+            items.publicacion = publicacion;
+        }
+        items.retornar = retornar;
+        return items;
+    }
+
     $(function () {
-
-        $(".btnCrear").click(function() {
-            createEditRow();
-            return false;
-        });
-
-        $("tbody tr").contextMenu({
-            items  : {
-                header   : {
-                    label  : "Acciones",
-                    header : true
-                },
-                producto : {
-                    label            : "Ver Producto",
-                    icon             : "fa fa-clipboard",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        %{--location.href="${createLink(controller: 'producto', action: 'list')}?id=" + id--}%
-                    }
-                },
-%{--                <g:if test="">--}%
-                forzar : {
-                    label            : "Forzar creación anuncio",
-                    icon             : "fa fa-cog",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        // generarAnuncio(id)
-                    }
-                },
-                %{--, </g:if>--}%
-                retornar : {
-                    label            : "Retornar alerta",
-                    icon             : "fa fa-arrow-left",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        retornar(id)
-                    }
-                }
-            },
+        $("tr").contextMenu({
+            items  : createContextMenu,
             onShow : function ($element) {
                 $element.addClass("trHighlight");
             },
@@ -158,6 +210,7 @@
             }
         });
     });
+
 </script>
 
 </body>

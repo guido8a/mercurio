@@ -42,13 +42,42 @@ class AnuncioController {
 
     }
 
-//    def list(){
-//
-//        def promotor = Promotor.get(params.id)
-//        def anuncios = Anuncio.findAllByPromotor(promotor)
-//
-//        return[promotor:promotor, anuncios:anuncios]
-//    }
+    def list(){
+
+    }
+
+    def tablaAnuncios_ajax(){
+
+        def anuncios = Anuncio.list().sort{it.estado}
+        return[anuncios: anuncios]
+
+    }
+
+    def cambiarEstado_ajax(){
+        def anuncio = Anuncio.get(params.id)
+        def estadoActual = anuncio.estado
+
+        if(estadoActual == '1'){
+            anuncio.estado = 0
+        }else{
+            anuncio.estado = 1
+        }
+
+        if(!anuncio.save(flush:true)){
+            println("error al guardar el estado del anuncio " + anuncio.errors)
+            render "no"
+        }else{
+
+            def publicacion = Publicacion.findByAnuncioAndFechaFinIsNull(anuncio)
+
+            if(publicacion){
+                publicacion.fechaFin = new Date()
+                publicacion.save(flush:true)
+            }
+
+            render "ok"
+        }
+    }
 //
 //    def form_ajax(){
 //        def promotor = Promotor.get(params.promotor)
