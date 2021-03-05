@@ -64,7 +64,7 @@
         <div class="col-lg-3">
 
             <g:if test="${usuario}">
-                <label style="margin-top: 10px">Usuario del sistema: ${usuario.nombre}</label>
+                <label style="margin-top: 10px">Usuario: ${usuario.nombre} ${usuario.apellido}</label>
             </g:if>
 
 
@@ -79,7 +79,7 @@
                 </g:else>
 
                 <a href="#" id="registro" class="btn btn-info" style="text-decoration: none"><i
-                        class="fa fa-cog"></i> Crear usuario</a>
+                        class="fa fa-cog"></i> Registrarse</a>
             </div>
 
             <div class="btn-group" style="margin-top: 5px">
@@ -188,10 +188,10 @@
 
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-3 bg-dark">
     <div class="container">
-        <div style="text-align: center">
-            <span class="text-white">Copyright &copy; Tedein S.A. 2021
+        <div style="text-align: center; font-size: small">
+            <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
             %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
             </span>
         </div>

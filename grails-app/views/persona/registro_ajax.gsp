@@ -6,7 +6,7 @@
 --%>
 
 <div class="modal-header">
-    <h4 class="modal-title" style="text-align: center">Registro de usuarios</h4>
+    <h4 class="modal-title" style="text-align: center">Registro en el Sistema</h4>
 </div>
 
 <g:form class="form-horizontal" name="frmRegistro" role="form" controller="persona" action="saveRegistro_ajax" method="POST">
@@ -16,8 +16,9 @@
                 <label for="tipoPersona" class="col-md-4 control-label">
                     Tipo Persona
                 </label>
-                <div class="col-md-8">
-                    <g:select name="tipoPersona" from="${['N': 'Natural', 'J':'Jurídica']}" optionKey="key" optionValue="value" class="form-control"/>
+                <div class="col-md-12">
+                    <g:select name="tipoPersona" from="${['N': 'Natural', 'J':'Jurídica']}" optionKey="key"
+                              optionValue="value" class="form-control"/>
                 </div>
             </span>
         </div>
@@ -30,7 +31,7 @@
                     Nombre
                 </label>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <g:textField name="nombre" maxlength="31" required="" class="form-control input-sm required"/>
                 </div>
             </span>
@@ -44,7 +45,7 @@
                     Apellido
                 </label>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <g:textField name="apellido" maxlength="31" class="form-control input-sm"/>
                 </div>
             </span>
@@ -58,7 +59,7 @@
                     E-mail
                 </label>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <g:textField name="mail" maxlength="63" required="" class="email form-control input-sm unique noEspacios required"/>
                 </div>
             </span>
