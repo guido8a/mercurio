@@ -46,7 +46,7 @@
                 <td style="width: 35%">${alerta?.producto?.titulo}</td>
                 <td style="width: 20%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
                 <td style="width: 20%; text-align: center">${alerta?.fechaAprobacion?.format("dd-MM-yyyy")}</td>
-                <td style="width: 10%; text-align: center">${alerta.producto.estado == 'R' ? 'En revisión' : (alerta.producto.estado == 'N' ? 'Negado' : (alerta.producto.estado == 'A' ? 'Activo' : 'Inactivo'))}</td>
+                <td style="width: 10%; text-align: center">${alerta.estado == '1' ? 'Aprobado' : 'Negado'}</td>
             </tr>
         </g:each>
         </tbody>
@@ -147,50 +147,6 @@
        });
    }
 
-
-    // $(function () {
-    //
-    //     $("tbody tr").contextMenu({
-    //         items  : {
-    //             header   : {
-    //                 label  : "Acciones",
-    //                 header : true
-    //             },
-    //             producto : {
-    //                 label            : "Ver Producto",
-    //                 icon             : "fa fa-clipboard",
-    //                 separator_before : true,
-    //                 action           : function ($element) {
-    //                     var id = $element.data("id");
-    //                 }
-    //             },
-    //             forzar : {
-    //                 label            : "Volver a crear anuncio",
-    //                 icon             : "fa fa-cog",
-    //                 separator_before : true,
-    //                 action           : function ($element) {
-    //                     var id = $element.data("id");
-    //                     // generarAnuncio(id)
-    //                 }
-    //             },
-    //             retornar : {
-    //                 label            : "Retornar alerta",
-    //                 icon             : "fa fa-arrow-left",
-    //                 separator_before : true,
-    //                 action           : function ($element) {
-    //                     var id = $element.data("id");
-    //                     retornar(id)
-    //                 }
-    //             }
-    //         },
-    //         onShow : function ($element) {
-    //             $element.addClass("trHighlight");
-    //         },
-    //         onHide : function ($element) {
-    //             $(".trHighlight").removeClass("trHighlight");
-    //         }
-    //     });
-    // });
 
     function createContextMenu(node) {
         var $tr = $(node);

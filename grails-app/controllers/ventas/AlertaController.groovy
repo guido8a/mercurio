@@ -50,6 +50,7 @@ class AlertaController {
             render "no"
         }else{
             alerta.persona = persona
+            alerta.estado = 0
             alerta.fechaAprobacion = new Date()
 
             if(!alerta.save(flush:true)){
@@ -87,6 +88,7 @@ class AlertaController {
                 }else{
 
                     alerta.fechaAprobacion = null
+                    alerta.estado = 1
 
                     if(!alerta.save(flush:true)){
                         println("error al retornar la alerta " + alerta.errors)

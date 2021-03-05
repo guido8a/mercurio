@@ -11,6 +11,7 @@ class AnuncioController {
         def anuncio
         def alerta = Alerta.get(params.id)
         def producto = alerta.producto
+        alerta.estado = 1
         alerta.fechaAprobacion = new Date()
 
         if(!alerta.save(flush:true)){
@@ -48,7 +49,7 @@ class AnuncioController {
 
     def tablaAnuncios_ajax(){
 
-        def anuncios = Anuncio.list().sort{it.estado}
+        def anuncios = Anuncio.list().sort{it.id}
         return[anuncios: anuncios]
 
     }
@@ -74,6 +75,17 @@ class AnuncioController {
             if(publicacion){
                 publicacion.fechaFin = new Date()
                 publicacion.save(flush:true)
+            }
+
+            def publicaciones = Publicacion.findAllByAnuncio(anuncio)
+            def ultimaPublicacion = publicaciones ? publicaciones.last() : null
+
+            if(estadoActual == '1'){
+                if(ultimaPublicacion){
+                    ultimaPublicacion.fechaFin = new Date()
+                    ultimaPublicacion.save(flush:true)
+                }
+
             }
 
             producto.estado = 'I'

@@ -337,4 +337,22 @@ class ProductoController {
             render "ok"
         }
     }
+
+    def textoImagen_ajax(){
+        def imagen = Imagen.get(params.id)
+        return[imagen:imagen]
+    }
+
+    def guardarTextoImagenes_ajax(){
+        println("params ti " + params)
+        def imagen = Imagen.get(params.id)
+        imagen.texto = params.texto
+
+        if(!imagen.save(flush:true)){
+            println("error al guardar el texto de la imagen")
+            render "no"
+        }else{
+            render "ok"
+        }
+    }
 }
