@@ -1,3 +1,4 @@
+<%@ page import="ventas.Producto" %>
 <%--
   Created by IntelliJ IDEA.
   User: fabricio
@@ -5,14 +6,26 @@
   Time: 12:20
 --%>
 
+<style>
+
+    .marco{
+        border-color: #47b636;
+    }
+
+</style>
+
 <g:if test="${imagenes.size() > 0}">
     <div class="row">
         <g:each in="${imagenes}" var="file" status="i">
             <div class="col-sm-3 ${i}">
-                <div class="thumbnail">
-%{--                    <a href="#" class="btn btn-success btn-sm btn-add" style="margin-bottom: 5px">--}%
-%{--                        <i class="fa fa-check"></i> Seleccionar--}%
-%{--                    </a>--}%
+                <div class="thumbnail ${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal == '1' ? 'marco' : ''}">
+
+                    <g:if test="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal != '1'}">
+                        <a href="#" class="btn btn-success btn-sm btnPrincipal" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}">
+                            <i class="fa fa-parking"></i>
+                        </a>
+                    </g:if>
+
                     <a href="#" class="btn btn-danger btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
                         <i class="fa fa-trash"></i>
                     </a>
@@ -33,6 +46,25 @@
 </g:else>
 
 <script type="text/javascript">
+
+    $(".btnPrincipal").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+           type: 'POST',
+           url: '${createLink(controller: 'producto', action: 'ponerPrincipal_ajax')}',
+           data:{
+               id:id
+           },
+           success: function (msg) {
+               if(msg == 'ok'){
+                   bootbox.alert("<i class'fa fa-parking'></i> La imagen fue asignada como principal correctamente")
+                   cargarTablaImagenes();
+               }else{
+                   bootbox.alert("<i class'fa fa-times'></i> Error al asignar la imagen como princial")
+               }
+           }
+        });
+    });
 
     $(".btn-delete").click(function () {
         var file = $(this).data("file");

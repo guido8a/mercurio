@@ -317,4 +317,24 @@ class ProductoController {
             render "no"
         }
     }
+
+    def ponerPrincipal_ajax(){
+        def imagen = Imagen.get(params.id)
+        def producto = imagen.producto
+        def imagenes = Imagen.findAllByProducto(producto)
+
+        imagenes.each{
+            it.principal = 0
+            it.save(flush:true)
+        }
+
+        imagen.principal = 1
+
+        if(!imagen.save(flush:true)){
+            println("error al colocar el estado principal en imagen " + imagen.errors)
+            render "no"
+        }else{
+            render "ok"
+        }
+    }
 }

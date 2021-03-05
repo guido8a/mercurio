@@ -9,6 +9,7 @@ class Alerta {
     Date fechaIngreso
     Date fechaAprobacion
     String observaciones
+    String estado
 
     static mapping = {
         table 'alrt'
@@ -23,6 +24,7 @@ class Alerta {
             fechaIngreso column: 'alrtfcig'
             fechaAprobacion column: 'alrtfcap'
             observaciones column: 'alrtobsr'
+            estado column: 'alrtetdo'
         }
     }
     static constraints = {
@@ -31,5 +33,6 @@ class Alerta {
         fechaIngreso(blank: false, nullable: false)
         fechaAprobacion(blank: true, nullable: true)
         observaciones(blank: true, nullable: true, size: 0..255)
+        estado(blank: true, nullable: true, size: 0..1)
     }
 }
