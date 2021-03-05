@@ -29,6 +29,9 @@
                     <a href="#" class="btn btn-danger btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
                         <i class="fa fa-trash"></i>
                     </a>
+                    <a href="#" class="btn btn-info btn-sm pull-right" title="Texto de la imagen" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}" style="margin-bottom: 5px">
+                        <i class="fa fa-edit"></i>
+                    </a>
                     <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"/>
                     <div class="caption">
                         <p>${file.file}</p>
