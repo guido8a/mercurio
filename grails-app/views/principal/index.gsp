@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    %{--	<meta charset="utf-8">--}%
-    %{--	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}%
-    %{--	<meta name="description" content="">--}%
-    %{--	<meta name="author" content="">--}%
-
-    %{--	<meta name="layout" content="main">--}%
-
     <title>Ventas</title>
+
+%{--    <g:layoutHead/>--}%
 
     <!-- Bootstrap core CSS -->
     <asset:stylesheet src="/merc/bootstrap.min.css"/>
@@ -39,12 +38,17 @@
 
     .consulta {
         font-size: small;
-        background-color: #fdfffd;
+        background-color: #fdfdfd;
     }
     .cs900 {
-        width: 900px;
+        width: 800px;
         height: 350px;
+        align-content: center;
+        background-color: #efeff8;
     }
+    .carousel-inner { text-align: center; }
+    .carousel .item > img { display: inline-block;}
+    .imag-item { height: 350px; width: auto; max-height: 350px; margin: 0;}
     </style>
 </head>
 
@@ -116,19 +120,21 @@
                                   clase="${flash.clase}">${flash.message}</elm:flashMessage>
             </div>
 
-            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide my-4 cs900" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
                 </ol>
 
-                <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner cs900" role="listbox">
 
-   					<g:each in="${carrusel}" var="prod" status="i">
-                    	<div class="carousel-item ${i==0? 'active': ''}">
-                            <img class="d-block img-fluid cs900" alt="First slide"
-                                 src="${request.contextPath}/principal/getImgnProd?ruta=${prod}"/>
+   					<g:each in="${carrusel}" var="carr" status="i">
+                    	<div class="carousel-item ${i==0? 'active': ''}" >
+                            <img class="img-fluid imag-item" alt="First slide"
+                                 src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
                     	</div>
                     </g:each>
                 </div>
@@ -143,121 +149,27 @@
             </div>
 
             <div class="row">
+                <g:each in="${productos}" var="prod" status="i">
 
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="#">
-                            <img class="card-img-top" src="${request.contextPath}/principal/getImage?ruta=productos/pro_1/ai.jpeg"
-%{--                            <img class="card-img-top"--}%
-%{--                                 src="${createLink(controller: 'producto', action: 'getImage', params: [id: 'ai.jpeg', pro: '2'])}"/>--}%
-
+                                <img class="card-img-top"
+                                src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                         </a>
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Anuncio Uno</a>
+                                <a href="#">${prod.tt}</a>
                             </h4>
-                            <h5>$24.99</h5>
+                            <h5>${prod.sb}</h5>
 
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                            <p class="card-text">${prod.t}</p>
                         </div>
-                        %{--						<div class="card-footer">--}%
-                        %{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                        %{--						</div>--}%
                     </div>
                 </div>
+                </g:each>
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Anuncio Dos</a>
-                            </h4>
-                            <h5>$24.99</h5>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        %{--						<div class="card-footer">--}%
-                        %{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                        %{--						</div>--}%
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Anuncio Tres</a>
-                            </h4>
-                            <h5>$24.99</h5>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        %{--						<div class="card-footer">--}%
-                        %{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                        %{--						</div>--}%
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Four</a>
-                            </h4>
-                            <h5>$24.99</h5>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        %{--						<div class="card-footer">--}%
-                        %{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                        %{--						</div>--}%
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Five</a>
-                            </h4>
-                            <h5>$24.99</h5>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        %{--						<div class="card-footer">--}%
-                        %{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                        %{--						</div>--}%
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Six</a>
-                            </h4>
-                            <h5>$24.99</h5>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        %{--						<div class="card-footer">--}%
-                        %{--							<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                        %{--						</div>--}%
-                    </div>
-                </div>
-
-            </div>
             <!-- /.row -->
 
         </div>

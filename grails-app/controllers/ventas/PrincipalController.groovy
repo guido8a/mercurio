@@ -19,9 +19,48 @@ class PrincipalController {
         def usuario = session.usuario
 
         println("usuario " + usuario)
+        /** Se deben mostrar los anuncios vigentes
+         * 1. carrusel: destacados de anuncios, si no hay suficientes completar con vntaXX
+         * 2. Productos: productos de anuncios vigentes, completar con "aqui su anuncio" **/
+
+        def anun = Anuncio.findAllByEstado('1')
+        def publ = Publicacion.findAllByAnuncioAndFechaFinGreaterThanEquals(anun, new Date())
+        def prod = Imagen.findAllByProductoAndPrincipal(anun.producto, '0')
+//        def carrusel = [[tp: 'p', ruta: 'ai.jpeg'], [tp: 'p', ruta: 'usuario.png']]
+        def carrusel = []
+        println "publ: $publ"
+        publ.each {pb ->
+            /** si el producto tiene anuncio destacado  */
+            if(pb.destacado){
+                def imag = Imagen.findAllByProductoAndPrincipal(anun.producto, '1')
+                imag.each { im ->
+                    carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id])
+                }
+            }
+        }
+        def i = 1
+        while(carrusel.size() < 5) {
+            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
+        }
+
+//        def productos = [[tp: 'p', rt: 'casa7.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
+//                         [tp: 'p', rt: 'casa8.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
+//                         [tp: 'p', rt: 'conjunto1.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto']]
+        def productos = []
+        publ.each {pb ->
+            /** si el producto tiene anuncio destacado  */
+            def imag = Imagen.findByProductoAndPrincipal(anun.producto, '1')
+            imag.each { im ->
+                productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                              sb: im.producto.subtitulo, t: im.producto.texto])
+            }
+        }
+//        while(carrusel.size() < 3) {
+//            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg"])
+//        }
 
         return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: ['ai.jpeg','usuario.png']]
+                carrusel: carrusel, productos: productos]
     }
 
 
@@ -68,9 +107,11 @@ class PrincipalController {
 
     def getImgnProd(){
         println "getImgnProd: $params"
-        def producto = Producto.get(1)
-        def path = "/var/ventas/productos/pro_" + producto.id + "/"  + params.ruta
+        def producto = Producto.get(params.id)
+        def path = (params.tp == 'p'? "/var/ventas/productos/pro_${producto.id}/" : "/var/ventas/imagen/destacados/") + params.ruta
         def fileext = path.substring(path.indexOf(".")+1, path.length())
+
+        println "ruta: $path"
 
         BufferedImage imagen = ImageIO.read(new File(path));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -1,3 +1,5 @@
+package inicio
+
 class UrlMappings {
 
     static mappings = {
