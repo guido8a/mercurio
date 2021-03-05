@@ -42,13 +42,20 @@
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
-        <g:each in="${alertas}" var="alerta">
-            <tr data-id="${alerta?.id}" style="width: 100%">
-                <td style="width: 20%; text-align: center">${alerta?.producto?.persona?.nombre}</td>
-                <td style="width: 60%">${alerta?.producto?.titulo}</td>
-                <td style="width: 20%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
-            </tr>
-        </g:each>
+        <g:if test="${alertas.size() > 0}">
+            <g:each in="${alertas}" var="alerta">
+                <tr data-id="${alerta?.id}" style="width: 100%">
+                    <td style="width: 20%; text-align: center">${alerta?.producto?.persona?.nombre}</td>
+                    <td style="width: 60%">${alerta?.producto?.titulo}</td>
+                    <td style="width: 20%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
+                </tr>
+            </g:each>
+        </g:if>
+        <g:else>
+            <div class="alert alert-warning" role="alert" style="text-align: center">
+                <p style="font-size: 14px"><i class="fa fa-exclamation-triangle"></i> No existen alertas</p>
+            </div>
+        </g:else>
         </tbody>
     </table>
 </div>

@@ -68,11 +68,15 @@ class AlertaController {
         def existeAlerta = Alerta.findByProductoAndFechaAprobacionIsNull(producto)
         def existeAnuncio = Anuncio.findByProducto(producto)
 
+
         if(existeAlerta){
                 render "er_Ya existe una alerta en proceso asociada a este producto, no es posible retornar la alerta"
         }else{
-            if(existeAnuncio){
-                render "er_Ya existe un anuncio asociado a este producto, no es posible retornar la alerta"
+            if(existeAnuncio?.estado == '1'){
+//                def existePublicacion = Publicacion.findByAnuncioAndFechaFinGreaterThan(existeAnuncio, new Date())
+//                if(existePublicacion){
+                    render "er_Ya existe un anuncio activo, no es posible retornar la alerta"
+//                }
             }else{
 
                 producto.estado = 'R'

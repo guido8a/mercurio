@@ -13,7 +13,7 @@ class ProductoController {
 
     def list(){
         println("params " + params)
-        def persona = Persona.get(params.id)
+        def persona = Persona.get(session.usuario.id)
         def productos = Producto.findAllByPersona(persona)
         return[productos: productos, persona: persona]
     }

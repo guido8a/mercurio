@@ -49,7 +49,7 @@
                 <td style="width: 20%">${producto?.titulo}</td>
                 <td style="width: 20%;">${producto?.subtitulo}</td>
                 <td style="width: 20%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
-                <td style="width: 20%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : 'Inactivo')}</td>
+                <td style="width: 20%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
             </tr>
         </g:each>
         </tbody>
@@ -215,7 +215,7 @@
                             },
                             success : function (msg) {
                                 bootbox.dialog({
-                                    title   : "Ver promotor",
+                                    title   : "Ver producto",
                                     message : msg,
                                     buttons : {
                                         ok : {

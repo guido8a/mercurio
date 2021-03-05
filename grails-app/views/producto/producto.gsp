@@ -83,9 +83,9 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="producto" action="list" id="${persona?.id}" class="btn btn-primary btnVolver">
+        <a href="#" class="btn btn-primary btnVolver">
             <i class="fa fa-arrow-left"></i> Volver
-        </g:link>
+        </a>
         <a href="#" class="btn btn-success" id="btnGuardarProducto" title="Guardar cambios en producto">
             <i class="fa fa-save"></i> Guardar </a>
         <g:if test="${producto?.id}">
@@ -108,31 +108,22 @@
     </div>
 </div>
 
-%{--
-<div class="col-md-12">
-    <g:if test="${producto?.id}">
-        <h2 style="margin-top: 10px; text-align: center">Producto de: ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</h2>
-    </g:if>
-    <g:else>
-        <h2 style="margin-top: 10px; text-align: center">Nuevo Producto de: ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</h2>
-    </g:else>
-</div>
---}%
+<g:if test="${producto?.id}">
+    <div class="col-md-12">
+        <div id="carrusel">
 
-<div class="col-md-12">
-    <div id="carrusel">
-
-        <a href="#" class="left-arrow"><asset:image src="apli/left-arrow.png" title='Anterior'/></a>
-        <a href="#" class="right-arrow"><asset:image src="apli/right-arrow.png" title='Siguiente'/></a>
-        <div class="carrusel">
-            <g:each in="${imagenes}" var="im" status="i">
-            <div class="product" id="product_${i+1}">
-                <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: "${im.file}", pro: producto?.id] )}"  width="120" height="80"/>
+            <a href="#" class="left-arrow"><asset:image src="apli/left-arrow.png" title='Anterior'/></a>
+            <a href="#" class="right-arrow"><asset:image src="apli/right-arrow.png" title='Siguiente'/></a>
+            <div class="carrusel">
+                <g:each in="${imagenes}" var="im" status="i">
+                    <div class="product" id="product_${i+1}">
+                        <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: "${im.file}", pro: producto?.id] )}"  width="120" height="80"/>
+                    </div>
+                </g:each>
             </div>
-            </g:each>
         </div>
     </div>
-</div>
+</g:if>
 
 <div class="row">
 <g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
@@ -268,6 +259,10 @@
 
 <script type="text/javascript">
 
+    $(".btnVolver").click(function () {
+       location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+    });
+
     $("#btnAprobacion").click(function () {
         bootbox.dialog({
             title   : "Alerta",
@@ -299,7 +294,20 @@
             },
             success: function (msg) {
                 if(msg == 'ok'){
-                    bootbox.alert("<i class='fa fa-check fa-3x pull-left text-success text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>")
+
+                    bootbox.dialog({
+                        title   : "Confirmación",
+                        message : "<i class='fa fa-check fa-3x pull-left text-success text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        buttons : {
+                            aceptar : {
+                                label     : "<i class='fa fa-check'></i> Aceptar",
+                                className : "btn-success",
+                                callback  : function () {
+                                    location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                }
+                            }
+                        }
+                    });
                 }else{
                     bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")
                 }
