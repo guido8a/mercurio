@@ -226,7 +226,7 @@
                     Atributos
                 </label>
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}"
                               class="form-control" optionKey="id"/>
                 </div>
@@ -235,7 +235,7 @@
                     Valor
                 </label>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <g:textField name="valor" maxlength="63" class="form-control"/>
                 </div>
 
@@ -307,7 +307,9 @@
                 if(msg == 'ok'){
                     bootbox.dialog({
                         title   : "Alerta",
-                        message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> <p style='font-size: 14px; font-weight: bold'>El producto será publicado con la información guardada hasta el momento.</p>",
+                        message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> " +
+                            "<p style='font-size: 14px; font-weight: bold'>&nbsp;El producto será publicado con la " +
+                            "información guardada hasta el momento.</p>",
                         buttons : {
                             cancelar : {
                                 label     : "<i class='fa fa-times'></i> Cancelar",
