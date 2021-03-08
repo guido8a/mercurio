@@ -190,8 +190,12 @@ class MenuTagLib {
         html += '<span class="icon-bar"></span>'
         html += '<span class="icon-bar"></span>'
         html += '</button>'
+/*
         html += '<a class="navbar-brand navbar-logo" href="' + g.createLink(controller: 'inicio', action: 'index') +
                 '"> <img src="' + g.assetPath(src: 'apli/logo.png') + '" style="float:left; height:40px">' + '</a>'
+*/
+        html += '<a class="navbar-brand navbar-logo" href="/"> <img src="' + g.assetPath(src: 'apli/logo.png') +
+                '" style="float:left; height:40px">' + '</a>'
 
         html += '</div>'
 
@@ -243,10 +247,25 @@ class MenuTagLib {
         }
         println "items: $items"
 
+        def admin = ""
+        if(session.usuario) {
+            admin = "<span class='nav-item'><a class='nav-link' " +
+                    "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
+                    "style=\"color:#40dfd0; font-size:small\">Vender<br/>${session.usuario?.nombres}</a></span>" +
+                    "<span class='nav-item' id='registro'><a class='nav-link' href=\"${createLink(controller: 'login', action: 'logout')}\" "+
+                    "style=\"color:#FFAB19;font-size:small\">Salir</a></span>"
+        } else {
+            admin = "<span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
+                    "style=\"color:#FFAB19; font-size:small\">Ingresar</a></span>" +
+                    "<span class='nav-item' id='registro'><a class='nav-link' href='#' " +
+                    "style=\"color:#FFAB19;font-size:small\">Registrarse</a></span>"
+        }
+
         def html1 = "<nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>" +
             "<div class='container'>" +
-            "<a class='navbar-brand' href='/?id=1'><img src=" + g.assetPath(src: 'apli/logo.png') +
+            "<a class='navbar-brand' href='/'><img src=" + g.assetPath(src: 'apli/logo.png') +
             " style='float:left; height:40px'></a>" +
+            admin +
 		    "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarResponsive' " +
             "aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation'>" +
             "<span class='navbar-toggler-icon'></span></button>" +
@@ -258,10 +277,8 @@ class MenuTagLib {
             strItems += '</li>'
         }
 
-//        def admin = "<li class='nav-item'><a class='nav-link' " +
-//                "href=\"${createLink(controller: 'login', action: 'login')}\">Admin</a></li>"
-        def admin = ""
-        out << html1 + strItems + admin + "</ul></div></div></nav>"
+//        def admin = ""
+        out << html1 + strItems + "</ul></div></div></nav>"
     }
 
 }

@@ -70,11 +70,14 @@
 
         <div class="col-lg-3">
 
+%{--
             <g:if test="${usuario}">
                 <label style="margin-top: 10px">Usuario: ${usuario.nombre} ${usuario.apellido}</label>
             </g:if>
+--}%
 
 
+%{--
             <div class="btn-group" style="margin-top: 20px">
                 <g:if test="${usuario}">
                     <a href="${createLink(controller: 'login', action: 'logout')}" class="btn btn-warning"
@@ -88,7 +91,9 @@
                 <a href="#" id="registro" class="btn btn-info" style="text-decoration: none"><i
                         class="fa fa-cog"></i> Registrarse</a>
             </div>
+--}%
 
+%{--
             <div class="btn-group" style="margin-top: 5px">
                 <g:if test="${usuario}">
                     <a href="${createLink(controller: 'producto', action: 'list', id: usuario?.id)}"
@@ -96,7 +101,9 @@
                     </a>
                 </g:if>
             </div>
+--}%
 
+            <div style="height: 20px"></div>
             <h2 class="my-2">Categorías</h2>
 
             <div class="list-group">
@@ -218,7 +225,8 @@
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                             <a href="#">
-                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>
+%{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
+                                <img width="250px" height="200px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                             </a>
 
                             <div class="card-body">

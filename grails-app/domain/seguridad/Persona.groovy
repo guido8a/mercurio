@@ -95,8 +95,11 @@ class Persona implements Auditable{
         if (this.activo != 1) {
             return false
         }
-
         return true
+    }
+
+    def getNombres() {
+        "${this.nombre} ${this.apellido}"
     }
 
     def vaciarPermisos() {

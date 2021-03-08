@@ -25,7 +25,7 @@ class PrincipalController {
 
         def anun = Anuncio.findAllByEstado('1')
         def publ = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEquals(anun, new Date())
-        def prod = Imagen.findAllByProductoAndPrincipal(anun.producto, '0')
+
 //        def carrusel = [[tp: 'p', ruta: 'ai.jpeg'], [tp: 'p', ruta: 'usuario.png']]
         def carrusel = []
         println "publ: $publ"
@@ -47,92 +47,29 @@ class PrincipalController {
 //        def productos = [[tp: 'p', rt: 'casa7.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
 //                         [tp: 'p', rt: 'casa8.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
 //                         [tp: 'p', rt: 'conjunto1.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto']]
-        def productos = []
-
-
+        def productos = [], normales = []
         publ.each {pb ->
             /** si el producto tiene anuncio destacado  */
-            def imag = Imagen.findByProductoAndPrincipal(pb.anuncio.producto, '1')
-            def imagNormal = Imagen.findByProducto(pb.anuncio.producto)
-//            imag.each { im ->
-//                productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-//                              sb: im.producto.subtitulo, t: im.producto.texto, ds: 'S'])
-//            }
-
-            if(imag){
-                imag.each { im ->
+            def imag = Imagen.findAllByProducto(pb.anuncio.producto)
+            println "imágenes: $imag ${imag.principal}"
+            imag.each { im ->
+                if(im.principal == '1') {
                     productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                           sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
-                }
-            }else{
-                imagNormal.each { im ->
-                    productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                           sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
-                }
-            }
-
-        }
-
-        def anunciosDestacados = Anuncio.findAllByEstado('1')
-
-    /*
-        def publicacionesDestacadas = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEqualsAndDestacado(anunciosDestacados, new Date(),'1')
-
-        def productosDestacados = []
-
-        publicacionesDestacadas.each {pb ->
-            def imag = Imagen.findByProductoAndPrincipal(pb.anuncio.producto, '1')
-            def imagenComun = Imagen.findByProducto(pb.anuncio.producto)
-            if(imag){
-                imag.each { im ->
-                    productosDestacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                             sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
-                }
-            }else{
-                imagenComun.each { im ->
-                    productosDestacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                             sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
-                }
-            }
-        }
- */
-
-        def publicacionesNormales = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEqualsAndDestacado(anunciosDestacados, new Date(),'0')
-
-        def productosNormales =[]
-
-        publicacionesNormales.each {pb ->
-            def imag = Imagen.findByProductoAndPrincipal(pb.anuncio.producto, '1')
-            def imagenComun = Imagen.findByProducto(pb.anuncio.producto)
-            if(imag){
-                imag.each { im ->
-                    productosNormales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                             sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
-                }
-            }else{
-                imagenComun.each { im ->
-                    productosNormales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                             sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
+                                   sb: im.producto.subtitulo, t: im.producto.texto])
+                } else {
+                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                                   sb: im.producto.subtitulo, t: im.producto.texto])
                 }
             }
         }
 
-//        println("productos D " + productosDestacados)
-        println("productos N " + productosNormales)
+        println "productos: ${productos.rt}"
+        println "normales: ${normales.rt}"
 
-
-//        while(carrusel.size() < 3) {
-//            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg"])
-//        }
-
-
-/*
+//        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
+//                carrusel: carrusel, productos: productosDestacados, normales: productosNormales]
         return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: carrusel, productos: productosDestacados, normales: productosNormales]
-*/
-
-        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: carrusel, productos: productos, normales: productosNormales]
+                carrusel: carrusel, productos: productos, normales: normales]
 
     }
 
