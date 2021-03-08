@@ -32,7 +32,8 @@ class PrincipalController {
         publ.each {pb ->
             /** si el producto tiene anuncio destacado  */
             if(pb.destacado){
-                def imag = Imagen.findAllByProductoInListAndPrincipal(anun.producto, '1')
+                def imag = Imagen.findAllByProductoAndPrincipal(pb.anuncio.producto, '1')
+                println "imagen: ${imag}"
                 imag.each { im ->
                     carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id])
                 }
@@ -46,18 +47,19 @@ class PrincipalController {
 //        def productos = [[tp: 'p', rt: 'casa7.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
 //                         [tp: 'p', rt: 'casa8.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
 //                         [tp: 'p', rt: 'conjunto1.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto']]
-//        def productos = []
-//
-//        publ.each {pb ->
-//            /** si el producto tiene anuncio destacado  */
-////            def imag = Imagen.findByProductoAndPrincipal(anun.producto, '1')
-//            def imag = Imagen.findByProductoAndPrincipal(pb.anuncio.producto, '1')
-//            imag.each { im ->
-//                productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-//                              sb: im.producto.subtitulo, t: im.producto.texto])
-//            }
-//        }
+        def productos = []
 
+        publ.each {pb ->
+            /** si el producto tiene anuncio destacado  */
+//            def imag = Imagen.findByProductoAndPrincipal(anun.producto, '1')
+            def imag = Imagen.findByProductoAndPrincipal(pb.anuncio.producto, '1')
+            imag.each { im ->
+                productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                              sb: im.producto.subtitulo, t: im.producto.texto, ds: 'S'])
+            }
+        }
+
+/*
         def anunciosDestacados = Anuncio.findAllByEstado('1')
         def publicacionesDestacadas = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEqualsAndDestacado(anunciosDestacados, new Date(),'1')
 
@@ -101,13 +103,20 @@ class PrincipalController {
 
         println("productos D " + productosDestacados)
         println("productos N " + productosNormales)
+*/
 
 //        while(carrusel.size() < 3) {
 //            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg"])
 //        }
 
+
+/*
         return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
                 carrusel: carrusel, productos: productosDestacados, normales: productosNormales]
+*/
+
+        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
+                carrusel: carrusel, productos: productos, normales: null]
 
     }
 
