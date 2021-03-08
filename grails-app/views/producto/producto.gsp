@@ -149,6 +149,32 @@
             </span>
         </div>
 
+        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
+            <span class="grupo">
+                <label class="col-md-3 control-label text-info">
+                    Anuncio (Título)
+                </label>
+                <div class="col-md-8">
+                    <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
+                                 value="${producto?.titulo}" style="background-color: #ffffef"/>
+                </div>
+            </span>
+        </div>
+
+        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
+            <span class="grupo">
+                <label class="col-md-2 control-label text-info">
+                    Descripción resuminda
+                </label>
+                <div class="col-md-10">
+                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
+                                 value="${producto?.subtitulo}"/>
+                </div>
+            </span>
+        </div>
+
+        <div style="margin-top: 20px; margin-bottom: 20px"></div>
+
 
         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
             <span class="grupo">
@@ -162,9 +188,6 @@
             </span>
         </div>
 
-
-
-
         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
             <span class="grupo">
                 <label class="col-md-2 control-label text-info">
@@ -177,32 +200,9 @@
 
         <div style="margin-top: 20px; margin-bottom: 20px"></div>
 
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
-            <span class="grupo">
-                <label class="col-md-2 control-label text-info">
-                    Título
-                </label>
-                <div class="col-md-10">
-                    <g:textField name="titulo" maxlength="255" class="form-control" value="${producto?.titulo}"/>
-                </div>
-            </span>
-        </div>
-
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
-            <span class="grupo">
-                <label class="col-md-2 control-label text-info">
-                    Subtítulo
-                </label>
-                <div class="col-md-10">
-                    <g:textField name="subtitulo" maxlength="255" class="form-control" value="${producto?.subtitulo}"/>
-                </div>
-            </span>
-        </div>
-
-        <div style="margin-top: 20px; margin-bottom: 20px"></div>
 
         <label class="col-md-2 control-label text-info">
-            Texto adicional
+            Detalles o Especifi-caciones
         </label>
         <div class="col-md-10 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
             <textarea id="texto" class="editor">${producto?.texto}</textarea>

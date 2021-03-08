@@ -48,7 +48,7 @@ class ProductoController {
         if(producto?.id){
             path += producto.id + "/"
             def imag = new File(path)
-            imag.eachFileRecurse(FileType.FILES) { file ->
+            imag?.eachFileRecurse(FileType.FILES) { file ->
                 def img = ImageIO.read(file)
                 if (img) {
                     imagenes.add([file: file.name])

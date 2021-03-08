@@ -15,27 +15,27 @@
 
 <elm:flashMessage tipo="${flash.tipo}" clase="${flash.clase}">${flash.message}</elm:flashMessage>
 
+<h3 style="text-align: center">Administración de Anuncios de ${persona?.nombre} ${persona?.apellido}</h3>
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="principal" action="index" class="btn btn-primary btnVolver">
+        <g:link controller="principal" action="index" class="btn btn-primary btnVolver" title="Volver a página principal">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
-%{--        <g:link action="form" class="btn btn-info btnCrear">--}%
-%{--            <i class="fa fa-file"></i> Nuevo producto--}%
-%{--        </g:link>--}%
-        <a href="${createLink(controller: 'producto', action: 'producto', params: [persona: persona?.id])}" class="btn btn-info"><i class="fa fa-file"></i> Nuevo producto </a>
+        <a href="${createLink(controller: 'producto', action: 'producto', params: [persona: persona?.id])}"
+           class="btn btn-info" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio </a>
     </div>
 </div>
 
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 20%">Categoria</th>
-        <th style="width: 20%">Título</th>
-        <th style="width: 20%">Subtítulo</th>
-        <th style="width: 20%">Fecha creación</th>
-        <th style="width: 20%">Estado</th>
+        <th style="width: 20%">Anuncio</th>
+        <th style="width: 25%">Descripción resuminda</th>
+        <th style="width: 15%">Categoria</th>
+        <th style="width: 20%">Subcategoria</th>
+        <th style="width: 10%">Fecha creación</th>
+        <th style="width: 10%">Estado</th>
     </tr>
     </thead>
 </table>
@@ -45,11 +45,12 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="producto">
             <tr data-id="${producto?.id}" style="width: 100%">
-                <td style="width: 20%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${producto?.titulo}</td>
-                <td style="width: 20%;">${producto?.subtitulo}</td>
-                <td style="width: 20%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
-                <td style="width: 20%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 25%;">${producto?.subtitulo}</td>
+                <td style="width: 15%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
+                <td style="width: 20%; text-align: center">${producto?.subcategoria?.descripcion}</td>
+                <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
+                <td style="width: 10%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
             </tr>
         </g:each>
         </tbody>
