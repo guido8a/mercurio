@@ -93,9 +93,9 @@
                 <i class="fa fa-images"></i> Agregar imágenes </a>
 
             <a href="#" class="btn btn-primary" id="btnImasProducto" title="Visualizar como se presentará el anuncio">
-                <i class="fa fa-search-dollar"></i> Previsualizar el Anuncio</a>
+                <i class="fa fa-search"></i> Previsualizar el Anuncio</a>
 
-            <a href="#" class="btn btn-primary" id="btnImasProducto" title="Visualizar como se presentará el anuncio">
+            <a href="#" class="btn btn-warning" id="btnDestacarProducto" title="Destacar el producto en la página principal">
                 <i class="fas fa-lightbulb"></i> Destacar este Anuncio</a>
 
         </g:if>
@@ -260,49 +260,87 @@
 </div>
 
 
-
-
-
 <script type="text/javascript">
+
+    $("#btnDestacarProducto").click(function () {
+            $.ajax({
+                type    : "POST",
+                url     : "${createLink(controller: 'producto', action:'destacado_ajax')}",
+                data    : {
+                    id: '${producto?.id}'
+                },
+                success : function (msg) {
+                    var b = bootbox.dialog({
+                        id      : "dlgCreateEditP",
+                        title   : "Producto destacado",
+                        message : msg,
+                        buttons : {
+                            cancelar : {
+                                label     : "<i class='fa fa-times'></i> Salir",
+                                className : "btn-primary",
+                                callback  : function () {
+
+                                }
+                            }
+                        } //buttons
+                    }); //dialog
+                    setTimeout(function () {
+                        b.find(".form-control").not(".datepicker").first().focus()
+                    }, 500);
+                } //success
+            }); //ajax
+    });
 
     $(".btnVolver").click(function () {
         location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
     });
 
     $("#btnAprobacion").click(function () {
-        bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> <p style='font-size: 14px; font-weight: bold'>El producto será publicado con la información guardada hasta el momento.</p>",
-            buttons : {
-                cancelar : {
-                    label     : "<i class='fa fa-times'></i> Cancelar",
-                    className : "btn-primary",
-                    callback  : function () {
-                    }
-                },
-                publicar : {
-                    label     : "<i class='fa fa-check'></i> Publicar",
-                    className : "btn-success",
-                    callback  : function () {
-                        publicarProducto();
-                    }
+
+       $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action:'verificarImagen_ajax')}',
+            data:{
+                id: $("#id").val()
+            },
+            success: function(msg){
+                if(msg == 'ok'){
+                    bootbox.dialog({
+                        title   : "Alerta",
+                        message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> <p style='font-size: 14px; font-weight: bold'>El producto será publicado con la información guardada hasta el momento.</p>",
+                        buttons : {
+                            cancelar : {
+                                label     : "<i class='fa fa-times'></i> Cancelar",
+                                className : "btn-primary",
+                                callback  : function () {
+                                }
+                            },
+                            publicar : {
+                                label     : "<i class='fa fa-check'></i> Publicar",
+                                className : "btn-success",
+                                callback  : function () {
+                                    publicarProducto();
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    bootbox.dialog({
+                        title   : "Alerta",
+                        message : "<i class='fa fa-times fa-3x pull-left text-info text-shadow'></i> <p style='font-size: 14px; font-weight: bold'>Se debe ingresar al menos UNA imagen para el producto.</p>",
+                        buttons : {
+                            cancelar : {
+                                label     : "<i class='fa fa-times'></i> Aceptar",
+                                className : "btn-primary",
+                                callback  : function () {
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
     });
-
-    function verificarImagen() {
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'producto', action:'verificarImagen_ajax')}',
-            data:{
-
-            },
-            success: function(msg){
-
-            }
-        });
-    }
 
     function publicarProducto(){
         $.ajax({
@@ -395,9 +433,10 @@
                     message : msg,
                     buttons : {
                         cancelar : {
-                            label     : "Cancelar",
+                            label     : "<i class='fa fa-times'></i> Salir",
                             className : "btn-primary",
                             callback  : function () {
+                                location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
                             }
                         }
                     } //buttons
@@ -595,32 +634,32 @@
     %{--    }); //ajax--}%
     %{--} //createEdit--}%
 
-    function cargarImagenes(id) {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller: 'producto', action:'imagenes_ajax')}",
-            data    : {
-                id:id,
-                anuncio: '${anuncio?.id}'
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgImas",
-                    title   : "Imágenes",
-                    class : "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    } //createEdit
+    %{--function cargarImagenes(id) {--}%
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url     : "${createLink(controller: 'producto', action:'imagenes_ajax')}",--}%
+    %{--        data    : {--}%
+    %{--            id:id,--}%
+    %{--            anuncio: '${anuncio?.id}'--}%
+    %{--        },--}%
+    %{--        success : function (msg) {--}%
+    %{--            var b = bootbox.dialog({--}%
+    %{--                id      : "dlgImas",--}%
+    %{--                title   : "Imágenes",--}%
+    %{--                class : "modal-lg",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--} //createEdit--}%
 
     $(function () {
 

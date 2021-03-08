@@ -49,18 +49,33 @@ class PrincipalController {
 //                         [tp: 'p', rt: 'conjunto1.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto']]
         def productos = []
 
+
         publ.each {pb ->
             /** si el producto tiene anuncio destacado  */
-//            def imag = Imagen.findByProductoAndPrincipal(anun.producto, '1')
             def imag = Imagen.findByProductoAndPrincipal(pb.anuncio.producto, '1')
-            imag.each { im ->
-                productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                              sb: im.producto.subtitulo, t: im.producto.texto, ds: 'S'])
+            def imagNormal = Imagen.findByProducto(pb.anuncio.producto)
+//            imag.each { im ->
+//                productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+//                              sb: im.producto.subtitulo, t: im.producto.texto, ds: 'S'])
+//            }
+
+            if(imag){
+                imag.each { im ->
+                    productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                                           sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
+                }
+            }else{
+                imagNormal.each { im ->
+                    productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                                           sb: im.producto.subtitulo, t: im.producto.texto, w: 100, h: 100])
+                }
             }
+
         }
 
-/*
         def anunciosDestacados = Anuncio.findAllByEstado('1')
+
+    /*
         def publicacionesDestacadas = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEqualsAndDestacado(anunciosDestacados, new Date(),'1')
 
         def productosDestacados = []
@@ -80,6 +95,7 @@ class PrincipalController {
                 }
             }
         }
+ */
 
         def publicacionesNormales = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEqualsAndDestacado(anunciosDestacados, new Date(),'0')
 
@@ -101,9 +117,9 @@ class PrincipalController {
             }
         }
 
-        println("productos D " + productosDestacados)
+//        println("productos D " + productosDestacados)
         println("productos N " + productosNormales)
-*/
+
 
 //        while(carrusel.size() < 3) {
 //            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg"])
@@ -116,7 +132,7 @@ class PrincipalController {
 */
 
         return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: carrusel, productos: productos, normales: null]
+                carrusel: carrusel, productos: productos, normales: productosNormales]
 
     }
 

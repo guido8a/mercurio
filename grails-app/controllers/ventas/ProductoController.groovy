@@ -358,4 +358,22 @@ class ProductoController {
             render "ok"
         }
     }
+
+    def verificarImagen_ajax(){
+        def producto = Producto.get(params.id)
+        def imagenes = Imagen.findAllByProducto(producto)
+
+        println("ima " + imagenes)
+
+        if(imagenes){
+            render "ok"
+        }else{
+            render "no"
+        }
+    }
+
+    def destacado_ajax(){
+        def producto = Producto.get(params.id)
+        return[producto:producto]
+    }
 }
