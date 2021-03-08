@@ -49,6 +49,13 @@
     .carousel-inner { text-align: center; }
     .carousel .item > img { display: inline-block;}
     .imag-item { height: 350px; width: auto; max-height: 350px; margin: 0;}
+
+
+    .marcoDestacados{
+        border-color: #47b636;
+    }
+
+
     </style>
 </head>
 
@@ -125,8 +132,8 @@
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+%{--                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>--}%
+%{--                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>--}%
                 </ol>
 
                 <div class="carousel-inner cs900" role="listbox">
@@ -148,31 +155,137 @@
                 </a>
             </div>
 
+%{--            <div class="row">--}%
+%{--                <g:each in="${productos}" var="prod" status="i">--}%
+
+%{--                <div class="col-lg-4 col-md-6 mb-4">--}%
+%{--                    <div class="card h-100">--}%
+%{--                        <a href="#">--}%
+%{--                                <img class="card-img-top"--}%
+%{--                                src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>--}%
+%{--                        </a>--}%
+
+%{--                        <div class="card-body">--}%
+%{--                            <h4 class="card-title">--}%
+%{--                                <a href="#">${prod.tt}</a>--}%
+%{--                            </h4>--}%
+%{--                            <h5>${prod.sb}</h5>--}%
+
+%{--                            <p class="card-text">${prod.t}</p>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--                </g:each>--}%
+%{--        </div>--}%
+
+
+%{--        Destacados--}%
+        <g:if test="${productos.size() > 0}">
+            <div style="color: #47b636">Destacados</div>
+
             <div class="row">
                 <g:each in="${productos}" var="prod" status="i">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 marcoDestacados">
+                            <a href="#">
+                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>
+                            </a>
 
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">${prod.tt}</a>
+                                </h4>
+                                <h5>${prod.sb ?: 'Sin descripción'}</h5>
+
+                                %{--                            <p class="card-text">${prod.sb}</p>--}%
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
+                        </div>
+                    </div>
+                </g:each>
+            </div>
+        </g:if>
+
+%{--        Normales--}%
+
+
+        <div class="row">
+            <g:if test="${normales.size() > 0}">
+                <g:each in="${normales}" var="prod" status="i">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#">
+                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>
+                            </a>
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">${prod.tt}</a>
+                                </h4>
+                                <h5>${prod.sb ?: 'Sin descripción'}</h5>
+
+                                %{--                            <p class="card-text">${prod.sb}</p>--}%
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
+                        </div>
+                    </div>
+                </g:each>
+            </g:if>
+            <g:else>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#">
-                                <img class="card-img-top"
-                                src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
-                        </a>
-
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">${prod.tt}</a>
+                                <a href="#">Producto 1</a>
                             </h4>
-                            <h5>${prod.sb}</h5>
-
-                            <p class="card-text">${prod.t}</p>
+                            <h5>$24.99</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                         </div>
                     </div>
                 </div>
-                </g:each>
-
-            <!-- /.row -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Producto 2</a>
+                            </h4>
+                            <h5>$24.99</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Producto 3</a>
+                            </h4>
+                            <h5>$24.99</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+            </g:else>
 
         </div>
+
+
         <!-- /.col-lg-9 -->
 
     </div>

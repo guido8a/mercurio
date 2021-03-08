@@ -109,147 +109,153 @@
 </div>
 
 <g:if test="${producto?.id}">
-    <div class="col-md-12">
-        <div id="carrusel">
-
-            <a href="#" class="left-arrow"><asset:image src="apli/left-arrow.png" title='Anterior'/></a>
-            <a href="#" class="right-arrow"><asset:image src="apli/right-arrow.png" title='Siguiente'/></a>
-            <div class="carrusel">
-                <g:each in="${imagenes}" var="im" status="i">
-                    <div class="product" id="product_${i+1}">
-                        <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: "${im.file}", pro: producto?.id] )}"  width="120" height="80"/>
-                    </div>
-                </g:each>
+    <g:if test="${imagenes.size() > 0}">
+        <div class="col-md-12">
+            <div id="carrusel">
+                <a href="#" class="left-arrow"><asset:image src="apli/left-arrow.png" title='Anterior'/></a>
+                <a href="#" class="right-arrow"><asset:image src="apli/right-arrow.png" title='Siguiente'/></a>
+                <div class="carrusel">
+                    <g:each in="${imagenes}" var="im" status="i">
+                        <div class="product" id="product_${i+1}">
+                            <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: "${im.file}", pro: producto?.id] )}"  width="120" height="80" title="${im.file}"/>
+                        </div>
+                    </g:each>
+                </div>
             </div>
         </div>
-    </div>
+    </g:if>
+    <g:else>
+        <div class="col-md-12" style="margin-top: 40px">
+
+        </div>
+    </g:else>
 </g:if>
 
 <div class="row">
-<g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
-    <g:hiddenField name="id" value="${producto?.id}" />
-    <g:hiddenField name="persona" value="${persona?.id}" />
+    <g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
+        <g:hiddenField name="id" value="${producto?.id}" />
+        <g:hiddenField name="persona" value="${persona?.id}" />
 
 
-    <div class="col-lg-6" style="border-right: #0a193b; border-style: solid; border-width: 1px; border-left: none; border-top: none; border-bottom: none">
+        <div class="col-lg-6" style="border-right: #0a193b; border-style: solid; border-width: 1px; border-left: none; border-top: none; border-bottom: none">
 
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-            <span class="grupo" >
-                <div style="text-align: center">
-                    <g:if test="${producto?.id}">
-                        <label class="col-md-3 control-label text-info">
-                            Estado del producto
-                        </label>
+            <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                <span class="grupo" >
+                    <div style="text-align: center">
+                        <g:if test="${producto?.id}">
+                            <label class="col-md-3 control-label text-info">
+                                Estado del producto
+                            </label>
 
-                        <div class="col-md-4">
-                            <span class="badge bg-warning" style="font-size: x-large; background-color:  ${producto?.estado == 'A' ? '#78B665' : (producto?.estado == 'R' ? '#cba51d' : '#C42623')} ">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : 'Inactivo')}</span>
-                        </div>
-                    </g:if>
-                </div>
-            </span>
-        </div>
-
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
-            <span class="grupo">
-                <label class="col-md-3 control-label text-info">
-                    Anuncio (Título)
-                </label>
-                <div class="col-md-8">
-                    <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
-                                 value="${producto?.titulo}" style="background-color: #ffffef"/>
-                </div>
-            </span>
-        </div>
-
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
-            <span class="grupo">
-                <label class="col-md-2 control-label text-info">
-                    Descripción resuminda
-                </label>
-                <div class="col-md-10">
-                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
-                                 value="${producto?.subtitulo}"/>
-                </div>
-            </span>
-        </div>
-
-        <div style="margin-top: 20px; margin-bottom: 20px"></div>
-
-
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-            <span class="grupo">
-                <label for="categoria" class="col-md-2 control-label text-info">
-                    Categoría
-                </label>
-                <div class="col-md-10">
-                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
-                              optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
-                </div>
-            </span>
-        </div>
-
-        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-            <span class="grupo">
-                <label class="col-md-2 control-label text-info">
-                    Subcategoría
-                </label>
-                <div class="col-md-10" id="divSubcategoria">
-                </div>
-            </span>
-        </div>
-
-        <div style="margin-top: 20px; margin-bottom: 20px"></div>
-
-
-        <label class="col-md-2 control-label text-info">
-            Detalles o Especifi-caciones
-        </label>
-        <div class="col-md-10 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
-            <textarea id="texto" class="editor">${producto?.texto}</textarea>
-        </div>
-
-    </div>
-
-    <div class="col-lg-6">
-
-        <g:if test="${producto?.id}">
-
-%{--            <div style="margin-top: 20px; margin-bottom: 20px"></div>--}%
-
-            <label class="col-md-2 control-label text-info">
-                Atributos
-            </label>
-
-            <div class="col-md-6">
-                <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}"
-                          class="form-control" optionKey="id"/>
+                            <div class="col-md-7">
+                                <span class="badge bg-warning" style="font-size: x-large; background-color:  ${producto?.estado == 'A' ? '#78B665' : (producto?.estado == 'R' ? '#cba51d' : '#C42623')} ">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : 'Inactivo')}</span>
+                            </div>
+                        </g:if>
+                    </div>
+                </span>
             </div>
 
-            <label class="col-md-1 control-label text-info">
-                Valor
-            </label>
-
-            <div class="col-md-2">
-                <g:textField name="valor" maxlength="63" class="form-control"/>
+            <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
+                <span class="grupo">
+                    <label class="col-md-3 control-label text-info">
+                        Anuncio (Título)
+                    </label>
+                    <div class="col-md-8">
+                        <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
+                                     value="${producto?.titulo}" style="background-color: #ffffef"/>
+                    </div>
+                </span>
             </div>
 
-            <div class="col-md-1">
-                <a href="#" class="btn btn-success" id="btnAgregarAt" title="Agregar atributo"><i class="fa fa-plus"></i></a>
+            <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
+                <span class="grupo">
+                    <label class="col-md-2 control-label text-info">
+                        Descripción resuminda
+                    </label>
+                    <div class="col-md-10">
+                        <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
+                                     value="${producto?.subtitulo}"/>
+                    </div>
+                </span>
             </div>
-
 
             <div style="margin-top: 20px; margin-bottom: 20px"></div>
 
-            <div class="col-md-12" id="tablaAtributos" style="margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
 
+            <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                <span class="grupo">
+                    <label for="categoria" class="col-md-2 control-label text-info">
+                        Categoría
+                    </label>
+                    <div class="col-md-10">
+                        <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
+                                  optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
+                    </div>
+                </span>
             </div>
 
-        </g:if>
+            <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                <span class="grupo">
+                    <label class="col-md-2 control-label text-info">
+                        Subcategoría
+                    </label>
+                    <div class="col-md-10" id="divSubcategoria">
+                    </div>
+                </span>
+            </div>
+
+            <div style="margin-top: 20px; margin-bottom: 20px"></div>
 
 
-    </div>
+            <label class="col-md-2 control-label text-info">
+                Detalles o Especifi-caciones
+            </label>
+            <div class="col-md-10 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
+                <textarea id="texto" class="editor">${producto?.texto}</textarea>
+            </div>
 
-</g:form>
+        </div>
+
+        <div class="col-lg-6">
+
+            <g:if test="${producto?.id}">
+
+            %{--            <div style="margin-top: 20px; margin-bottom: 20px"></div>--}%
+
+                <label class="col-md-2 control-label text-info">
+                    Atributos
+                </label>
+
+                <div class="col-md-6">
+                    <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}"
+                              class="form-control" optionKey="id"/>
+                </div>
+
+                <label class="col-md-1 control-label text-info">
+                    Valor
+                </label>
+
+                <div class="col-md-2">
+                    <g:textField name="valor" maxlength="63" class="form-control"/>
+                </div>
+
+                <div class="col-md-1">
+                    <a href="#" class="btn btn-success" id="btnAgregarAt" title="Agregar atributo"><i class="fa fa-plus"></i></a>
+                </div>
+
+
+                <div style="margin-top: 20px; margin-bottom: 20px"></div>
+
+                <div class="col-md-12" id="tablaAtributos" style="margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
+
+                </div>
+
+            </g:if>
+
+
+        </div>
+
+    </g:form>
 
 </div>
 
@@ -260,7 +266,7 @@
 <script type="text/javascript">
 
     $(".btnVolver").click(function () {
-       location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+        location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
     });
 
     $("#btnAprobacion").click(function () {
@@ -278,12 +284,25 @@
                     label     : "<i class='fa fa-check'></i> Publicar",
                     className : "btn-success",
                     callback  : function () {
-                            publicarProducto();
+                        publicarProducto();
                     }
                 }
             }
         });
     });
+
+    function verificarImagen() {
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action:'verificarImagen_ajax')}',
+            data:{
+
+            },
+            success: function(msg){
+
+            }
+        });
+    }
 
     function publicarProducto(){
         $.ajax({
@@ -358,7 +377,7 @@
     }
 
     $("#btnImasProducto").click(function () {
-       cargarImagenes($("#id").val())
+        cargarImagenes($("#id").val())
     });
 
     function cargarImagenes(id) {
