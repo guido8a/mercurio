@@ -253,7 +253,7 @@ class MenuTagLib {
                     "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
                     "style=\"color:#40cfd0; font-size:small\">Crea tu Anuncio<br/>${session.usuario?.nombres}</a></span>" +
                     "<span class='nav-item' id='registro'><a class='nav-link' href=\"${createLink(controller: 'login', action: 'logout')}\" "+
-                    "style=\"color:#FFAB19;font-size:small\">Salir</a></span>"
+                    "style=\"color:#DF8B00;font-size:small\">Salir de<br/>Anuncios</a></span>"
         } else {
             admin = "<span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
                     "style=\"color:#FFAB19; font-size:small\">Ingresar</a></span>" +
