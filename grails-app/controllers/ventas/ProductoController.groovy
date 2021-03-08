@@ -35,7 +35,7 @@ class ProductoController {
         def persona = Persona.get(params.persona)
         println("persona " + persona)
         def producto
-        def path = "/var/ventas/productos/pro_"
+//        def path = "/var/ventas/productos/pro_"
         def imagenes = []
 
         if(params.id){
@@ -46,7 +46,10 @@ class ProductoController {
 
         /**** imágenes ****/
         if(producto?.id){
-            path += producto.id + "/"
+
+            def path = "/var/ventas/productos/pro_" + producto.id + "/"
+            new File(path).mkdirs()
+
             def imag = new File(path)
             imag?.eachFileRecurse(FileType.FILES) { file ->
                 def img = ImageIO.read(file)
