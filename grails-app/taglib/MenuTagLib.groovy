@@ -251,7 +251,7 @@ class MenuTagLib {
         if(session.usuario) {
             admin = "<span class='nav-item'><a class='nav-link' " +
                     "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
-                    "style=\"color:#40dfd0; font-size:small\">Vender<br/>${session.usuario?.nombres}</a></span>" +
+                    "style=\"color:#40cfd0; font-size:small\">Crea tu Anuncio<br/>${session.usuario?.nombres}</a></span>" +
                     "<span class='nav-item' id='registro'><a class='nav-link' href=\"${createLink(controller: 'login', action: 'logout')}\" "+
                     "style=\"color:#FFAB19;font-size:small\">Salir</a></span>"
         } else {
