@@ -1813,29 +1813,27 @@
             margin-bottom: 50px;
         }
     }
-    @media (min-width: 768px) {
-        .navbar-form {
-            margin-top: 21px;
-            margin-bottom: 21px;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
+    /*@media (min-width: 768px) {*/
+    /*    .navbar-form {*/
+    /*        margin-top: 21px;*/
+    /*        margin-bottom: 21px;*/
+    /*        padding-left: 5px;*/
+    /*        padding-right: 5px;*/
+    /*    }*/
 
-        .btn-wd {
-            min-width: 140px;
-        }
-    }
-
-
+    /*    .btn-wd {*/
+    /*        min-width: 140px;*/
+    /*    }*/
+    /*}*/
 
 
 
-    .logo-container{
-        left: 50px;
-        position: absolute;
-        top: 20px;
-        z-index: 3;
-    }
+    /*.logo-container{*/
+    /*    left: 50px;*/
+    /*    position: absolute;*/
+    /*    top: 20px;*/
+    /*    z-index: 3;*/
+    /*}*/
     .logo-container .logo{
         overflow: hidden;
         border-radius: 50%;
@@ -2482,199 +2480,210 @@
 
     </style>
 
-
-
 </head>
 
 <body>
-<div class="image-container set-full-height" style="background-image: url('http://demos.creative-tim.com/material-bootstrap-wizard/assets/img/wizard-book.jpg')">
-    <!--   Creative Tim Branding   -->
-%{--    <a href="http://creative-tim.com" target="_blank">--}%
-%{--        <div class="logo-container">--}%
-%{--            <div class="logo">--}%
-%{--                <img src="http://demos.creative-tim.com/material-bootstrap-wizard/assets/img/new_logo.png">--}%
-%{--            </div>--}%
-%{--            <div class="brand">--}%
-%{--                Creative Tim--}%
-%{--            </div>--}%
-%{--        </div>--}%
-%{--    </a>--}%
+%{--<div class="image-container set-full-height" style="background-image: url('http://demos.creative-tim.com/material-bootstrap-wizard/assets/img/wizard-book.jpg')">--}%
+<!--   Big container   -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <!-- Wizard container -->
+            <div class="wizard-container">
+                <div class="card wizard-card" data-color="red" id="wizard">
+                    <form action="" method="">
+                        <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
 
-    <!--  Made With Material Kit  -->
-%{--    <a href="http://demos.creative-tim.com/material-kit/index.html?ref=material-bootstrap-wizard" class="made-with-mk" target="_blank">--}%
-%{--        <div class="brand">MK</div>--}%
-%{--        <div class="made-with">Made with <strong>Material Kit</strong></div>--}%
-%{--    </a>--}%
+                        <div class="wizard-header">
+                            <h3 class="wizard-title">
+                                Publicar un producto
+                            </h3>
+                            <h5>Siga los pasos para publicar su producto!</h5>
+                        </div>
+                        <div class="wizard-navigation">
+                            <ul>
+                                <li><a href="#details" data-toggle="tab">Categoría</a></li>
+                                <li><a href="#captain" data-toggle="tab">Información</a></li>
+                                <li><a href="#description" data-toggle="tab">Características</a></li>
+                            </ul>
+                        </div>
 
-    <!--   Big container   -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <!-- Wizard container -->
-                <div class="wizard-container">
-                    <div class="card wizard-card" data-color="red" id="wizard">
-                        <form action="" method="">
-                            <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
+                        <div class="tab-content">
+                            <div class="tab-pane" id="details">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4 class="info-text"> Seleccione una categoria y subcategoría .</h4>
+                                    </div>
+                                    %{--                                        <div class="col-sm-6">--}%
+                                    %{--                                            <div class="input-group">--}%
+                                    %{--                                                <span class="input-group-addon">--}%
+                                    %{--                                                    <i class="material-icons">email</i>--}%
+                                    %{--                                                </span>--}%
+                                    %{--                                                <div class="form-group label-floating">--}%
+                                    %{--                                                    <label class="control-label">Your Email</label>--}%
+                                    %{--                                                    <input name="name" type="text" class="form-control">--}%
+                                    %{--                                                </div>--}%
+                                    %{--                                            </div>--}%
 
-                            <div class="wizard-header">
-                                <h3 class="wizard-title">
-                                    Book a Room
-                                </h3>
-                                <h5>This information will let us know more about you.</h5>
-                            </div>
-                            <div class="wizard-navigation">
-                                <ul>
-                                    <li><a href="#details" data-toggle="tab">Account</a></li>
-                                    <li><a href="#captain" data-toggle="tab">Room Type</a></li>
-                                    <li><a href="#description" data-toggle="tab">Extra Details</a></li>
-                                </ul>
-                            </div>
+                                    %{--                                            <div class="input-group">--}%
+                                    %{--                                                <span class="input-group-addon">--}%
+                                    %{--                                                    <i class="material-icons">lock_outline</i>--}%
+                                    %{--                                                </span>--}%
+                                    %{--                                                <div class="form-group label-floating">--}%
+                                    %{--                                                    <label class="control-label">Your Password</label>--}%
+                                    %{--                                                    <input name="name2" type="password" class="form-control">--}%
+                                    %{--                                                </div>--}%
+                                    %{--                                            </div>--}%
 
-                            <div class="tab-content">
-                                <div class="tab-pane" id="details">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h4 class="info-text"> Let's start with the basic details.</h4>
+                                    %{--                                        </div>--}%
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Categoría</label>
+                                            <div class="col-md-10">
+                                                <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
+                                                          optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
+                                            </div>
                                         </div>
+                                        <div class="form-group label-floating" style="margin-top: 70px">
+                                            <label class="control-label">Subcategoría</label>
+                                            <div class="col-md-10" id="divSubcategoria">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="captain">
+                                <h4 class="info-text">Información sobre el producto</h4>
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        %{--                                            <div class="col-sm-4">--}%
+                                        %{--                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="This is good if you travel alone.">--}%
+                                        %{--                                                    <input type="radio" name="job" value="Design">--}%
+                                        %{--                                                    <div class="icon">--}%
+                                        %{--                                                        <i class="material-icons">weekend</i>--}%
+                                        %{--                                                    </div>--}%
+                                        %{--                                                    <h6>Single</h6>--}%
+                                        %{--                                                </div>--}%
+                                        %{--                                            </div>--}%
+                                        %{--                                            <div class="col-sm-4">--}%
+                                        %{--                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this room if you're traveling with your family.">--}%
+                                        %{--                                                    <input type="radio" name="job" value="Code">--}%
+                                        %{--                                                    <div class="icon">--}%
+                                        %{--                                                        <i class="material-icons">home</i>--}%
+                                        %{--                                                    </div>--}%
+                                        %{--                                                    <h6>Family</h6>--}%
+                                        %{--                                                </div>--}%
+                                        %{--                                            </div>--}%
+                                        %{--                                            <div class="col-sm-4">--}%
+                                        %{--                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you are coming with your team.">--}%
+                                        %{--                                                    <input type="radio" name="job" value="Code">--}%
+                                        %{--                                                    <div class="icon">--}%
+                                        %{--                                                        <i class="material-icons">business</i>--}%
+                                        %{--                                                    </div>--}%
+                                        %{--                                                    <h6>Business</h6>--}%
+                                        %{--                                                </div>--}%
+                                        %{--                                            </div>--}%
+
+
+                                        <div class="col-sm-4"></div>
                                         <div class="col-sm-6">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">email</i>
-                                                </span>
+%{--                                            <div class="input-group">--}%
+%{--                                                <span class="input-group-addon">--}%
+%{--                                                    <i class="material-input">Anuncio (Título)</i>--}%
+%{--                                                </span>--}%
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Your Email</label>
-                                                    <input name="name" type="text" class="form-control">
+                                                    <label class="control-label">Anuncio (Título)</label>
+%{--                                                    <input name="titulo"  maxlength="255" type="text" class="form-control" title="Texto principal del anuncio">--}%
+                                                    <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
+                                                                 value="${producto?.titulo}" style="background-color: #ffffef"/>
                                                 </div>
-                                            </div>
-
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">lock_outline</i>
-                                                </span>
+%{--                                            </div>--}%
+%{--                                            <div class="input-group">--}%
+%{--                                                <span class="input-group-addon">--}%
+%{--                                                    <i class="material-icons">Descripción resuminda</i>--}%
+%{--                                                </span>--}%
                                                 <div class="form-group label-floating">
-                                                    <label class="control-label">Your Password</label>
-                                                    <input name="name2" type="password" class="form-control">
+                                                    <label class="control-label">Descripción resuminda</label>
+%{--                                                    <input name="name2" type="password" class="form-control">--}%
+                                                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
+                                                                 value="${producto?.subtitulo}"/>
                                                 </div>
-                                            </div>
+%{--                                            </div>--}%
+                                        </div>
 
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Country</label>
-                                                <select class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option value="Afghanistan"> Afghanistan </option>
-                                                    <option value="Albania"> Albania </option>
-                                                    <option value="Algeria"> Algeria </option>
-                                                    <option value="American Samoa"> American Samoa </option>
-                                                    <option value="Andorra"> Andorra </option>
-                                                    <option value="Angola"> Angola </option>
-                                                    <option value="Anguilla"> Anguilla </option>
-                                                    <option value="Antarctica"> Antarctica </option>
-                                                    <option value="...">...</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Daily Budget</label>
-                                                <select class="form-control">
-                                                    <option disabled="" selected=""></option>
-                                                    <option value="Afghanistan"> < $100 </option>
-                                                    <option value="Albania"> $100 - $499 </option>
-                                                    <option value="Algeria"> $499 - $999 </option>
-                                                    <option value="American Samoa"> $999+ </option>
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="captain">
-                                    <h4 class="info-text">What type of room would you want? </h4>
-                                    <div class="row">
-                                        <div class="col-sm-10 col-sm-offset-1">
-                                            <div class="col-sm-4">
-                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="This is good if you travel alone.">
-                                                    <input type="radio" name="job" value="Design">
-                                                    <div class="icon">
-                                                        <i class="material-icons">weekend</i>
-                                                    </div>
-                                                    <h6>Single</h6>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this room if you're traveling with your family.">
-                                                    <input type="radio" name="job" value="Code">
-                                                    <div class="icon">
-                                                        <i class="material-icons">home</i>
-                                                    </div>
-                                                    <h6>Family</h6>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you are coming with your team.">
-                                                    <input type="radio" name="job" value="Code">
-                                                    <div class="icon">
-                                                        <i class="material-icons">business</i>
-                                                    </div>
-                                                    <h6>Business</h6>
-                                                </div>
-                                            </div>
+                            </div>
+                            <div class="tab-pane" id="description">
+                                <div class="row">
+                                    <h4 class="info-text"> Drop us a small description.</h4>
+                                    <div class="col-sm-6 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <label>Room description</label>
+                                            <textarea class="form-control" placeholder="" rows="6"></textarea>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="description">
-                                    <div class="row">
-                                        <h4 class="info-text"> Drop us a small description.</h4>
-                                        <div class="col-sm-6 col-sm-offset-1">
-                                            <div class="form-group">
-                                                <label>Room description</label>
-                                                <textarea class="form-control" placeholder="" rows="6"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="control-label">Example</label>
-                                                <p class="description">"The room really nice name is recognized as being a really awesome room. We use it every sunday when we go fishing and we catch a lot. It has some kind of magic shield around it."</p>
-                                            </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Example</label>
+                                            <p class="description">"The room really nice name is recognized as being a really awesome room. We use it every sunday when we go fishing and we catch a lot. It has some kind of magic shield around it."</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="wizard-footer">
-                                <div class="pull-right">
-                                    <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
-                                    <input type='button' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
-                                </div>
-                                <div class="pull-left">
-                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
-
-                                    <div class="footer-checkbox">
-                                        <div class="col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="optionsCheckboxes">
-                                                </label>
-                                                Subscribe to our newsletter
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
+                        </div>
+                        <div class="wizard-footer">
+                            <div class="pull-right">
+                                <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Siguiente' />
+                                <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finalizar' />
                             </div>
-                        </form>
-                    </div>
-                </div> <!-- wizard container -->
-            </div>
-        </div> <!-- row -->
-    </div> <!--  big container -->
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-fill btn-primary btn-wd' name='previous' value='Anterior' />
+
+                                %{--                                    <div class="footer-checkbox">--}%
+                                %{--                                        <div class="col-sm-12">--}%
+                                %{--                                        </div>--}%
+                                %{--                                    </div>--}%
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div> <!-- wizard container -->
+        </div>
+    </div> <!-- row -->
+</div> <!--  big container -->
 
 %{--    <div class="footer">--}%
 %{--        <div class="container text-center">--}%
 %{--            Made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com" target="_blank">Creative Tim</a>.--}%
 %{--        </div>--}%
 %{--    </div>--}%
-</div>
+%{--</div>--}%
 
 <script type="text/javascript">
+
+    $("#categoria").change(function () {
+        var id = $(this).val();
+        cargarSubcategoria(id)
+    });
+
+    cargarSubcategoria($("#categoria").val());
+
+    function cargarSubcategoria(id){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'subcategoria', action: 'subcategoria_ajax')}',
+            data:{
+                id: id,
+                producto: $("#id").val()
+            },
+            success: function (msg) {
+                $("#divSubcategoria").html(msg)
+            }
+        });
+    }
 
     (function($) {
         var bootstrapWizardCreate = function(element, options) {

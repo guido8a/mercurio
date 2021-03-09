@@ -378,6 +378,18 @@ class ProductoController {
     }
 
     def wizardProducto() {
+        println "params: $params"
+        def persona = Persona.get(params.persona)
+        println("persona " + persona)
+        def producto
+        def imagenes = []
 
+        if(params.id){
+            producto = Producto.get(params.id)
+        }else{
+            producto = new Producto()
+        }
+
+        return[producto: producto, persona: persona, imagenes: imagenes]
     }
 }
