@@ -22,8 +22,12 @@
         <g:link controller="principal" action="index" class="btn btn-primary btnVolver" title="Volver a página principal">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
-        <a href="${createLink(controller: 'producto', action: 'producto', params: [persona: persona?.id])}"
-           class="btn btn-info" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio </a>
+%{--        <a href="${createLink(controller: 'producto', action: 'producto', params: [persona: persona?.id])}"--}%
+%{--           class="btn btn-info" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio--}%
+%{--        </a>--}%
+        <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [persona: persona?.id])}"
+           class="btn btn-info" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
+        </a>
     </div>
 </div>
 

@@ -376,4 +376,8 @@ class ProductoController {
         def producto = Producto.get(params.id)
         return[producto:producto]
     }
+
+    def wizardProducto() {
+
+    }
 }
