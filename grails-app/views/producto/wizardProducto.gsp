@@ -10,6 +10,7 @@
 <head>
     <meta name="layout" content="main">
     <title>Producto</title>
+    <asset:stylesheet src="/apli/wizard.css"/>
 </head>
 
 <style>
@@ -37,6 +38,8 @@ html {
 </style>
 
 <body>
+
+<elm:wizardAvales paso="1" proceso="${proceso}"/>
 
 <div class="outer-container">
     <div id="wizard" class="aiia-wizard" style="display: none;">
