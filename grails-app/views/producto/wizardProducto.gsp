@@ -15,7 +15,7 @@
 
 <style>
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic);
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic);*/
 
 html {
     font-size:10px;
@@ -35,11 +35,15 @@ html {
     padding:40px 0;
 }
 
+    .cllll{
+        color: green;
+    }
+
 </style>
 
 <body>
 
-<elm:wizardAvales paso="1" proceso="${proceso}"/>
+%{--<elm:wizardAvales paso="1" proceso="${proceso}"/>--}%
 
 <div class="outer-container">
     <div id="wizard" class="aiia-wizard" style="display: none;">
@@ -720,9 +724,9 @@ html {
         function unmarkStepAsCompleted(activeElementPosition, $plugin) {
 
             var $progressButton = $plugin.find(".aiia-wizard-progress-buttons-placeholder").find("[data-position='" + activeElementPosition + "']");
-            $progressButton.find(".aiia-wizard-icon-step-completed").remove();
+            // $progressButton.find(".aiia-wizard-icon-step-completed").remove();
             var $a = $progressButton.find("a");
-            $a.removeAttr("style");
+            // $a.removeAttr("style");
         }
 
         function previous($plugin, goToFirst) {
@@ -771,13 +775,16 @@ html {
                         }
                     },
                     css: {
-                        'padding': '0 73px',
+                        'padding': '0 73px'
 
                     },
                     markActive: false,
                     completed: {
                         css: {
-                            'background-color': '#E6E6E6'
+                            // 'background-color': '#E6E6E6',
+                            // 'border-width': '1px',
+                            // 'border-color': 'red',
+                            //  'color' : 'green',
                         },
                         icon: {
                             cssClass: 'glyphicon glyphicon-ok-sign',
@@ -800,7 +807,7 @@ html {
                                 '-webkit-border-radius': '300px',
                                 '-moz-border-radius': '300px',
                                 'border-radius': '300px',
-                                'color': '#FFFFFF',
+                                'color': '#158CBA',
                                 'float': 'left',
                                 'font-size': '36px',
                                 'height': '70px',
