@@ -382,7 +382,6 @@ class ProductoController {
         def persona = Persona.get(params.persona)
         println("persona " + persona)
         def producto
-        def imagenes = []
 
         if(params.id){
             producto = Producto.get(params.id)
@@ -390,6 +389,58 @@ class ProductoController {
             producto = new Producto()
         }
 
+        return[producto: producto, persona: persona]
+    }
+
+    def wizardInfo() {
+        println "params: $params"
+        def persona = Persona.get(params.persona)
+        def producto = Producto.get(params.id)
+
+        return[producto: producto, persona: persona]
+    }
+
+    def wizardAtributos() {
+        println "params: $params"
+        def persona = Persona.get(params.persona)
+        def producto = Producto.get(params.id)
+
+        return[producto: producto, persona: persona]
+    }
+
+    def wizardImagenes() {
+        println "params: $params"
+        def persona = Persona.get(params.persona)
+        def producto = Producto.get(params.id)
+
+        def imagenes = []
+
+        /**** imágenes ****/
+        if(producto?.id){
+
+            def path = "/var/ventas/productos/pro_" + producto.id + "/"
+            new File(path).mkdirs()
+
+            def imag = new File(path)
+            imag?.eachFileRecurse(FileType.FILES) { file ->
+                def img = ImageIO.read(file)
+                if (img) {
+                    imagenes.add([file: file.name])
+                }
+            }
+        }
+
         return[producto: producto, persona: persona, imagenes: imagenes]
     }
+
+    def wizardContacto() {
+        println "params: $params"
+        def persona = Persona.get(params.persona)
+        def producto = Producto.get(params.id)
+
+        return[producto: producto, persona: persona]
+    }
+
+
+
 }
