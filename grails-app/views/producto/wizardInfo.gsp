@@ -13,24 +13,26 @@
     <meta name="layout" content="main">
     <title>Categoría</title>
 
+    <asset:stylesheet src="/bar/main.css"/>
+    <asset:javascript src="/bar/progress-bar.js"/>
+
     <style>
 
-    .numeroPaso{
-    'background-color': '#E6E6E6',
-    '-webkit-border-radius': '300px',
-    '-moz-border-radius': '300px',
-    'border-radius': '300px',
-    'color': '#158CBA',
-    'float': 'left',
-    'font-size': '36px',
-    'height': '70px',
-    'margin-right': '10px',
-    'text-align': 'center',
-    'width': '70px',
-    'font-weight': 'bold',
-    'padding-top': '8px'
-    }
-
+.numeroPaso{
+    background-color: #E6E6E6;
+    -webkit-border-radius: 300px;
+    -moz-border-radius: 300px;
+    border-radius: 300px;
+    color: #158CBA;
+    float: left;
+    font-size: 36px;
+    height: 70px;
+    margin-right: 10px;
+    text-align: center;
+    width: 70px;
+    font-weight: bold;
+    padding-top: 8px;
+}
 
     .textoPaso {
         color: #158CBA;
@@ -50,9 +52,12 @@
     <g:hiddenField name="id" value="${producto?.id}" />
     <g:hiddenField name="persona" value="${persona?.id}" />
 
-    <div class="">
+    <div class="progress-bar-wrapper"></div>
+
+    <div style="margin-top: 100px">
+        <p class="numeroPaso">2</p>
         <h1 class="textoPaso">Información</h1>
-        <div class="">
+        <div class="col-md-10">
             <div class="col-md-12" style="margin-bottom: 10px">
                 <h3> Ingrese la información de su producto</h3>
                 <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
@@ -92,13 +97,28 @@
 
         </div>
 
-        <a href="#" class="btn btn-warning btnAnterior" style="float: left"><i class="fa fa-arrow-left"></i> Anterior</a>
-        <a href="#" class="btn btn-primary btnSiguiente" style="float: right"> Siguiente <i class="fa fa-arrow-right"></i></a>
+        <div class="col-md-4 btn-group" style="float: right">
+            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+            <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+        </div>
+
     </div>
 
 </g:form>
 
 <script type="text/javascript">
+
+    ProgressBar.init(
+        [ 'Categoría',
+            'Información',
+            'Atributos',
+            'Imágenes',
+            'Contacto'
+        ],
+        'Información',
+        'progress-bar-wrapper'
+    );
+
 
     $(".btnAnterior").click(function () {
        submitFormProducto(0)

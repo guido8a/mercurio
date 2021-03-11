@@ -5,14 +5,6 @@
   Time: 14:48
 --%>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 10/03/21
-  Time: 13:23
---%>
-
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -20,24 +12,26 @@
     <meta name="layout" content="main">
     <title>Atributos</title>
 
+    <asset:stylesheet src="/bar/main.css"/>
+    <asset:javascript src="/bar/progress-bar.js"/>
+
     <style>
 
     .numeroPaso{
-    'background-color': '#E6E6E6',
-    '-webkit-border-radius': '300px',
-    '-moz-border-radius': '300px',
-    'border-radius': '300px',
-    'color': '#158CBA',
-    'float': 'left',
-    'font-size': '36px',
-    'height': '70px',
-    'margin-right': '10px',
-    'text-align': 'center',
-    'width': '70px',
-    'font-weight': 'bold',
-    'padding-top': '8px'
+        background-color: #E6E6E6;
+        -webkit-border-radius: 300px;
+        -moz-border-radius: 300px;
+        border-radius: 300px;
+        color: #158CBA;
+        float: left;
+        font-size: 36px;
+        height: 70px;
+        margin-right: 10px;
+        text-align: center;
+        width: 70px;
+        font-weight: bold;
+        padding-top: 8px;
     }
-
 
     .textoPaso {
         color: #158CBA;
@@ -57,14 +51,18 @@
     <g:hiddenField name="id" value="${producto?.id}" />
     <g:hiddenField name="persona" value="${persona?.id}" />
 
-    <div class="">
+    <div class="progress-bar-wrapper"></div>
+
+    <div style="margin-top: 100px">
+        <p class="numeroPaso">3</p>
         <h1 class="textoPaso">Atributos</h1>
-        <div class="">
+        <div class="col-md-10">
             <div class="col-md-12" style="margin-bottom: 10px">
                 <h3> Ingrese los atributos de su producto</h3>
 
+                <div class="col-md-1"></div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-8">
 
                     <g:if test="${producto?.id}">
 
@@ -92,28 +90,34 @@
 
                         <div style="margin-top: 20px; margin-bottom: 20px"></div>
 
-                        <div class="col-md-12" id="tablaAtributos" style="margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
+                        <div class="col-md-12" id="tablaAtributos" style="max-height: 300px; margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
 
                         </div>
-
                     </g:if>
-
-
                 </div>
-
-
             </div>
-
-
         </div>
 
-        <a href="#" class="btn btn-warning btnAnterior" style="float: left"><i class="fa fa-arrow-left"></i> Anterior</a>
-        <a href="#" class="btn btn-primary btnSiguiente" style="float: right"> Siguiente <i class="fa fa-arrow-right"></i></a>
+        <div class="col-md-4 btn-group" style="float: right">
+            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
+        </div>
     </div>
 
 </g:form>
 
 <script type="text/javascript">
+
+    ProgressBar.init(
+        [ 'Categoría',
+            'Información',
+            'Atributos',
+            'Imágenes',
+            'Contacto'
+        ],
+        'Atributos',
+        'progress-bar-wrapper'
+    );
 
     $(".btnAnterior").click(function () {
         location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'

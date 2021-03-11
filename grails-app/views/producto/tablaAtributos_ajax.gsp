@@ -26,7 +26,7 @@
     </thead>
 </table>
 
-<div class=""  style="width: 99.7%;height: 250px; overflow-y: auto; margin-top: -20px">
+<div class=""  style="width: 99.7%;height: ${atributos.size() * 50}px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${atributos}" var="atributo">
@@ -44,10 +44,6 @@
     </table>
 </div>
 
-
-%{--<div class="lineaAt col-md-10" style="margin-top: 30px; text-align: center">--}%
-
-%{--</div>--}%
 
 <script type="text/javascript">
 

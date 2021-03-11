@@ -241,7 +241,7 @@
                     action : function ($element) {
                         var id = $element.data("id");
                         // createEditRow(id);
-                        location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + id + "&persona=" + '${persona?.id}'
+                        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
                     }
                 },
                 %{--texto : {--}%

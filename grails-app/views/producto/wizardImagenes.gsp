@@ -12,23 +12,26 @@
     <meta name="layout" content="main">
     <title>Imágenes</title>
 
+    <asset:stylesheet src="/bar/main.css"/>
+    <asset:javascript src="/bar/progress-bar.js"/>
+
     <style>
 
-    .numeroPaso{
-    'background-color': '#E6E6E6',
-    '-webkit-border-radius': '300px',
-    '-moz-border-radius': '300px',
-    'border-radius': '300px',
-    'color': '#158CBA',
-    'float': 'left',
-    'font-size': '36px',
-    'height': '70px',
-    'margin-right': '10px',
-    'text-align': 'center',
-    'width': '70px',
-    'font-weight': 'bold',
-    'padding-top': '8px'
-    }
+.numeroPaso{
+    background-color: #E6E6E6;
+    -webkit-border-radius: 300px;
+    -moz-border-radius: 300px;
+    border-radius: 300px;
+    color: #158CBA;
+    float: left;
+    font-size: 36px;
+    height: 70px;
+    margin-right: 10px;
+    text-align: center;
+    width: 70px;
+    font-weight: bold;
+    padding-top: 8px;
+}
 
 
     .textoPaso {
@@ -98,13 +101,16 @@
     <g:hiddenField name="id" value="${producto?.id}" />
     <g:hiddenField name="persona" value="${persona?.id}" />
 
-    <div class="">
+    <div class="progress-bar-wrapper"></div>
+
+    <div style="margin-top: 100px">
+        <p class="numeroPaso">4</p>
         <h1 class="textoPaso">Imágenes</h1>
-        <div class="">
+        <div class="col-md-10">
             <div class="col-md-12" style="margin-bottom: 10px">
                 <h3> Agregar imágenes de su producto</h3>
 
-                <a href="#" class="btn btn-warning" id="btnImasProducto" title="Imágenes asociadas al producto">
+                <a href="#" class="btn btn-success" id="btnImasProducto" title="Imágenes asociadas al producto">
                     <i class="fa fa-images"></i> Agregar imágenes
                 </a>
 
@@ -133,14 +139,27 @@
 
             </div>
         </div>
+    <div class="col-md-4 btn-group" style="float: right">
 
-        <a href="#" class="btn btn-warning btnAnterior" style="float: left"><i class="fa fa-arrow-left"></i> Anterior</a>
-        <a href="#" class="btn btn-primary btnSiguiente" style="float: right"> Siguiente <i class="fa fa-arrow-right"></i></a>
+        <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+        <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
+    </div>
     </div>
 
 </g:form>
 
 <script type="text/javascript">
+
+    ProgressBar.init(
+        [ 'Categoría',
+            'Información',
+            'Atributos',
+            'Imágenes',
+            'Contacto'
+        ],
+        'Imágenes',
+        'progress-bar-wrapper'
+    );
 
     $(".btnAnterior").click(function () {
         location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'

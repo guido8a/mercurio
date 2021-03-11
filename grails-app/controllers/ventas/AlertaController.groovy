@@ -17,25 +17,35 @@ class AlertaController {
     def generarAlerta_ajax(){
 
         def producto = Producto.get(params.id)
+        def persona = Persona.get(params.persona)
 
-        def existe = Alerta.findByProductoAndFechaAprobacionIsNull(producto)
-        def alerta
+        persona.mailContacto = params.mail
+        persona.contacto = params.contacto
+        persona.telefonoContacto = params.telefono
 
-        if(existe){
-            existe.delete(flush:true)
-        }
-
-        alerta = new Alerta()
-        alerta.producto = producto
-        alerta.fechaIngreso = new Date()
-
-        if(!alerta.save(flush:true)){
-            println("error al generar la alerta" + alerta.errors)
+        if(!persona.save(flush:true)){
+            println("error al guardar la información de contacto " + persona.errors)
             render "no"
         }else{
-            producto.estado = 'R'
-            producto.save(flush:true)
-            render "ok"
+            def existe = Alerta.findByProductoAndFechaAprobacionIsNull(producto)
+            def alerta
+
+            if(existe){
+                existe.delete(flush:true)
+            }
+
+            alerta = new Alerta()
+            alerta.producto = producto
+            alerta.fechaIngreso = new Date()
+
+            if(!alerta.save(flush:true)){
+                println("error al generar la alerta" + alerta.errors)
+                render "no"
+            }else{
+                producto.estado = 'R'
+                producto.save(flush:true)
+                render "ok"
+            }
         }
     }
 
