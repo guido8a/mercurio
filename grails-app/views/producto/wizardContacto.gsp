@@ -122,7 +122,7 @@
         'progress-bar-wrapper'
     );
 
-    // ProgressBar.singleStepAnimation = 2000;
+    ProgressBar.singleStepAnimation = 100;
 
     $(".btnAnterior").click(function () {
         location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'

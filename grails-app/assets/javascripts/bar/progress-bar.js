@@ -2,7 +2,7 @@
 (function (window) {
   function initProgressBar() {
     var ProgressBar = {};
-    ProgressBar.singleStepAnimation = 1000; //default value
+    ProgressBar.singleStepAnimation = 100; //default value
     // this delay is required as browser will need some time in rendering and then processing css animations.
     var renderingWaitDelay = 200;
 
@@ -31,7 +31,7 @@
     };
 
     var createCheckPoints = function(stages, stageWidth, currentStageIndex) {
-      var ul = createElement('ul', 'progress-bar', { }, '');
+      var ul = createElement('ul', 'progressbar', { }, '');
       var animationDelay = renderingWaitDelay;
       for (var index = 0; index < stages.length; index++) {
         var li = createElement('li', 'section', {width: stageWidth + '%'}, stages[index]);
