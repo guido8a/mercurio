@@ -68,61 +68,66 @@
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 410px">
+    <div class="card" style="width: 100%; height: 425px">
         <div class="card-body">
 
-    <div style="margin-top: 10px">
-        <p class="numeroPaso">3</p>
-        <h1 class="textoPaso">Atributos</h1>
-        <div class="col-md-10">
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <h3> Ingrese los atributos de su producto</h3>
+            <div style="margin-top: 10px">
+                <p class="numeroPaso">3</p>
+                <h1 class="textoPaso">Atributos</h1>
+                <div class="col-md-10">
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <h3> Ingrese los atributos de su producto</h3>
 
-                <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
 
-                <div class="col-lg-8">
+                        <div class="col-lg-8">
 
-                    <g:if test="${producto?.id}">
+                            <g:if test="${producto?.id}">
 
-                        <label class="col-md-2 control-label text-info">
-                            Atributos
-                        </label>
+                                <label class="col-md-2 control-label text-info">
+                                    Atributos
+                                </label>
 
-                        <div class="col-md-5">
-                            <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}"
-                                      class="form-control" optionKey="id"/>
+                                <div class="col-md-5">
+                                    <g:select name="atributo" from="${ventas.AtributoCategoria.findAllBySubcategoria(ventas.Subcategoria.get(producto?.subcategoria?.id)).sort{it.atributo.descripcion}}"
+                                              class="form-control" optionKey="id"/>
+                                </div>
+
+                                <label class="col-md-1 control-label text-info">
+                                    Valor
+                                </label>
+
+                                <div class="col-md-3">
+                                    <g:textField name="valor" maxlength="63" class="form-control"/>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <a href="#" class="btn btn-success" id="btnAgregarAt" title="Agregar atributo"><i class="fa fa-plus"></i></a>
+                                </div>
+
+
+                                <div style="margin-top: 20px; margin-bottom: 10px"></div>
+
+                                <div class="col-md-12" id="tablaAtributos" style="max-height: 300px; margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
+
+                                </div>
+                            </g:if>
                         </div>
 
-                        <label class="col-md-1 control-label text-info">
-                            Valor
-                        </label>
 
-                        <div class="col-md-3">
-                            <g:textField name="valor" maxlength="63" class="form-control"/>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-3 btn-group" style="float: right">
+                            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+                            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
                         </div>
+                    </div>
 
-                        <div class="col-md-1">
-                            <a href="#" class="btn btn-success" id="btnAgregarAt" title="Agregar atributo"><i class="fa fa-plus"></i></a>
-                        </div>
-
-
-                        <div style="margin-top: 20px; margin-bottom: 20px"></div>
-
-                        <div class="col-md-12" id="tablaAtributos" style="max-height: 300px; margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
-
-                        </div>
-                    </g:if>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-4 btn-group" style="float: right">
-            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
         </div>
-    </div>
-
-    </div>
     </div>
 
 </g:form>

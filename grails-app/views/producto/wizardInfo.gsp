@@ -11,7 +11,7 @@
 <head>
     <ckeditor:resources/>
     <meta name="layout" content="main">
-    <title>Categoría</title>
+    <title>Información del producto</title>
 
     <asset:stylesheet src="/bar/main.css"/>
     <asset:javascript src="/bar/progress-bar.js"/>
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 410px">
+    <div class="card" style="width: 100%; height: 420px">
         <div class="card-body">
 
             <div style="margin-top: 10px">
@@ -113,11 +113,14 @@
                         </div>
                     </div>
 
-                </div>
 
-                <div class="col-md-4 btn-group" style="float: right">
-                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-                    <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+                    <div class="col-md-12">
+                        <div class="col-md-3 btn-group" style="float: right">
+                            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+                            <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

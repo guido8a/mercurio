@@ -51,7 +51,7 @@
     }
 
 
-</style>
+    </style>
 
 </head>
 
@@ -63,55 +63,69 @@
 
     <div class="progress-bar-wrapper"></div>
 
-    <div style="margin-top: 100px">
-        <p class="numeroPaso">5</p>
-        <h1 class="textoPaso">Información de contacto</h1>
-        <div class="col-md-10">
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <h3> Ingrese la información de contacto</h3>
-                <div class="form-group ${hasErrors(bean: 'persona', field: 'contacto', 'error')}">
-                    <span class="grupo">
-                        <label class="col-md-3 control-label text-info">
-                            Nombre de contacto
-                        </label>
-                        <div class="col-md-6">
-                            <g:textField name="contacto" maxlength="63" class="form-control required" title="Nombre de contacto"
-                                         value="${persona?.contacto ? persona?.contacto : persona?.nombre}" required=""/>
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <div class="form-group ${hasErrors(bean: 'persona', field: 'telefonoContacto', 'error')}">
-                    <span class="grupo">
-                        <label class="col-md-3 control-label text-info">
-                            Teléfono de contacto
-                        </label>
-                        <div class="col-md-6">
-                            <g:textField name="telefonoContacto" maxlength="63" class="form-control" title="Teléfono de contacto"
-                                         value="${persona?.telefonoContacto ? persona?.telefonoContacto : persona?.telefono}"/>
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <div class="form-group ${hasErrors(bean: 'persona', field: 'mailContacto', 'error')}">
-                    <span class="grupo">
-                        <label class="col-md-3 control-label text-info">
-                            Mail de contacto
-                        </label>
-                        <div class="col-md-6">
-                            <g:textField name="mailContacto" maxlength="63" class="form-control required" title="Mail de contacto"
-                                         value="${persona?.mailContacto ? persona?.mailContacto : persona?.mail}" required=""/>
-                        </div>
-                    </span>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            .
         </div>
+        <div class="card-body">
+        </div>
+    </div>
 
-        <div class="col-md-4 btn-group" style="float: right">
-            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-            <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
+    <div class="card" style="width: 100%; height: 295px">
+        <div class="card-body">
+
+            <div style="margin-top: 10px">
+                <p class="numeroPaso">5</p>
+                <h1 class="textoPaso">Información de contacto</h1>
+                <div class="col-md-10">
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <h3> Ingrese la información de contacto</h3>
+                        <div class="form-group ${hasErrors(bean: 'persona', field: 'contacto', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Nombre de contacto
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="contacto" maxlength="63" class="form-control required" title="Nombre de contacto"
+                                                 value="${persona?.contacto ? persona?.contacto : persona?.nombre}" required=""/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'persona', field: 'telefonoContacto', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Teléfono de contacto
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="telefonoContacto" maxlength="63" class="form-control" title="Teléfono de contacto"
+                                                 value="${persona?.telefonoContacto ? persona?.telefonoContacto : persona?.telefono}"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'persona', field: 'mailContacto', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Mail de contacto
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="mailContacto" maxlength="63" class="form-control required" title="Mail de contacto"
+                                                 value="${persona?.mailContacto ? persona?.mailContacto : persona?.mail}" required=""/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 btn-group" style="float: right">
+                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+                    <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
+                </div>
+            </div>
+
         </div>
     </div>
 
