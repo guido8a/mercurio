@@ -43,7 +43,15 @@
         margin-top: 8px;
     }
 
-    </style>
+    .card {
+        width: 100%;
+        -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    }
+
+
+</style>
 
 </head>
 

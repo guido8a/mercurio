@@ -39,6 +39,14 @@
         margin-top: 8px;
     }
 
+    .card {
+        border: green;
+        width: 100%;
+        -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    }
+
     </style>
 
 </head>
@@ -51,38 +59,51 @@
 
     <div class="progress-bar-wrapper"></div>
 
-    <div style="margin-top: 100px">
-        <p class="numeroPaso">1</p>
-        <h1 class="textoPaso">Categoría</h1>
-        <div class="col-md-8" style="margin-top: 20px">
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <h3> Seleccione una categoría para su producto</h3>
-                <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-                    <span class="grupo">
-                        <label for="categoria" class="col-md-2 control-label text-info">
-                            Categoría
-                        </label>
-                        <div class="col-md-6">
-                            <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
-                                      optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-                    <span class="grupo">
-                        <label class="col-md-2 control-label text-info">
-                            Subcategoría
-                        </label>
-                        <div class="col-md-6" id="divSubcategoria">
-                        </div>
-                    </span>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            .
         </div>
-        <div class="col-md-4 btn-group" style="float: right">
-            <a href="#" class="btn btn-primary btnSiguiente" >Siguiente</a>
+       <div class="card-body">
+        </div>
+    </div>
+
+    <div class="card" style="width: 100%; height: 410px">
+        <div class="card-body">
+
+            <div style="margin-top: 10px">
+                <p class="numeroPaso">1</p>
+                <h1 class="textoPaso">Categoría</h1>
+                <div class="col-md-8" style="margin-top: 0px">
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <h3> Seleccione una categoría para su producto</h3>
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                            <span class="grupo">
+                                <label for="categoria" class="col-md-2 control-label text-info">
+                                    Categoría
+                                </label>
+                                <div class="col-md-6">
+                                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
+                                              optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-2 control-label text-info">
+                                    Subcategoría
+                                </label>
+                                <div class="col-md-6" id="divSubcategoria">
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 btn-group" style="float: right">
+                    <a href="#" class="btn btn-primary btnSiguiente" >Siguiente</a>
+                </div>
+            </div>
         </div>
     </div>
 

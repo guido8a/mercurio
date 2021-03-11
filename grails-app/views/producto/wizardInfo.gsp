@@ -18,28 +18,35 @@
 
     <style>
 
-.numeroPaso{
-    background-color: #E6E6E6;
-    -webkit-border-radius: 300px;
-    -moz-border-radius: 300px;
-    border-radius: 300px;
-    color: #158CBA;
-    float: left;
-    font-size: 36px;
-    height: 70px;
-    margin-right: 10px;
-    text-align: center;
-    width: 70px;
-    font-weight: bold;
-    padding-top: 8px;
-}
+    .numeroPaso{
+        background-color: #E6E6E6;
+        -webkit-border-radius: 300px;
+        -moz-border-radius: 300px;
+        border-radius: 300px;
+        color: #158CBA;
+        float: left;
+        font-size: 36px;
+        height: 70px;
+        margin-right: 10px;
+        text-align: center;
+        width: 70px;
+        font-weight: bold;
+        padding-top: 8px;
+    }
 
     .textoPaso {
         color: #158CBA;
         font-size: 36px;
         float: left;
-        font-size: 36px;
         margin-top: 8px;
+    }
+
+    .card {
+        border: green;
+        width: 100%;
+        -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     }
 
     </style>
@@ -54,54 +61,67 @@
 
     <div class="progress-bar-wrapper"></div>
 
-    <div style="margin-top: 100px">
-        <p class="numeroPaso">2</p>
-        <h1 class="textoPaso">Información</h1>
-        <div class="col-md-10">
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <h3> Ingrese la información de su producto</h3>
-                <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
-                    <span class="grupo">
-                        <label class="col-md-3 control-label text-info">
-                            Anuncio (Título)
-                        </label>
-                        <div class="col-md-6">
-                            <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
-                                         value="${producto?.titulo}" style="background-color: #ffffef"/>
-                        </div>
-                    </span>
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom: 10px">
-                <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
-                    <span class="grupo">
-                        <label class="col-md-3 control-label text-info">
-                            Descripción resumida
-                        </label>
-                        <div class="col-md-6">
-                            <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
-                                         value="${producto?.subtitulo}"/>
-                        </div>
-                    </span>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <label class="col-md-3 control-label text-info">
-                    Detalles o Especificaciones
-                </label>
-                <div class="col-md-6 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
-                    <textarea id="texto" class="editor">${producto?.texto}</textarea>
-                </div>
-            </div>
-
+    <div class="card">
+        <div class="card-header">
+            .
         </div>
-
-        <div class="col-md-4 btn-group" style="float: right">
-            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-            <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+        <div class="card-body">
         </div>
+    </div>
 
+    <div class="card" style="width: 100%; height: 410px">
+        <div class="card-body">
+
+            <div style="margin-top: 10px">
+                <p class="numeroPaso">2</p>
+                <h1 class="textoPaso">Información</h1>
+                <div class="col-md-10">
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <h3> Ingrese la información de su producto</h3>
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Anuncio (Título)
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
+                                                 value="${producto?.titulo}" style="background-color: #ffffef"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Descripción resumida
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
+                                                 value="${producto?.subtitulo}"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="col-md-3 control-label text-info">
+                            Detalles o Especificaciones
+                        </label>
+                        <div class="col-md-6 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
+                            <textarea id="texto" class="editor">${producto?.texto}</textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 btn-group" style="float: right">
+                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+                    <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </g:form>
@@ -121,7 +141,7 @@
 
 
     $(".btnAnterior").click(function () {
-       submitFormProducto(0)
+        submitFormProducto(0)
     });
 
     $(".btnSiguiente").click(function () {
