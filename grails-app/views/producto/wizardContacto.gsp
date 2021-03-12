@@ -50,6 +50,15 @@
         box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     }
 
+    .card2 {
+        border: green;
+        width: 100%;
+        -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        height: 370px;
+    }
+
 
     </style>
 
@@ -71,7 +80,7 @@
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 295px">
+    <div class="card2" style="width: 100%">
         <div class="card-body">
 
             <div style="margin-top: 10px">
@@ -125,11 +134,13 @@
                     <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
                 </div>
             </div>
-
         </div>
     </div>
-
 </g:form>
+
+<div class="col-md-12">
+    .
+</div>
 
 <script type="text/javascript">
 

@@ -49,6 +49,15 @@
         box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     }
 
+    .card2 {
+        border: green;
+        width: 100%;
+        -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        height: 450px;
+    }
+
     </style>
 
 </head>
@@ -69,7 +78,8 @@
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 420px">
+    <div class="card2" style="width: 100%">
+
         <div class="card-body">
 
             <div style="margin-top: 10px">
@@ -112,22 +122,22 @@
                             <textarea id="texto" class="editor">${producto?.texto}</textarea>
                         </div>
                     </div>
-
-
-                    <div class="col-md-12">
-                        <div class="col-md-3 btn-group" style="float: right">
-                            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-                            <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
+            <div class="col-md-12">
+                <div class="col-md-3 btn-group" style="float: right">
+                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+                    <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+
         </div>
     </div>
-
 </g:form>
+
+<div class="col-md-12">
+    .
+</div>
 
 <script type="text/javascript">
 
