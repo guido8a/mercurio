@@ -24,7 +24,6 @@ li.section {
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
-    /*background-color: white;*/
 }
 
 li.section:before {

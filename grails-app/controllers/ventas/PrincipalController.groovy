@@ -135,6 +135,25 @@ class PrincipalController {
         response.outputStream.flush()
     }
 
+    def getImgnCarrusel(){
+        println "getImgnCarrusel: $params"
+        def path = params.ruta
+        def fileext = path.substring(path.indexOf(".")+1, path.length())
+
+        println "ruta: $path"
+
+        BufferedImage imagen = ImageIO.read(new File(path));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write( imagen, fileext, baos );
+        baos.flush();
+        byte[] img = baos.toByteArray();
+        baos.close();
+        response.setHeader('Content-length', img.length.toString())
+        response.contentType = "image/"+fileext // or the appropriate image content type
+        response.outputStream << img
+        response.outputStream.flush()
+    }
+
 
     def enviarMail_ajax () {
 //        println("params enviar mail " + params)
