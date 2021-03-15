@@ -15,7 +15,7 @@
     <asset:javascript src="/merc/bootstrap.bundle.js"/>
     <asset:javascript src="/apli/bootbox.js"/>
 
-
+%{--    <meta name="layout" content="main">--}%
     <title></title>
 
 
@@ -64,6 +64,14 @@
 </head>
 
 <body>
+
+<div class="btn-group">
+    <g:if test="${tipo == '1'}">
+        <a href="#" class="btn btn-primary" id="btnAnterior" ><i class="fa fa-arrow-left"></i> Producto</a>
+    </g:if>
+
+</div>
+
 
 <h3 style="margin-top: 20px; text-align: center">
     ${producto.titulo}
@@ -206,7 +214,14 @@
 
 <script type="text/javascript">
 
+
     $(document).ready(function(){
+
+        $('#btnAnterior').click(function () {
+            location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+        });
+
+
         $('.carousel').each(function(){
             // $(this).find('.carousel-indicators .item').eq(0).addClass('active');
             $('#fotos').find('.guia').eq(0).addClass('activa');

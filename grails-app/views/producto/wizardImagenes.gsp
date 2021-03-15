@@ -203,9 +203,22 @@
     });
 
     $(".btnSiguiente").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
-    });
+        $.ajax({
+            type:'POST',
+            url: '${createLink(controller: 'producto', action: 'comprobarImagenes_ajax')}',
+            data:{
+                id: $("#id").val()
+            },
+            success: function(msg){
+                if(msg == 'ok'){
+                    location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+                }else{
+                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> Debe ingrear al menos una imagen para su producto")
+                }
+            }
+        });
 
+    });
 
     $("#btnImasProducto").click(function () {
         cargarImagenes($("#id").val())

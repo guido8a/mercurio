@@ -441,6 +441,29 @@ class ProductoController {
         return[producto: producto, persona: persona]
     }
 
+    def comprobarImagenes_ajax(){
+
+        def producto = Producto.get(params.id)
+        def path = "/var/ventas/productos/pro_" + producto.id + "/"
+        def imag = new File(path)
+        def imagenes = []
+        imag?.eachFileRecurse(FileType.FILES) { file ->
+            def img = ImageIO.read(file)
+            if (img) {
+                imagenes.add([file: file.name])
+            }
+        }
+
+        println("imagenes " + imagenes.size())
+
+        if(imagenes.size() > 0){
+            render  "ok"
+        }else{
+            render  "no"
+        }
+
+    }
+
 
 
 }

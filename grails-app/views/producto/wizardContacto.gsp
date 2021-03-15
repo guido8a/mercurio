@@ -131,6 +131,7 @@
 
                 <div class="col-md-4 btn-group" style="float: right">
                     <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+                    <a href="#" class="btn btn-info btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>
                     <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
                 </div>
             </div>
@@ -143,6 +144,10 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnVer").click(function () {
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + 1
+    });
 
     ProgressBar.init(
         [ 'Categoría',

@@ -1,13 +1,16 @@
 package ventas
 
+import seguridad.Persona
+
 class VerController {
 
     /* debe llegar el id del producto */
     def carrusel() {
         println "index params: $params"
 
-        params.id = params.id?:1
+//        params.id = params.id?:1
         def producto = Producto.get(params.id)
+        def persona = Persona.get(params.persona)
         def atrb = Valores.findAllByProducto(producto)
         def carrusel = []
 
@@ -18,7 +21,7 @@ class VerController {
         }
         println "carrusel: ${carrusel}"
 
-        return [carrusel: carrusel, producto: producto, atributos: atrb]
+        return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona]
 
     }
 }
