@@ -68,6 +68,13 @@
 
     <div class="progress-bar-wrapper"></div>
 
+    <div class="col-md-12">
+        <div class="col-md-3 btn-group" style="float: right">
+            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header">
             .
@@ -122,12 +129,12 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
-                        <div class="col-md-3 btn-group" style="float: right">
-                            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-                            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+%{--                    <div class="col-md-12">--}%
+%{--                        <div class="col-md-3 btn-group" style="float: right">--}%
+%{--                            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
+%{--                            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
 
                 </div>
             </div>

@@ -1,6 +1,9 @@
 package ventas
 
+import grails.converters.JSON
 import groovy.io.FileType
+import groovy.json.JsonSlurper
+import wslite.json.JSONObject
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -65,6 +68,41 @@ class PrincipalController {
 
         println "productos: ${productos.rt}"
         println "normales: ${normales.rt}"
+
+
+        def dataArbol = []
+
+        def jsonSlurper = new JsonSlurper()
+
+//        def object = jsonSlurper.parseText('{ "text": "John"}')
+        def object = []
+
+        Categoria.list().each {
+           object.add(jsonSlurper.parseText('{ "text": 1}'))
+        }
+
+        def slurper = new JsonSlurper()
+        def result = slurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
+
+
+//        JSONObject userJson = JSON.parse(jsonResponse)
+
+//        def o1 = [:]
+//
+//        Categoria.list().each{
+//            o1.put(1,it.descripcion)
+//        }
+
+
+
+
+        println("obje " + object)
+        println("obje " + result)
+//        println("obje " + o1)
+//        println("obje " + o1 as JSON)
+
+//        println(object.name);
+//        println(object.ID);
 
 //        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
 //                carrusel: carrusel, productos: productosDestacados, normales: productosNormales]

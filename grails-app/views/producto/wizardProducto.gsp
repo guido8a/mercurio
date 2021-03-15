@@ -59,22 +59,28 @@
 
     <div class="progress-bar-wrapper"></div>
 
+    <div class="col-md-12">
+        <div class="col-md-3 btn-group" style="float: right;">
+            <a href="#" class="btn btn-primary btnSiguiente" >Siguiente<i class="fa fa-arrow-right"></i></a>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header">
             .
         </div>
-       <div class="card-body">
+        <div class="card-body">
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 250px">
+    <div class="card" style="width: 100%; height: 230px">
         <div class="card-body">
 
             <div style="margin-top: 10px">
                 <p class="numeroPaso">1</p>
                 <h1 class="textoPaso">Categoría</h1>
-%{--                <div class="col-md-8" style="margin-top: 0px">--}%
-                    <div class="col-md-10">
+                %{--                <div class="col-md-8" style="margin-top: 0px">--}%
+                <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
                         <h3> Seleccione una categoría para su producto</h3>
                         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
@@ -100,11 +106,12 @@
                             </span>
                         </div>
                     </div>
-                <div class="col-md-12" style="margin-bottom: 10px">
-                    <div class="col-md-3 btn-group" style="float: right">
-                        <a href="#" class="btn btn-primary btnSiguiente" >Siguiente<i class="fa fa-arrow-right"></i></a>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="col-md-3 btn-group" style="float: right">
+%{--                            <a href="#" class="btn btn-primary btnSiguiente" >Siguiente<i class="fa fa-arrow-right"></i></a>--}%
+                            .
+                        </div>
                     </div>
-                </div>
                 </div>
 
             </div>
@@ -154,10 +161,10 @@
                     l.modal("hide");
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
-                        log("Producto guardado correctamente","success");
+                        // log("Producto guardado correctamente","success");
                         setTimeout(function () {
                             location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
-                        }, 1000);
+                        }, 500);
                     } else {
                         log("Error al guardar el producto","error");
                     }

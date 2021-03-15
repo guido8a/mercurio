@@ -425,7 +425,53 @@
     // 	}
     // }
 
+
+    var myTree = [
+        {
+            text: "Item 1",
+            nodes: [
+                {
+                    text: "Item 1-1",
+                    nodes: [
+                        {
+                            text: "Item 1-1-1"
+                        },
+                        {
+                            text: "Item 1-1-2"
+                        }
+                    ]
+                },
+                {
+                    text: "Item 1-2"
+                }
+            ]
+        },
+        {
+            text: "Item 2"
+        },
+        {
+            text: "Item 3"
+        }
+
+    ];
+
+
+    var mytree = [
+        {
+
+        }
+    ]
+
+
+    $('#default-tree').treeview({
+        data: myTree
+    });
+
+
     $(function () {
+
+
+
 
         // $("#ingresar").click(function () {
         // 	var initModalHeight = $('#modal-ingreso').outerHeight();

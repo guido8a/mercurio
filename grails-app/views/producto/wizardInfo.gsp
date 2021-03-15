@@ -70,6 +70,13 @@
 
     <div class="progress-bar-wrapper"></div>
 
+    <div class="col-md-12">
+        <div class="col-md-3 btn-group" style="float: right">
+            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+            <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header">
             .
@@ -77,6 +84,7 @@
         <div class="card-body">
         </div>
     </div>
+
 
     <div class="card2" style="width: 100%">
 
@@ -124,12 +132,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-3 btn-group" style="float: right">
-                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-                    <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
-                </div>
-            </div>
+%{--            <div class="col-md-12">--}%
+%{--                <div class="col-md-3 btn-group" style="float: right">--}%
+%{--                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
+%{--                    <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>--}%
+%{--                </div>--}%
+%{--            </div>--}%
 
         </div>
     </div>
@@ -186,7 +194,7 @@
                     l.modal("hide");
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
-                        log("Producto guardado correctamente","success");
+                        // log("Producto guardado correctamente","success");
                         setTimeout(function () {
                             if(tipo == '1'){
                                 location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
@@ -194,7 +202,7 @@
                                 location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
                             }
 
-                        }, 1000);
+                        }, 500);
                     } else {
                         log("Error al guardar el producto","error");
                     }
