@@ -72,7 +72,7 @@
 
     <div class="progress-bar-wrapper"></div>
 
-    <div class="col-md-12">
+    <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
         <div class="col-md-4 btn-group" style="float: right">
             <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
             <a href="#" class="btn btn-info btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>

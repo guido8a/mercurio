@@ -67,7 +67,7 @@
 
 <div class="btn-group">
     <g:if test="${tipo == '1'}">
-        <a href="#" class="btn btn-primary" id="btnAnterior" ><i class="fa fa-arrow-left"></i> Producto</a>
+        <a href="#" class="btn btn-primary" id="btnAnterior" ><i class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
     </g:if>
 
 </div>
@@ -196,7 +196,9 @@
 <h3 style="text-align: center">Características</h3>
 <h5 style="text-align: center"> ${producto.titulo}</h5>
     <div>
-        ${producto.texto}
+        <g:applyCodec encodeAs="none">
+            ${producto.texto}
+        </g:applyCodec>
     </div>
     <table class="table-bordered table-striped table-hover table-active" style="width: 100%" >
         <g:each in="${atributos}" var="at" status="i">
