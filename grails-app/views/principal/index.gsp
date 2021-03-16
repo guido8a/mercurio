@@ -9,7 +9,7 @@
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <title>Ventas</title>
 
-%{--    <g:layoutHead/>--}%
+    %{--    <g:layoutHead/>--}%
 
     <!-- Bootstrap core CSS -->
     <asset:stylesheet src="/merc/bootstrap.min.css"/>
@@ -77,23 +77,23 @@
 
 
 <div class="container" style="margin-top: 30px">
-%{--        <div class="row g-2" style="margin-top: 20px">--}%
-            <div class="row">
-                <div class="input-group col-md-6">
-                    <div class="input-group-text text-info">Texto</div>
-                    <input type="text" class="form-control estilo" id="inlineFormInputGroupUsername" placeholder="texto a buscar...">
-                </div>
+    %{--        <div class="row g-2" style="margin-top: 20px">--}%
+    <div class="row">
+        <div class="input-group col-md-6">
+            <div class="input-group-text text-info">Texto</div>
+            <input type="text" class="form-control estilo" id="inlineFormInputGroupUsername" placeholder="texto a buscar...">
+        </div>
 
-                <div class="input-group col-md-4">
-                    <div class="input-group-text text-info">Categoría</div>
-                    <g:select name="categoriaBuscar" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionValue="descripcion" optionKey="id" noSelection="[ 0 : 'Todas']"/>
-                </div>
+        <div class="input-group col-md-4">
+            <div class="input-group-text text-info">Categoría</div>
+            <g:select name="categoriaBuscar" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionValue="descripcion" optionKey="id" noSelection="[ 0 : 'Todas']"/>
+        </div>
 
-                <div class="col-md-2">
-                    <a href="#" class="btn btn-info"><i class="fa fa-search"></i> Buscar </a>
-                </div>
-            </div>
-%{--        </div>--}%
+        <div class="col-md-2">
+            <a href="#" class="btn btn-info"><i class="fa fa-search"></i> Buscar </a>
+        </div>
+    </div>
+    %{--        </div>--}%
 </div>
 
 %{--<div class="container">--}%
@@ -139,47 +139,47 @@
 
         <div class="col-lg-3">
 
-%{--
-            <g:if test="${usuario}">
-                <label style="margin-top: 10px">Usuario: ${usuario.nombre} ${usuario.apellido}</label>
-            </g:if>
---}%
+            %{--
+                        <g:if test="${usuario}">
+                            <label style="margin-top: 10px">Usuario: ${usuario.nombre} ${usuario.apellido}</label>
+                        </g:if>
+            --}%
 
 
-%{--
-            <div class="btn-group" style="margin-top: 20px">
-                <g:if test="${usuario}">
-                    <a href="${createLink(controller: 'login', action: 'logout')}" class="btn btn-warning"
-                       style="text-decoration: none"><i class="fa fa-user-times"></i> Salir</a>
-                </g:if>
-                <g:else>
-                    <a href="#" id="ingresar" class="btn btn-success" style="text-decoration: none"><i
-                            class="fa fa-user-check"></i> Ingresar</a>
-                </g:else>
+            %{--
+                        <div class="btn-group" style="margin-top: 20px">
+                            <g:if test="${usuario}">
+                                <a href="${createLink(controller: 'login', action: 'logout')}" class="btn btn-warning"
+                                   style="text-decoration: none"><i class="fa fa-user-times"></i> Salir</a>
+                            </g:if>
+                            <g:else>
+                                <a href="#" id="ingresar" class="btn btn-success" style="text-decoration: none"><i
+                                        class="fa fa-user-check"></i> Ingresar</a>
+                            </g:else>
 
-                <a href="#" id="registro" class="btn btn-info" style="text-decoration: none"><i
-                        class="fa fa-cog"></i> Registrarse</a>
-            </div>
---}%
+                            <a href="#" id="registro" class="btn btn-info" style="text-decoration: none"><i
+                                    class="fa fa-cog"></i> Registrarse</a>
+                        </div>
+            --}%
 
-%{--
-            <div class="btn-group" style="margin-top: 5px">
-                <g:if test="${usuario}">
-                    <a href="${createLink(controller: 'producto', action: 'list', id: usuario?.id)}"
-                       class="btn btn-success" style="text-decoration: none"><i class="fa fa-plus-circle"></i> Vender
-                    </a>
-                </g:if>
-            </div>
---}%
+            %{--
+                        <div class="btn-group" style="margin-top: 5px">
+                            <g:if test="${usuario}">
+                                <a href="${createLink(controller: 'producto', action: 'list', id: usuario?.id)}"
+                                   class="btn btn-success" style="text-decoration: none"><i class="fa fa-plus-circle"></i> Vender
+                                </a>
+                            </g:if>
+                        </div>
+            --}%
 
             <div style="height: 20px"></div>
             <h2 class="my-2">Categorías</h2>
 
-%{--            <div class="list-group">--}%
-%{--                <g:each in="${categorias}" var="ct">--}%
-%{--                    <a href="#${ct?.id}" class="lista-item">${ct.descripcion}</a>--}%
-%{--                </g:each>--}%
-%{--            </div>--}%
+            %{--            <div class="list-group">--}%
+            %{--                <g:each in="${categorias}" var="ct">--}%
+            %{--                    <a href="#${ct?.id}" class="lista-item">${ct.descripcion}</a>--}%
+            %{--                </g:each>--}%
+            %{--            </div>--}%
 
             <div id="default-tree"></div>
 
@@ -216,11 +216,11 @@
 
                 <div class="carousel-inner cs900" role="listbox">
 
-   					<g:each in="${carrusel}" var="carr" status="i">
-                    	<div class="carousel-item ${i==0? 'active': ''}" >
+                    <g:each in="${carrusel}" var="carr" status="i">
+                        <div class="carousel-item ${i==0? 'active': ''}" >
                             <img class="img-fluid imag-item" alt="First slide"
                                  src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
-                    	</div>
+                        </div>
                     </g:each>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -233,369 +233,409 @@
                 </a>
             </div>
 
-%{--            <div class="row">--}%
-%{--                <g:each in="${productos}" var="prod" status="i">--}%
+        %{--            <div class="row">--}%
+        %{--                <g:each in="${productos}" var="prod" status="i">--}%
 
-%{--                <div class="col-lg-4 col-md-6 mb-4">--}%
-%{--                    <div class="card h-100">--}%
-%{--                        <a href="#">--}%
-%{--                                <img class="card-img-top"--}%
-%{--                                src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>--}%
-%{--                        </a>--}%
+        %{--                <div class="col-lg-4 col-md-6 mb-4">--}%
+        %{--                    <div class="card h-100">--}%
+        %{--                        <a href="#">--}%
+        %{--                                <img class="card-img-top"--}%
+        %{--                                src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>--}%
+        %{--                        </a>--}%
 
-%{--                        <div class="card-body">--}%
-%{--                            <h4 class="card-title">--}%
-%{--                                <a href="#">${prod.tt}</a>--}%
-%{--                            </h4>--}%
-%{--                            <h5>${prod.sb}</h5>--}%
+        %{--                        <div class="card-body">--}%
+        %{--                            <h4 class="card-title">--}%
+        %{--                                <a href="#">${prod.tt}</a>--}%
+        %{--                            </h4>--}%
+        %{--                            <h5>${prod.sb}</h5>--}%
 
-%{--                            <p class="card-text">${prod.t}</p>--}%
-%{--                        </div>--}%
-%{--                    </div>--}%
-%{--                </div>--}%
-%{--                </g:each>--}%
-%{--        </div>--}%
+        %{--                            <p class="card-text">${prod.t}</p>--}%
+        %{--                        </div>--}%
+        %{--                    </div>--}%
+        %{--                </div>--}%
+        %{--                </g:each>--}%
+        %{--        </div>--}%
 
 
-%{--        Destacados--}%
-        <g:if test="${productos?.size() > 0}">
-            <div style="color: #47b636">Destacados</div>
+        %{--        Destacados--}%
+            <g:if test="${productos?.size() > 0}">
+                <div style="color: #47b636">Destacados</div>
+
+                <div class="row">
+                    <g:each in="${productos}" var="prod" status="i">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100 marcoDestacados">
+                                <a href="#">
+                                    %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
+                                    <img width="250px" height="200px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
+                                </a>
+
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="#">${prod.tt}</a>
+                                    </h4>
+                                    <h5>${prod.sb ?: 'Sin descripción'}</h5>
+
+                                    %{--                            <p class="card-text">${prod.sb}</p>--}%
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                </div>
+                            </div>
+                        </div>
+                    </g:each>
+                </div>
+            </g:if>
+
+        %{--        Normales--}%
+
 
             <div class="row">
-                <g:each in="${productos}" var="prod" status="i">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100 marcoDestacados">
-                            <a href="#">
-%{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
-                                <img width="250px" height="200px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
-                            </a>
+                <g:if test="${normales?.size() > 0}">
+                    <g:each in="${normales}" var="prod" status="i">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <a href="#">
+                                    %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
+                                    <img width="250px" height="200px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
+                                </a>
 
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">${prod.tt}</a>
-                                </h4>
-                                <h5>${prod.sb ?: 'Sin descripción'}</h5>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="#">${prod.tt}</a>
+                                    </h4>
+                                    <h5>${prod.sb ?: 'Sin descripción'}</h5>
 
-                                %{--                            <p class="card-text">${prod.sb}</p>--}%
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                    %{--                            <p class="card-text">${prod.sb}</p>--}%
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </g:each>
-            </div>
-        </g:if>
-
-%{--        Normales--}%
-
-
-        <div class="row">
-            <g:if test="${normales?.size() > 0}">
-                <g:each in="${normales}" var="prod" status="i">
+                    </g:each>
+                </g:if>
+                <g:else>
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
-                            <a href="#">
-%{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
-                                <img width="250px" height="200px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
-                            </a>
-
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">${prod.tt}</a>
+                                    <a href="#">Aquí su anuncio</a>
                                 </h4>
-                                <h5>${prod.sb ?: 'Sin descripción'}</h5>
-
-                                %{--                            <p class="card-text">${prod.sb}</p>--}%
+                                <h5>$124.99</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                             </div>
                         </div>
                     </div>
-                </g:each>
-            </g:if>
-            <g:else>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Aquí su anuncio</a>
-                            </h4>
-                            <h5>$124.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">Aquí su anuncio</a>
+                                </h4>
+                                <h5>$1.99</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Aquí su anuncio</a>
-                            </h4>
-                            <h5>$1.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Aquí su anuncio</a>
-                            </h4>
-                            <h5>$99.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">Aquí su anuncio</a>
+                                </h4>
+                                <h5>$99.99</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </g:else>
+                </g:else>
+
+            </div>
+
+
+            <!-- /.col-lg-9 -->
 
         </div>
-
-
-        <!-- /.col-lg-9 -->
+        <!-- /.row -->
 
     </div>
-    <!-- /.row -->
-
-</div>
-<!-- /.container -->
-
-
-
-
-
-
-
-<!-- Footer -->
-<footer class="py-3 bg-dark">
-    <div class="container">
-        <div style="text-align: center; font-size: small">
-            <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
-            %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
-            </span>
-        </div>
-    </div>
-
     <!-- /.container -->
-</footer>
-
-<!-- Bootstrap core JavaScript -->
-%{--<script src="vendor/jquery/jquery.min.js"></script>--}%
-%{--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}%
-
-<script type="text/javascript">
-
-    // var $frm = $("#frmLogin");
-    // var recargar = true;
-
-    // function timedRefresh(timeoutPeriod) {
-    // 	if(recargar) {
-    // 		setTimeout("location.reload(true);",timeoutPeriod);
-    // 	}
-    // 	recargar = false
-    // }
-
-    // function doLogin() {
-    // 	if ($frm.valid()) {
-    // 		// $("#cargando").removeClass('hidden');
-    // 		cargarLoader("Cargando...");
-    // 		$(".btn-login").replaceWith($("#cargando"));
-    // 		$("#frmLogin").submit();
-    // 	}
-    // }
-    //
-    // function doPass() {
-    // 	if ($("#frmPass").valid()) {
-    // 		$("#btn-pass").replaceWith(spinner);
-    // 		$("#frmPass").submit();
-    // 	}
-    // }
-
-
-    var myTree = [
-        {
-            text: "Item 1",
-            nodes: [
-                {
-                    text: "Item 1-1",
-                    nodes: [
-                        {
-                            text: "Item 1-1-1"
-                        },
-                        {
-                            text: "Item 1-1-2"
-                        }
-                    ]
-                },
-                {
-                    text: "Item 1-2"
-                }
-            ]
-        },
-        {
-            text: "Item 2"
-        },
-        {
-            text: "Item 3"
-        }
-
-    ];
-
-
-    var mytree = [
-        {
-
-        }
-    ]
-
-
-    $('#default-tree').treeview({
-        data: myTree
-    });
-
-
-    $(function () {
 
 
 
 
-        // $("#ingresar").click(function () {
-        // 	var initModalHeight = $('#modal-ingreso').outerHeight();
-        // 	//alto de la ventana de login: 270
-        // 	// console.log("ventana")
-        // 	$("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
-        // 	// console.log("antes modeal")
-        // 	$("#modal-ingreso").modal('show');
-        // 	// console.log("luego modeal")
-        // 	setTimeout(function () {
-        // 		$("#login").focus();
-        // 	}, 500);
-        //
-        // });
 
-        // $("#btnOlvidoPass").click(function () {
-        // 	$("#recuperarPass-dialog").modal("show");
-        // 	$("#modal-ingreso").modal("hide");
-        // });
-        //
-        // $("#btn-login").click(function () {
-        // 	doLogin();
-        // });
-        //
-        // $("#btn-pass").click(function () {
-        // 	doPass();
-        // });
-        //
-        // $("input").keyup(function (ev) {
-        // 	if (ev.keyCode == 13) {
-        // 		doLogin();
+
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <div style="text-align: center; font-size: small">
+                <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
+                %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
+                </span>
+            </div>
+        </div>
+
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    %{--<script src="vendor/jquery/jquery.min.js"></script>--}%
+    %{--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}%
+
+    <script type="text/javascript">
+
+        // var $frm = $("#frmLogin");
+        // var recargar = true;
+
+        // function timedRefresh(timeoutPeriod) {
+        // 	if(recargar) {
+        // 		setTimeout("location.reload(true);",timeoutPeriod);
         // 	}
-        // })
+        // 	recargar = false
+        // }
 
-    });
+        // function doLogin() {
+        // 	if ($frm.valid()) {
+        // 		// $("#cargando").removeClass('hidden');
+        // 		cargarLoader("Cargando...");
+        // 		$(".btn-login").replaceWith($("#cargando"));
+        // 		$("#frmLogin").submit();
+        // 	}
+        // }
+        //
+        // function doPass() {
+        // 	if ($("#frmPass").valid()) {
+        // 		$("#btn-pass").replaceWith(spinner);
+        // 		$("#frmPass").submit();
+        // 	}
+        // }
 
-    $("#ingresar").click(function () {
-        cargarIngreso();
-    });
+        //
+        // var myTree = [
+        //     {
+        //         text: "Item 1",
+        //         nodes: [
+        //             {
+        //                 text: "Item 1-1",
+        //                 nodes: [
+        //                     {
+        //                         text: "Item 1-1-1"
+        //                     },
+        //                     {
+        //                         text: "Item 1-1-2"
+        //                     }
+        //                 ]
+        //             },
+        //             {
+        //                 text: "Item 1-2"
+        //             }
+        //         ]
+        //     },
+        //     {
+        //         text: "Item 2"
+        //     },
+        //     {
+        //         text: "Item 3"
+        //     }
+        //
+        // ];
 
-    function cargarIngreso() {
-        $.ajax({
-            type: "POST",
-            url: "${createLink(controller: 'principal', action: 'login_ajax')}",
-            data: {},
-            success: function (msg) {
-                var b = bootbox.dialog({
-                    id: "dlgCreateEditIngreso",
-                    message: msg,
-                    buttons: {
-                        cancelar: {
-                            label: "Cancelar",
-                            className: "btn-primary",
-                            callback: function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    } //createEdit
 
-    $("#registro").click(function () {
-        cargarRegistro();
-    });
+        %{--console.log(${data})--}%
 
-    function cargarRegistro() {
-        // console.log("cargar")
-        $.ajax({
-            type: "POST",
-            url: "${createLink(controller: 'persona', action: 'registro_ajax')}",
-            data: {},
-            success: function (msg) {
-                var b = bootbox.dialog({
-                    id: "dlgCreateEditRegistro",
-                    // class   : "long",
-                    // title   : "Registro de usuarios",
-                    message: msg,
-                    buttons: {
-                        cancelar: {
-                            label: "Cancelar",
-                            className: "btn-primary",
-                            callback: function () {
-                            }
-                        },
-                        guardar: {
-                            id: "btnSave",
-                            label: "<i class='fa fa-save'></i> Guardar",
-                            className: "btn-success",
-                            callback: function () {
-                                return submitFormRegistro();
-                            } //callback
-                        } //guardar
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    } //createEdit
+        %{--var mytree = ${data}--}%
 
-    function submitFormRegistro() {
-        var $form = $("#frmRegistro");
-        if ($form.valid()) {
-            openLoader("Guardando...");
-            var d = cargarLoader("Guardando...");
+        %{--console.log("result " + ${})--}%
+
+        %{--var json = $.parseJSON(${data});--}%
+
+        %{--$('#default-tree').treeview({--}%
+        %{--    data: json--}%
+        %{--});--}%
+
+        var arbol = [];
+
+        <g:each in="${ventas.Categoria.list().sort{it.descripcion}}" var="categoria">
+
+        <g:if test="${ventas.Subcategoria.findAllByCategoria(categoria)}">
+
+        arbol.push({
+            text: '${categoria?.descripcion}',
+            <g:each in="${ventas.Subcategoria.findByCategoria(categoria)}" var="subcategoria">
+            nodes:[{
+                text: '${subcategoria?.descripcion}'
+            }]
+            </g:each>
+        });
+
+        </g:if>
+        <g:else>
+
+        arbol.push({
+            text: '${categoria?.descripcion}'
+        });
+
+        </g:else>
+
+        </g:each>
+
+        %{--console.log("arbol " + arbol)--}%
+
+        %{--var json = $.parseJSON(${data});--}%
+        %{--var json = JSON.parse(${data});--}%
+
+        // console.log(arbol)
+
+        %{--var r = JSON.parse(${data.toPrettyString()});--}%
+
+        $('#default-tree').treeview({
+            data: arbol,
+            enableLinks: true,
+            highlightSelected: true
+        });
+
+
+        $(function () {
+
+
+            // $("#ingresar").click(function () {
+            // 	var initModalHeight = $('#modal-ingreso').outerHeight();
+            // 	//alto de la ventana de login: 270
+            // 	// console.log("ventana")
+            // 	$("#modalBody").css({'margin-top': ($(document).height() / 2 - 135)}, {'margin-left': $(window).width() / 2});
+            // 	// console.log("antes modeal")
+            // 	$("#modal-ingreso").modal('show');
+            // 	// console.log("luego modeal")
+            // 	setTimeout(function () {
+            // 		$("#login").focus();
+            // 	}, 500);
+            //
+            // });
+
+            // $("#btnOlvidoPass").click(function () {
+            // 	$("#recuperarPass-dialog").modal("show");
+            // 	$("#modal-ingreso").modal("hide");
+            // });
+            //
+            // $("#btn-login").click(function () {
+            // 	doLogin();
+            // });
+            //
+            // $("#btn-pass").click(function () {
+            // 	doPass();
+            // });
+            //
+            // $("input").keyup(function (ev) {
+            // 	if (ev.keyCode == 13) {
+            // 		doLogin();
+            // 	}
+            // })
+
+        });
+
+        $("#ingresar").click(function () {
+            cargarIngreso();
+        });
+
+        function cargarIngreso() {
             $.ajax({
                 type: "POST",
-                url: '${createLink(controller: 'persona', action:'saveRegistro_ajax')}',
-                data: $form.serialize(),
+                url: "${createLink(controller: 'principal', action: 'login_ajax')}",
+                data: {},
                 success: function (msg) {
-                    // closeLoader();
-                    d.modal('hide');
-                    if (msg == 'ok') {
-                        bootbox.alert("Un mail de verificación ha sido enviado a su correo")
-                    } else {
-                        bootbox.alert("Error al crear el usuario")
-                    }
-                }
-            });
-        } else {
-            return false;
-        } //else
-    }
+                    var b = bootbox.dialog({
+                        id: "dlgCreateEditIngreso",
+                        message: msg,
+                        buttons: {
+                            cancelar: {
+                                label: "Cancelar",
+                                className: "btn-primary",
+                                callback: function () {
+                                }
+                            }
+                        } //buttons
+                    }); //dialog
+                } //success
+            }); //ajax
+        } //createEdit
 
-</script>
+        $("#registro").click(function () {
+            cargarRegistro();
+        });
+
+        function cargarRegistro() {
+            // console.log("cargar")
+            $.ajax({
+                type: "POST",
+                url: "${createLink(controller: 'persona', action: 'registro_ajax')}",
+                data: {},
+                success: function (msg) {
+                    var b = bootbox.dialog({
+                        id: "dlgCreateEditRegistro",
+                        // class   : "long",
+                        // title   : "Registro de usuarios",
+                        message: msg,
+                        buttons: {
+                            cancelar: {
+                                label: "Cancelar",
+                                className: "btn-primary",
+                                callback: function () {
+                                }
+                            },
+                            guardar: {
+                                id: "btnSave",
+                                label: "<i class='fa fa-save'></i> Guardar",
+                                className: "btn-success",
+                                callback: function () {
+                                    return submitFormRegistro();
+                                } //callback
+                            } //guardar
+                        } //buttons
+                    }); //dialog
+                } //success
+            }); //ajax
+        } //createEdit
+
+        function submitFormRegistro() {
+            var $form = $("#frmRegistro");
+            if ($form.valid()) {
+                openLoader("Guardando...");
+                var d = cargarLoader("Guardando...");
+                $.ajax({
+                    type: "POST",
+                    url: '${createLink(controller: 'persona', action:'saveRegistro_ajax')}',
+                    data: $form.serialize(),
+                    success: function (msg) {
+                        // closeLoader();
+                        d.modal('hide');
+                        if (msg == 'ok') {
+                            bootbox.alert("Un mail de verificación ha sido enviado a su correo")
+                        } else {
+                            bootbox.alert("Error al crear el usuario")
+                        }
+                    }
+                });
+            } else {
+                return false;
+            } //else
+        }
+
+    </script>
 
 </body>
 

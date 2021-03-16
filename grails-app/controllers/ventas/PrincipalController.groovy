@@ -2,6 +2,7 @@ package ventas
 
 import grails.converters.JSON
 import groovy.io.FileType
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import wslite.json.JSONObject
 
@@ -61,7 +62,7 @@ class PrincipalController {
                                    sb: im.producto.subtitulo, t: im.producto.texto])
                 } else {
                     normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                   sb: im.producto.subtitulo, t: im.producto.texto])
+                                  sb: im.producto.subtitulo, t: im.producto.texto])
                 }
             }
         }
@@ -78,11 +79,12 @@ class PrincipalController {
         def object = []
 
         Categoria.list().each {
-           object.add(jsonSlurper.parseText('{ "text": 1}'))
+            object.add(jsonSlurper.parseText('{ "text": 1}'))
         }
 
         def slurper = new JsonSlurper()
-        def result = slurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
+//        def result = slurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
+//        def result = slurper.parseText('{"person":{"text":"Guillaume"}}')
 
 
 //        JSONObject userJson = JSON.parse(jsonResponse)
@@ -93,11 +95,50 @@ class PrincipalController {
 //            o1.put(1,it.descripcion)
 //        }
 
+//        def data = [
+//                files: [
+//                        [
+//                                name : nombre,
+//                                size : f.getSize(),
+//                                error: "Ha ocurrido un error al guardar"
+//                        ]
+//                ]
+//        ]
 
 
+        def data = []
+
+        Categoria.list().each{
+
+            data.add([
+//                    text: it.descripcion
+//                    files: [
+//                        [
+                                text : it.descripcion,
+//                        ]
+//                ]
+            ])
+
+
+        }
+
+
+        def json = new JsonBuilder(data)
+
+
+
+        def json2 = slurper.parseText('''
+                {
+                    "text": "uno"
+                }
+        ''')
+
+        def r2 = new JsonBuilder(json2).toPrettyString()
 
         println("obje " + object)
-        println("obje " + result)
+//        println("obje " + result.toString())
+        println("obje3 " + json)
+        println("obje3 " + r2)
 //        println("obje " + o1)
 //        println("obje " + o1 as JSON)
 
@@ -107,7 +148,7 @@ class PrincipalController {
 //        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
 //                carrusel: carrusel, productos: productosDestacados, normales: productosNormales]
         return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: carrusel, productos: productos, normales: normales]
+                carrusel: carrusel, productos: productos, normales: normales, data: json, result: r2]
 
     }
 
@@ -211,7 +252,7 @@ class PrincipalController {
                         "\n Mensaje: ${params.mensaje}"
             }
         }catch (e){
-             println("Error al enviar el mail")
+            println("Error al enviar el mail")
             errores += e
         }
 
