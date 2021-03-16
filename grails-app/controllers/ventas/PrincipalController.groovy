@@ -219,7 +219,7 @@ class PrincipalController {
         def path = params.ruta
         def fileext = path.substring(path.indexOf(".")+1, path.length())
 
-        println "ruta: $path"
+        println "ruta: $path, fileext $fileext"
 
         BufferedImage imagen = ImageIO.read(new File(path));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

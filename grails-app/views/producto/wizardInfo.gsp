@@ -126,7 +126,7 @@
                         <label class="col-md-3 control-label text-info">
                             Detalles o Especificaciones
                         </label>
-                        <div class="col-md-6 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
+                        <div class="col-md-7 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
                             <textarea id="texto" class="editor">${producto?.texto}</textarea>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
     $(function () {
 
         CKEDITOR.replace( 'texto', {
-            height: "100px",
+            height: "140px",
             width: "100%",
             toolbar                 : [
                 ['Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'Bold', 'Italic', 'Underline'],

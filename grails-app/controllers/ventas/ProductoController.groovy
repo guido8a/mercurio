@@ -409,7 +409,7 @@ class ProductoController {
     }
 
     def wizardImagenes() {
-        println "params: $params"
+        println "wizardImagenes: $params"
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
 
@@ -417,7 +417,6 @@ class ProductoController {
 
         /**** imágenes ****/
         if(producto?.id){
-
             def path = "/var/ventas/productos/pro_" + producto.id + "/"
             new File(path).mkdirs()
 
@@ -428,6 +427,7 @@ class ProductoController {
                     imagenes.add([file: file.name])
                 }
             }
+            println "path: $path --> imagenes: $imagenes"
         }
 
         return[producto: producto, persona: persona, imagenes: imagenes]
