@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
+    <meta name="layout" content="main">
     <title>Ventas</title>
 
     %{--    <g:layoutHead/>--}%
@@ -266,7 +267,7 @@
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 marcoDestacados">
                                 <a href="#">
-                                    %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
+%{--                                                                    <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
                                     <img width="250px" height="200px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                                 </a>
 
@@ -506,8 +507,23 @@
         $('#default-tree').treeview({
             data: arbol,
             enableLinks: true,
-            highlightSelected: true
+            highlightSelected: true,
+            levels: 2,
+            expandIcon: 'glyphicon glyphicon-plus',
+            collapseIcon: 'glyphicon glyphicon-minus',
+            emptyIcon: 'glyphicon',
+            nodeIcon: '',
+            selectedIcon: '',
+            checkedIcon: 'glyphicon glyphicon-check',
+            uncheckedIcon: 'glyphicon glyphicon-unchecked',
+            // shows borders
+            showBorder: true,
+
+            // shows icons
+            showIcon: true,
         });
+
+        // $('#default-tree').treeview('enableAll', { silent: true });
 
 
         $(function () {

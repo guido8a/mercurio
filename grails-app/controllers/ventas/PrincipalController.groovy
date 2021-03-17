@@ -71,18 +71,18 @@ class PrincipalController {
         println "normales: ${normales.rt}"
 
 
-        def dataArbol = []
-
-        def jsonSlurper = new JsonSlurper()
-
-//        def object = jsonSlurper.parseText('{ "text": "John"}')
-        def object = []
-
-        Categoria.list().each {
-            object.add(jsonSlurper.parseText('{ "text": 1}'))
-        }
-
-        def slurper = new JsonSlurper()
+//        def dataArbol = []
+//
+//        def jsonSlurper = new JsonSlurper()
+//
+////        def object = jsonSlurper.parseText('{ "text": "John"}')
+//        def object = []
+//
+//        Categoria.list().each {
+//            object.add(jsonSlurper.parseText('{ "text": 1}'))
+//        }
+//
+//        def slurper = new JsonSlurper()
 //        def result = slurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
 //        def result = slurper.parseText('{"person":{"text":"Guillaume"}}')
 
@@ -106,39 +106,39 @@ class PrincipalController {
 //        ]
 
 
-        def data = []
+//        def data = []
+//
+//        Categoria.list().each{
+//
+//            data.add([
+////                    text: it.descripcion
+////                    files: [
+////                        [
+//                                text : it.descripcion,
+////                        ]
+////                ]
+//            ])
+//
+//
+//        }
 
-        Categoria.list().each{
-
-            data.add([
-//                    text: it.descripcion
-//                    files: [
-//                        [
-                                text : it.descripcion,
-//                        ]
-//                ]
-            ])
-
-
-        }
-
-
-        def json = new JsonBuilder(data)
-
-
-
-        def json2 = slurper.parseText('''
-                {
-                    "text": "uno"
-                }
-        ''')
-
-        def r2 = new JsonBuilder(json2).toPrettyString()
-
-        println("obje " + object)
-//        println("obje " + result.toString())
-        println("obje3 " + json)
-        println("obje3 " + r2)
+//
+//        def json = new JsonBuilder(data)
+//
+//
+//
+//        def json2 = slurper.parseText('''
+//                {
+//                    "text": "uno"
+//                }
+//        ''')
+//
+//        def r2 = new JsonBuilder(json2).toPrettyString()
+//
+//        println("obje " + object)
+////        println("obje " + result.toString())
+//        println("obje3 " + json)
+//        println("obje3 " + r2)
 //        println("obje " + o1)
 //        println("obje " + o1 as JSON)
 
@@ -148,7 +148,7 @@ class PrincipalController {
 //        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
 //                carrusel: carrusel, productos: productosDestacados, normales: productosNormales]
         return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: carrusel, productos: productos, normales: normales, data: json, result: r2]
+                carrusel: carrusel, productos: productos, normales: normales]
 
     }
 
