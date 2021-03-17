@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    <meta name="layout" content="main">
+    <meta name="layout" content="main2">
     <title>Ventas</title>
 
     %{--    <g:layoutHead/>--}%
@@ -73,29 +73,76 @@
 
 <body>
 
-<mn:menuHg activo="${activo}"/>
+%{--<mn:menuHg activo="${activo}"/>--}%
 
-
-
-<div class="container" style="margin-top: 30px">
-    %{--        <div class="row g-2" style="margin-top: 20px">--}%
-    <div class="row">
-        <div class="input-group col-md-6">
-            <div class="input-group-text text-info">Texto</div>
-            <input type="text" class="form-control estilo" id="inlineFormInputGroupUsername" placeholder="texto a buscar...">
-        </div>
-
-        <div class="input-group col-md-4">
-            <div class="input-group-text text-info">Categoría</div>
-            <g:select name="categoriaBuscar" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionValue="descripcion" optionKey="id" noSelection="[ 0 : 'Todas']"/>
-        </div>
-
-        <div class="col-md-2">
-            <a href="#" class="btn btn-info"><i class="fa fa-search"></i> Buscar </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
-    %{--        </div>--}%
+</nav>
+
+<div class="input-group mb-3">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+%{--    <ul class="dropdown-menu">--}%
+%{--        <li><a class="dropdown-item" href="#">Action</a></li>--}%
+%{--        <li><a class="dropdown-item" href="#">Another action</a></li>--}%
+%{--        <li><a class="dropdown-item" href="#">Something else here</a></li>--}%
+%{--        <li><hr class="dropdown-divider"></li>--}%
+%{--        <li><a class="dropdown-item" href="#">Separated link</a></li>--}%
+%{--    </ul>--}%
+            <g:select name="categoriaBuscar" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionValue="descripcion" optionKey="id" noSelection="[ 0 : 'Todas']"/>
+
+    <input type="text" class="form-control" aria-label="Text input with dropdown button">
 </div>
+
+%{--<div class="container" style="margin-top: 30px">--}%
+%{--    <div class="row">--}%
+%{--        <div class="input-group col-md-6">--}%
+%{--            <div class="input-group-text text-info">Texto</div>--}%
+%{--            <input type="text" class="form-control estilo" id="inlineFormInputGroupUsername" placeholder="texto a buscar...">--}%
+%{--        </div>--}%
+
+%{--        <div class="input-group col-md-4">--}%
+%{--            <div class="input-group-text text-info">Categoría</div>--}%
+%{--            <g:select name="categoriaBuscar" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control" optionValue="descripcion" optionKey="id" noSelection="[ 0 : 'Todas']"/>--}%
+%{--        </div>--}%
+
+%{--        <div class="col-md-2">--}%
+%{--            <a href="#" class="btn btn-info"><i class="fa fa-search"></i> Buscar </a>--}%
+%{--        </div>--}%
+%{--    </div>--}%
+%{--</div>--}%
 
 %{--<div class="container">--}%
 %{--<form class="row row-cols-lg-auto g-3 align-items-center">--}%
@@ -206,17 +253,14 @@
                                   clase="${flash.clase}">${flash.message}</elm:flashMessage>
             </div>
 
-            <div id="carouselExampleIndicators" class="carousel slide my-4 cs900" data-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide my-4 cs900">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    %{--                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>--}%
-                    %{--                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>--}%
                 </ol>
 
                 <div class="carousel-inner cs900" role="listbox">
-
                     <g:each in="${carrusel}" var="carr" status="i">
                         <div class="carousel-item ${i==0? 'active': ''}" >
                             <img class="img-fluid imag-item" alt="First slide"
@@ -224,14 +268,23 @@
                         </div>
                     </g:each>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
+%{--                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">--}%
+%{--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>--}%
+%{--                    <span class="sr-only">Previous</span>--}%
+%{--                </a>--}%
+%{--                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">--}%
+%{--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>--}%
+%{--                    <span class="sr-only">Next</span>--}%
+%{--                </a>--}%
+
+
+                <a class="left carousel-control" href="#carouselExampleIndicators" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                <a class="right carousel-control" href="#carouselExampleIndicators" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
+
             </div>
 
         %{--            <div class="row">--}%
@@ -508,7 +561,7 @@
             data: arbol,
             enableLinks: true,
             highlightSelected: true,
-            levels: 2,
+            // levels: 2,
             expandIcon: 'glyphicon glyphicon-plus',
             collapseIcon: 'glyphicon glyphicon-minus',
             emptyIcon: 'glyphicon',
@@ -520,10 +573,10 @@
             showBorder: true,
 
             // shows icons
-            showIcon: true,
+            showIcon: true
         });
 
-        // $('#default-tree').treeview('enableAll', { silent: true });
+        $('#default-tree').treeview('collapseAll', { silent: true });
 
 
         $(function () {
