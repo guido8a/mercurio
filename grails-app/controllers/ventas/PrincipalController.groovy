@@ -44,7 +44,7 @@ class PrincipalController {
             }
         }
         def i = 1
-        while(carrusel.size() < 4) {
+        while(carrusel.size() < 3) {
             carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
         }
 
@@ -66,6 +66,8 @@ class PrincipalController {
                 }
             }
         }
+
+        println("carru " + carrusel)
 
         println "productos: ${productos.rt}"
         println "normales: ${normales.rt}"

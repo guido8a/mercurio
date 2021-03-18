@@ -12,7 +12,7 @@
 %{--    prueba--}%
     <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>
 %{--    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.min.css"/>--}%
-    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap-theme.css"/>
+%{--    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap-theme.css"/>--}%
 %{--  fin  prueba--}%
 
 
@@ -39,10 +39,11 @@
     <asset:javascript src="/jquery/jquery-2.2.4.js"/>
     <asset:javascript src="/jquery/jquery-ui.js"/>
 
-    <asset:javascript src="/apli/moment.js"/>
-    <asset:javascript src="/apli/moment-with-locales.js"/>
+%{--    <asset:javascript src="/apli/moment.js"/>--}%
+%{--    <asset:javascript src="/apli/moment-with-locales.js"/>--}%
 
 %{--    <asset:javascript src="/apli/bootstrap.min.js"/>--}%
+%{--    <asset:javascript src="/apli/bootstrap.js"/>--}%
 
     <asset:javascript src="/apli/funciones.js"/>
     <asset:javascript src="/apli/functions.js"/>
@@ -57,8 +58,8 @@
     <asset:javascript src="/apli/jquery.pnotify.js"/>
     <asset:javascript src="/apli/fontawesome.all.min.js"/>
 
-    <asset:javascript src="/apli/bootstrap-datetimepicker.min.js"/>
-    <asset:javascript src="/apli/bootstrap-maxlength.min.js"/>
+%{--    <asset:javascript src="/apli/bootstrap-datetimepicker.min.js"/>--}%
+%{--    <asset:javascript src="/apli/bootstrap-maxlength.min.js"/>--}%
 
 
 %{--    <asset:javascript src="/bootstrap-3.3.2/dist/js/bootstrap.min.js"/>--}%
@@ -92,8 +93,8 @@
 <script type="text/javascript">
 
 
-    var affixElement = '#navbar-main';
-
+    // var affixElement = '#navbar-main';
+    //
     // $(affixElement).affix({
     //     offset: {
     //         // Distance of between element and top page
