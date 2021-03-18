@@ -103,10 +103,6 @@
                         <a href="#" id="ingresar" class="btn btn-success" style="text-decoration: none"><i
                                 class="fa fa-user-check"></i> Ingresar</a>
                     </g:else>
-
-
-
-
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -116,7 +112,7 @@
                         Dropdown
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item active" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -128,14 +124,28 @@
             </ul>
             <form class="d-flex col-md-6">
 
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                </ul>
+%{--                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>--}%
+%{--                <ul class="dropdown-menu">--}%
+%{--                    <g:each in="${ventas.Categoria.list().sort{it.descripcion}}" var="cat">--}%
+%{--                        <li><a class="dropdown-item" href="#">${cat.descripcion}</a></li>--}%
+%{--                    </g:each>--}%
+%{--                    <li><a class="dropdown-item" href="#">Action</a></li>--}%
+%{--                    <li><a class="dropdown-item" href="#">Another action</a></li>--}%
+%{--                    <li><a class="dropdown-item" href="#">Something else here</a></li>--}%
+%{--                    <li><hr class="dropdown-divider"></li>--}%
+%{--                    <li><a class="dropdown-item" href="#">Separated link</a></li>--}%
+%{--                </ul>--}%
+
+%{--                <div class="input-group mb-3">--}%
+                    <label class="input-group-text">Categoría:</label>
+                <g:select name="cat" from="${ventas.Categoria.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" noSelection="[0: 'Todas']"/>
+%{--                    <select class="form-select" id="inputGroupSelect01">--}%
+%{--                        <option selected>Choose...</option>--}%
+%{--                        <option value="1">One</option>--}%
+%{--                        <option value="2">Two</option>--}%
+%{--                        <option value="3">Three</option>--}%
+%{--                    </select>--}%
+%{--                </div>--}%
 
                 <input class="form-control me-2 col-md-12" style="min-height: 35px" type="search" placeholder="Buscar..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
