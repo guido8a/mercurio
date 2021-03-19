@@ -296,24 +296,9 @@ class PersonaController {
     }
 
     def personal() {
-        def usuario = Persona.get(session.usuario.id)
-        def dep = usuario.unidadEjecutora
+        def persona = Persona.get(session.usuario.id)
 
-        def personas = Persona.findAllByUnidadEjecutoraAndActivo(dep, 1, [sort: 'apellido', order: 'apellido'])
-        def personasFiltradas = []
-
-        personas.each {
-            if (it?.estaActivo) {
-                personasFiltradas += it
-            }
-
-        }
-
-        personasFiltradas.remove(usuario)
-
-        println("usuario " + usuario?.id)
-
-        return [usuario: usuario, params: params, personas: personasFiltradas]
+        return [persona: persona]
     }
 
     def personalAdm() {
