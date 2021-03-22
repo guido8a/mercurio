@@ -88,7 +88,7 @@ class Persona implements Auditable{
     }
 
     String toString() {
-        "${this.id}: ${this.nombre} ${this.apellido}"
+        "${this.id}: ${this.nombre} ${this.apellido?:''}"
     }
 
     def getEstaActivo() {
