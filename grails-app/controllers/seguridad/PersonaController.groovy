@@ -1,5 +1,7 @@
 package seguridad
 
+import geografia.Canton
+import geografia.Provincia
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.WordUtils
 import sun.security.provider.MD5
@@ -399,12 +401,12 @@ class PersonaController {
             persona.fecha = new Date() + 90
             if(!persona.save(flush: true)){
                 println("error al guardar el nuevo password " + persona.errors)
-                render "error*Error al guardar el password"
+                render "no_Error al guardar el password"
             }else{
-                render "SUCCESS*La contraseña ha sido modificada exitosamente"
+                render "ok_La contraseña ha sido modificada exitosamente"
             }
         }else{
-            render "error*El password ingresado y su confirmación no coinciden"
+            render "no_El password ingresado y su confirmación no coinciden"
         }
     }
 
@@ -1136,39 +1138,14 @@ class PersonaController {
 
 //        println("params sp " + params)
 
-        def persona
-        def texto = ''
-
-        if(params.id){
-            persona = Persona.get(params.id)
-            if(params.password != persona.password){
-                params.password = params.password.encodeAsMD5()
-                params.fecha = new Date()
-            }
-            params.autorizacion = params.autorizacion.encodeAsMD5()
-            params.unidadEjecutora = persona.unidadEjecutora
-            texto = "Usuario actualizado correctamente"
-        }else{
-            persona = new Persona()
-            params.password = params.password.encodeAsMD5()
-            params.autorizacion = params.autorizacion.encodeAsMD5()
-            params.fechaInicio = new Date()
-            params.fecha = new Date()
-            texto = "Usuario creado correctamente"
-        }
-
-        if(params.activo == '0'){
-            params.fechaFin = new Date()
-        }else{
-            params.fechaFin = null
-        }
+        def persona = Persona.get(params.id)
         persona.properties = params
 
         if(!persona.save(flush:true)){
-            println("error al guardar el usuario " + persona.errors)
-            render "no_" + texto
+            println("error al guardar la informacion de la persona" + persona.errors)
+            render "no"
         }else{
-            render "ok_" + texto
+            render "ok"
         }
     }
 
@@ -1327,5 +1304,13 @@ class PersonaController {
         println("--> " + randomString)
 
         return randomString
+    }
+
+    def canton_ajax(){
+        println("params c " + params)
+        def provincia = Provincia.get(params.id)
+        def persona = Persona.get(params.persona)
+        def cantones = Canton.findAllByProvincia(provincia).sort{it.nombre}
+        return[cantones: cantones, persona: persona]
     }
 }
