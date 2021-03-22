@@ -99,7 +99,7 @@ class Persona implements Auditable{
     }
 
     def getNombres() {
-        "${this.nombre} ${this.apellido}"
+        "${this.nombre} ${this.apellido?:''}"
     }
 
     def vaciarPermisos() {
