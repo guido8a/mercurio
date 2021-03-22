@@ -15,14 +15,11 @@ class PrincipalController {
     def index() {
         println "index params: $params"
 
-        params.id = params.id?:1
-        def categoria = Categoria.get(params.id)
+        params.sbct = params.sbct?:"sbct_1"
         def consultas = Link.findAllByActivo('A')
-        def sbct = Subcategoria.findAllByCategoria(categoria, [sort: 'orden', order: 'asc'])
-
-        def usuario = session.usuario
-
-        println("usuario " + usuario)
+        def sbct = Subcategoria.get(params.sbct.split("_")[1])
+        def ctgr = Categoria.list([sort: 'orden'])
+        println "PPctgr: $ctgr"
         /** Se deben mostrar los anuncios vigentes
          * 1. carrusel: destacados de anuncios, si no hay suficientes completar con vntaXX
          * 2. Productos: productos de anuncios vigentes, completar con "aqui su anuncio" **/
@@ -32,12 +29,12 @@ class PrincipalController {
 
 //        def carrusel = [[tp: 'p', ruta: 'ai.jpeg'], [tp: 'p', ruta: 'usuario.png']]
         def carrusel = []
-        println "publ: $publ"
+//        println "publ: $publ"
         publ.each {pb ->
             /** si el producto tiene anuncio destacado  */
             if(pb.destacado){
                 def imag = Imagen.findAllByProductoAndPrincipal(pb.anuncio.producto, '1')
-                println "imagen: ${imag}"
+//                println "imagen: ${imag}"
                 imag.each { im ->
                     carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id])
                 }
@@ -55,7 +52,7 @@ class PrincipalController {
         publ.each {pb ->
             /** si el producto tiene anuncio destacado  */
             def imag = Imagen.findAllByProducto(pb.anuncio.producto)
-            println "imágenes: $imag ${imag.principal}"
+//            println "imágenes: $imag ${imag.principal}"
             imag.each { im ->
                 if(im.principal == '1') {
                     productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
@@ -67,90 +64,13 @@ class PrincipalController {
             }
         }
 
-        println("carru " + carrusel)
-
-        println "productos: ${productos.rt}"
-        println "normales: ${normales.rt}"
-
-
-//        def dataArbol = []
-//
-//        def jsonSlurper = new JsonSlurper()
-//
-////        def object = jsonSlurper.parseText('{ "text": "John"}')
-//        def object = []
-//
-//        Categoria.list().each {
-//            object.add(jsonSlurper.parseText('{ "text": 1}'))
-//        }
-//
-//        def slurper = new JsonSlurper()
-//        def result = slurper.parseText('{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}')
-//        def result = slurper.parseText('{"person":{"text":"Guillaume"}}')
+//        println("carru " + carrusel)
+//        println "productos: ${productos.rt}"
+//        println "normales: ${normales.rt}"
 
 
-//        JSONObject userJson = JSON.parse(jsonResponse)
-
-//        def o1 = [:]
-//
-//        Categoria.list().each{
-//            o1.put(1,it.descripcion)
-//        }
-
-//        def data = [
-//                files: [
-//                        [
-//                                name : nombre,
-//                                size : f.getSize(),
-//                                error: "Ha ocurrido un error al guardar"
-//                        ]
-//                ]
-//        ]
-
-
-//        def data = []
-//
-//        Categoria.list().each{
-//
-//            data.add([
-////                    text: it.descripcion
-////                    files: [
-////                        [
-//                                text : it.descripcion,
-////                        ]
-////                ]
-//            ])
-//
-//
-//        }
-
-//
-//        def json = new JsonBuilder(data)
-//
-//
-//
-//        def json2 = slurper.parseText('''
-//                {
-//                    "text": "uno"
-//                }
-//        ''')
-//
-//        def r2 = new JsonBuilder(json2).toPrettyString()
-//
-//        println("obje " + object)
-////        println("obje " + result.toString())
-//        println("obje3 " + json)
-//        println("obje3 " + r2)
-//        println("obje " + o1)
-//        println("obje " + o1 as JSON)
-
-//        println(object.name);
-//        println(object.ID);
-
-//        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-//                carrusel: carrusel, productos: productosDestacados, normales: productosNormales]
-        return [categorias: sbct, activo: params.id, consultas: consultas, usuario: usuario,
-                carrusel: carrusel, productos: productos, normales: normales]
+        return [activo: sbct?.categoria?.id, sbct_actv: sbct?.id, consultas: consultas,
+                carrusel: carrusel, productos: productos, normales: normales, categorias: ctgr]
 
     }
 
@@ -177,7 +97,7 @@ class PrincipalController {
     }
 
     def getImgnCnsl(){
-        println "image: $params"
+//        println "getImgnCnsl: $params"
         def path = "/var/ventas/imagen/consultas/" + params.ruta
 
         BufferedImage imagen = ImageIO.read(new File(path));
@@ -197,12 +117,12 @@ class PrincipalController {
     }
 
     def getImgnProd(){
-        println "getImgnProd: $params"
+//        println "getImgnProd: $params"
         def producto = Producto.get(params.id)
         def path = (params.tp == 'p'? "/var/ventas/productos/pro_${producto.id}/" : "/var/ventas/imagen/destacados/") + params.ruta
         def fileext = path.substring(path.indexOf(".")+1, path.length())
 
-        println "ruta: $path"
+//        println "ruta: $path"
 
         BufferedImage imagen = ImageIO.read(new File(path));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -282,5 +202,25 @@ class PrincipalController {
 
     def login_ajax(){
 
+    }
+
+    def categorias() {
+//        println "cargar categorias $params"
+        def tx_id = params.id?:'ct_1'
+        def ct_id = tx_id.split("_")[1].toInteger()
+        def sbct_id = params.sbct? params.sbct.split('_')[1] : 0
+        def sbct
+        if(sbct_id) {
+            sbct = Subcategoria.get(sbct_id).id
+        } else {
+            sbct = Subcategoria.findAllByCategoria(Categoria.get(ct_id), [sort: 'orden'])
+            sbct = sbct? sbct.first().id : 0
+        }
+//        println "activo: ${ct_id}, sbct_actv: ${sbct}"
+        [activo: ct_id, sbct_actv: sbct]
+    }
+
+    def buscar() {
+        render "hola"
     }
 }

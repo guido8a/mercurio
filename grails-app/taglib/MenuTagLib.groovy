@@ -234,6 +234,83 @@ class MenuTagLib {
         out << html
     }
 
+    def menuNuevo = { attrs ->
+//        def inicio = "${createLink(controller:'login', action: 'login')}"
+        def items = [:]
+        def usuario, perfil, dpto
+        def ctgr = Categoria.list([sort: 'orden'])
+        println "ctgr: $ctgr"
+        if (session.usuario) {
+            usuario = session.usuario
+            perfil = session.perfil
+            dpto = session.departamento
+        }
+        def strItems = ""
+        if (!attrs.title) {
+            attrs.title = "Ventas"
+        }
+
+        def html = "<nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top' role='navigation'>"
+
+        html += "<div class='container-fluid'>"
+
+        // Brand and toggle get grouped for better mobile display
+        html += '<div class="navbar-header">'
+        html += '<a class="navbar-brand navbar-logo" href="/"> <img src="' + g.assetPath(src: 'apli/logo.png') +
+                '" style="float:left; height:40px">' + '</a>'
+        html += '</div>'
+
+        // Collect the nav links, forms, and other content for toggling
+        html += '<div class="collapse navbar-collapse" id="navbar-collapse-1">'
+        html += '<ul class="nav navbar-nav">'
+        html += "<div class='nav-search-field'><div class='input-group'>" +
+                g.select( name: 'categoriaBuscar', from: ctgr, noSelection: [0: 'Buscar'],
+                optionValue: 'descripcion', optionKey: 'id')
+        def txto = "<div class='input-group' style='width:240px'>" +
+          "<input type='text' class='form-control input-search' placeholder='Buscar' value='${params.search?:''''''}'>" +
+          "<span class='input-group-btn'>" +
+                "<a href='" + g.createLink(controller: 'principal', action: 'buscar') + "' class='btn btn-primary btn-search'>" +
+//                g.link(controller: 'principal', action: 'buscar', class:'btn btn-primary btn-search') +
+          "<i class='fa fa-search'></i>&nbsp;</a></span></div>"
+
+        html += '</ul>' + txto
+
+        if(usuario) {
+            html += "</div><span class='nav-item'><a class='nav-link' " +
+                    "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
+                    "style=\"color:#40cfd0; font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
+                    "<span class='nav-item' id='registro'><a class='nav-link' " +
+                    "href=\"${createLink(controller: 'login', action: 'logout')}\" "+
+                    "style=\"color:#DF8B00;font-size:small\"><i class='fa fa-power-off'></i> Salir</a></span>"
+
+            html += '<ul class="nav navbar-nav navbar-right">'
+            html += '<li class="dropdown">'
+            html += '<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">' + usuario?.nombres +
+                    ' <b class="caret"></b></a>'
+            html += '<ul class="dropdown-menu">'
+            html += '<li><a href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
+                    '"><i class="fa fa-edit"></i> Crear Anuncio</a></li>'
+            html += '<li><a href="' + g.createLink(controller: 'persona', action: 'personal') +
+                    '"><i class="fa fa-cogs"></i> Configuración</a></li>'
+            html += '<li class="divider"></li>'
+            html += '<li><a href="' + g.createLink(controller: 'login', action: 'logout') + '"><i class="fa fa-power-off"></i> Salir</a></li>'
+
+        } else {
+            html += "</div><span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
+                    "style='color:#FFAB19; font-size:small'>Ingresar</a></span>" +
+                    "<span class='nav-item' id='registro'><a class='nav-link' href='#' " +
+                    "style='color:#FFAB19;font-size:small'>Registrarse</a></span>"
+        }
+        html += '</ul>'
+        html += '</li>'
+        html += '</ul>'
+        html += '</div><!-- /.navbar-collapse -->'
+        html += "</div>"
+        html += "</nav>"
+
+        out << html
+    }
+
     def menuHg = { attrs ->
         def items = [:]
         def activo = attrs.activo? attrs.activo.toInteger() : 1
@@ -245,7 +322,7 @@ class MenuTagLib {
         acciones.each { ac ->
             items.put(ac.descripcion, [g.createLink(controller: 'principal', action: 'index', id: ac.id), ac.id])
         }
-        println "items: $items"
+//        println "items: $items"
 
         def admin = ""
         if(session.usuario) {
@@ -266,7 +343,7 @@ class MenuTagLib {
             "<a class='navbar-brand' href='/'><img src=" + g.assetPath(src: 'apli/logo.png') +
             " style='float:left; height:40px'></a>" +
             admin +
-		    "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarResponsive' " +
+            "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarResponsive' " +
             "aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation'>" +
             "<span class='navbar-toggler-icon'></span></button>" +
 		    "<div class='collapse navbar-collapse' id='navbarResponsive'><ul class='navbar-nav ml-auto'>"
