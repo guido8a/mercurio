@@ -55,21 +55,6 @@
 
         <!-- botones -->
         <div class="btn-toolbar toolbar">
-%{--            <div class="btn-group">--}%
-%{--                <g:link controller="inicio" action="parametros" class="btn btn-default">--}%
-%{--                    <i class="fa fa-arrow-left"></i> Regresar--}%
-%{--                </g:link>--}%
-%{--            </div>--}%
-
-%{--            <div class="btn-group" style="margin-top: 4px;">--}%
-%{--                <g:link action="arbol" params="[sort: 'nombre']" class="btn btn-sm btn-info">--}%
-%{--                    <i class="fa fa-sort-amount-down"></i> Ordenar por nombre--}%
-%{--                </g:link>--}%
-%{--                <g:link action="arbol" params="[sort: 'apellido']" class="btn btn-sm btn-info">--}%
-%{--                    <i class="fa fa-sort-amount-down"></i> Ordenar por apellido--}%
-%{--                </g:link>--}%
-%{--            </div>--}%
-
 
             <div class="btn-group col-md-2" style="margin-top: 4px;">
                 <div class="input-group">
@@ -85,11 +70,9 @@
 
             </div>
 
-            <div class="btn-group pull-right ui-corner-all leyenda">
+            <div class="btn-group ui-corner-all leyenda fa-2x">
                 <i class="fa fa-copyright text-info"></i> Categoría&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fa fa-file text-warning"></i> Subcategoría<br/>
-%{--                <i class="fa fa-user-circle text-muted"></i> Usuario inactivo&nbsp;&nbsp;&nbsp;--}%
-%{--                <i class="fa fa-user-circle text-danger"></i> Director<br/>--}%
+                <i class="fa fa-images text-success"></i> Subcategoría<br/>
             </div>
         </div>
 
@@ -133,7 +116,6 @@
                             log("Categoría guardada correctamente","success");
                             setTimeout(function () {
                                 location.reload(true)
-                                // $('#tree').jstree(true)
                             }, 1000);
                         }else{
                             log("Error al guardar la categoría","error")
@@ -245,6 +227,111 @@
             }); //ajax
         } //createEdit
 
+        function submitFormAtributo() {
+            var $form = $("#frmAtributo");
+            var $btn = $("#dlgCreateEditA").find("#btnSave");
+            if ($form.valid()) {
+                var cl2 = cargarLoader("Guardando...");
+                $btn.replaceWith(spinner);
+                $.ajax({
+                    type    : "POST",
+                    url     : $form.attr("action"),
+                    data    : $form.serialize(),
+                    success : function (msg) {
+                        cl2.modal("hide");
+                        if(msg == 'ok'){
+                            log("Atributo guardado correctamente","success");
+                            setTimeout(function () {
+                                location.reload(true)
+                            }, 1000);
+                        }else{
+                            log("Error al guardar el atributo","error")
+                        }
+                    }
+                });
+            } else {
+                return false;
+            } //else
+        }
+
+        function createEditAtributo(id) {
+            var c =  cargarLoader("Cargando...");
+            $.ajax({
+                type    : "POST",
+                url     : "${createLink(controller: 'atributoCategoria', action:'form_ajax')}",
+                data    : {
+                    subcategoria: id
+                },
+                success : function (msg) {
+                    c.modal('hide');
+                    var b = bootbox.dialog({
+                        id      : "dlgCreateEditA",
+                        title   : "Atributo",
+                        message : msg,
+                        buttons : {
+                            cancelar : {
+                                label     : "Cancelar",
+                                className : "btn-primary",
+                                callback  : function () {
+                                }
+                            },
+                            guardar  : {
+                                id        : "btnSave",
+                                label     : "<i class='fa fa-save'></i> Guardar",
+                                className : "btn-success",
+                                callback  : function () {
+                                    return submitFormAtributo();
+                                } //callback
+                            } //guardar
+                        } //buttons
+                    }); //dialog
+                } //success
+            }); //ajax
+        } //createEdit
+
+        function eliminarCategoria(id){
+            bootbox.confirm("<i class='fa fa-exclamation-triangle'></i> Está seguro que desea eliminar la categoría seleccionada?", function (res) {
+                if (res) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '${createLink(controller: 'categoria', action: 'delete_ajax')}',
+                            data:{
+                                id:id
+                            },
+                            success: function (msg) {
+                                var parts = msg.split("_");
+                                if(parts[0] == 'ok'){
+                                    log("Categoría borrada correctamente","success")
+                                }else{
+                                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
+                                }
+                            }
+                        })
+                }
+            });
+        }
+
+        function eliminarAtributo(id){
+            bootbox.confirm("<i class='fa fa-exclamation-triangle'></i> Está seguro que desea eliminar el atributo seleccionado?", function (res) {
+                if (res) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '${createLink(controller: 'atributoCategoria', action: 'delete_ajax')}',
+                        data:{
+                            id:id
+                        },
+                        success: function (msg) {
+
+                            if(msg == 'ok'){
+                                log("Atributo borrado correctamente","success")
+                            }else{
+                               log("Error al borrar el atributo" ,"error")
+                            }
+                        }
+                    })
+                }
+            });
+        }
 
         function createContextMenu(node) {
             var nodeStrId = node.id;
@@ -284,13 +371,20 @@
                         label: "Eliminar categoría",
                         icon: "fa fa-trash text-danger",
                         action: function (obj) {
-                            createEditRow(nodeId, "Editar");
+                            eliminarCategoria(nodeId);
                         }
                     }
                 }
             }
             else if(nodeType.contains('sub')){
                 items = {
+                    crearAt: {
+                        label: "Nuevo atributo",
+                        icon: "fa fa-plus-circle text-warning",
+                        action: function (obj) {
+                            createEditAtributo(nodeId);
+                        }
+                    },
                     editar: {
                         label: "Editar subcategoría",
                         icon: "fa fa-edit text-info",
@@ -304,6 +398,18 @@
                         icon: "fa fa-trash text-danger",
                         action: function (obj) {
                             createEditRow(nodeId, "Editar");
+                        }
+                    }
+                }
+            }
+            else if(nodeType.contains('atributo')){
+                items = {
+                    eliminarAt: {
+                        // separator_before : true,
+                        label: "Eliminar atributo",
+                        icon: "fa fa-trash text-danger",
+                        action: function (obj) {
+                            eliminarAtributo(nodeId);
                         }
                     }
                 }
@@ -375,6 +481,9 @@
                     },
                     sub           : {
                         icon : "fas fa-images text-success"
+                    },
+                    atributo           : {
+                        icon : "fas fa-broom text-warning"
                     }
                 }
             });

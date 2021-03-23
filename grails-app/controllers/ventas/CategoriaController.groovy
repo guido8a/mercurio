@@ -48,13 +48,18 @@ class CategoriaController {
     def delete_ajax(){
 
         def categoria = Categoria.get(params.id)
+        def existenSub = Subcategoria.findAllByCategoria(categoria)
 
-        try{
-            categoria.delete(flush:true)
-            render "ok"
-        }catch(e){
-            println("error al borrar la categoria " + categoria.errors)
-            render "no"
+        if(existenSub){
+                render "no_No se puede borrar, existen subcategorías asociadas a esta categoría"
+        }else{
+            try{
+                categoria.delete(flush:true)
+                render "ok"
+            }catch(e){
+                println("error al borrar la categoria " + categoria.errors)
+                render "no_error al borrar la categoria"
+            }
         }
     }
 
@@ -68,7 +73,10 @@ class CategoriaController {
 
     def makeTreeNode(params) {
         def actv = params.actv == 'true'
-        def id = params.id
+//        def id = params.id
+        def original = params.id
+        def parts = original.split("_")
+        def id = parts[0]
         if (!params.sort) {
             params.sort = "apellido"
         }
@@ -94,13 +102,27 @@ class CategoriaController {
             }
         } else if (id == "root") {
             hijos = Categoria.list().sort{it.descripcion}
-        } else {
-            def parts = id.split("_")
+        } else if(id == 'lidep'){
+
+//            def parts = id.split("_")
             def node_id = parts[1].toLong()
-            padre = Categoria.get(node_id)
-            if (padre) {
+
+//            if(parts[0] == 'lidep'){
+                padre = Categoria.get(node_id)
+                if (padre) {
+                    hijos = []
+                    hijos += Subcategoria.findAllByCategoria(padre).sort{it.descripcion}
+                }
+//            }else{
+//
+//            }
+        }else{
+//            def parts = id.split("_")
+            def node_id = parts[1].toLong()
+            padre = Subcategoria.get(node_id)
+            if(padre){
                 hijos = []
-                hijos += Subcategoria.findAllByCategoria(padre).sort{it.descripcion}
+                hijos += AtributoCategoria.findAllBySubcategoria(padre).sort{it.atributo.descripcion}
             }
         }
 
@@ -120,7 +142,6 @@ class CategoriaController {
                     def hijosH = Subcategoria.findAllByCategoria(hijo, [sort: "descripcion"])
                     data = "data-tramites='-1'"
 
-//                    rel = (hijosH.size() > 0) ? "padre" : "hijo"
                     hijosH += Subcategoria.findAllByCategoria(hijo, [sort: "descripcion"])
 
                     clase = (hijosH.size() > 0) ? "jstree-closed hasChildren" : ""
@@ -131,18 +152,36 @@ class CategoriaController {
                     rel = "catego"
 
                 } else if (hijo instanceof Subcategoria) {
-
                     tp = "usu"
                     rel = "sub"
-                    clase = "sub"
+//                    clase = "sub"
                     lbl = hijo.descripcion
 
+                    def hijosH = AtributoCategoria.findAllBySubcategoria(hijo)
+                    data = "data-tramites='-1'"
+
+                    hijosH += AtributoCategoria.findAllBySubcategoria(hijo)
+
+                    clase = (hijosH.size() > 0) ? "jstree-closed hasChildren" : ""
+                    if (hijosH.size() > 0) {
+                        clase += "sub"
+                        data += "data-tienehij='${hijosH.size()}'"
+                    }
+//                    rel = "catego"
+
+
+                } else if (hijo instanceof AtributoCategoria){
+                    tp = "atr"
+                    rel = "atributo"
+                    clase = "atributo"
+                    lbl = hijo.atributo.descripcion
                 }
 
                 tree += "<li id='li${tp}_" + hijo.id + "' class='" + clase + "' ${data} data-jstree='{\"type\":\"${rel}\"}' >"
                 tree += "<a href='#' class='label_arbol'>" + lbl + "</a>"
                 tree += "</li>"
             }
+
             tree += "</ul>"
         }
         return tree
