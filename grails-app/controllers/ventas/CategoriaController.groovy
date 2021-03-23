@@ -9,6 +9,9 @@ class CategoriaController {
 
     def form_ajax(){
 
+
+        println("params " + params)
+
         def categoria
 
         if(params.id){
@@ -130,8 +133,8 @@ class CategoriaController {
                 } else if (hijo instanceof Subcategoria) {
 
                     tp = "usu"
-                    rel = "subcatego"
-                    clase = "subcatego"
+                    rel = "sub"
+                    clase = "sub"
                     lbl = hijo.descripcion
 
                 }

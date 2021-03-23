@@ -10,8 +10,15 @@ class SubcategoriaController {
     }
 
     def form_ajax(){
-        def categoria = Categoria.get(params.categoria)
+        def categoria
         def subcategoria
+
+        if(params.categoria){
+            categoria = Categoria.get(params.categoria)
+        }else{
+            categoria = Subcategoria.get(params.id).categoria
+        }
+
         if(params.id){
             subcategoria = Subcategoria.get(params.id)
         }else{
