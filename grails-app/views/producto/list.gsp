@@ -212,27 +212,28 @@
                     icon   : "fa fa-search",
                     action : function ($element) {
                         var id = $element.data("id");
-                        $.ajax({
-                            type    : "POST",
-                            url     : "${createLink(controller: 'producto', action:'show_ajax')}",
-                            data    : {
-                                id : id
-                            },
-                            success : function (msg) {
-                                bootbox.dialog({
-                                    title   : "Ver producto",
-                                    message : msg,
-                                    buttons : {
-                                        ok : {
-                                            label     : "Aceptar",
-                                            className : "btn-primary",
-                                            callback  : function () {
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        });
+                        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+                        %{--$.ajax({--}%
+                        %{--    type    : "POST",--}%
+                        %{--    url     : "${createLink(controller: 'producto', action:'show_ajax')}",--}%
+                        %{--    data    : {--}%
+                        %{--        id : id--}%
+                        %{--    },--}%
+                        %{--    success : function (msg) {--}%
+                        %{--        bootbox.dialog({--}%
+                        %{--            title   : "Ver producto",--}%
+                        %{--            message : msg,--}%
+                        %{--            buttons : {--}%
+                        %{--                ok : {--}%
+                        %{--                    label     : "Aceptar",--}%
+                        %{--                    className : "btn-primary",--}%
+                        %{--                    callback  : function () {--}%
+                        %{--                    }--}%
+                        %{--                }--}%
+                        %{--            }--}%
+                        %{--        });--}%
+                        %{--    }--}%
+                        %{--});--}%
                     }
                 },
                 editar   : {
