@@ -325,7 +325,7 @@
 
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="${createLink(controller: 'ver', action: 'carrusel', id: prod.id)}">${prod.tt}</a>
+                                        <a href="${createLink(controller: 'ver', action: 'carrusel', params: [id: prod.id, tipo: 3])}">${prod.tt}</a>
                                     </h4>
                                     <h5>${prod.sb ?: 'Sin descripción'}</h5>
 
@@ -357,7 +357,7 @@
 
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="${createLink(controller: 'ver', action: 'carrusel', id: prod.id)}">${prod.tt}</a>
+                                        <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">${prod.tt}</a>
                                     </h4>
                                     <h5>${prod.sb ?: 'Sin descripción'}</h5>
 

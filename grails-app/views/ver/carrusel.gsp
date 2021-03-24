@@ -84,8 +84,14 @@
                         class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
             </g:if>
             <g:else>
-                <a href="#" class="btn btn-primary" id="btnAnteriorLista"><i
+                <g:if test="${tipo == '3'}">
+                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i
+                            class="fa fa-arrow-left"></i> Regresar a la pantalla principal</a>
+                </g:if>
+                <g:else>
+                    <a href="#" class="btn btn-primary" id="btnAnteriorLista"><i
                         class="fa fa-arrow-left"></i> Regresar a la lista de productos</a>
+                </g:else>
             </g:else>
         </div>
     </g:if>
@@ -182,6 +188,10 @@
 </div>
 
 <script type="text/javascript">
+
+    $("#btnAnteriorPrincipal").click(function () {
+        location.href = "${createLink(controller: 'principal', action: 'index')}"
+    });
 
     $("#btnAnterior").click(function () {
         location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
