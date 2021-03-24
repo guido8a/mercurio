@@ -119,8 +119,11 @@
 <div id="anexos">
 </div>
 
-<div id="divImagenes">
+<div class=""  style="width: 100%;height: 350px; overflow-x: auto; margin-top: -20px">
+    <div id="divImagenes">
+    </div>
 </div>
+
 
 <script type="text/javascript">
 

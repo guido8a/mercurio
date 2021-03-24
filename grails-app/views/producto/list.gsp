@@ -22,9 +22,6 @@
         <g:link controller="principal" action="index" class="btn btn-primary btnVolver" title="Volver a página principal">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
-%{--        <a href="${createLink(controller: 'producto', action: 'producto', params: [persona: persona?.id])}"--}%
-%{--           class="btn btn-info" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio--}%
-%{--        </a>--}%
         <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [persona: persona?.id])}"
            class="btn btn-info" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
@@ -213,27 +210,6 @@
                     action : function ($element) {
                         var id = $element.data("id");
                         location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
-                        %{--$.ajax({--}%
-                        %{--    type    : "POST",--}%
-                        %{--    url     : "${createLink(controller: 'producto', action:'show_ajax')}",--}%
-                        %{--    data    : {--}%
-                        %{--        id : id--}%
-                        %{--    },--}%
-                        %{--    success : function (msg) {--}%
-                        %{--        bootbox.dialog({--}%
-                        %{--            title   : "Ver producto",--}%
-                        %{--            message : msg,--}%
-                        %{--            buttons : {--}%
-                        %{--                ok : {--}%
-                        %{--                    label     : "Aceptar",--}%
-                        %{--                    className : "btn-primary",--}%
-                        %{--                    callback  : function () {--}%
-                        %{--                    }--}%
-                        %{--                }--}%
-                        %{--            }--}%
-                        %{--        });--}%
-                        %{--    }--}%
-                        %{--});--}%
                     }
                 },
                 editar   : {
@@ -245,15 +221,6 @@
                         location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
                     }
                 },
-                %{--texto : {--}%
-                %{--    label            : "Texto",--}%
-                %{--    icon             : "fa fa-pen",--}%
-                %{--    separator_before : true,--}%
-                %{--    action           : function ($element) {--}%
-                %{--        var id = $element.data("id");--}%
-                %{--        location.href="${createLink(controller: 'producto', action: 'texto')}?id=" + id--}%
-                %{--    }--}%
-                %{--},--}%
                 imas : {
                     label            : "Imágenes",
                     icon             : "fa fa-image",
@@ -261,7 +228,6 @@
                     action           : function ($element) {
                         var id = $element.data("id");
                         cargarImagenes(id)
-
                     }
                 },
                 eliminar : {
