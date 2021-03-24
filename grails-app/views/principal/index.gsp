@@ -87,6 +87,8 @@
         border-color: #FFAB19;
         /*border-color: #e67a00;*/
         border-radius: 4px;
+        background-color: #ffab19;
+        text-align: center;
     }
 
     .estilo {
@@ -107,22 +109,22 @@
         border-top-width: 1px;
         color: #42577d;
         border-radius: 5px;
-        margin-right: 10px;
+        margin-right: 0px;
     }
 
     .subcat {
         margin-left: 20px;
         padding-left: 20px;
+        /*border-left: 10px solid #343a40;*/
         /*border-left: 20px solid rgba(0, 0, 0, .125);*/
         /*border-left: 20px solid rgba(0, 0, 0, 0.5);*/
         /*border-color: #1e7e34;*/
-        border-left: 10px solid #343a40;
         /*border-width: 1px;*/
         /*border-left: 20px solid #0069d9;*/
         /*border-left-width: 10px;*/
         /*border-left-style: solid;*/
         border-radius: 7px;
-        margin-right: -10px;
+        /*margin-right: -10px;*/
     }
 
         a.categoria:hover{
@@ -139,21 +141,21 @@
         }
 
     .act_ct {
-        color: #444;
+        color: #222;
         background-color: #fdf8f0;
         border-width: 2px;
-        border-left: 10px solid;
+        /*border-left: 10px solid;*/
         border-color: #bF6B00;
         /*border-left: 10px solid #343a40;*/
     }
 
     .activo {
-        color: #444;
-        background-color: #fdf8f0;
+        color: #222;
+        /*background-color: #fdf8f0;*/
+        background-color: #fFAB20;
         border-width: 2px;
-        border-left: 20px solid #343a40;
+        /*border-left: 20px solid #343a40;*/
         border-color: #dF8B00;
-        /*border-color: #e67a00;*/
     }
 
     /* bootstrap 3 */
@@ -301,6 +303,11 @@
                 </a>
             </div>
 
+        <g:if test="${busqueda}">
+            <div class="activo" style="height: 60px; background-color:#1e7e34a">
+                <h6>${busqueda}</h6>
+            </div>
+        </g:if>
 
         %{--        Destacados--}%
             <g:if test="${productos?.size() > 0}">
@@ -318,7 +325,7 @@
 
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="#">${prod.tt}</a>
+                                        <a href="${createLink(controller: 'ver', action: 'carrusel', id: prod.id)}">${prod.tt}</a>
                                     </h4>
                                     <h5>${prod.sb ?: 'Sin descripción'}</h5>
 
@@ -350,7 +357,7 @@
 
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="#">${prod.tt}</a>
+                                        <a href="${createLink(controller: 'ver', action: 'carrusel', id: prod.id)}">${prod.tt}</a>
                                     </h4>
                                     <h5>${prod.sb ?: 'Sin descripción'}</h5>
 
@@ -482,8 +489,9 @@
 
     $("#btn-buscar").click(function () {
         var dato = $('#bsca').val()
+        var ctgr = $('#categoriaBuscar').val()
         // console.log('hola', dato);
-        location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato
+        location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato + "&ctgr=" + ctgr
     });
 
     function cargarIngreso() {

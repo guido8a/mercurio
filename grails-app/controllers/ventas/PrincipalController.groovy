@@ -16,7 +16,7 @@ class PrincipalController {
     def index() {
         println "index params: $params"
         def cn = dbConnectionService.getConnection()
-        def sql = ""
+        def sql = "", busqueda = ""
         params.sbct = params.sbct?:"sbct_1"
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
@@ -29,9 +29,21 @@ class PrincipalController {
                 "where now()::date between publfcin and publfcfn and " +
                 "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
                 "sbct__id = ${sbct_id}"
+        if(params.bscr) {
+            sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id from publ, anun, prod, sbct " +
+                    "where now()::date between publfcin and publfcfn and " +
+                    "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
+                    "ctgr__id = ${params.ctgr} and sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
+        }
         println "sql: $sql"
         def anuncios = cn.rows(sql.toString())
         println "anuncios: $anuncios"
+
+        if(params.bscr && anuncios){
+            sbct = Subcategoria.get(anuncios?.first().sbct__id)
+        } else if(params?.bscr?.size() > 3) {
+            busqueda = "No se ha encontrado anúncios para su búsqueda.."
+        }
 
 //        def anun = Anuncio.findAllByEstado('1')
 //        def publ = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEquals(anun, new Date())
@@ -47,7 +59,7 @@ class PrincipalController {
                 def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
 //                println "imagen: ${imag}"
                 imag.each { im ->
-                    carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id])
+                    carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id, id: im.producto.id])
                 }
             }
         }
@@ -68,10 +80,10 @@ class PrincipalController {
             imag.each { im ->
                 if(im.principal == '1') {
                     productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                   sb: im.producto.subtitulo, t: im.producto.texto])
+                                   sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
                 } else {
                     normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                  sb: im.producto.subtitulo, t: im.producto.texto])
+                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
                 }
             }
         }
@@ -81,7 +93,7 @@ class PrincipalController {
         println "normales: ${normales.rt}"
 
         return [activo: sbct?.categoria?.id, sbct_actv: sbct?.id, consultas: consultas,
-                carrusel: carrusel, productos: productos, normales: normales]
+                carrusel: carrusel, productos: productos, normales: normales, busqueda: busqueda]
 
     }
 
