@@ -75,19 +75,20 @@
 <mn:menuNuevo activo="${activo}"/>
 
 
-<div class="container" style="min-width: 60% !important; margin-top: 10px; overflow-y: hidden">
+<div class="container" style="min-width: 60% !important; margin-top: 70px; overflow-y: hidden">
 
-    <div class="btn-group">
-        <g:if test="${tipo == '1'}">
-            <a href="#" class="btn btn-primary" id="btnAnterior"><i
-                    class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
-        </g:if>
-        <g:else>
-            <a href="#" class="btn btn-primary" id="btnAnteriorLista"><i
-                    class="fa fa-arrow-left"></i> Regresar a la lista de productos</a>
-        </g:else>
-
-    </div>
+    <g:if test="${tipo}">
+        <div class="btn-group">
+            <g:if test="${tipo == '1'}">
+                <a href="#" class="btn btn-primary" id="btnAnterior"><i
+                        class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
+            </g:if>
+            <g:else>
+                <a href="#" class="btn btn-primary" id="btnAnteriorLista"><i
+                        class="fa fa-arrow-left"></i> Regresar a la lista de productos</a>
+            </g:else>
+        </div>
+    </g:if>
 
 
     <h3 style="margin-top: 20px; text-align: center">
@@ -165,18 +166,19 @@
         </div>
     </div>
 
-    <div id="divDescripcion">
-        <div class="col-lg-12" style="float: left; padding: 1%; background-color: #efefef; border-style: solid; border-width: thin; border-color: #ddd">
-            <div class="alert alert-primary" role="alert" style="text-align: center">
-                %{--                <h3 style="text-align: center">--}%
-                Descripción
-                %{--                </h3>--}%
+    <g:if test="${producto.texto}">
+        <div id="divDescripcion">
+            <div class="col-lg-12" style="float: left; padding: 1%; background-color: #efefef; border-style: solid; border-width: thin; border-color: #ddd">
+                <div class="alert alert-primary" role="alert" style="text-align: center">
+                    Descripción
+                </div>
+                <g:applyCodec encodeAs="none">
+                    ${producto.texto}
+                </g:applyCodec>
             </div>
-            <g:applyCodec encodeAs="none">
-                ${producto.texto}
-            </g:applyCodec>
         </div>
-    </div>
+    </g:if>
+
 </div>
 
 <script type="text/javascript">

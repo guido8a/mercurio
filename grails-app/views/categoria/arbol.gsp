@@ -301,7 +301,7 @@
                             success: function (msg) {
                                 var parts = msg.split("_");
                                 if(parts[0] == 'ok'){
-                                    log("Categoría borrada correctamente","success")
+                                    log("Categoría borrada correctamente","success");
                                     setTimeout(function () {
                                         location.reload(true)
                                     }, 1000);
