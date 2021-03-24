@@ -42,7 +42,8 @@ class PrincipalController {
         if(params.bscr && anuncios){
             sbct = Subcategoria.get(anuncios?.first().sbct__id)
         } else if(params?.bscr?.size() > 3) {
-            busqueda = "No se ha encontrado anúncios para su búsqueda.."
+            busqueda = "No se ha encontrado anúncios para su búsqueda '<strong>${params.bscr}</strong>' en la categoría " +
+                    "<strong>${Categoria.get(params.ctgr)?.descripcion}</strong>"
         }
 
 //        def anun = Anuncio.findAllByEstado('1')

@@ -7,6 +7,7 @@ class WardInterceptor {
                 .excludes(controller:'shield')
                 .excludes(controller:'principal')  /** principal **/
                 .excludes(controller:'persona')  /** ventas **/
+                .excludes(controller:'ver')  /** ventas **/
     }
 
     boolean before() {
