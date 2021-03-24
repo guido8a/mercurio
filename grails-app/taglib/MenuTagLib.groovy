@@ -267,7 +267,7 @@ class MenuTagLib {
         html += "<div class='redondeado'><div class='input-group'>" +
                 g.select( name: 'categoriaBuscar', from: ctgr, noSelection: [0: 'Buscar'],
                 optionValue: 'descripcion', optionKey: 'id')
-        def txto = "<div class='input-group' style='width:258px; float:left'>" +
+        def txto = "<div class='input-group' style='width:254px; float:left'>" +
           "<input id='bsca' type='text' class='form-control input-search' placeholder='Buscar' value='${params.search?:''''''}'>" +
           "<span class='input-group-btn' id='btn-buscar'>" +
 //                "<a href='" + g.createLink(controller: 'principal', action: 'buscar', buscar: '$(\"#bsca\").val()') + "' class='btn btn-primary btn-search'>" +
