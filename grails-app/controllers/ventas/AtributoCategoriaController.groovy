@@ -16,15 +16,29 @@ class AtributoCategoriaController {
     }
 
     def saveAtributo(){
-        def atributo = new AtributoCategoria()
-        atributo.properties = params
 
-        if(!atributo.save(flush:true)){
-            println("error al guardar el atributo"+ atributo.errors)
-            render "no"
+
+        def atr = Atributo.get(params.atributo)
+        def subcategoria = Subcategoria.get(params.subcategoria)
+
+        def existe = AtributoCategoria.findByAtributoAndSubcategoria(atr, subcategoria)
+
+        if(existe){
+            render "er_El atributo seleccionado ya fue asignado a la subcategoría"
         }else{
-            render "ok"
+            def atributo = new AtributoCategoria()
+
+            atributo.properties = params
+
+            if(!atributo.save(flush:true)){
+                println("error al guardar el atributo"+ atributo.errors)
+                render "no"
+            }else{
+                render "ok"
+            }
         }
+
+
     }
 
     def delete_ajax(){

@@ -95,11 +95,6 @@
 
     <script type="text/javascript">
 
-        // var index = 0;
-        //
-        // var $btnCloseModal = $('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>');
-        // var $btnSave = $('<button type="button" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>');
-
         function submitFormCategoria() {
             var $form = $("#frmCategoria");
             var $btn = $("#dlgCreateEdit").find("#btnSave");
@@ -239,13 +234,18 @@
                     data    : $form.serialize(),
                     success : function (msg) {
                         cl2.modal("hide");
-                        if(msg == 'ok'){
+                        var parts = msg.split("_")
+                        if(parts[0] == 'ok'){
                             log("Atributo guardado correctamente","success");
                             setTimeout(function () {
                                 location.reload(true)
                             }, 1000);
                         }else{
-                            log("Error al guardar el atributo","error")
+                            if(parts[0] == 'er'){
+                                bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
+                            }else{
+                                log("Error al guardar el atributo","error")
+                            }
                         }
                     }
                 });
@@ -302,11 +302,44 @@
                                 var parts = msg.split("_");
                                 if(parts[0] == 'ok'){
                                     log("Categoría borrada correctamente","success")
+                                    setTimeout(function () {
+                                        location.reload(true)
+                                    }, 1000);
                                 }else{
                                     bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
                                 }
                             }
                         })
+                }
+            });
+        }
+
+        function eliminarSubcategoria(id){
+            bootbox.confirm("<i class='fa fa-exclamation-triangle'></i> Está seguro que desea eliminar la subcategoría seleccionada?", function (res) {
+                if (res) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '${createLink(controller: 'subcategoria', action: 'delete_ajax')}',
+                        data:{
+                            id:id
+                        },
+                        success: function (msg) {
+                            var parts = msg.split("_");
+                            if(parts[0] == 'ok'){
+                                log("Subcategoría borrada correctamente","success")
+                                setTimeout(function () {
+                                    location.reload(true)
+                                }, 1000);
+                            }else{
+                                if(parts[0] == 'er'){
+                                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
+                                }else{
+                                    log("Error al borrar la subcategoría","success")
+                                }
+
+                            }
+                        }
+                    })
                 }
             });
         }
@@ -323,7 +356,10 @@
                         success: function (msg) {
 
                             if(msg == 'ok'){
-                                log("Atributo borrado correctamente","success")
+                                log("Atributo borrado correctamente","success");
+                                setTimeout(function () {
+                                    location.reload(true)
+                                }, 1000);
                             }else{
                                log("Error al borrar el atributo" ,"error")
                             }
@@ -366,7 +402,7 @@
                             createEditCategoria(nodeId);
                         }
                     },
-                    eliminarSub: {
+                    eliminarCat: {
                         // separator_before : true,
                         label: "Eliminar categoría",
                         icon: "fa fa-trash text-danger",
@@ -397,7 +433,7 @@
                         label: "Eliminar subcategoría",
                         icon: "fa fa-trash text-danger",
                         action: function (obj) {
-                            createEditRow(nodeId, "Editar");
+                            eliminarSubcategoria(nodeId);
                         }
                     }
                 }

@@ -49,14 +49,22 @@ class SubcategoriaController {
     def delete_ajax(){
 
         def subcategoria = Subcategoria.get(params.id)
+        def atributos = AtributoCategoria.findAllBySubcategoria(subcategoria)
 
-        try{
-            subcategoria.delete(flush:true)
-            render "ok"
-        }catch(e){
-            println("error al borrar la subcategoría " + subcategoria.errors)
-            render "no"
+
+        if(atributos){
+            render "er_No se puede borrar la subcategoría existen atributos asignados"
+        }else{
+            try{
+                subcategoria.delete(flush:true)
+                render "ok"
+            }catch(e){
+                println("error al borrar la subcategoría " + subcategoria.errors)
+                render "no"
+            }
         }
+
+
 
     }
 
