@@ -239,7 +239,7 @@ class MenuTagLib {
         def items = [:]
         def usuario, perfil, dpto
         def ctgr = Categoria.list([sort: 'orden'])
-        println "ctgr: $ctgr"
+//        println "ctgr: $ctgr"
         if (session.usuario) {
             usuario = session.usuario
             perfil = session.perfil
@@ -261,19 +261,21 @@ class MenuTagLib {
         html += '</div>'
 
         // Collect the nav links, forms, and other content for toggling
-        html += '<div class="collapse navbar-collapse" id="navbar-collapse-1">'
+        html += '<div class="collapse navbar-collapse"> '
+               // '<div style="border-color:#800; border-style:solid; width:400px; display: block" class="grupo">'
         html += '<ul class="nav navbar-nav">'
-        html += "<div class='nav-search-field'><div class='input-group'>" +
+        html += "<div class='redondeado'><div class='input-group'>" +
                 g.select( name: 'categoriaBuscar', from: ctgr, noSelection: [0: 'Buscar'],
                 optionValue: 'descripcion', optionKey: 'id')
-        def txto = "<div class='input-group' style='width:240px'>" +
-          "<input type='text' class='form-control input-search' placeholder='Buscar' value='${params.search?:''''''}'>" +
-          "<span class='input-group-btn'>" +
-                "<a href='" + g.createLink(controller: 'principal', action: 'buscar') + "' class='btn btn-primary btn-search'>" +
-//                g.link(controller: 'principal', action: 'buscar', class:'btn btn-primary btn-search') +
-          "<i class='fa fa-search'></i>&nbsp;</a></span></div>"
+        def txto = "<div class='input-group' style='width:258px; float:left'>" +
+          "<input id='bsca' type='text' class='form-control input-search' placeholder='Buscar' value='${params.search?:''''''}'>" +
+          "<span class='input-group-btn' id='btn-buscar'>" +
+//                "<a href='" + g.createLink(controller: 'principal', action: 'buscar', buscar: '$(\"#bsca\").val()') + "' class='btn btn-primary btn-search'>" +
+                "<a href='#' class='btn btn-primary btn-search'>" +
+          "<i class='fa fa-search'></i>&nbsp;</a></span></div> </div>"
 
-        html += '</ul>' + txto
+        html += txto + '</ul>'
+//        html += '</ul>' + txto
 
         if(usuario) {
             html += "</div><span class='nav-item'><a class='nav-link' " +

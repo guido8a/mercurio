@@ -35,6 +35,9 @@
     %{--    <asset:javascript src="/arbol/bootstrap-treeview.min.js"/>--}%
 
     <style type="text/css">
+    body {
+        background: #B4BAC0;
+    }
     .lista-item {
         position: relative;
         display: block;
@@ -53,7 +56,8 @@
         width: 800px;
         height: 350px;
         align-content: center;
-        background-color: #efeff8;
+        /*background-color: #cfcfcf;*/
+        background-color: #B4BAC0;
     }
 
     .carousel-inner {
@@ -76,6 +80,15 @@
         border-color: #47b636;
     }
 
+    .redondeado {
+        width: 400px;
+        border-style:solid;
+        border-width: 2px;
+        border-color: #FFAB19;
+        /*border-color: #e67a00;*/
+        border-radius: 4px;
+    }
+
     .estilo {
         border-radius: 50px;
         border-style: solid;
@@ -88,17 +101,28 @@
         display: block;
         padding: .5rem 1.0rem;
         background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, .125);
+        /*border: 1px solid rgba(0, 0, 0, .25);*/
+        border: 1px solid #0a193b;
         border-top-width: 1px;
         border-top-width: 1px;
+        color: #42577d;
+        border-radius: 5px;
+        margin-right: 10px;
     }
 
     .subcat {
+        margin-left: 20px;
         padding-left: 20px;
         /*border-left: 20px solid rgba(0, 0, 0, .125);*/
-        border-left: 20px solid rgba(0, 0, 0, .25);
+        /*border-left: 20px solid rgba(0, 0, 0, 0.5);*/
+        /*border-color: #1e7e34;*/
+        border-left: 10px solid #343a40;
+        /*border-width: 1px;*/
+        /*border-left: 20px solid #0069d9;*/
         /*border-left-width: 10px;*/
         /*border-left-style: solid;*/
+        border-radius: 7px;
+        margin-right: -10px;
     }
 
         a.categoria:hover{
@@ -109,11 +133,27 @@
         a.subcat:hover{
             text-decoration: none;
             color: #0a193b;
-            background-color: #efeff8;
+            /*background-color: #efeff8;*/
+            background-color: #fFAB20;
+        ;
         }
 
+    .act_ct {
+        color: #444;
+        background-color: #fdf8f0;
+        border-width: 2px;
+        border-left: 10px solid;
+        border-color: #bF6B00;
+        /*border-left: 10px solid #343a40;*/
+    }
+
     .activo {
-        background-color: #ffffef;
+        color: #444;
+        background-color: #fdf8f0;
+        border-width: 2px;
+        border-left: 20px solid #343a40;
+        border-color: #dF8B00;
+        /*border-color: #e67a00;*/
     }
 
     /* bootstrap 3 */
@@ -189,7 +229,7 @@
 --}%
 
 <!-- Page Content -->
-<div class="container">
+<div class="container" style="background-color: #efefef">
 
     <div class="row" style="margin-top: 20px;">
 
@@ -208,7 +248,7 @@
                 </g:each>
             </div>
 --}%
-            <div style="height: 20px"></div>
+%{--            <div style="height: 20px"></div>--}%
 
             <h2 class="my-4 text-info">Consultas</h2>
 
@@ -417,43 +457,33 @@
 
 <script type="text/javascript">
 
-/*
-    <g:if test="${!sbct_actv}" >
-        cargarCategorias("ct_${activo}", "${sbct_actv}");
-    </g:if>
-*/
-
-    cargarCategorias("ct_${activo}", "sbct_${sbct_actv}");
+    $( document ).ready(function() {
+        cargarCategorias("ct_${activo}", "sbct_${sbct_actv}");
+    });
 
     %{--cargarPantalla("${sbct_actv?:'sbct_1'}");--}%
 
     function cargarCategorias(cat_id, sbct_id) {
-        console.log("id", cat_id)
+        // console.log("id", cat_id)
         $.ajax({
             type: "POST",
             url: "${createLink(controller: 'principal', action: 'categorias')}",
             data: {id: cat_id, sbct: sbct_id},
             success: function (msg) {
                 $("#categorias").html(msg)
+                // cargarPantalla(sbct_id)
             } //success
         });
     };
-
-    function cargarPantalla(sbct_id) {
-        console.log("--->", sbct_id)
-        $.ajax({
-            type: "POST",
-            url: "${createLink(controller: 'principal', action: 'index')}",
-            data: {sbct: sbct_id},
-            success: function (msg) {
-                $("#categorias").html(msg)
-            } //success
-        });
-    };
-
 
     $("#ingresar").click(function () {
         cargarIngreso();
+    });
+
+    $("#btn-buscar").click(function () {
+        var dato = $('#bsca').val()
+        // console.log('hola', dato);
+        location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato
     });
 
     function cargarIngreso() {

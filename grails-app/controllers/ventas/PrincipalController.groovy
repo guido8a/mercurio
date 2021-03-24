@@ -11,29 +11,40 @@ import java.awt.image.BufferedImage
 
 class PrincipalController {
 //    def mailService
+    def dbConnectionService
 
     def index() {
         println "index params: $params"
-
+        def cn = dbConnectionService.getConnection()
+        def sql = ""
         params.sbct = params.sbct?:"sbct_1"
+        def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
-        def ctgr = Categoria.list([sort: 'orden'])
-        println "PPctgr: $ctgr"
+
         /** Se deben mostrar los anuncios vigentes
          * 1. carrusel: destacados de anuncios, si no hay suficientes completar con vntaXX
          * 2. Productos: productos de anuncios vigentes, completar con "aqui su anuncio" **/
+        sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id from publ, anun, prod " +
+                "where now()::date between publfcin and publfcfn and " +
+                "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
+                "sbct__id = ${sbct_id}"
+        println "sql: $sql"
+        def anuncios = cn.rows(sql.toString())
+        println "anuncios: $anuncios"
 
-        def anun = Anuncio.findAllByEstado('1')
-        def publ = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEquals(anun, new Date())
+//        def anun = Anuncio.findAllByEstado('1')
+//        def publ = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEquals(anun, new Date())
 
 //        def carrusel = [[tp: 'p', ruta: 'ai.jpeg'], [tp: 'p', ruta: 'usuario.png']]
         def carrusel = []
 //        println "publ: $publ"
-        publ.each {pb ->
+//        publ.each {pb ->
+        anuncios.each {pb ->
             /** si el producto tiene anuncio destacado  */
             if(pb.destacado){
-                def imag = Imagen.findAllByProductoAndPrincipal(pb.anuncio.producto, '1')
+                def producto = Producto.get(pb.prod__id)
+                def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
 //                println "imagen: ${imag}"
                 imag.each { im ->
                     carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id])
@@ -41,7 +52,7 @@ class PrincipalController {
             }
         }
         def i = 1
-        while(carrusel.size() < 5) {
+        while(carrusel.size() < 3) {
             carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
         }
 
@@ -49,9 +60,10 @@ class PrincipalController {
 //                         [tp: 'p', rt: 'casa8.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
 //                         [tp: 'p', rt: 'conjunto1.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto']]
         def productos = [], normales = []
-        publ.each {pb ->
+        anuncios.each {pb ->
             /** si el producto tiene anuncio destacado  */
-            def imag = Imagen.findAllByProducto(pb.anuncio.producto)
+            def producto = Producto.get(pb.prod__id)
+            def imag = Imagen.findAllByProducto(producto)
 //            println "imágenes: $imag ${imag.principal}"
             imag.each { im ->
                 if(im.principal == '1') {
@@ -65,12 +77,11 @@ class PrincipalController {
         }
 
 //        println("carru " + carrusel)
-//        println "productos: ${productos.rt}"
-//        println "normales: ${normales.rt}"
-
+        println "productos: ${productos.rt}"
+        println "normales: ${normales.rt}"
 
         return [activo: sbct?.categoria?.id, sbct_actv: sbct?.id, consultas: consultas,
-                carrusel: carrusel, productos: productos, normales: normales, categorias: ctgr]
+                carrusel: carrusel, productos: productos, normales: normales]
 
     }
 
@@ -209,18 +220,25 @@ class PrincipalController {
         def tx_id = params.id?:'ct_1'
         def ct_id = tx_id.split("_")[1].toInteger()
         def sbct_id = params.sbct? params.sbct.split('_')[1] : 0
-        def sbct
+        def sbct = sbct_id? Subcategoria.get(sbct_id).id : 0
+/*
         if(sbct_id) {
             sbct = Subcategoria.get(sbct_id).id
         } else {
             sbct = Subcategoria.findAllByCategoria(Categoria.get(ct_id), [sort: 'orden'])
-            sbct = sbct? sbct.first().id : 0
+//            sbct = sbct? sbct.first().id : 0
+            sbct = 0
         }
-//        println "activo: ${ct_id}, sbct_actv: ${sbct}"
+*/
+        println "activo: ${ct_id}, sbct_actv: ${sbct}"
+//        redirect(action: 'index', params: params)
         [activo: ct_id, sbct_actv: sbct]
+//        [activo: ct_id, sbct_actv: 0]
     }
 
     def buscar() {
-        render "hola"
+        println "buscar: $params"
+        redirect(action: 'index', params: params)
+//        render "hola"
     }
 }

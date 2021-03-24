@@ -2,7 +2,7 @@
 <h2 class="titulo">Categorías</h2>
 <div class="list-group">
     <g:each in="${ventas.Categoria.findAll([sort: 'orden'])}" var="ct">
-        <a href="#" class="item_cat categoria" id="ct_${ct?.id}">${ct.descripcion}</a>
+        <a href="#" class="item_cat categoria ${ct.id== activo?'act_ct': ''}" id="ct_${ct?.id}">${ct.descripcion}</a>
         <g:if test="${ct?.id == activo}">
             <g:each in="${ventas.Subcategoria.findAllByCategoria(ct, [sort: 'orden'])}" var="sbct">
                 <a href="#" class="categoria subcat ${sbct.id==sbct_actv?'activo': ''}" id="sbct_${sbct?.id}">${sbct.descripcion}</a>
@@ -25,7 +25,10 @@
             // console.log("subcat", ct)
             $(".subcat").removeClass("activo")
             $(this).addClass("activo")
-            cargarPantalla($(this).attr("id"));
+            var dato = $('#bsca').val()
+            // console.log('hola', dato);
+            location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato + "&sbct=" + $(this).attr("id")
+            // cargarPantalla($(this).attr("id"));
         });
     });
 
