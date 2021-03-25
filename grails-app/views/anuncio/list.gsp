@@ -35,8 +35,9 @@
     <tr style="width: 100%">
         <th style="width: 30%">Título</th>
         <th style="width: 20%">Subtítulo</th>
-        <th style="width: 10%">Orden</th>
+%{--        <th style="width: 10%">Orden</th>--}%
         <th style="width: 10%">Estado</th>
+        <th style="width: 10%">Acciones</th>
         <th style="width: 10%">Fecha Inicio</th>
         <th style="width: 10%">Fecha Fin</th>
         <th style="width: 10%">Destacado</th>

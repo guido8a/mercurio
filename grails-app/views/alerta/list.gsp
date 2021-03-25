@@ -33,8 +33,9 @@
     <thead>
     <tr style="width: 100%">
         <th style="width: 20%">Usuario</th>
-        <th style="width: 60%">Producto</th>
-        <th style="width: 20%">Fecha Ingreso</th>
+        <th style="width: 50%">Producto</th>
+        <th style="width: 10%">Fecha Ingreso</th>
+        <th style="width: 20%">Acciones</th>
     </tr>
     </thead>
 </table>
@@ -46,8 +47,13 @@
             <g:each in="${alertas}" var="alerta">
                 <tr data-id="${alerta?.id}" style="width: 100%">
                     <td style="width: 20%; text-align: center">${alerta?.producto?.persona?.nombre}</td>
-                    <td style="width: 60%">${alerta?.producto?.titulo}</td>
-                    <td style="width: 20%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
+                    <td style="width: 50%">${alerta?.producto?.titulo}</td>
+                    <td style="width: 10%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
+                    <td style="width: 20%; text-align: center">
+                        <a href="#" class="btn btn-info btnRevisar" title="Revisar producto" data-id="${alerta?.producto?.id}" data-per="${alerta.producto.persona.id}"><i class="fa fa-search"></i> </a>
+                        <a href="#" class="btn btn-success btnAceptar" title="Aceptar producto" data-id="${alerta?.id}"><i class="fa fa-thumbs-up"></i> </a>
+                        <a href="#" class="btn btn-danger btnNegar" title="Negar producto" data-id="${alerta?.id}"><i class="fa fa-thumbs-down"></i> </a>
+                    </td>
                 </tr>
             </g:each>
         </g:if>
@@ -61,6 +67,22 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnRevisar").click(function () {
+        var id = $(this).data("id");
+        var persona = $(this).data("per");
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + persona + "&tipo=" + 4;
+    });
+
+    $(".btnAceptar").click(function () {
+        var id = $(this).data("id");
+        generarAnuncio(id)
+    });
+
+    $(".btnNegar").click(function () {
+        var id = $(this).data("id");
+        negarProducto(id)
+    });
 
     function generarAnuncio(id) {
         bootbox.dialog({

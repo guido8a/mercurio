@@ -76,8 +76,12 @@
 
 <body>
 
-<mn:menuNuevo activo="${activo}"/>
+<g:if test="${tipo == '4' || tipo == '5' || tipo == '6'}">
 
+</g:if>
+<g:else>
+    <mn:menuNuevo activo="${activo}"/>
+</g:else>
 
 <div class="container" style="min-width: 60% !important; margin-top: 70px; overflow-y: hidden">
 
@@ -93,8 +97,30 @@
                             class="fa fa-arrow-left"></i> Regresar a la pantalla principal</a>
                 </g:if>
                 <g:else>
-                    <a href="#" class="btn btn-primary" id="btnAnteriorLista"><i
-                        class="fa fa-arrow-left"></i> Regresar a la lista de productos</a>
+                    <g:if test="${tipo == '4'}">
+                        <a href="${createLink(controller: 'alerta', action: 'list')}" class="btn btn-primary" >
+                            <i class="fa fa-arrow-left"></i> Regresar a la lista de alertas
+                        </a>
+                    </g:if>
+                    <g:else>
+                       <g:if test="${tipo == '5'}">
+                            <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-primary" >
+                                <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
+                            </a>
+                        </g:if>
+                        <g:else>
+                            <g:if test="${tipo == '6'}">
+                                <a href="${createLink(controller: 'alerta', action: 'revisadas')}" class="btn btn-primary" >
+                                    <i class="fa fa-arrow-left"></i> Regresar a la lista alertas revisadas
+                                </a>
+                            </g:if>
+                            <g:else>
+                                <a href="#" class="btn btn-primary" id="btnAnteriorLista">
+                                    <i class="fa fa-arrow-left"></i> Regresar a la lista de productos
+                                </a>
+                            </g:else>
+                         </g:else>
+                    </g:else>
                 </g:else>
             </g:else>
         </div>
