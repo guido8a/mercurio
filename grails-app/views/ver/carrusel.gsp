@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <asset:stylesheet src="/merc/bootstrap.min.css"/>
 
     <!-- Custom styles for this template -->
@@ -37,6 +38,9 @@
 
     .fotos-guia .inactiva {
         opacity: 0.5;
+        border-color: #ffffff;
+        border-style: solid;
+        border-width: 1px;
     }
 
     .fotos-guia .activa {

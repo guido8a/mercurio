@@ -80,6 +80,20 @@
         border-color: #47b636;
     }
 
+    .con-borde {
+        border-radius: 4px;
+        background-image: linear-gradient(#747A80, #343A40, #545A60);
+        text-align-all: center;
+        height: 35px;
+        font-size:small;
+        margin: 2px;
+    }
+
+    a.nav-link:hover {
+        border-radius: 4px;
+        background-image: linear-gradient(#646A70, #141A20, #444A50);
+    }
+
     .redondeado {
         width: 400px;
         border-style:solid;
@@ -198,6 +212,31 @@
         text-decoration: none;
         background-color: #b3b3b3;
     }
+
+    .blink_text {
+        animation:1s blinker linear infinite;
+        -webkit-animation:1s blinker linear infinite;
+        -moz-animation:1s blinker linear infinite;
+        color: black;
+    }
+
+    @-moz-keyframes blinker {
+        0% { opacity: 1.0; }
+        50% { opacity: 0.2; }
+        100% { opacity: 1.0; }
+    }
+
+    @-webkit-keyframes blinker {
+        0% { opacity: 1.0; }
+        50% { opacity: 0.2; }
+        100% { opacity: 1.0; }
+    }
+
+    @keyframes blinker {
+        0% { opacity: 1.0; }
+        50% { opacity: 0.2; }
+        100% { opacity: 1.0; }
+    }
     </style>
 </head>
 
@@ -304,8 +343,12 @@
             </div>
 
         <g:if test="${busqueda}">
-            <div class="activo" style="height: 60px; background-color:#1e7e34a">
-                <h6>${busqueda}</h6>
+            <div class="activo blink_text" style="height: 60px; background-color:#ffab19;
+            text-align: center; border-radius: 10px; margin: 10px">
+                <g:applyCodec encodeAs="none">
+                    ${busqueda}
+                </g:applyCodec>
+                <p>Pruebe buscar en otra categoría</p>
             </div>
         </g:if>
 
@@ -317,7 +360,7 @@
                     <g:each in="${productos}" var="prod" status="i">
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 marcoDestacados">
-                                <a href="#">
+                                <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">
                                     %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
                                     <img width="250px" height="200px"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
@@ -349,7 +392,7 @@
                     <g:each in="${normales}" var="prod" status="i">
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
-                                <a href="#">
+                                <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">
                                     %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
                                     <img width="250px" height="200px"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>

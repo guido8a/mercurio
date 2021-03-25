@@ -297,10 +297,14 @@ class MenuTagLib {
             html += '<li><a href="' + g.createLink(controller: 'login', action: 'logout') + '"><i class="fa fa-power-off"></i> Salir</a></li>'
 
         } else {
-            html += "</div><span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
-                    "style='color:#FFAB19; font-size:small'>Ingresar</a></span>" +
-                    "<span class='nav-item' id='registro'><a class='nav-link' href='#' " +
-                    "style='color:#FFAB19;font-size:small'>Registrarse</a></span>"
+//            html += "</div><span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
+//                    "style='color:#FFAB19; font-size:small'>Ingresar</a></span>" +
+//                    "<span class='nav-item' id='registro'><a class='nav-link' href='#' " +
+//                    "style='color:#FFAB19;font-size:small'>Registrarse</a></span>"
+            html += "</div><span class='con-borde' id='ingresar'>" +
+                    "<a class='nav-link' href='#' style='color:#FFAB19'> Ingresar</a></span>" +
+                    "<span class='con-borde' id='registro'>" +
+                    "<a class='nav-link' href='#' style='color:#FFAB19'>Registrarse</a></span>"
         }
         html += '</ul>'
         html += '</li>'
