@@ -110,7 +110,12 @@
 
 <div class="alert alert-info" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
-    Se recuerda que puede cargar archivos de <strong>hasta 5 mb</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
+    El tamaño de los archivos debe ser de <strong>hasta 5 mb</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
+</div>
+
+<div class="alert alert-info" style="margin-top: 5px;">
+    <i class="fa fa-info-circle fa-2x"></i>
+    Máxima cantidad de imágenes que pueden ser cargadas: <strong>5</strong>
 </div>
 
 <div style="margin-top:5px;margin-bottom: 5px" id="files">
@@ -208,69 +213,94 @@
         var formData = new FormData();
         tam = file.files[indice];
         var type = tam.type;
-        if (okContents[type]) {
-            tam = tam["size"];
-            var kb = tam / 1000;
-            var mb = kb / 1000;
-            if (mb <= 5) {
-                formData.append("file", file.files[indice]);
-                formData.append("id", tramite);
-                $("." + (indice + 1)).each(function () {
-                    formData.append($(this).attr("name"), $(this).val());
-                });
-                var rs = request.length;
-                $(".d-" + (indice + 1)).addClass("subiendo").addClass("rs-" + rs);
-                $(".rs-" + rs).find(".resumen").remove();
-                $(".rs-" + rs).find(".botones").remove();
-                $(".rs-" + rs).find(".claves").remove();
-                $(".rs-" + rs).append('<div class="progress-bar-svt ui-corner-all" id="p-b"><div class="progress-svt background-image" id="p-' + rs + '"></div></div>').css({
-                    height     : 100,
-                    fontWeight : "bold"
-                });
-                request[rs] = new XMLHttpRequest();
-                request[rs].open("POST", "${g.createLink(controller: 'producto',action: 'upload_ajax')}");
-                request[rs].upload.onprogress = function (ev) {
-                    var loaded = ev.loaded;
-                    var width = (loaded * 100 / tam);
-                    if (width > 100)
-                        width = 100;
-                    //        console.log(width)
-                    $("#p-" + rs).css({width : parseInt(width) + "%"});
-                    if ($("#p-" + rs).width() > 50) {
-                        $("#p-" + rs).html("" + parseInt(width) + "%");
-                    }
-                };
-                request[rs].send(formData);
-                request[rs].onreadystatechange = function () {
-                    if (request[rs].readyState == 4 && request[rs].status == 200) {
-                        if ($("#files").height() * 1 > 120) {
-                            $("#titulo-arch").show();
-                            $("#linea-arch").show();
-                        } else {
-                            $("#titulo-arch").hide();
-                            $("#linea-arch").hide();
+
+
+        var ajaxObj = revisarImas();
+        var ajaxResponse = ajaxObj.responseText;
+
+        if(ajaxResponse == 'ok'){
+            if (okContents[type]) {
+                tam = tam["size"];
+                var kb = tam / 1000;
+                var mb = kb / 1000;
+                if (mb <= 5) {
+                    formData.append("file", file.files[indice]);
+                    formData.append("id", tramite);
+                    $("." + (indice + 1)).each(function () {
+                        formData.append($(this).attr("name"), $(this).val());
+                    });
+                    var rs = request.length;
+                    $(".d-" + (indice + 1)).addClass("subiendo").addClass("rs-" + rs);
+                    $(".rs-" + rs).find(".resumen").remove();
+                    $(".rs-" + rs).find(".botones").remove();
+                    $(".rs-" + rs).find(".claves").remove();
+                    $(".rs-" + rs).append('<div class="progress-bar-svt ui-corner-all" id="p-b"><div class="progress-svt background-image" id="p-' + rs + '"></div></div>').css({
+                        height     : 100,
+                        fontWeight : "bold"
+                    });
+                    request[rs] = new XMLHttpRequest();
+                    request[rs].open("POST", "${g.createLink(controller: 'producto',action: 'upload_ajax')}");
+
+                    request[rs].upload.onprogress = function (ev) {
+                        var loaded = ev.loaded;
+                        var width = (loaded * 100 / tam);
+                        if (width > 100)
+                            width = 100;
+                        //        console.log(width)
+                        $("#p-" + rs).css({width : parseInt(width) + "%"});
+                        if ($("#p-" + rs).width() > 50) {
+                            $("#p-" + rs).html("" + parseInt(width) + "%");
                         }
-                        $(".rs-" + rs).html("<i class='fa fa-check' style='color:#327BBA;margin-right: 10px'></i> " + $(".rs-" + rs).find(".titulo-archivo").html() + " subido exitosamente").css({
-                            height     : 50,
-                            fontWeight : "bold"
-                        }).removeClass("subiendo");
-                        cargarTablaImagenes();
-                    }
-                };
+                    };
+                    request[rs].send(formData);
+                    request[rs].onreadystatechange = function () {
+
+                        if (request[rs].readyState == 4 && request[rs].status == 200) {
+                            if ($("#files").height() * 1 > 120) {
+                                $("#titulo-arch").show();
+                                $("#linea-arch").show();
+                            } else {
+                                $("#titulo-arch").hide();
+                                $("#linea-arch").hide();
+                            }
+                            $(".rs-" + rs).html("<i class='fa fa-check' style='color:#327BBA;margin-right: 10px'></i> " + $(".rs-" + rs).find(".titulo-archivo").html() + " subido exitosamente").css({
+                                height     : 50,
+                                fontWeight : "bold"
+                            }).removeClass("subiendo");
+                            cargarTablaImagenes();
+                        }
+                    };
+                } else {
+                    var $div = $(".fileContainer.d-" + (indice + 1));
+                    $div.addClass("bg-danger").addClass("text-danger");
+                    var $p = $("<div>").addClass("alert divError").html("No puede subir archivos de más de 5 megabytes");
+                    $div.prepend($p);
+                    return false;
+                }
             } else {
                 var $div = $(".fileContainer.d-" + (indice + 1));
                 $div.addClass("bg-danger").addClass("text-danger");
-                var $p = $("<div>").addClass("alert divError").html("No puede subir archivos de más de 5 megabytes");
+                var $p = $("<div>").addClass("alert divError").html("No puede subir archivos de tipo <b>" + type + "</b>");
                 $div.prepend($p);
                 return false;
             }
-        } else {
-            var $div = $(".fileContainer.d-" + (indice + 1));
-            $div.addClass("bg-danger").addClass("text-danger");
-            var $p = $("<div>").addClass("alert divError").html("No puede subir archivos de tipo <b>" + type + "</b>");
-            $div.prepend($p);
-            return false;
+        }else{
+            // var $div = $(".fileContainer.d-" + (indice + 1));
+            // $div.addClass("bg-danger").addClass("text-danger");
+            // var $p = $("<div>").addClass("alert divError").html("<b>" + "No se puede agregar más imágenes" + "</b>");
+            // $div.prepend($p);
+
+
+            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> No es posible agregar más imágenes", function(){
+                cargarTablaImagenes();
+            });
+
+
+            // return false;
         }
+
+
+
     }
 
     var okContents = {
@@ -278,6 +308,27 @@
         'image/jpeg' : "jpeg",
         'image/jpg'  : "jpg"
     };
+
+
+    function revisarImas() {
+        var c  = cargarLoader("Subiendo...");
+        return $.ajax({
+            type: "POST",
+            url: '${createLink(controller: 'producto', action: 'revisarImas_ajax')}',
+            data: {
+                id: '${producto?.id}'
+            },
+            dataType: "html",
+            async: false,
+            success: function(){
+              c.modal("hide")
+            },
+            error: function() {
+                alert("Error occured")
+            }
+        });
+    }
+
 
     $(function () {
         $("#btnClose").click(function () {

@@ -112,10 +112,10 @@
             },
             success: function (msg) {
                 if(msg == 'ok'){
-                    bootbox.alert("<i class'fa fa-parking'></i> La imagen fue asignada como principal correctamente")
+                    bootbox.alert("<i class'fa fa-parking'></i> La imagen fue asignada como principal correctamente");
                     cargarTablaImagenes();
                 }else{
-                    bootbox.alert("<i class'fa fa-times'></i> Error al asignar la imagen como princial")
+                    bootbox.alert("<i class'fa fa-times'></i> Error al asignar la imagen como principal")
                 }
             }
         });

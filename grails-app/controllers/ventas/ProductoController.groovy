@@ -127,88 +127,144 @@ class ProductoController {
 
         def okContents = ['image/png': "png", 'image/jpeg': "jpeg", 'image/jpg': "jpg"]
 
-        if (f && !f.empty) {
-            def fileName = f.getOriginalFilename() //nombre original del archivo
-            def ext
-            def parts = fileName.split("\\.")
-            fileName = ""
-            parts.eachWithIndex { obj, i ->
-                if (i < parts.size() - 1) {
-                    fileName += obj
-                } else {
-                    ext = obj
-                }
+        def canti = []
+        def dir = new File(path)
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            def img = ImageIO.read(file)
+
+            if (img) {
+                canti.add([
+                        dir : path,
+                        file: file.name,
+                        w   : img?.getWidth(),
+                        h   : img?.getHeight(),
+                ])
             }
-
-            if (okContents.containsKey(f.getContentType())) {
-                ext = okContents[f.getContentType()]
-                fileName = fileName.size() < 40 ? fileName : fileName[0..39]
-                fileName = fileName.tr(/áéíóúñÑÜüÁÉÍÓÚàèìòùÀÈÌÒÙÇç .!¡¿?&#°"'/, "aeiounNUuAEIOUaeiouAEIOUCc_")
-
-                def nombre = fileName + "." + ext
-                def pathFile = path + nombre
-                def fn = fileName
-                def src = new File(pathFile)
-
-                println("path -->" + pathFile)
-
-                def i = 1
-                while (src.exists()) {
-                    nombre = fn + "_" + i + "." + ext
-                    pathFile = path + nombre
-                    src = new File(pathFile)
-                    i++
-                }
-                try {
-                    f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
-                    def imagenNueva = new Imagen()
-                    imagenNueva.producto = producto
-                    imagenNueva.estado = 1
-                    imagenNueva.ruta = nombre
-                    imagenNueva.save(flush:true)
-                } catch (e) {
-                    println ("error al subir la imagen " + e)
-                }
-
-                /* fin resize */
-//                def pathReturn = "/var/ventas/productos/pro_" + producto.id + "/" + nombre
-                def output = '<html>' +
-                        '<body>' +
-                        '<script type="text/javascript">' +
-                        'Archivo subido correctamente.' +
-                        '</script>' +
-                        '</body>' +
-                        '</html>';
-                render output
-            } //contenido ok (extension ok
-            else {
-                def ok = ""
-                okContents.each {
-                    if (ok != "") {
-                        ok += ", "
-                    }
-                    ok += it.value
-                }
-                def output = '<html>' +
-                        '<body>' +
-                        '<script type="text/javascript">' +
-                        'Por favor utilice archivos de tipo' + ok +
-                        '</script>' +
-                        '</body>' +
-                        '</html>';
-                render output
-            }
-        }//f not empty
-        else {
-            def output = '<html>' +
-                    '<body>' +
-                    '<script type="text/javascript">' +
-                    'Por favor seleccione una imagen' +
-                    '</script>' +
-                    '</body>' +
-                    '</html>';
-            render output
         }
+
+        if(canti.size() < 5){
+            if (f && !f.empty) {
+                def fileName = f.getOriginalFilename() //nombre original del archivo
+                def ext
+                def parts = fileName.split("\\.")
+                fileName = ""
+                parts.eachWithIndex { obj, i ->
+                    if (i < parts.size() - 1) {
+                        fileName += obj
+                    } else {
+                        ext = obj
+                    }
+                }
+
+                if (okContents.containsKey(f.getContentType())) {
+                    ext = okContents[f.getContentType()]
+                    fileName = fileName.size() < 40 ? fileName : fileName[0..39]
+                    fileName = fileName.tr(/áéíóúñÑÜüÁÉÍÓÚàèìòùÀÈÌÒÙÇç .!¡¿?&#°"'/, "aeiounNUuAEIOUaeiouAEIOUCc_")
+
+                    def nombre = fileName + "." + ext
+                    def pathFile = path + nombre
+                    def fn = fileName
+                    def src = new File(pathFile)
+
+                    println("path -->" + pathFile)
+
+                    def i = 1
+                    while (src.exists()) {
+                        nombre = fn + "_" + i + "." + ext
+                        pathFile = path + nombre
+                        src = new File(pathFile)
+                        i++
+                    }
+                    try {
+                        f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
+                        def imagenNueva = new Imagen()
+                        imagenNueva.producto = producto
+                        imagenNueva.estado = 1
+                        imagenNueva.ruta = nombre
+                        imagenNueva.save(flush:true)
+                    } catch (e) {
+                        println ("error al subir la imagen " + e)
+                    }
+
+                    /* fin resize */
+//                def pathReturn = "/var/ventas/productos/pro_" + producto.id + "/" + nombre
+                    def output = '<html>' +
+                            '<body>' +
+                            '<script type="text/javascript">' +
+                            'Archivo subido correctamente.' +
+                            '</script>' +
+                            '</body>' +
+                            '</html>';
+                    render output
+                } //contenido ok (extension ok
+                else {
+                    def ok = ""
+                    okContents.each {
+                        if (ok != "") {
+                            ok += ", "
+                        }
+                        ok += it.value
+                    }
+                    def output = '<html>' +
+                            '<body>' +
+                            '<script type="text/javascript">' +
+                            'Por favor utilice archivos de tipo' + ok +
+                            '</script>' +
+                            '</body>' +
+                            '</html>';
+                    render output
+                }
+            }//f not empty
+            else {
+                def output = '<html>' +
+                        '<body>' +
+                        '<script type="text/javascript">' +
+                        'Por favor seleccione una imagen' +
+                        '</script>' +
+                        '</body>' +
+                        '</html>';
+                render output
+            }
+        }else{
+//            def output = '<html>' +
+//                    '<body>' +
+//                    '<script type="text/javascript">' +
+//                    'La cantidad de imágenes ingresadas no puede ser mayor a 5' +
+//                    '</script>' +
+//                    '</body>' +
+//                    '</html>';
+//            render output
+            return false
+        }
+    }
+
+    def revisarImas_ajax(){
+        def producto = Producto.get(params.id)
+        def path = "/var/ventas/productos/pro_" + producto.id + "/"
+        new File(path).mkdirs()
+
+
+        def canti = []
+        def dir = new File(path)
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            def img = ImageIO.read(file)
+
+            if (img) {
+                canti.add([
+                        dir : path,
+                        file: file.name,
+                        w   : img?.getWidth(),
+                        h   : img?.getHeight(),
+                ])
+            }
+        }
+
+        if(canti.size() < 5){
+            render "ok"
+        }else{
+            render "no"
+        }
+
     }
 
     def deleteImagen_ajax() {
