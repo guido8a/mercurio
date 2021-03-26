@@ -265,7 +265,8 @@ class MenuTagLib {
                // '<div style="border-color:#800; border-style:solid; width:400px; display: block" class="grupo">'
         html += '<ul class="nav navbar-nav">'
         html += "<div class='redondeado'><div class='input-group'>" +
-                g.select( name: 'categoriaBuscar', from: ctgr, optionValue: 'descripcion', optionKey: 'id')
+                g.select( name: 'categoriaBuscar', from: ctgr, optionValue: 'descripcion',
+                        optionKey: 'id', noSelection: [0: 'En todo'])
         def txto = "<div class='input-group' style='width:254px;'>" +
           "<input id='bsca' type='text' class='form-control input-search' placeholder='Buscar' value='${params.search?:''''''}'>" +
           "<span class='input-group-btn' id='btn-buscar'>" +

@@ -16,8 +16,6 @@
     <asset:javascript src="/merc/bootstrap.bundle.js"/>
     <asset:javascript src="/apli/bootbox.js"/>
     <asset:javascript src="/apli/fontawesome.all.min.js"/>
-
-    %{--    <meta name="layout" content="main">--}%
     <title>${producto?.titulo}</title>
 
 
@@ -69,6 +67,62 @@
         margin: 0;
         max-width: 800px
     }
+
+    /* menu */
+    a.nav-link:hover {
+        border-radius: 4px;
+        background-image: linear-gradient(#646A70, #141A20, #444A50);
+    }
+    .redondeado {
+        width: 400px;
+        border-style:solid;
+        border-width: 2px;
+        border-color: #FFAB19;
+        /*border-color: #e67a00;*/
+        border-radius: 4px;
+        background-color: #ffab19;
+        text-align: center;
+    }
+    .dropdown-menu > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+    .dropdown-menu > .disabled > a,
+    .dropdown-menu > .disabled > a:hover,
+    .dropdown-menu > .disabled > a:focus {
+        color: #b3b3b3;
+    }
+    .open > .dropdown-menu {
+        display: block;
+    }
+    .open > a {
+        outline: 0;
+    }
+
+    .nav > li > a:hover,
+    .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #242a30;
+    }
+
+    .nav > ul > li > a:hover,
+    .nav > ul > li > a:focus {
+        text-decoration: none;
+        background-color: #444;
+    }
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        color: #1e2c58;
+        text-decoration: none;
+        background-color: #b3b3b3;
+    }
+
 
     </style>
 
@@ -271,6 +325,15 @@
         });
 
     });
+
+    $("#btn-buscar").click(function () {
+        var dato = $('#bsca').val()
+        var ctgr = $('#categoriaBuscar').val()
+        // console.log('hola', dato);
+        location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato + "&ctgr=" + ctgr
+    });
+
+
 </script>
 </body>
 </html>

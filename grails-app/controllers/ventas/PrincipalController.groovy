@@ -33,7 +33,8 @@ class PrincipalController {
             sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id from publ, anun, prod, sbct " +
                     "where now()::date between publfcin and publfcfn and " +
                     "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
-                    "ctgr__id = ${params.ctgr} and sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
+//                    "ctgr__id = ${params.ctgr} and sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
+                    "sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
         }
         println "sql: $sql"
         def anuncios = cn.rows(sql.toString())

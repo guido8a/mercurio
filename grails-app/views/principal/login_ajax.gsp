@@ -16,18 +16,18 @@
 
 <div class="modal-body" style="width: 480px; margin: auto">
     <g:form name="frmLogin" controller="login" action="validar" class="form-horizontal">
-        <div class="form-group">
-            <label class="col-md-5" for="login">Usuario</label>
+        <div class="row form-group">
+            <label class="col-md-3" for="login">Usuario</label>
             <div class="controls col-md-9">
                 <input name="login" id="login" type="text" class="form-control required"
                        placeholder="Usuario" required autofocus>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-md-5" for="pass">Contraseña</label>
+        <div class="row form-group">
+            <label class="col-md-3" for="pass">Contraseña</label>
 
-            <div class="controls col-md-9">
+            <div class="controls col-md-6">
                 <input name="pass" id="pass" type="password" class="form-control required"
                        placeholder="Contraseña" required >
             </div>
@@ -35,10 +35,11 @@
 
         <div class="divBtn" style="width: 100%">
             <a href="#" class="btn btn-success btn-lg btn-block" id="btn-login"
-               style="width: 140px; margin: auto"> <i class="fa fa-lock"></i> Validar
+               style="width: 160px; margin: auto"> <i class="fa fa-lock"></i> Ingresar
             </a>
         </div>
-
+        <br/>
+        <p>Si no se ha registrado en el sistema, utilice primero el botón <strong>Registrarse</strong> para poder ingresar.</p>
     </g:form>
 </div>
 

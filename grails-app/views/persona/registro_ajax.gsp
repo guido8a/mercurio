@@ -11,60 +11,54 @@
 
 <g:form class="form-horizontal" name="frmRegistro" role="form" controller="persona" action="saveRegistro_ajax" method="POST">
     <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'tipoPersona', 'error')} required" style="margin-top: 20px">
-        <div class="col-md-12">
-            <span class="grupo">
+        <div class="row form-group">
                 <label for="tipoPersona" class="col-md-4 control-label">
                     Tipo Persona
                 </label>
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <g:select name="tipoPersona" from="${['N': 'Natural', 'J':'Jurídica']}" optionKey="key"
                               optionValue="value" class="form-control"/>
                 </div>
-            </span>
         </div>
     </div>
 
     <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'nombre', 'error')} required">
-        <div class="col-md-12">
-            <span class="grupo">
-                <label for="nombre" class="col-md-4 control-label">
+        <div class="row form-group">
+                <label for="nombre" class="col-md-3 control-label">
                     Nombre
                 </label>
 
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <g:textField name="nombre" maxlength="31" required="" class="form-control input-sm required"/>
                 </div>
-            </span>
         </div>
     </div>
 
     <div class="form-group keeptogether  ${hasErrors(bean: persona, field: 'apellido', 'error')}" id="divApellido">
-        <div class="col-md-12" >
-            <span class="grupo">
-                <label for="apellido" class="col-md-4 control-label">
+        <div class="row form-group" >
+                <label for="apellido" class="col-md-3 control-label">
                     Apellido
                 </label>
 
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <g:textField name="apellido" maxlength="31" class="form-control input-sm"/>
                 </div>
-            </span>
         </div>
     </div>
 
     <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'mail', 'error')} required">
-        <div class="col-md-12">
-            <span class="grupo">
-                <label for="mail" class="col-md-4 control-label">
+        <div class="row form-group">
+                <label for="mail" class="col-md-3 control-label">
                     E-mail
                 </label>
 
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <g:textField name="mail" maxlength="63" required="" class="email form-control input-sm unique noEspacios required"/>
                 </div>
-            </span>
         </div>
     </div>
+    <br/>
+    <p>Al guardar su registro se le enviará a su <strong>correo electrónico la clave de acceso</strong>.<br/>Gracias por usar el sistema.</p>
 </g:form>
 %{--</div>--}%
 

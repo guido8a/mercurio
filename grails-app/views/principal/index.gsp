@@ -13,8 +13,6 @@
 
     <!-- Bootstrap core CSS -->
     <asset:stylesheet src="/merc/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
     <asset:stylesheet src="/apli/shop-homepage.css"/>
 
     <asset:javascript src="/merc/jquery.min.js"/>
@@ -85,7 +83,6 @@
         background-image: linear-gradient(#747A80, #343A40, #545A60);
         text-align-all: center;
         height: 35px;
-        font-size:small;
         margin: 2px;
     }
 
