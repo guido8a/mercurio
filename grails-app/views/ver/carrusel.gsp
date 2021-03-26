@@ -139,8 +139,9 @@
 
 <div class="container" style="min-width: 60% !important; margin-top: 70px; overflow-y: hidden">
 
-    <g:if test="${tipo}">
-        <div class="btn-group">
+
+    <div class="btn-group">
+        <g:if test="${tipo}">
             <g:if test="${tipo == '1'}">
                 <a href="#" class="btn btn-primary" id="btnAnterior"><i
                         class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
@@ -157,7 +158,7 @@
                         </a>
                     </g:if>
                     <g:else>
-                       <g:if test="${tipo == '5'}">
+                        <g:if test="${tipo == '5'}">
                             <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-primary" >
                                 <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
                             </a>
@@ -173,13 +174,19 @@
                                     <i class="fa fa-arrow-left"></i> Regresar a la lista de productos
                                 </a>
                             </g:else>
-                         </g:else>
+                        </g:else>
                     </g:else>
                 </g:else>
             </g:else>
-        </div>
-    </g:if>
+        </g:if>
 
+    </div>
+
+    <g:if test="${publicaciones > 0}">
+        <a href="#" class="btn btn-success" id="btnContactar" style="float: right">
+            <i class="fa fa-phone"></i> Contactar con el vendedor
+        </a>
+    </g:if>
 
     <h3 style="margin-top: 20px; text-align: center">
         <div class="alert alert-dark" role="alert">
@@ -231,24 +238,24 @@
 
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
-            <div class="alert alert-primary" role="alert" style="text-align: center">
-%{--                <h3 style="text-align: center">--}%
-                Características
-%{--                </h3>--}%
-            </div>
+        <div class="alert alert-primary" role="alert" style="text-align: center">
+            %{--                <h3 style="text-align: center">--}%
+            Características
+            %{--                </h3>--}%
+        </div>
 
         <div class="col-md-6" style="margin-left: 280px; background-color: #efefef">
             <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
                 <g:each in="${atributos}" var="at" status="i">
                     <tr>
                         <td class="alert alert-primary" role="alert">
-                                ${at.atributoCategoria.atributo.descripcion}
-%{--                            <span class="badge bg-success"> ${at.atributoCategoria.atributo.descripcion}</span>--}%
+                            ${at.atributoCategoria.atributo.descripcion}
+                            %{--                            <span class="badge bg-success"> ${at.atributoCategoria.atributo.descripcion}</span>--}%
                         </td>
                         <td style="text-align: right"  class="alert alert-success" role="alert">
-%{--                            <span class="badge bg-info">--}%
-                                ${at.valor}
-%{--                            </span>--}%
+                            %{--                            <span class="badge bg-info">--}%
+                            ${at.valor}
+                            %{--                            </span>--}%
                         </td>
                     </tr>
                 </g:each>
@@ -273,6 +280,34 @@
 
 <script type="text/javascript">
 
+    $("#btnContactar").click(function () {
+        cargarCliente();
+    });
+
+    function cargarCliente() {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'cliente', action: 'cliente_ajax')}",
+            data: {
+                producto: '${producto?.id}'
+            },
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    id: "dlgCargarCliente",
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
     $("#btnAnteriorPrincipal").click(function () {
         location.href = "${createLink(controller: 'principal', action: 'index')}"
     });
@@ -280,7 +315,6 @@
     $("#btnAnterior").click(function () {
         location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
     });
-
 
     $("#btnAnteriorLista").click(function () {
         location.href = "${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
@@ -312,7 +346,7 @@
 
     $(function () {
         $('#carouselExampleIndicators').bind('slide.bs.carousel', function (e) {
-            console.log('slide event!');
+            // console.log('slide event!');
             $('#fotos').find('.guia').removeClass('activa');
             $('#fotos').find('.guia').addClass('inactiva');
         });
@@ -320,7 +354,7 @@
         $("#carouselExampleIndicators").on('slid.bs.carousel', function () {
             $("#carouselExampleIndicators").carousel();
             currentIndex = $('div.active').index();
-            console.log('activo...', currentIndex);
+            // console.log('activo...', currentIndex);
             $('#imagen' + currentIndex).addClass('activa');
         });
 

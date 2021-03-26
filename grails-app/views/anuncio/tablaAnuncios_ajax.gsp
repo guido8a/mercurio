@@ -95,64 +95,64 @@
     %{--});--}%
     // });
 
-    %{--function createContextMenu(node) {--}%
-    %{--    var $tr = $(node);--}%
-    %{--    var estadoAnuncio = $tr.data("est");--}%
+    function createContextMenu(node) {
+        var $tr = $(node);
+        var estadoAnuncio = $tr.data("est");
 
-    %{--    var items = {--}%
-    %{--        header: {--}%
-    %{--            label: "Acciones",--}%
-    %{--            header: true--}%
-    %{--        }--}%
-    %{--    };--}%
+        var items = {
+            header: {
+                label: "Acciones",
+                header: true
+            }
+        };
 
-    %{--    var producto = {--}%
-    %{--        label            : "Producto",--}%
-    %{--        icon             : "fa fa-briefcase",--}%
-    %{--        separator_before : true,--}%
-    %{--        action           : function ($element) {--}%
-    %{--            var id = $tr.data("prod");--}%
-    %{--            location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + id--}%
-    %{--        }--}%
-    %{--    };--}%
+        var producto = {
+            label            : "Producto",
+            icon             : "fa fa-briefcase",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("prod");
+                location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + id
+            }
+        };
 
-    %{--    var publicacion = {--}%
-    %{--        label            : "Publicación",--}%
-    %{--        icon             : "fa fa-user-clock",--}%
-    %{--        separator_before : true,--}%
-    %{--        action           : function ($element) {--}%
-    %{--            var id = $tr.data("id");--}%
-    %{--            fijarPublicacion(id);--}%
-    %{--        }--}%
-    %{--    };--}%
+        var publicacion = {
+            label            : "Publicación",
+            icon             : "fa fa-user-clock",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+                fijarPublicacion(id);
+            }
+        };
 
-    %{--    var estado = {--}%
-    %{--        label            : "Cambiar estado",--}%
-    %{--        icon             : "fa fa-sync",--}%
-    %{--        separator_before : true,--}%
-    %{--        action           : function ($element) {--}%
-    %{--            var id = $element.data("id");--}%
-    %{--            cambiarEstado(id);--}%
-    %{--        }--}%
-    %{--    };--}%
+        var estado = {
+            label            : "Cambiar estado",
+            icon             : "fa fa-sync",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $element.data("id");
+                cambiarEstado(id);
+            }
+        };
 
-    %{--    items.producto = producto;--}%
-    %{--    if(estadoAnuncio == '1'){--}%
-    %{--        items.publicacion = publicacion;--}%
-    %{--    }--}%
-    %{--    items.estado = estado;--}%
-    %{--    return items;--}%
-    %{--}--}%
+        items.producto = producto;
+        if(estadoAnuncio == '1'){
+            items.publicacion = publicacion;
+        }
+        items.estado = estado;
+        return items;
+    }
 
-    %{--$(function () {--}%
-    %{--    $("tr").contextMenu({--}%
-    %{--        items  : createContextMenu,--}%
-    %{--        onShow : function ($element) {--}%
-    %{--            $element.addClass("trHighlight");--}%
-    %{--        },--}%
-    %{--        onHide : function ($element) {--}%
-    %{--            $(".trHighlight").removeClass("trHighlight");--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--});--}%
+    $(function () {
+        $("tr").contextMenu({
+            items  : createContextMenu,
+            onShow : function ($element) {
+                $element.addClass("trHighlight");
+            },
+            onHide : function ($element) {
+                $(".trHighlight").removeClass("trHighlight");
+            }
+        });
+    });
 </script>

@@ -175,68 +175,68 @@
    }
 
 
-    // function createContextMenu(node) {
-    //     var $tr = $(node);
-    //     var estadoProducto = $tr.data("est");
-    //     var existeAnuncio = $tr.data("anu");
-    //
-    //     var items = {
-    //         header: {
-    //             label: "Acciones",
-    //             header: true
-    //         }
-    //     };
-    //
-    //     var producto = {
-    //         label            : "Ver Producto",
-    //         icon             : "fa fa-clipboard",
-    //         separator_before : true,
-    //         action           : function ($element) {
-    //             var id = $tr.data("id");
-    //         }
-    //     };
-    //
-    //     var forzar = {
-    //         label            : "Volver a crear anuncio",
-    //         icon             : "fa fa-cog",
-    //         separator_before : true,
-    //         action           : function ($element) {
-    //             var id = $tr.data("id");
-    //             forzarAnuncio(id)
-    //         }
-    //     };
-    //
-    //     var retornarAlerta = {
-    //         label            : "Retornar alerta",
-    //         icon             : "fa fa-arrow-left",
-    //         separator_before : true,
-    //         action           : function ($element) {
-    //             var id = $tr.data("id");
-    //             retornar(id)
-    //         }
-    //     };
-    //
-    //     items.producto = producto;
-    //     if(estadoProducto != 'N'){
-    //         if(!existeAnuncio){
-    //             items.forzar = forzar;
-    //         }
-    //     }
-    //     items.retornar = retornarAlerta;
-    //     return items;
-    // }
-    //
-    // $(function () {
-    //     $("tr").contextMenu({
-    //         items  : createContextMenu,
-    //         onShow : function ($element) {
-    //             $element.addClass("trHighlight");
-    //         },
-    //         onHide : function ($element) {
-    //             $(".trHighlight").removeClass("trHighlight");
-    //         }
-    //     });
-    // });
+    function createContextMenu(node) {
+        var $tr = $(node);
+        var estadoProducto = $tr.data("est");
+        var existeAnuncio = $tr.data("anu");
+
+        var items = {
+            header: {
+                label: "Acciones",
+                header: true
+            }
+        };
+
+        var producto = {
+            label            : "Ver Producto",
+            icon             : "fa fa-clipboard",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+            }
+        };
+
+        var forzar = {
+            label            : "Volver a crear anuncio",
+            icon             : "fa fa-cog",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+                forzarAnuncio(id)
+            }
+        };
+
+        var retornarAlerta = {
+            label            : "Retornar alerta",
+            icon             : "fa fa-arrow-left",
+            separator_before : true,
+            action           : function ($element) {
+                var id = $tr.data("id");
+                retornar(id)
+            }
+        };
+
+        items.producto = producto;
+        if(estadoProducto != 'N'){
+            if(!existeAnuncio){
+                items.forzar = forzar;
+            }
+        }
+        items.retornar = retornarAlerta;
+        return items;
+    }
+
+    $(function () {
+        $("tr").contextMenu({
+            items  : createContextMenu,
+            onShow : function ($element) {
+                $element.addClass("trHighlight");
+            },
+            onHide : function ($element) {
+                $(".trHighlight").removeClass("trHighlight");
+            }
+        });
+    });
 
 </script>
 

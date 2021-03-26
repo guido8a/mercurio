@@ -30,9 +30,9 @@ class Cliente {
     static constraints = {
         producto(blank: false, nullable: false)
         nombre(size: 1..31, blank: false, nullable: false)
-        apellido(size: 1..31, blank: false, nullable: false)
-        telefono(size: 1..15, blank: false, nullable: false)
-        mail(size: 1..63, blank: true, nullable: true)
+        apellido(size: 0..31, blank: true, nullable: true)
+        telefono(size: 0..15, blank: true, nullable: true)
+        mail(size: 1..63, blank: false, nullable: false)
         fecha(blank: true, nullable: true)
         pregunta(size: 1..1023, blank:false, nullable: false)
     }

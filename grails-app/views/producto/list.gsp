@@ -32,11 +32,12 @@
     <thead>
     <tr style="width: 100%">
         <th style="width: 20%">Anuncio</th>
-        <th style="width: 25%">Descripción resuminda</th>
-        <th style="width: 15%">Categoria</th>
-        <th style="width: 20%">Subcategoria</th>
+%{--        <th style="width: 25%">Descripción resuminda</th>--}%
+        <th style="width: 20%">Categoria</th>
+        <th style="width: 28%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
         <th style="width: 10%">Estado</th>
+        <th style="width: 12%">Acciones</th>
     </tr>
     </thead>
 </table>
@@ -47,11 +48,17 @@
         <g:each in="${productos}" var="producto">
             <tr data-id="${producto?.id}" style="width: 100%">
                 <td style="width: 20%">${producto?.titulo}</td>
-                <td style="width: 25%;">${producto?.subtitulo}</td>
-                <td style="width: 15%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
-                <td style="width: 20%; text-align: center">${producto?.subcategoria?.descripcion}</td>
+%{--                <td style="width: 25%;">${producto?.subtitulo}</td>--}%
+                <td style="width: 20%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
+                <td style="width: 28%; text-align: center">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
                 <td style="width: 10%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 12%; text-align: center">
+                    <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar producto" data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i> </a>
+                    <a href="#" class="btn btn-xs btn-success btnEditar" title="Editar producto" data-id="${producto?.id}"><i class="fa fa-edit"></i> </a>
+                    <a href="#" class="btn btn-xs btn-warning btnImagenes" title="Imágenes del producto" data-id="${producto?.id}"><i class="fa fa-image"></i> </a>
+                    <a href="#" class="btn btn-xs btn-danger btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
+                </td>
             </tr>
         </g:each>
         </tbody>
@@ -60,6 +67,27 @@
 
 
 <script type="text/javascript">
+
+    $(".btnRevisar").click(function (){
+        var id = $(this).data("id");
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+    });
+
+    $(".btnEditar").click(function () {
+        var id = $(this).data("id");
+        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
+    });
+
+    $(".btnImagenes").click(function () {
+        var id = $(this).data("id");
+        cargarImagenes(id)
+    });
+
+    $(".btnBorrar").click(function () {
+        var id = $(this).data("id");
+        deleteRow(id)
+    });
+
     var id = null;
     function submitForm() {
         var $form = $("#frmProducto");
