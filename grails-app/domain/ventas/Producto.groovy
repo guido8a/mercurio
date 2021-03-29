@@ -11,6 +11,7 @@ class Producto {
     String estado
     String texto
     Date fecha
+    String destacado
 
     static mapping = {
         table 'prod'
@@ -27,6 +28,7 @@ class Producto {
             estado column: 'prodetdo'
             texto column: 'prodtxto'
             fecha column: 'prodfcha'
+            destacado column: 'proddstc'
         }
     }
 
@@ -38,9 +40,11 @@ class Producto {
         estado(blank:false)
         texto(blank: true, nullable: true)
         fecha(blank: false, nullable:false)
+        destacado(blank: true, nullable:true)
+
     }
 
-   String toString(){
-       return "${this.titulo}"
-   }
+    String toString(){
+        return "${this.titulo}"
+    }
 }
