@@ -29,6 +29,9 @@ class PrincipalController {
                 "from publ, anun, prod, sbct " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
                 "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id"
+        def sqlDs = "select imagruta, prod.prod__id from publ, anun, prod, imag " +
+                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                "prod.prod__id = anun.prod__id and publdstc = '1' and imag.prod__id = prod.prod__id and imagpncp = '1'"
 
         /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
 
@@ -40,11 +43,6 @@ class PrincipalController {
             params.bscr.split(' ').each { t ->
                     sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
                 }
-
-//            sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id from publ, anun, prod, sbct " +
-//                    "where now()::date between publfcin and publfcfn and " +
-//                    "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
-//                    "sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
         }
         println "sql: $sql"
         def anuncios = cn.rows(sql.toString())
@@ -58,14 +56,19 @@ class PrincipalController {
         }
 
         def carrusel = [], destacados = [], normales = []
+//        println "publ: $sqlDs"
+        /** se muestran en el carrusel todos los anuncios vigentes con publicación "destacada": publdstc = '1' **/
+        def publ = cn.rows(sqlDs.toString())
+        publ.each {pb ->
+            carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
+        }
+        def i = 1   /* completa las imágenes del carrusel */
+        while(carrusel.size() < 3) {
+            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
+        }
+
         anuncios.each {pb ->
             def producto = Producto.get(pb.prod__id)
-            if(pb.destacado){ /** si el producto tiene anuncio destacado  */
-                def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
-                imag.each { im ->
-                    carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id, id: im.producto.id])
-                }
-            }
             def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
             println "producto: ${pb.prod__id} --> imágenes: ${imag}"
             imag.each { im ->
@@ -79,34 +82,6 @@ class PrincipalController {
                 }
             }
         }
-        /* completa las imágenes del carrusel */
-        def i = 1
-        while(carrusel.size() < 3) {
-            carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
-        }
-
-/*
-        def destacados = [], normales = []
-        anuncios.each {pb ->
-            */
-/** si el producto tiene anuncio destacado  *//*
-
-            def producto = Producto.get(pb.prod__id)
-//            def imag = Imagen.findAllByProducto(producto)
-            def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
-            println "producto: ${pb.prod__id} --> imágenes: ${imag}"
-            imag.each { im ->
-                if(im.principal == '1') {
-                    destacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                   sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
-                }
-                else {
-                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
-                }
-            }
-        }
-*/
 
         println "carrusel ${carrusel.ruta}"
         println "destacados: ${destacados.rt}"

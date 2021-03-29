@@ -140,7 +140,7 @@
 <div class="container" style="min-width: 60% !important; margin-top: 70px; overflow-y: hidden">
 
 
-    <div class="btn-group">
+    <div class="btn-group" style="margin-top: 5px">
         <g:if test="${tipo}">
             <g:if test="${tipo == '1'}">
                 <a href="#" class="btn btn-primary" id="btnAnterior"><i
@@ -149,8 +149,8 @@
             <g:else>
                 <g:if test="${tipo == '3'}">
 %{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
-                    <a href="#" class="btn btn-primary" onclick="anterior()"><i
-                            class="fa fa-arrow-left"></i> Regresar a la pantalla principal</a>
+                    <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
+                            class="fa fa-arrow-left"></i> Regresar</a>
                 </g:if>
                 <g:else>
                     <g:if test="${tipo == '4'}">

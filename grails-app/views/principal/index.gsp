@@ -366,7 +366,7 @@
                             <div class="card h-100 marcoDestacados">
                                 <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">
                                     %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
-                                    <img width="250px" height="200px"
+                                    <img width="253px" height="auto" style="padding: 1px"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                                 </a>
 
