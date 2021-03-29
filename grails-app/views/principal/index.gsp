@@ -357,11 +357,11 @@
         </g:if>
 
         %{--        Destacados--}%
-            <g:if test="${productos?.size() > 0}">
+            <g:if test="${destacados?.size() > 0}">
                 <div style="color: #47b636">Destacados</div>
 
                 <div class="row">
-                    <g:each in="${productos}" var="prod" status="i">
+                    <g:each in="${destacados}" var="prod" status="i">
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 marcoDestacados">
                                 <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">

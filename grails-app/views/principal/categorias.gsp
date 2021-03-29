@@ -25,10 +25,9 @@
             // console.log("subcat", ct)
             $(".subcat").removeClass("activo")
             $(this).addClass("activo")
-            var dato = $('#bsca').val()
-            // console.log('hola', dato);
-            location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato + "&sbct=" + $(this).attr("id")
-            // cargarPantalla($(this).attr("id"));
+            // var dato = $('#bsca').val()
+            %{--location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato + "&sbct=" + $(this).attr("id")--}%
+            location.href="${createLink(controller: 'principal', action: 'buscar')}?sbct=" + $(this).attr("id")
         });
     });
 

@@ -148,7 +148,8 @@
             </g:if>
             <g:else>
                 <g:if test="${tipo == '3'}">
-                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i
+%{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
+                    <a href="#" class="btn btn-primary" onclick="anterior()"><i
                             class="fa fa-arrow-left"></i> Regresar a la pantalla principal</a>
                 </g:if>
                 <g:else>
@@ -311,6 +312,10 @@
     $("#btnAnteriorPrincipal").click(function () {
         location.href = "${createLink(controller: 'principal', action: 'index')}"
     });
+
+    function anterior() {
+        window.history.back();
+    }
 
     $("#btnAnterior").click(function () {
         location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'

@@ -33,8 +33,8 @@ class PrincipalController {
         /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
 
         /** Se deben mostrar los anuncios vigentes
-         * 1. carrusel: destacados de anuncios, si no hay suficientes completar con vntaXX
-         * 2. Productos: productos de anuncios vigentes, completar con "aqui su anuncio" **/
+         * 1. carrusel: destacados de todos los anuncios, si no hay suficientes completar con vntaXX
+         * 2. Destacados: productos de anuncios vigentes, completar con "aqui su anuncio" **/
         if(params.bscr) {
             sql = ""
             params.bscr.split(' ').each { t ->
@@ -57,57 +57,63 @@ class PrincipalController {
                     "<strong>${Categoria.get(params.ctgr)?.descripcion}</strong>"
         }
 
-//        def anun = Anuncio.findAllByEstado('1')
-//        def publ = Publicacion.findAllByAnuncioInListAndFechaFinGreaterThanEquals(anun, new Date())
-
-//        def carrusel = [[tp: 'p', ruta: 'ai.jpeg'], [tp: 'p', ruta: 'usuario.png']]
-        def carrusel = []
-//        println "publ: $publ"
-//        publ.each {pb ->
+        def carrusel = [], destacados = [], normales = []
         anuncios.each {pb ->
-            /** si el producto tiene anuncio destacado  */
-            if(pb.destacado){
-                def producto = Producto.get(pb.prod__id)
+            def producto = Producto.get(pb.prod__id)
+            if(pb.destacado){ /** si el producto tiene anuncio destacado  */
                 def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
-//                println "imagen: ${imag}"
                 imag.each { im ->
                     carrusel.add([tp: 'p', ruta: im.ruta, prod: im.producto.id, id: im.producto.id])
                 }
             }
+            def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
+            println "producto: ${pb.prod__id} --> imágenes: ${imag}"
+            imag.each { im ->
+                if(im.principal == '1') {
+                    destacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                                    sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
+                }
+                else {
+                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
+                }
+            }
         }
+        /* completa las imágenes del carrusel */
         def i = 1
         while(carrusel.size() < 3) {
             carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
         }
 
-//        def productos = [[tp: 'p', rt: 'casa7.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
-//                         [tp: 'p', rt: 'casa8.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto'],
-//                         [tp: 'p', rt: 'conjunto1.jpeg', p: 1, tt: 'titulo', sb:'subtitulo', t:'texto a desplegar por el producto']]
-        def productos = [], normales = []
+/*
+        def destacados = [], normales = []
         anuncios.each {pb ->
-            /** si el producto tiene anuncio destacado  */
+            */
+/** si el producto tiene anuncio destacado  *//*
+
             def producto = Producto.get(pb.prod__id)
 //            def imag = Imagen.findAllByProducto(producto)
             def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
             println "producto: ${pb.prod__id} --> imágenes: ${imag}"
             imag.each { im ->
                 if(im.principal == '1') {
-                    productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                    destacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
                                    sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
                 }
-//                else {
-//                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-//                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
-//                }
+                else {
+                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
+                }
             }
         }
+*/
 
-//        println("carru " + carrusel)
-        println "productos: ${productos.rt}"
+        println "carrusel ${carrusel.ruta}"
+        println "destacados: ${destacados.rt}"
         println "normales: ${normales.rt}"
 
         return [activo: sbct?.categoria?.id, sbct_actv: sbct?.id, consultas: consultas,
-                carrusel: carrusel, productos: productos, normales: normales, busqueda: busqueda]
+                carrusel: carrusel, destacados: destacados, normales: normales, busqueda: busqueda]
 
     }
 
