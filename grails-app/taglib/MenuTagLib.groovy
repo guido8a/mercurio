@@ -250,70 +250,91 @@ class MenuTagLib {
             attrs.title = "Ventas"
         }
 
-        def html = "<nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top' role='navigation'>"
+//        def html = "<nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top' role='navigation'>"
+//        html += "<div class='container-fluid'>"
 
-        html += "<div class='container-fluid'>"
-
-        // Brand and toggle get grouped for better mobile display
-        html += '<div class="navbar-header">'
-        html += '<a class="navbar-brand navbar-logo" href="/"> <img src="' + g.assetPath(src: 'apli/logo.png') +
-                '" style="float:left; height:40px">' + '</a>'
-        html += '</div>'
+        def html = "<nav class='navbar navbar-expand-sm bg-dark navbar-dark fixed-top'>"
+        html += "<div class='container-fluid' style=\"min-width: 400px !important;\">"
+        html += "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#collapsibleNavbar'>" +
+                "<span class='navbar-toggler-icon'></span></button>"
 
         // Collect the nav links, forms, and other content for toggling
-        html += '<div class="collapse navbar-collapse"> '
-               // '<div style="border-color:#800; border-style:solid; width:400px; display: block" class="grupo">'
-        html += '<ul class="nav navbar-nav">'
-        html += "<div class='redondeado'><div class='input-group'>" +
-                g.select( name: 'categoriaBuscar', from: ctgr, optionValue: 'descripcion',
-                        optionKey: 'id', noSelection: [0: 'En todo'])
-        def txto = "<div class='input-group' style='width:254px;'>" +
-          "<input id='bsca' type='text' class='form-control input-search' placeholder='Buscar' value='${params.search?:''''''}'>" +
-          "<span class='input-group-btn' id='btn-buscar'>" +
-//                "<a href='" + g.createLink(controller: 'principal', action: 'buscar', buscar: '$(\"#bsca\").val()') + "' class='btn btn-primary btn-search'>" +
-                "<a href='#' class='btn btn-primary btn-search'>" +
-          "<i class='fa fa-search'></i>&nbsp;</a></span></div> </div>"
+        html += '<div class="collapse navbar-collapse" id="collapsibleNavbar">'
+//        html += '<div class="collapse navbar-collapse"> '
+        html += '<ul class="navbar-nav"><li class="nav-item">'
+//        html += "<div class='redondeado'><div class='input-group  class='nav-item''>"
+        def txto = '<form name="frm-buscar" class="form-inline" action="/principal/index" method="POST">' +
+                g.select( name: 'ctgr', from: ctgr, optionValue: 'descripcion',
+                optionKey: 'id', noSelection: [0: 'En todo'],  title: 'Seleccione la categoría', class: 'mr-sm-1') +
+                "<input id='bsca' name='bscr' class='form-control mr-sm-1' type='text' placeholder='Buscar' " +
+                "title='Escriba lo que desee buscar' value='${attrs.search?:''}'>" +
+                "<button class='btn btn-success' type='submit' title='Realizar la búsqueda'>" +
+                "<i class='fa fa-search'></i></button>" +
+                "<button class='btn btn-info' id='btn-borrar' title='Borrar texto de búsqueda'>" +
+                "<i class='fa fa-eraser'></i></button>" +
+                '</form>'
+//        html += g.select( name: 'categoriaBuscar', from: ctgr, optionValue: 'descripcion',
+//                optionKey: 'id', noSelection: [0: 'En todo'],  title: 'Seleccione la categoría')
+//        def txto = "<div class='input-group' style='width:254px;'>" +
+//        def txto = "<div class='input-group' style='display:in-line'>" +
+//          "<input id='bsca' type='text' class='form-control input-search' placeholder='Buscar' " +
+//                "value='${attrs.search?:''}' title='Escriba lo que desee buscar'>" +
+//          "<span class='input-group-btn' id='btn-buscar' title='Realizar la búsqueda'><a href='#' class='btn btn-primary btn-search'>" +
+//          "<i class='fa fa-search'></i>&nbsp;</a></span>" +
+//          "<span class='input-group-btn' id='btn-borrar' title='Borrar texto de búsqueda'><a href='#' " +
+//                "class='btn btn-info'><i class='fa fa-eraser'></i>&nbsp;</a></span>"
+//                "</div> </div>"
 
-        html += txto + '</ul>'
+        html += txto + '</li></ul></div>'
 //        html += '</ul>' + txto
 
         if(usuario) {
-            html += "</div><span class='nav-item'><a class='nav-link' " +
+            html += "<span class='nav-item'><a class='nav-link' " +
                     "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
                     "style=\"color:#40cfd0; font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
-                    "<span class='nav-item' id='registro'><a class='nav-link' " +
-                    "href=\"${createLink(controller: 'login', action: 'logout')}\" "+
-                    "style=\"color:#DF8B00;font-size:small\"><i class='fa fa-power-off'></i> Salir</a></span>"
+//                    "<span class='nav-item' id='registro'><a class='nav-link' " +
+//                    "href=\"${createLink(controller: 'login', action: 'logout')}\" "+
+//                    "style=\"color:#DF8B00;font-size:small\"><i class='fa fa-power-off'></i> Salir</a></span>"
+
+//            html += "<ul class=\"navbar-nav\"><li class='nav-item'><a class='nav-link' " +
+//                    "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
+//                    "style='color:#40cfd0; font-size:small'><i class='fa fa-edit'></i> Crear Anuncio</a></li>" +
+//                    "<li class='nav-item' id='registro'><a class='nav-link' " +
+//                    "href=\"${createLink(controller: 'login', action: 'logout')}\" "+
+//                    "style=\"color:#DF8B00;font-size:small\"><i class='fa fa-power-off'></i> Salir</a></li>
+                    "</ul>"
 
             html += '<ul class="nav navbar-nav navbar-right">'
-            html += '<li class="dropdown">'
-            html += '<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">' + usuario?.nombres +
+            html += '<li class="nav-item dropdown">'
+            html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">' + usuario?.nombres +
                     ' <b class="caret"></b></a>'
-            html += '<ul class="dropdown-menu">'
-            html += '<li><a href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
-                    '"><i class="fa fa-edit"></i> Crear Anuncio</a></li>'
-            html += '<li><a href="' + g.createLink(controller: 'persona', action: 'personal') +
-                    '"><i class="fa fa-cogs"></i> Configuración</a></li>'
-            html += '<li class="divider"></li>'
-            html += '<li><a href="' + g.createLink(controller: 'login', action: 'logout') + '"><i class="fa fa-power-off"></i> Salir</a></li>'
+            html += '<div class="dropdown-menu">'
+            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
+                    '"><i class="fa fa-edit"></i> Crear Anuncio</a>'
+            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'persona', action: 'personal') +
+                    '"><i class="fa fa-cogs"></i> Configuración</a>'
+//            html += '<span class="divider"></span>'
+            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'login', action: 'logout') +
+                    '"><i class="fa fa-power-off"></i> Salir</a></div>'
 
         } else {
 //            html += "</div><span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
 //                    "style='color:#FFAB19; font-size:small'>Ingresar</a></span>" +
 //                    "<span class='nav-item' id='registro'><a class='nav-link' href='#' " +
 //                    "style='color:#FFAB19;font-size:small'>Registrarse</a></span>"
-            html += "</div><span class='con-borde' id='ingresar'>" +
+
+            html += "<span class='con-borde' id='ingresar'>" +
                     "<a class='nav-link' href='#' style='color:#FFAB19'> Ingresar</a></span>" +
                     "<span class='con-borde' id='registro'>" +
                     "<a class='nav-link' href='#' style='color:#FFAB19'>Registrarse</a></span>"
         }
-        html += '</ul>'
-        html += '</li>'
-        html += '</ul>'
+//        html += '</li>'
+//        html += '</ul>'
         html += '</div><!-- /.navbar-collapse -->'
         html += "</div>"
         html += "</nav>"
 
+//        println "$html"
         out << html
     }
 

@@ -170,6 +170,12 @@
     }
 
     /* bootstrap 3 */
+/*
+    @media (min-width: 400px) and (max-width: 1000px) {
+        .collapse {
+            display: none !important;
+        }
+    }
     .dropdown-menu > li > a {
         display: block;
         padding: 3px 20px;
@@ -209,6 +215,7 @@
         text-decoration: none;
         background-color: #b3b3b3;
     }
+*/
 
     .blink_text {
         animation:1s blinker linear infinite;
@@ -239,7 +246,7 @@
 
 <body>
 
-<mn:menuNuevo activo="${activo}"/>
+<mn:menuNuevo search="${params.bscr?:''}"/>
 %{--<mn:menuHg activo="${activo}"/>--}%
 
 
@@ -371,10 +378,9 @@
 
                                     %{--                            <p class="card-text">${prod.sb}</p>--}%
                                 </div>
-
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                                </div>
+%{--                                <div class="card-footer">--}%
+%{--                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+%{--                                </div>--}%
                             </div>
                         </div>
                     </g:each>
@@ -411,6 +417,7 @@
                         </div>
                     </g:each>
                 </g:if>
+%{--
                 <g:else>
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
@@ -469,6 +476,7 @@
                         </div>
                     </div>
                 </g:else>
+--}%
 
             </div>
             <!-- /.col-lg-9 -->
@@ -480,14 +488,9 @@
 </div>
 <!-- /.container -->
 
-
-
-
-
-
-
 <!-- Footer -->
-<footer class="py-3 bg-dark">
+%{--<footer class="py-3 bg-dark">--}%
+<div class="navbar-dark bg-dark" style="width: 100%">
 %{--    <div class="container">--}%
         <div style="text-align: center; font-size: small">
             <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
@@ -496,7 +499,7 @@
         </div>
 %{--    </div>--}%
     <!-- /.container -->
-</footer>
+</div>
 
 <!-- Bootstrap core JavaScript -->
 %{--<script src="vendor/jquery/jquery.min.js"></script>--}%
@@ -525,6 +528,17 @@
 
     $("#ingresar").click(function () {
         cargarIngreso();
+    });
+
+    $('#bsca').keyup(function (ev) {
+        if (ev.keyCode == 13) {
+            $("#btn-buscar").click();
+        }
+    })
+
+    $("#btn-borrar").click(function () {
+        event.preventDefault()
+        $('#bsca').val('');
     });
 
     $("#btn-buscar").click(function () {

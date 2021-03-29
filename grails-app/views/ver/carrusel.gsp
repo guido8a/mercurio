@@ -367,6 +367,16 @@
         location.href="${createLink(controller: 'principal', action: 'buscar')}?bscr=" + dato + "&ctgr=" + ctgr
     });
 
+    $('#bsca').keyup(function (ev) {
+        if (ev.keyCode == 13) {
+            $("#btn-buscar").click();
+        }
+    })
+
+    $("#btn-borrar").click(function () {
+        event.preventDefault()
+        $('#bsca').val('');
+    });
 
 </script>
 </body>

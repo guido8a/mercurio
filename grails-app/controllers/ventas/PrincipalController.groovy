@@ -16,25 +16,35 @@ class PrincipalController {
     def index() {
         println "index params: $params"
         def cn = dbConnectionService.getConnection()
-        def sql = "", busqueda = ""
+        def busqueda = ""
         params.sbct = params.sbct?:"sbct_1"
+        params.bscr = params.bscr != 'undefined'? params.bscr : ''
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
+        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id from publ, anun, prod " +
+                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id}"
+        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id " +
+                "from publ, anun, prod, sbct " +
+                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id"
+
+        /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
 
         /** Se deben mostrar los anuncios vigentes
          * 1. carrusel: destacados de anuncios, si no hay suficientes completar con vntaXX
          * 2. Productos: productos de anuncios vigentes, completar con "aqui su anuncio" **/
-        sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id from publ, anun, prod " +
-                "where now()::date between publfcin and publfcfn and " +
-                "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
-                "sbct__id = ${sbct_id}"
         if(params.bscr) {
-            sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id from publ, anun, prod, sbct " +
-                    "where now()::date between publfcin and publfcfn and " +
-                    "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
-//                    "ctgr__id = ${params.ctgr} and sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
-                    "sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
+            sql = ""
+            params.bscr.split(' ').each { t ->
+                    sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
+                }
+
+//            sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id from publ, anun, prod, sbct " +
+//                    "where now()::date between publfcin and publfcfn and " +
+//                    "anun.anun__id = publ.anun__id and prod.prod__id = anun.prod__id and " +
+//                    "sbct.sbct__id = prod.sbct__id and prodtitl ilike '%${params.bscr}%'"
         }
         println "sql: $sql"
         def anuncios = cn.rows(sql.toString())
@@ -77,16 +87,18 @@ class PrincipalController {
         anuncios.each {pb ->
             /** si el producto tiene anuncio destacado  */
             def producto = Producto.get(pb.prod__id)
-            def imag = Imagen.findAllByProducto(producto)
-//            println "imágenes: $imag ${imag.principal}"
+//            def imag = Imagen.findAllByProducto(producto)
+            def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
+            println "producto: ${pb.prod__id} --> imágenes: ${imag}"
             imag.each { im ->
                 if(im.principal == '1') {
                     productos.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
                                    sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
-                } else {
-                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
                 }
+//                else {
+//                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
+//                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
+//                }
             }
         }
 
