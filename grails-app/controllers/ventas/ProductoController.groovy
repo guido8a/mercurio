@@ -520,6 +520,21 @@ class ProductoController {
 
     }
 
+    def destacar_ajax(){
+        def producto = Producto.get(params.id)
+        return[producto: producto]
+    }
 
+    def guardarDestacar_ajax(){
+        def producto = Producto.get(params.producto)
+        if(params.tipo == 'si'){
+            producto.destacado = 1
+        }else{
+            producto.destacado = 0
+        }
+
+        producto.save(flush:true)
+
+    }
 
 }

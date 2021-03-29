@@ -6,9 +6,10 @@ class PublicacionController {
     def form_ajax(){
 
         def anuncio = Anuncio.get(params.id)
+        def producto = anuncio.producto
         def publicacion = new Publicacion()
 
-        return[publicacion:publicacion, anuncio: anuncio]
+        return[publicacion:publicacion, anuncio: anuncio, producto:producto]
     }
 
     def savePublicacion(){

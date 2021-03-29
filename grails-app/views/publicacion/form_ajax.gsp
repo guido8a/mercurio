@@ -50,7 +50,8 @@
                         Destacado
                     </label>
                     <div class="col-md-2 form-check form-check-inline" style="margin-top: 5px">
-                        <input name="destacado" class="form-check-input" type="checkbox" id="inlineCheckbox1" ${publicacion?.destacado == '1' ? 'checked' : ''}>
+%{--                        <input name="destacado" class="form-check-input" type="checkbox" id="inlineCheckbox1" ${publicacion?.destacado == '1' ? 'checked' : ''}>--}%
+                        <input name="destacado" class="form-check-input" type="checkbox" id="inlineCheckbox1" ${producto?.destacado == '1' ? 'checked' : ''}>
                     </div>
                 </span>
             </div>
@@ -139,7 +140,7 @@
         $(".btnCancelar").click(function () {
            $("#datetimepicker1").val('');
             $("#datetimepicker2").val('');
-             $(".ui-switcher").attr("aria-checked",false)
+             $(".ui-switcher").attr("aria-checked",${producto.destacado == '1'});
             $("#id").val('');
             $(".btnAgregar").removeClass("hidden");
             $(".btnGuardarS").addClass("hidden");

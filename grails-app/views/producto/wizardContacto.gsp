@@ -137,11 +137,11 @@
                     </div>
                 </div>
 
-%{--                <div class="col-md-4 btn-group" style="float: right">--}%
-%{--                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
-%{--                    <a href="#" class="btn btn-info btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>--}%
-%{--                    <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>--}%
-%{--                </div>--}%
+                %{--                <div class="col-md-4 btn-group" style="float: right">--}%
+                %{--                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
+                %{--                    <a href="#" class="btn btn-info btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>--}%
+                %{--                    <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>--}%
+                %{--                </div>--}%
             </div>
         </div>
     </div>
@@ -185,27 +185,59 @@
                 },
                 success: function(msg){
                     if(msg == 'ok'){
-                        bootbox.dialog({
-                            title   : "Alerta",
-                            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> " +
-                                "<p style='font-size: 14px; font-weight: bold'>&nbsp;El producto será publicado con la " +
-                                "información guardada hasta el momento.</p>",
-                            buttons : {
-                                cancelar : {
-                                    label     : "<i class='fa fa-times'></i> Cancelar",
-                                    className : "btn-primary",
-                                    callback  : function () {
-                                    }
-                                },
-                                publicar : {
-                                    label     : "<i class='fa fa-check'></i> Publicar",
-                                    className : "btn-success",
-                                    callback  : function () {
-                                        publicarProducto();
-                                    }
-                                }
-                            }
-                        });
+
+                        $.ajax({
+                            type    : "POST",
+                            url     : "${createLink(controller: 'producto', action:'destacar_ajax')}",
+                            data    : {
+                                id: '${producto?.id}'
+                            },
+                            success : function (msg) {
+                                var b = bootbox.dialog({
+                                    id      : "dlgDestacar",
+                                    title   : "Destacar Producto",
+                                    message : msg,
+                                    buttons : {
+                                        cancelar : {
+                                            label     : "Cancelar",
+                                            className : "btn-primary",
+                                            callback  : function () {
+                                            }
+                                        },
+                                        guardar  : {
+                                            id        : "btnSave",
+                                            label     : "<i class='fa fa-save'></i> Aceptar",
+                                            className : "btn-success",
+                                            callback  : function () {
+                                                bootbox.dialog({
+                                                    title   : "Alerta",
+                                                    message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> " +
+                                                        "<p style='font-size: 14px; font-weight: bold'>&nbsp;El producto será publicado con la " +
+                                                        "información guardada hasta el momento.</p>",
+                                                    buttons : {
+                                                        cancelar : {
+                                                            label     : "<i class='fa fa-times'></i> Cancelar",
+                                                            className : "btn-primary",
+                                                            callback  : function () {
+                                                            }
+                                                        },
+                                                        publicar : {
+                                                            label     : "<i class='fa fa-check'></i> Publicar",
+                                                            className : "btn-success",
+                                                            callback  : function () {
+                                                                publicarProducto();
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            } //callback
+                                        } //guardar
+                                    } //buttons
+                                }); //dialog
+                            } //success
+                        }); //ajax
+
+
                     }else{
                         bootbox.dialog({
                             title   : "Alerta",

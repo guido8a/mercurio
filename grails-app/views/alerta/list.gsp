@@ -45,7 +45,7 @@
         <tbody id="tabla_bandeja">
         <g:if test="${alertas.size() > 0}">
             <g:each in="${alertas}" var="alerta">
-                <tr data-id="${alerta?.id}" style="width: 100%">
+                <tr data-id="${alerta?.id}" data-per="${alerta.producto.persona.id}" data-pr="${alerta?.producto?.id}" style="width: 100%">
                     <td style="width: 20%; text-align: center">${alerta?.producto?.persona?.nombre}</td>
                     <td style="width: 50%">${alerta?.producto?.titulo}</td>
                     <td style="width: 10%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
@@ -195,8 +195,9 @@
                     icon             : "fa fa-clipboard-check",
                     separator_before : true,
                     action           : function ($element) {
-                        var id = $element.data("id");
-                        %{--location.href="${createLink(controller: 'producto', action: 'list')}?id=" + id--}%
+                        var id = $element.data("pr");
+                        var persona = $element.data("per");
+                        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + persona + "&tipo=" + 4;
                     }
                 },
                 publicacion : {
