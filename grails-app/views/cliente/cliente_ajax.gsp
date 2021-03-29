@@ -14,42 +14,42 @@
     <h4 class="modal-title" style="text-align: center">Contactar con el vendedor</h4>
 </div>
 
-<div class="modal-body" style="width: 480px; margin: auto">
-    <g:form name="frmCliente" controller="cliente" action="guardarCliente_ajax" class="form-horizontal">
-        <g:hiddenField name="producto" value="${producto?.id}"/>
-        <div class="row form-group">
-            <label class="col-md-2" for="nombre">Nombre</label>
-            <div class="controls col-md-9">
-                <g:textField name="nombre" class="form-control required" maxlength="31" required=""/>
+<div class="container">
+    <div class="row">
+        <g:form name="frmCliente" controller="cliente" action="guardarCliente_ajax" class="form-horizontal">
+            <g:hiddenField name="producto" value="${producto?.id}"/>
+            <div class="col-md-12">
+                <label class="col-md-2" for="nombre">Nombre</label>
+                <div class="col-md-12">
+                    <g:textField name="nombre" class="form-control required" maxlength="31" required=""/>
+                </div>
             </div>
-        </div>
+            <div class="col-sm">
+                <label class="col-md-2">Email</label>
 
-        <div class="row form-group">
-            <label class="col-md-2">Email</label>
-
-            <div class="controls col-md-9">
-                <g:textField name="mail" class="email form-control required" maxlength="63"  required=""/>
+                <div class="col-lg-12">
+                    <g:textField name="mail" class="email form-control required" maxlength="63"  required=""/>
+                </div>
             </div>
-        </div>
+            <div class="col-sm">
+                <label class="col-md-2">Pregunta</label>
 
-        <div class="row form-group">
-            <label class="col-md-2">Pregunta</label>
-
-            <div class="controls col-md-9">
-               <g:textArea name="pregunta" class="form-control required" maxlength="1023" required="" style="resize: none"/>
+                <div class="col-md-12">
+                    <g:textArea name="pregunta" class="form-control required" maxlength="1023" required="" style="resize: none"/>
+                </div>
             </div>
-        </div>
 
-        <div class="divBtn" style="width: 100%">
-            <a href="#" class="btn btn-success btn-lg btn-block" id="btnEnviar"
-               style="width: 160px; margin: auto"> <i class="fa fa-envelope"></i> Enviar
-            </a>
-        </div>
-        <br/>
-        <div class="alert alert-info" role="alert">
-            Llene los campos y el vendedor se contactará con usted.
-        </div>
-    </g:form>
+            <div style="width: 100%; margin-top: 10px" >
+                <a href="#" class="btn btn-success btn-lg btn-block" id="btnEnviar"
+                   style="width: 160px; margin: auto"> <i class="fa fa-envelope"></i> Enviar
+                </a>
+            </div>
+            <br/>
+            <div class="alert alert-info" role="alert">
+                Llene los campos y el vendedor se contactará con usted.
+            </div>
+        </g:form>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -66,7 +66,7 @@
                     l.modal("hide");
                     if (msg == "ok") {
                         bootbox.alert("Información enviada correctamente", function(){
-                                location.reload(true);
+                            location.reload(true);
                         })
                     } else {
                         bootbox.alert("Error al enviar la información", function(){
@@ -86,7 +86,7 @@
         submitFormCliente();
     }
 
-   $(function () {
+    $(function () {
 
         $("#btnEnviar").click(function () {
             doLogin();

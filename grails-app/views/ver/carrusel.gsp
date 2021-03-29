@@ -181,13 +181,15 @@
             </g:else>
         </g:if>
 
+        <g:if test="${publicaciones > 0}">
+            <a href="#" class="btn btn-success" id="btnContactar">
+                <i class="fa fa-phone"></i> Contactar con el vendedor
+            </a>
+        </g:if>
+
+
     </div>
 
-    <g:if test="${publicaciones > 0}">
-        <a href="#" class="btn btn-success" id="btnContactar" style="float: right">
-            <i class="fa fa-phone"></i> Contactar con el vendedor
-        </a>
-    </g:if>
 
     <h3 style="margin-top: 20px; text-align: center">
         <div class="alert alert-dark" role="alert">
@@ -240,9 +242,7 @@
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
         <div class="alert alert-primary" role="alert" style="text-align: center">
-            %{--                <h3 style="text-align: center">--}%
             Características
-            %{--                </h3>--}%
         </div>
 
         <div class="col-md-6" style="margin-left: 280px; background-color: #efefef">
@@ -251,12 +251,9 @@
                     <tr>
                         <td class="alert alert-primary" role="alert">
                             ${at.atributoCategoria.atributo.descripcion}
-                            %{--                            <span class="badge bg-success"> ${at.atributoCategoria.atributo.descripcion}</span>--}%
                         </td>
                         <td style="text-align: right"  class="alert alert-success" role="alert">
-                            %{--                            <span class="badge bg-info">--}%
                             ${at.valor}
-                            %{--                            </span>--}%
                         </td>
                     </tr>
                 </g:each>

@@ -9,7 +9,7 @@
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${anuncios}" var="anuncio">
-            <tr data-id="${anuncio?.id}" data-prod="${anuncio?.producto?.id}" data-est="${anuncio?.estado}" style="width: 100%">
+            <tr data-id="${anuncio?.id}" data-prod="${anuncio?.producto?.id}" data-est="${anuncio?.estado}" data-per="${anuncio.producto.persona.id}" style="width: 100%">
                 <td style="width: 30%; text-align: center">${anuncio?.titulo}</td>
                 <td style="width: 20%">${anuncio?.subtitulo}</td>
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
@@ -112,7 +112,8 @@
             separator_before : true,
             action           : function ($element) {
                 var id = $tr.data("prod");
-                location.href="${createLink(controller: 'producto', action: 'producto')}?id=" + id
+                var perso = $tr.data("per");
+                location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + perso + "&tipo=" + 5;
             }
         };
 
