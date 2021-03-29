@@ -265,7 +265,7 @@ class MenuTagLib {
 //        html += "<div class='redondeado'><div class='input-group  class='nav-item''>"
         def txto = '<form name="frm-buscar" class="form-inline" action="/principal/index" method="POST">' +
                 g.select( name: 'ctgr', from: ctgr, optionValue: 'descripcion',
-                optionKey: 'id', noSelection: [0: 'En todo'],  title: 'Seleccione la categoría', class: 'mr-sm-1') +
+                optionKey: 'id', noSelection: [0: 'Buscar en todo'],  title: 'Seleccione la categoría', class: 'mr-sm-1') +
                 "<input id='bsca' name='bscr' class='form-control mr-sm-1' type='text' placeholder='Buscar' " +
                 "title='Escriba lo que desee buscar' value='${attrs.search?:''}'>" +
                 "<button class='btn btn-success' type='submit' title='Realizar la búsqueda'>" +
