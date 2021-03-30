@@ -29,11 +29,14 @@ class VerController {
             publicaciones = 0
         }
 
+        def preguntas = Pregunta.findAllByProducto(producto).sort{it.fecha}
 
         println("publicaciones " + publicaciones)
 
+        return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona, publicaciones: publicaciones, preguntas: preguntas]
+    }
 
-        return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona, publicaciones: publicaciones]
+    def preguntas_ajax(){
 
     }
 }

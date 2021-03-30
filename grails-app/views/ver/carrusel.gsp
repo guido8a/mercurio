@@ -68,6 +68,7 @@
         max-width: 800px
     }
 
+
     /* menu */
     a.nav-link:hover {
         border-radius: 4px;
@@ -149,8 +150,9 @@
             <g:else>
                 <g:if test="${tipo == '3'}">
 %{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
-                    <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
-                            class="fa fa-arrow-left"></i> Regresar</a>
+%{--                            class="fa fa-arrow-left"></i> Regresar</a>--}%
+                                    <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
+                                            class="fa fa-arrow-left"></i> Regresar</a>
                 </g:if>
                 <g:else>
                     <g:if test="${tipo == '4'}">
@@ -273,6 +275,40 @@
             </div>
         </div>
     </g:if>
+
+
+
+    <div id="preguntas" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
+
+        <div class="alert alert-primary" role="alert" style="text-align: center">
+            Preguntas
+        </div>
+
+        <div class="col-md-6" style="background-color: #efefef">
+            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
+                <g:textArea name="pregunta" class="form-control"/>
+            </table>
+        </div>
+
+
+        <div class="col-md-6" style="background-color: #efefef" id="divPreguntas">
+            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
+                <g:each in="${preguntas}" var="pregunta" status="i">
+                    <tr>
+                        <td class="alert alert-primary" role="alert">
+                            ${pregunta.texto}
+                        </td>
+                        %{--                        <td style="text-align: right"  class="alert alert-success" role="alert">--}%
+                        %{--                            ${at.valor}--}%
+                        %{--                        </td>--}%
+                    </tr>
+                </g:each>
+            </table>
+        </div>
+    </div>
+
+
+
 
 </div>
 
