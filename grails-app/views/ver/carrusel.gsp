@@ -347,7 +347,14 @@
     });
 
     function anterior() {
-        window.history.back();
+        // console.log('history', window.history.length)
+        if(window.history.length > 1) {
+            // console.log("atras")
+            window.history.back();
+        } else {
+            //window.close();
+            location.href = "${createLink(controller: 'principal', action: 'index')}?sbct=sbct_" + ${producto.subcategoria.id}
+        }
     }
 
     $("#btnAnterior").click(function () {

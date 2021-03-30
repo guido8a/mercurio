@@ -33,7 +33,8 @@ class VerController {
 
         println("publicaciones " + publicaciones)
 
-        return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona, publicaciones: publicaciones, preguntas: preguntas]
+        return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
+                publicaciones: publicaciones, preguntas: preguntas]
     }
 
     def preguntas_ajax(){
