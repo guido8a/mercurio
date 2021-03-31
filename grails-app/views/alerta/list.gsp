@@ -109,7 +109,7 @@
                                 if(msg == 'ok'){
                                     bootbox.dialog({
                                         title   : "Alerta",
-                                        message : "<i class='fa fa-check fa-3x pull-left text-info text-shadow'></i><p>Producto revisado correctamente</p>",
+                                        message : "<i class='fa fa-check fa-3x pull-left text-info text-shadow'></i> <p>Producto revisado correctamente</p>",
                                         buttons : {
                                             aceptar : {
                                                 label     : "<i class='fa fa-check'></i> Aceptar",

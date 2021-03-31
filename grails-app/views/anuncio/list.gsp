@@ -83,7 +83,7 @@
                     message : msg,
                     buttons : {
                         cancelar : {
-                            label     : "Cancelar",
+                            label     : "Salir",
                             className : "btn-primary",
                             callback  : function () {
                                 cargarTablaAnuncios();

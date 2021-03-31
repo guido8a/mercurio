@@ -15,7 +15,9 @@
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
                 <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
                 <td style="width: 10%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar producto" data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}"><i class="fa fa-search"></i> </a>
+                    <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar anuncio"
+                       data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
+                        <i class="fa fa-search"></i> </a>
                     <g:if test="${anuncio?.estado == '1'}">
                         <a href="#" class="btn btn-xs btn-success btnPublicacion" title="Publicación" data-id="${anuncio?.id}"><i class="fa fa-user-clock"></i> </a>
                     </g:if>
@@ -107,8 +109,8 @@
         };
 
         var producto = {
-            label            : "Producto",
-            icon             : "fa fa-briefcase",
+            label            : "Revisar Anuncio",
+            icon             : "fa fa-search",
             separator_before : true,
             action           : function ($element) {
                 var id = $tr.data("prod");

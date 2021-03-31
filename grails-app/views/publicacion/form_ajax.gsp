@@ -83,15 +83,6 @@
 
             </div>
 
-%{--            <div class="form-group ${hasErrors(bean: 'publicacion', field: 'fechaFin', 'error')}">--}%
-
-%{--            </div>--}%
-
-%{--            <div class="form-group ${hasErrors(bean: 'publicacion', field: 'destacado', 'error')}">--}%
-
-
-%{--            </div>--}%
-
         </g:form>
 
         <div id="divTablaPublicacion">

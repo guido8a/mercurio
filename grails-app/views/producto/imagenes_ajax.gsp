@@ -110,10 +110,8 @@
 
 <div class="alert alert-info" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
-    El tamaño de los archivos debe ser de <strong>hasta 5 mb</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
-</div>
-
-<div class="alert alert-info" style="margin-top: 5px;">
+    El tamaño de los archivos debe ser de <strong>hasta 5MB</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
+    <br>
     <i class="fa fa-info-circle fa-2x"></i>
     Máxima cantidad de imágenes que pueden ser cargadas: <strong>5</strong>
 </div>
@@ -382,7 +380,7 @@
                                                         alert += '<i class="fa fa-picture-o fa-stack-1x text-muted"></i>';
                                                         alert += '<i class="fa fa-folder-o fa-stack-2x text-muted"></i>';
                                                         alert += '</span>';
-                                                        alert += 'No tiene imágenes cargadas en el servidor.';
+                                                        alert += 'Aún no hay imágenes para su producto';
                                                         alert += '</div>';
                                                         $(".row").html(alert);
                                                     }

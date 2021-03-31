@@ -42,9 +42,10 @@
     </div>
 </g:if>
 <g:else>
+    <br>
     <div class="alert alert-warning">
         <i class="fa fa-exclamation-triangle fa-2x"></i>
-        No tiene imágenes cargadas en el servidor.
+        Aún no hay imágenes para su producto.
     </div>
 </g:else>
 

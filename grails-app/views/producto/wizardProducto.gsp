@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Categoría</title>
+    <title>Anuncio - Categoría</title>
 
     <asset:stylesheet src="/bar/main.css"/>
     <asset:javascript src="/bar/progress-bar.js"/>
@@ -61,16 +61,17 @@
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
         <div class="col-md-3 btn-group" style="float: left;">
-            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}" class="btn btn-primary btnAtras" ><i class="fa fa-arrow-left"></i> Lista de productos</a>
+            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
+               class="btn btn-primary btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
-        <div class="col-md-3 btn-group" style="float: right;">
-            <a href="#" class="btn btn-primary btnSiguiente" >Siguiente<i class="fa fa-arrow-right"></i></a>
+        <div class="col-md-2 btn-group" style="float: right;">
+            <a href="#" class="btn btn-primary btnSiguiente flush-right" >Siguiente <i class="fa fa-arrow-right"></i></a>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            .
+            &nbsp;
         </div>
         <div class="card-body">
         </div>
