@@ -5,3 +5,18 @@
   Time: 11:18
 --%>
 
+<g:each in="${preguntas}" var="pregunta">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 align-self-start input-group">
+                <span class="input-group-text text-info">Pregunta</span>
+                <g:textArea name="preguntaR" class="form-control" readonly="" style="resize: none; height: 80px" placeholder="pregunta...." value="${pregunta?.texto}"/>
+            </div>
+            <div class="col-6 align-self-center input-group">
+                <span class="input-group-text text-success">Respuesta</span>
+                <g:textArea name="respuestaR" class="form-control " readonly="" style="resize: none; height: 80px" value="${pregunta?.respuesta}"/>
+            </div>
+        </div>
+    </div>
+</g:each>
+

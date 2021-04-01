@@ -16,6 +16,7 @@
     <asset:javascript src="/merc/bootstrap.bundle.js"/>
     <asset:javascript src="/apli/bootbox.js"/>
     <asset:javascript src="/apli/fontawesome.all.min.js"/>
+    <asset:javascript src="/apli/functions.js"/>
     <title>${producto?.titulo}</title>
 
 
@@ -149,10 +150,10 @@
             </g:if>
             <g:else>
                 <g:if test="${tipo == '3'}">
-%{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
-%{--                            class="fa fa-arrow-left"></i> Regresar</a>--}%
-                                    <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
-                                            class="fa fa-arrow-left"></i> Regresar</a>
+                %{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
+                %{--                            class="fa fa-arrow-left"></i> Regresar</a>--}%
+                    <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
+                            class="fa fa-arrow-left"></i> Regresar</a>
                 </g:if>
                 <g:else>
                     <g:if test="${tipo == '4'}">
@@ -281,38 +282,97 @@
     <div id="preguntas" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
         <div class="alert alert-primary" role="alert" style="text-align: center">
-            Preguntas
+            Preguntar
         </div>
 
-        <div class="col-md-6" style="background-color: #efefef">
-            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
-                <g:textArea name="pregunta" class="form-control"/>
-            </table>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <g:textArea name="pregunta" maxlength="255" class="form-control" style="resize: none; height: 100px" placeholder="Enviar una pregunta al vendedor"/>
+            </div>
+            <div class="col-4">
+                <a href="#" class="btn btn-success btnEnvioPregunta"><i class="fa fa-envelope"></i> Enviar pregunta</a>
+            </div>
         </div>
 
+        <div class="alert alert-primary" role="alert" style="text-align: center; margin-top: 5px">
+            Preguntas y respuestas
+        </div>
 
-        <div class="col-md-6" style="background-color: #efefef" id="divPreguntas">
-            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
-                <g:each in="${preguntas}" var="pregunta" status="i">
-                    <tr>
-                        <td class="alert alert-primary" role="alert">
-                            ${pregunta.texto}
-                        </td>
-                        %{--                        <td style="text-align: right"  class="alert alert-success" role="alert">--}%
-                        %{--                            ${at.valor}--}%
-                        %{--                        </td>--}%
-                    </tr>
-                </g:each>
-            </table>
+        <div class="col-md-12" style="background-color: #efefef" id="divPreguntas">
+
         </div>
     </div>
-
-
-
 
 </div>
 
 <script type="text/javascript">
+
+    cargarPreguntas();
+
+    function cargarPreguntas(){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'ver', action: 'preguntas_ajax')}',
+            data:{
+                id: '${producto?.id}'
+            },
+            success: function(msg) {
+                $("#divPreguntas").html(msg)
+            }
+        })
+    }
+
+    $(".btnEnvioPregunta").click(function () {
+
+        var txt = $("#pregunta").val();
+
+        if(txt == '' || txt == null){
+            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning text-shadow'></i> Debe ingresar una pregunta!")
+        }else{
+            bootbox.dialog({
+                message : "<i class='fa fa-envelope fa-2x text-info text-shadow'></i> <strong style='font-size: 14px; font-weight: bold'> Esta seguro de enviar esta pregunta al vendedor?</strong>",
+                buttons : {
+                    cancelar : {
+                        label     : "<i class='fa fa-times'></i> Cancelar",
+                        className : "btn-primary",
+                        callback  : function () {
+                        }
+                    },
+                    enviar : {
+                        label     : "<i class='fa fa-envelope'></i> Enviar",
+                        className : "btn-success",
+                        callback  : function () {
+                            enviarPregunta();
+                        }
+                    }
+                }
+            });
+        }
+
+    });
+
+    function enviarPregunta(){
+        var l = cargarLoader("Procesando...");
+
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'ver', action: 'guardarPregunta_ajax')}',
+            data:{
+                id: '${producto?.id}',
+                texto: $("#pregunta").val()
+            },
+            success: function(msg){
+                l.modal("hide");
+                if(msg == 'ok'){
+                    bootbox.alert("Pregunta enviada correctamente al vendedor!")
+                    $("#pregunta").val('')
+                    cargarPreguntas();
+                }else{
+                    bootbox.alert("Error al enviar la pregunta al vendedor!")
+                }
+            }
+        });
+    }
 
     $("#btnContactar").click(function () {
         cargarCliente();
