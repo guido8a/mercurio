@@ -534,6 +534,43 @@ class ProductoController {
         }
 
         producto.save(flush:true)
+    }
+
+    def delete_ajax(){
+        def producto = Producto.get(params.id)
+
+        def atributos = Valores.findAllByProducto(producto)
+        def imagenes = Imagen.findAllByProducto(producto)
+
+        if(atributos){
+            atributos.each {a->
+                a.delete(flush:true)
+            }
+        }
+
+        if(imagenes){
+
+            imagenes.each {i->
+                i.delete(flush:true)
+            }
+
+            def path = "/var/ventas/productos/pro_" + producto.id + "/"
+
+            def imag = new File(path)
+            imag?.eachFileRecurse(FileType.FILES) { file ->
+                file.delete()
+            }
+
+            imag.delete()
+        }
+
+        try{
+            producto.delete(flush:true)
+            render "ok"
+        }catch(e){
+            println("error al borrar el producto " + producto.errors)
+            render "no"
+        }
 
     }
 

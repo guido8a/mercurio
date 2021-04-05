@@ -57,7 +57,11 @@
                     <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar producto" data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i> </a>
                     <a href="#" class="btn btn-xs btn-success btnEditar" title="Editar producto" data-id="${producto?.id}"><i class="fa fa-edit"></i> </a>
                     <a href="#" class="btn btn-xs btn-warning btnImagenes" title="Imágenes del producto" data-id="${producto?.id}"><i class="fa fa-image"></i> </a>
-                    <a href="#" class="btn btn-xs btn-danger btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
+                    <g:if test="${producto?.id}">
+                        <g:if test="${!ventas.Alerta.findAllByProducto(producto)}">
+                            <a href="#" class="btn btn-xs btn-danger btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
+                        </g:if>
+                    </g:if>
                 </td>
             </tr>
         </g:each>
