@@ -9,12 +9,12 @@
     <div class="container">
         <div class="row">
             <div class="col-6 align-self-start input-group">
-                <span class="input-group-text text-info">Pregunta</span>
-                <g:textArea name="preguntaR" class="form-control" readonly="" style="resize: none; height: 80px" placeholder="pregunta...." value="${pregunta?.texto}"/>
+                <span class="input-group-text">Pregunta</span>
+                <g:textArea name="preguntaR" class="form-control" readonly="" style="resize: none; height: 80px; background-color: #3cbcd9" placeholder="pregunta...." value="${pregunta?.texto}"/>
             </div>
             <div class="col-6 align-self-center input-group">
-                <span class="input-group-text text-success">Respuesta</span>
-                <g:textArea name="respuestaR" class="form-control " readonly="" style="resize: none; height: 80px" value="${pregunta?.respuesta}"/>
+                <span class="input-group-text">Respuesta</span>
+                <g:textArea name="respuestaR" class="form-control " readonly="" style="resize: none; height: 80px; background-color: #89b674" value="${pregunta?.respuesta}"/>
             </div>
         </div>
     </div>
