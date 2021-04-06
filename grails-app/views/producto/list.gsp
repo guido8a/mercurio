@@ -46,7 +46,7 @@
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="producto">
-            <tr data-id="${producto?.id}" style="width: 100%">
+            <tr data-id="${producto?.id}" class="${ventas.Alerta.findAllByProducto(producto) ? 'tieneAlerta' : 'no'}" style="width: 100%">
                 <td style="width: 20%">${producto?.titulo}</td>
 %{--                <td style="width: 25%;">${producto?.subtitulo}</td>--}%
                 <td style="width: 20%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
@@ -230,48 +230,120 @@
             return false;
         });
 
-        $("tbody tr").contextMenu({
-            items  : {
-                header   : {
+        %{--$("tbody tr").contextMenu({--}%
+        %{--    items  : {--}%
+        %{--        header   : {--}%
+        %{--            label  : "Acciones",--}%
+        %{--            header : true--}%
+        %{--        },--}%
+        %{--        ver      : {--}%
+        %{--            label  : "Ver",--}%
+        %{--            icon   : "fa fa-search",--}%
+        %{--            action : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;--}%
+        %{--            }--}%
+        %{--        },--}%
+        %{--        editar   : {--}%
+        %{--            label  : "Editar",--}%
+        %{--            icon   : "fa fa-edit",--}%
+        %{--            action : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'--}%
+        %{--            }--}%
+        %{--        },--}%
+        %{--        imas : {--}%
+        %{--            label            : "Imágenes",--}%
+        %{--            icon             : "fa fa-image",--}%
+        %{--            separator_before : true,--}%
+        %{--            action           : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                cargarImagenes(id)--}%
+        %{--            }--}%
+        %{--        },--}%
+        %{--        eliminar : {--}%
+        %{--            label            : "Eliminar",--}%
+        %{--            icon             : "fa fa-trash",--}%
+        %{--            separator_before : true,--}%
+        %{--            action           : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                deleteRow(id);--}%
+        %{--            }--}%
+        %{--        }--}%
+        %{--    },--}%
+        %{--    onShow : function ($element) {--}%
+        %{--        $element.addClass("trHighlight");--}%
+        %{--    },--}%
+        %{--    onHide : function ($element) {--}%
+        %{--        $(".trHighlight").removeClass("trHighlight");--}%
+        %{--    }--}%
+        %{--});--}%
+
+
+        function createContextMenu(node) {
+            var $tr = $(node);
+
+            var items = {
+                header : {
                     label  : "Acciones",
                     header : true
-                },
-                ver      : {
-                    label  : "Ver",
-                    icon   : "fa fa-search",
-                    action : function ($element) {
-                        var id = $element.data("id");
-                        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
-                    }
-                },
-                editar   : {
-                    label  : "Editar",
-                    icon   : "fa fa-edit",
-                    action : function ($element) {
-                        var id = $element.data("id");
-                        // createEditRow(id);
-                        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
-                    }
-                },
-                imas : {
-                    label            : "Imágenes",
-                    icon             : "fa fa-image",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        cargarImagenes(id)
-                    }
-                },
-                eliminar : {
-                    label            : "Eliminar",
-                    icon             : "fa fa-trash",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        deleteRow(id);
-                    }
                 }
-            },
+            };
+
+            var id = $tr.data("id");
+            var alerta = $tr.hasClass("tieneAlerta");
+
+            var ver = {
+                label  : 'Ver',
+                icon   : "fa fa-search",
+                action : function () {
+                    var id = $tr.data("id");
+                    location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+                }
+            };
+
+            var editar = {
+                label           : 'Editar',
+                icon            : "fa fa-pen text-success",
+                separator_after : true,
+                action          : function (e) {
+                    var id = $tr.data("id");
+                    location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
+                }
+            };
+
+            var imas = {
+                label           : 'Imágenes',
+                icon            : "fa fa-image text-info",
+                separator_after : true,
+                action          : function (e){
+                    var id = $tr.data("id");
+                    cargarImagenes(id)
+                }
+            };
+
+            var eliminar = {
+                label            : 'Eliminar',
+                icon             : "fa fa-trash text-danger",
+                action           : function (e) {
+                    var id = $tr.data("id");
+                    deleteRow(id);
+                }
+            };
+
+            items.ver = ver;
+            items.editar = editar;
+            items.imas = imas;
+
+            if (!alerta) {
+                items.eliminar = eliminar;
+            }
+
+            return items;
+        }
+
+        $("tr").contextMenu({
+            items  : createContextMenu,
             onShow : function ($element) {
                 $element.addClass("trHighlight");
             },
@@ -279,6 +351,9 @@
                 $(".trHighlight").removeClass("trHighlight");
             }
         });
+
+
+
     });
 </script>
 

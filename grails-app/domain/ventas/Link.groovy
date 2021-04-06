@@ -28,7 +28,7 @@ class Link {
     static constraints = {
         titulo(size: 1..127, blank: false, nullable: false)
         link(size: 1..255, blank: false, nullable: false)
-        logo(size: 1..255, blank: true, nullable: true)
+        logo(size: 0..255, blank: true, nullable: true)
         orden(blank: false, nullable: false)
         texto(blank: true, nullable: true)
         activo(blank: false, nullable: false)
