@@ -263,7 +263,7 @@ class MenuTagLib {
 //        html += '<div class="collapse navbar-collapse"> '
         html += '<ul class="navbar-nav"><li class="nav-item">'
 //        html += "<div class='redondeado'><div class='input-group  class='nav-item''>"
-        def txto = '<form name="frm-buscar" class="form-inline" action="index" method="POST">' +
+        def txto = '<form name="frm-buscar" class="form-inline" action="/ventas/principal/index" method="POST">' +
                 g.select( name: 'ctgr', from: ctgr, optionValue: 'descripcion',
                 optionKey: 'id', noSelection: [0: 'Buscar en todo'],  title: 'Seleccione la categoría', class: 'mr-sm-1') +
                 "<input id='bsca' name='bscr' class='form-control mr-sm-1' type='text' placeholder='Buscar' " +
