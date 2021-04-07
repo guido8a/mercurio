@@ -181,6 +181,11 @@ class ProductoController {
                         imagenNueva.producto = producto
                         imagenNueva.estado = 1
                         imagenNueva.ruta = nombre
+
+                        if(canti.size() == 0){
+                            imagenNueva.principal = 1
+                        }
+
                         imagenNueva.save(flush:true)
                     } catch (e) {
                         println ("error al subir la imagen " + e)
