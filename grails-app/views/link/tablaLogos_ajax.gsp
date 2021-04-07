@@ -18,7 +18,10 @@
     <div class="row">
         <g:each in="${imagenes}" var="file" status="i">
             <div class="col-sm-3 ${i}">
-                <div class="thumbnail">
+                <div class="thumbnail ${link.logo == file.file ? 'marco' : ''}">
+                    <a href="#" class="btn btn-success btn-sm btnSeleccionar pull-left" title="Asignar logo" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
+                        <i class="fa fa-check-circle"></i> Asignar logo
+                    </a>
                     <a href="#" class="btn btn-danger btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
                         <i class="fa fa-trash"></i>
                     </a>
@@ -40,6 +43,26 @@
 </g:else>
 
 <script type="text/javascript">
+
+    $(".btnSeleccionar").click(function () {
+        var lg = $(this).data("file");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'link', action: 'asignar_ajax')}',
+            data:{
+                id: '${link?.id}',
+                logo: lg
+            },
+            success: function (msg) {
+                if(msg == 'ok'){
+                    bootbox.alert("<i class'fa fa-parking'></i>El logo fué asignado correctamente");
+                    cargarTablaImagenes();
+                }else{
+                    bootbox.alert("<i class'fa fa-times'></i> Error al asignar el log")
+                }
+            }
+        });
+    });
 
 
     $(".btn-delete").click(function () {

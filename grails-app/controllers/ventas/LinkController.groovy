@@ -170,8 +170,8 @@ class LinkController {
                 }
                 try {
                     f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
-                    link.logo = nombre
-                    link.save(flush:true)
+//                    link.logo = nombre
+//                    link.save(flush:true)
 
                 } catch (e) {
                     println ("error al subir la imagen " + e)
@@ -233,6 +233,20 @@ class LinkController {
         }catch(e){
             println("error al borrar la imagen " + e)
             render "no"
+        }
+    }
+
+    def asignar_ajax(){
+        println("params as " + params)
+
+        def link = Link.get(params.id)
+        link.logo = params.logo
+
+        if(!link.save(flush:true)){
+            println("error al asignar el logo " + link.errors)
+            render "no"
+        }else{
+            render "ok"
         }
     }
 
