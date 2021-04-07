@@ -10,6 +10,7 @@
 
 .marco{
     border-color: #47b636;
+    border: solid;
 }
 
 </style>
