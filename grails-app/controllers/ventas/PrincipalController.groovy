@@ -17,6 +17,7 @@ class PrincipalController {
         println "index params: $params"
         def cn = dbConnectionService.getConnection()
         def busqueda = ""
+        def enCategoria = ""
         params.sbct = params.sbct?:"sbct_1"
         params.bscr = params.bscr != 'undefined'? params.bscr : ''
         def sbct_id = params.sbct.split("_")[1]
@@ -51,8 +52,10 @@ class PrincipalController {
         if(params.bscr && anuncios){
             sbct = Subcategoria.get(anuncios?.first().sbct__id)
         } else if(params?.bscr?.size() > 3) {
-            busqueda = "No se ha encontrado anúncios para su búsqueda '<strong>${params.bscr}</strong>' en la categoría " +
-                    "<strong>${Categoria.get(params.ctgr)?.descripcion}</strong>"
+            enCategoria = Categoria.get(params.ctgr)?.descripcion?
+                    "la categoría ${Categoria.get(params.ctgr)?.descripcion}" :'todas las categorías'
+            busqueda = "No se ha encontrado anúncios para su búsqueda '<strong>${params.bscr}</strong>' en " +
+                    "<strong>${enCategoria}</strong>"
         }
 
         def carrusel = [], destacados = [], normales = []
