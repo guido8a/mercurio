@@ -18,22 +18,22 @@
     <asset:javascript src="/index2/html5shiv.js"/>
 
 
-%{--    <link href="css/bootstrap.min.css" rel="stylesheet">--}%
-%{--    <link href="css/font-awesome.min.css" rel="stylesheet">--}%
-%{--    <link href="css/prettyPhoto.css" rel="stylesheet">--}%
-%{--    <link href="css/price-range.css" rel="stylesheet">--}%
-%{--    <link href="css/animate.css" rel="stylesheet">--}%
-%{--    <link href="css/main.css" rel="stylesheet">--}%
-%{--    <link href="css/responsive.css" rel="stylesheet">--}%
-%{--    <!--[if lt IE 9]>--}%
-%{--    <script src="js/html5shiv.js"></script>--}%
-%{--    <script src="js/respond.min.js"></script>--}%
-%{--    <![endif]-->--}%
-%{--    <link rel="shortcut icon" href="images/ico/favicon.ico">--}%
-%{--    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">--}%
-%{--    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">--}%
-%{--    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">--}%
-%{--    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">--}%
+    %{--    <link href="css/bootstrap.min.css" rel="stylesheet">--}%
+    %{--    <link href="css/font-awesome.min.css" rel="stylesheet">--}%
+    %{--    <link href="css/prettyPhoto.css" rel="stylesheet">--}%
+    %{--    <link href="css/price-range.css" rel="stylesheet">--}%
+    %{--    <link href="css/animate.css" rel="stylesheet">--}%
+    %{--    <link href="css/main.css" rel="stylesheet">--}%
+    %{--    <link href="css/responsive.css" rel="stylesheet">--}%
+    %{--    <!--[if lt IE 9]>--}%
+    %{--    <script src="js/html5shiv.js"></script>--}%
+    %{--    <script src="js/respond.min.js"></script>--}%
+    %{--    <![endif]-->--}%
+    %{--    <link rel="shortcut icon" href="images/ico/favicon.ico">--}%
+    %{--    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">--}%
+    %{--    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">--}%
+    %{--    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">--}%
+    %{--    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">--}%
 </head><!--/head-->
 
 <body>
@@ -71,37 +71,37 @@
                     <div class="logo pull-left">
                         <a href="index.html"><img src="images/home/logo.png" alt="" /></a>
                     </div>
-%{--                    <div class="btn-group pull-right clearfix">--}%
-%{--                        <div class="btn-group">--}%
-%{--                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">--}%
-%{--                                USA--}%
-%{--                                <span class="caret"></span>--}%
-%{--                            </button>--}%
-%{--                            <ul class="dropdown-menu">--}%
-%{--                                <li><a href="">Canada</a></li>--}%
-%{--                                <li><a href="">UK</a></li>--}%
-%{--                            </ul>--}%
-%{--                        </div>--}%
+                    %{--                    <div class="btn-group pull-right clearfix">--}%
+                    %{--                        <div class="btn-group">--}%
+                    %{--                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">--}%
+                    %{--                                USA--}%
+                    %{--                                <span class="caret"></span>--}%
+                    %{--                            </button>--}%
+                    %{--                            <ul class="dropdown-menu">--}%
+                    %{--                                <li><a href="">Canada</a></li>--}%
+                    %{--                                <li><a href="">UK</a></li>--}%
+                    %{--                            </ul>--}%
+                    %{--                        </div>--}%
 
-%{--                        <div class="btn-group">--}%
-%{--                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">--}%
-%{--                                DOLLAR--}%
-%{--                                <span class="caret"></span>--}%
-%{--                            </button>--}%
-%{--                            <ul class="dropdown-menu">--}%
-%{--                                <li><a href="">Canadian Dollar</a></li>--}%
-%{--                                <li><a href="">Pound</a></li>--}%
-%{--                            </ul>--}%
-%{--                        </div>--}%
-%{--                    </div>--}%
+                    %{--                        <div class="btn-group">--}%
+                    %{--                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">--}%
+                    %{--                                DOLLAR--}%
+                    %{--                                <span class="caret"></span>--}%
+                    %{--                            </button>--}%
+                    %{--                            <ul class="dropdown-menu">--}%
+                    %{--                                <li><a href="">Canadian Dollar</a></li>--}%
+                    %{--                                <li><a href="">Pound</a></li>--}%
+                    %{--                            </ul>--}%
+                    %{--                        </div>--}%
+                    %{--                    </div>--}%
                 </div>
                 <div class="col-md-8 clearfix">
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href=""><i class="fa fa-user"></i> Registrarse</a></li>
-%{--                            <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>--}%
-%{--                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>--}%
-%{--                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>--}%
+                            %{--                            <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>--}%
+                            %{--                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>--}%
+                            %{--                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>--}%
                             <li><a href="login.html"><i class="fa fa-lock"></i> Ingresar</a></li>
                         </ul>
                     </div>
@@ -134,14 +134,14 @@
                                     <li><a href="login.html">Login</a></li>
                                 </ul>
                             </li>
-%{--                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>--}%
-%{--                                <ul role="menu" class="sub-menu">--}%
-%{--                                    <li><a href="blog.html">Blog List</a></li>--}%
-%{--                                    <li><a href="blog-single.html">Blog Single</a></li>--}%
-%{--                                </ul>--}%
-%{--                            </li>--}%
-%{--                            <li><a href="404.html">404</a></li>--}%
-%{--                            <li><a href="contact-us.html">Contact</a></li>--}%
+                            %{--                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>--}%
+                            %{--                                <ul role="menu" class="sub-menu">--}%
+                            %{--                                    <li><a href="blog.html">Blog List</a></li>--}%
+                            %{--                                    <li><a href="blog-single.html">Blog Single</a></li>--}%
+                            %{--                                </ul>--}%
+                            %{--                            </li>--}%
+                            %{--                            <li><a href="404.html">404</a></li>--}%
+                            %{--                            <li><a href="contact-us.html">Contact</a></li>--}%
                         </ul>
                     </div>
                 </div>
@@ -169,10 +169,10 @@
                     <div class="carousel-inner">
 
                         <g:each in="${carrusel}" var="carr" status="i">
-%{--                            <div class="carousel-item ${i == 0 ? 'active' : ''}">--}%
-%{--                                <img class="img-fluid imag-item" alt="First slide"--}%
-%{--                                     src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>--}%
-%{--                            </div>--}%
+                        %{--                            <div class="carousel-item ${i == 0 ? 'active' : ''}">--}%
+                        %{--                                <img class="img-fluid imag-item" alt="First slide"--}%
+                        %{--                                     src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>--}%
+                        %{--                            </div>--}%
 
 
 
@@ -181,15 +181,15 @@
                                     <h1><span>E</span>-SHOPPER</h1>
                                     <h2>Free E-Commerce Template</h2>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                    <button type="button" class="btn btn-default get">Ver</button>
                                 </div>
                                 <div class="col-sm-6">
 
                                     <img class="girl img-responsive" alt="First slide"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
 
-%{--                                    <img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />--}%
-%{--                                    <img src="images/home/pricing.png"  class="pricing" alt="" />--}%
+                                    %{--                                    <img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />--}%
+                                    %{--                                    <img src="images/home/pricing.png"  class="pricing" alt="" />--}%
                                 </div>
                             </div>
 
@@ -197,43 +197,43 @@
 
                         </g:each>
 
-%{--                        <div class="item active">--}%
-%{--                            <div class="col-sm-6">--}%
-%{--                                <h1><span>E</span>-SHOPPER</h1>--}%
-%{--                                <h2>Free E-Commerce Template</h2>--}%
-%{--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>--}%
-%{--                                <button type="button" class="btn btn-default get">Get it now</button>--}%
-%{--                            </div>--}%
-%{--                            <div class="col-sm-6">--}%
-%{--                                <img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />--}%
-%{--                                <img src="images/home/pricing.png"  class="pricing" alt="" />--}%
-%{--                            </div>--}%
-%{--                        </div>--}%
-%{--                        <div class="item">--}%
-%{--                            <div class="col-sm-6">--}%
-%{--                                <h1><span>E</span>-SHOPPER</h1>--}%
-%{--                                <h2>100% Responsive Design</h2>--}%
-%{--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>--}%
-%{--                                <button type="button" class="btn btn-default get">Get it now</button>--}%
-%{--                            </div>--}%
-%{--                            <div class="col-sm-6">--}%
-%{--                                <img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />--}%
-%{--                                <img src="images/home/pricing.png"  class="pricing" alt="" />--}%
-%{--                            </div>--}%
-%{--                        </div>--}%
+                    %{--                        <div class="item active">--}%
+                    %{--                            <div class="col-sm-6">--}%
+                    %{--                                <h1><span>E</span>-SHOPPER</h1>--}%
+                    %{--                                <h2>Free E-Commerce Template</h2>--}%
+                    %{--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>--}%
+                    %{--                                <button type="button" class="btn btn-default get">Get it now</button>--}%
+                    %{--                            </div>--}%
+                    %{--                            <div class="col-sm-6">--}%
+                    %{--                                <img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />--}%
+                    %{--                                <img src="images/home/pricing.png"  class="pricing" alt="" />--}%
+                    %{--                            </div>--}%
+                    %{--                        </div>--}%
+                    %{--                        <div class="item">--}%
+                    %{--                            <div class="col-sm-6">--}%
+                    %{--                                <h1><span>E</span>-SHOPPER</h1>--}%
+                    %{--                                <h2>100% Responsive Design</h2>--}%
+                    %{--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>--}%
+                    %{--                                <button type="button" class="btn btn-default get">Get it now</button>--}%
+                    %{--                            </div>--}%
+                    %{--                            <div class="col-sm-6">--}%
+                    %{--                                <img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />--}%
+                    %{--                                <img src="images/home/pricing.png"  class="pricing" alt="" />--}%
+                    %{--                            </div>--}%
+                    %{--                        </div>--}%
 
-%{--                        <div class="item">--}%
-%{--                            <div class="col-sm-6">--}%
-%{--                                <h1><span>E</span>-SHOPPER</h1>--}%
-%{--                                <h2>Free Ecommerce Template</h2>--}%
-%{--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>--}%
-%{--                                <button type="button" class="btn btn-default get">Get it now</button>--}%
-%{--                            </div>--}%
-%{--                            <div class="col-sm-6">--}%
-%{--                                <img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />--}%
-%{--                                <img src="images/home/pricing.png" class="pricing" alt="" />--}%
-%{--                            </div>--}%
-%{--                        </div>--}%
+                    %{--                        <div class="item">--}%
+                    %{--                            <div class="col-sm-6">--}%
+                    %{--                                <h1><span>E</span>-SHOPPER</h1>--}%
+                    %{--                                <h2>Free Ecommerce Template</h2>--}%
+                    %{--                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>--}%
+                    %{--                                <button type="button" class="btn btn-default get">Get it now</button>--}%
+                    %{--                            </div>--}%
+                    %{--                            <div class="col-sm-6">--}%
+                    %{--                                <img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />--}%
+                    %{--                                <img src="images/home/pricing.png" class="pricing" alt="" />--}%
+                    %{--                            </div>--}%
+                    %{--                        </div>--}%
 
                     </div>
 
@@ -393,20 +393,20 @@
                     %{--                        </div>--}%
                     </div><!--/category-productsr-->
 
-%{--                    <div class="brands_products"><!--brands_products-->--}%
-%{--                        <h2>Brands</h2>--}%
-%{--                        <div class="brands-name">--}%
-%{--                            <ul class="nav nav-pills nav-stacked">--}%
-%{--                                <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>--}%
-%{--                                <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>--}%
-%{--                                <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>--}%
-%{--                                <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>--}%
-%{--                                <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>--}%
-%{--                                <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>--}%
-%{--                                <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>--}%
-%{--                            </ul>--}%
-%{--                        </div>--}%
-%{--                    </div><!--/brands_products-->--}%
+                %{--                    <div class="brands_products"><!--brands_products-->--}%
+                %{--                        <h2>Brands</h2>--}%
+                %{--                        <div class="brands-name">--}%
+                %{--                            <ul class="nav nav-pills nav-stacked">--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>--}%
+                %{--                                <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>--}%
+                %{--                            </ul>--}%
+                %{--                        </div>--}%
+                %{--                    </div><!--/brands_products-->--}%
 
                     <div class="price-range"><!--price-range-->
                         <h2>Rango de precios</h2>
@@ -425,170 +425,380 @@
 
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center">Features Items</h2>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product1.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                    <h2 class="title text-center">Productos destacados</h2>
+
+                    <g:if test="${destacados?.size() > 0}">
+                    %{--                        <div style="color: #000000">Destacados</div>--}%
+
+                        <g:each in="${destacados}" var="prod" status="i">
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/shop/product12.jpg" alt="" />
+                                            <h2>${prod.tt}</h2>
+                                            <p>${prod.sb ?: 'Sin descripción'}</p>
+                                            <img width="253px" height="auto" style="padding: 1px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>${prod.tt}</h2>
+                                                %{--                                            <p>${prod.sb ?: 'Sin descripción'}</p>--}%
+                                                %{--                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>--}%
+                                                <a href="${createLink(controller: 'ver', action: 'carrusel', params: [id: prod.id, tipo: 3])}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Ver</a>
+                                            </div>
+                                        </div>
+                                    </div>
+%{--                                    <div class="choose">--}%
+%{--                                        <ul class="nav nav-pills nav-justified">--}%
+%{--                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+%{--                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+%{--                                        </ul>--}%
+%{--                                    </div>--}%
                                 </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
+                            </div>
+                        </g:each>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/shop/product12.jpg" alt="" />
+                                        <h2>Su producto aquí</h2>
                                         <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                    </div>
+                                    <div class="product-overlay">
+                                        <div class="overlay-content">
+                                            <h2>Su producto aquí</h2>
+                                            <p>Easy Polo Black Edition</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
+%{--                                <div class="choose">--}%
+%{--                                    <ul class="nav nav-pills nav-justified">--}%
+%{--                                        <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+%{--                                        <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+%{--                                    </ul>--}%
+%{--                                </div>--}%
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product2.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/shop/product12.jpg" alt="" />
+                                        <h2>Su producto aquí</h2>
                                         <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                    </div>
+                                    <div class="product-overlay">
+                                        <div class="overlay-content">
+                                            <h2>Su producto aquí</h2>
+                                            <p>Easy Polo Black Edition</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product3.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
+%{--                                <div class="choose">--}%
+%{--                                    <ul class="nav nav-pills nav-justified">--}%
+%{--                                        <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+%{--                                        <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+%{--                                    </ul>--}%
+%{--                                </div>--}%
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product4.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
-                                </div>
-                                <img src="images/home/new.png" class="new" alt="" />
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product5.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
-                                </div>
-                                <img src="images/home/sale.png" class="new" alt="" />
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="images/home/product6.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    </g:if>
+
+
+
+
+
+                %{--                    <div class="col-sm-4">--}%
+                %{--                        <div class="product-image-wrapper">--}%
+                %{--                            <div class="single-products">--}%
+                %{--                                <div class="productinfo text-center">--}%
+                %{--                                    <img src="images/home/product1.jpg" alt="" />--}%
+                %{--                                    <h2>$56</h2>--}%
+                %{--                                    <p>Easy Polo Black Edition</p>--}%
+                %{--                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                </div>--}%
+                %{--                                <div class="product-overlay">--}%
+                %{--                                    <div class="overlay-content">--}%
+                %{--                                        <h2>$56</h2>--}%
+                %{--                                        <p>Easy Polo Black Edition</p>--}%
+                %{--                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                    </div>--}%
+                %{--                                </div>--}%
+                %{--                            </div>--}%
+                %{--                            <div class="choose">--}%
+                %{--                                <ul class="nav nav-pills nav-justified">--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+                %{--                                </ul>--}%
+                %{--                            </div>--}%
+                %{--                        </div>--}%
+                %{--                    </div>--}%
+                %{--                    <div class="col-sm-4">--}%
+                %{--                        <div class="product-image-wrapper">--}%
+                %{--                            <div class="single-products">--}%
+                %{--                                <div class="productinfo text-center">--}%
+                %{--                                    <img src="images/home/product2.jpg" alt="" />--}%
+                %{--                                    <h2>$56</h2>--}%
+                %{--                                    <p>Easy Polo Black Edition</p>--}%
+                %{--                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                </div>--}%
+                %{--                                <div class="product-overlay">--}%
+                %{--                                    <div class="overlay-content">--}%
+                %{--                                        <h2>$56</h2>--}%
+                %{--                                        <p>Easy Polo Black Edition</p>--}%
+                %{--                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                    </div>--}%
+                %{--                                </div>--}%
+                %{--                            </div>--}%
+                %{--                            <div class="choose">--}%
+                %{--                                <ul class="nav nav-pills nav-justified">--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+                %{--                                </ul>--}%
+                %{--                            </div>--}%
+                %{--                        </div>--}%
+                %{--                    </div>--}%
+                %{--                    <div class="col-sm-4">--}%
+                %{--                        <div class="product-image-wrapper">--}%
+                %{--                            <div class="single-products">--}%
+                %{--                                <div class="productinfo text-center">--}%
+                %{--                                    <img src="images/home/product3.jpg" alt="" />--}%
+                %{--                                    <h2>$56</h2>--}%
+                %{--                                    <p>Easy Polo Black Edition</p>--}%
+                %{--                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                </div>--}%
+                %{--                                <div class="product-overlay">--}%
+                %{--                                    <div class="overlay-content">--}%
+                %{--                                        <h2>$56</h2>--}%
+                %{--                                        <p>Easy Polo Black Edition</p>--}%
+                %{--                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                    </div>--}%
+                %{--                                </div>--}%
+                %{--                            </div>--}%
+                %{--                            <div class="choose">--}%
+                %{--                                <ul class="nav nav-pills nav-justified">--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+                %{--                                </ul>--}%
+                %{--                            </div>--}%
+                %{--                        </div>--}%
+                %{--                    </div>--}%
+                %{--                    <div class="col-sm-4">--}%
+                %{--                        <div class="product-image-wrapper">--}%
+                %{--                            <div class="single-products">--}%
+                %{--                                <div class="productinfo text-center">--}%
+                %{--                                    <img src="images/home/product4.jpg" alt="" />--}%
+                %{--                                    <h2>$56</h2>--}%
+                %{--                                    <p>Easy Polo Black Edition</p>--}%
+                %{--                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                </div>--}%
+                %{--                                <div class="product-overlay">--}%
+                %{--                                    <div class="overlay-content">--}%
+                %{--                                        <h2>$56</h2>--}%
+                %{--                                        <p>Easy Polo Black Edition</p>--}%
+                %{--                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                    </div>--}%
+                %{--                                </div>--}%
+                %{--                                <img src="images/home/new.png" class="new" alt="" />--}%
+                %{--                            </div>--}%
+                %{--                            <div class="choose">--}%
+                %{--                                <ul class="nav nav-pills nav-justified">--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+                %{--                                </ul>--}%
+                %{--                            </div>--}%
+                %{--                        </div>--}%
+                %{--                    </div>--}%
+                %{--                    <div class="col-sm-4">--}%
+                %{--                        <div class="product-image-wrapper">--}%
+                %{--                            <div class="single-products">--}%
+                %{--                                <div class="productinfo text-center">--}%
+                %{--                                    <img src="images/home/product5.jpg" alt="" />--}%
+                %{--                                    <h2>$56</h2>--}%
+                %{--                                    <p>Easy Polo Black Edition</p>--}%
+                %{--                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                </div>--}%
+                %{--                                <div class="product-overlay">--}%
+                %{--                                    <div class="overlay-content">--}%
+                %{--                                        <h2>$56</h2>--}%
+                %{--                                        <p>Easy Polo Black Edition</p>--}%
+                %{--                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                    </div>--}%
+                %{--                                </div>--}%
+                %{--                                <img src="images/home/sale.png" class="new" alt="" />--}%
+                %{--                            </div>--}%
+                %{--                            <div class="choose">--}%
+                %{--                                <ul class="nav nav-pills nav-justified">--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+                %{--                                </ul>--}%
+                %{--                            </div>--}%
+                %{--                        </div>--}%
+                %{--                    </div>--}%
+                %{--                    <div class="col-sm-4">--}%
+                %{--                        <div class="product-image-wrapper">--}%
+                %{--                            <div class="single-products">--}%
+                %{--                                <div class="productinfo text-center">--}%
+                %{--                                    <img src="images/home/product6.jpg" alt="" />--}%
+                %{--                                    <h2>$56</h2>--}%
+                %{--                                    <p>Easy Polo Black Edition</p>--}%
+                %{--                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                </div>--}%
+                %{--                                <div class="product-overlay">--}%
+                %{--                                    <div class="overlay-content">--}%
+                %{--                                        <h2>$56</h2>--}%
+                %{--                                        <p>Easy Polo Black Edition</p>--}%
+                %{--                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}%
+                %{--                                    </div>--}%
+                %{--                                </div>--}%
+                %{--                            </div>--}%
+                %{--                            <div class="choose">--}%
+                %{--                                <ul class="nav nav-pills nav-justified">--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>--}%
+                %{--                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>--}%
+                %{--                                </ul>--}%
+                %{--                            </div>--}%
+                %{--                        </div>--}%
+                %{--                    </div>--}%
 
                 </div><!--features_items-->
+
+
+
+                    <div class="features_items"><!--productos normales-->
+                        <h2 class="title text-center">Productos </h2>
+
+
+                        <g:if test="${normales?.size() > 0}">
+                            <div style="color: #47b636">Normales</div>
+                            <g:each in="${normales}" var="prod" status="i">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/shop/product12.jpg" alt="" />
+                                                <h2>${prod.tt}</h2>
+                                                <p>${prod.sb ?: 'Sin descripción'}</p>
+                                                <img width="253px" height="auto" style="padding: 1px" src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
+                                            </div>
+                                            <div class="product-overlay">
+                                                <div class="overlay-content">
+                                                    <h2>${prod.tt}</h2>
+                                                    %{--                                            <p>${prod.sb ?: 'Sin descripción'}</p>--}%
+                                                    %{--                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>--}%
+                                                    <a href="${createLink(controller: 'ver', action: 'carrusel', params: [id: prod.id, tipo: 3])}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Ver</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="choose">
+                                            <ul class="nav nav-pills nav-justified">
+                                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </g:each>
+                        </g:if>
+                        <g:else>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/shop/product12.jpg" alt="" />
+                                            <h2>Su producto aquí</h2>
+                                            <p>Easy Polo Black Edition</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>Su producto aquí</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/shop/product12.jpg" alt="" />
+                                            <h2>Su producto aquí</h2>
+                                            <p>Easy Polo Black Edition</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>Su producto aquí</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/shop/product12.jpg" alt="" />
+                                            <h2>Su producto aquí</h2>
+                                            <p>Easy Polo Black Edition</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>Su producto aquí</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Ver</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </g:else>
+
+
+                    </div>
+
 
                 <div class="category-tab"><!--category-tab-->
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tshirt" data-toggle="tab">T-Shirt</a></li>
-                            <li><a href="#blazers" data-toggle="tab">Blazers</a></li>
-                            <li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>
-                            <li><a href="#kids" data-toggle="tab">Kids</a></li>
-                            <li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>
+                            <g:each in="${ventas.Categoria.list().sort{it.descripcion}}" var="categoria" status="i">
+                                <li class="${i == 0 ? 'active' : ''}"><a href="#${categoria.descripcion}" data-toggle="tab">${categoria.descripcion}</a></li>
+                            </g:each>
+                        %{--                            <li class="active"><a href="#tshirt" data-toggle="tab">T-Shirt</a></li>--}%
+                        %{--                            <li><a href="#blazers" data-toggle="tab">Blazers</a></li>--}%
+                        %{--                            <li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>--}%
+                        %{--                            <li><a href="#kids" data-toggle="tab">Kids</a></li>--}%
+                        %{--                            <li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>--}%
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -870,7 +1080,7 @@
                 </div><!--/category-tab-->
 
                 <div class="recommended_items"><!--recommended_items-->
-                    <h2 class="title text-center">recommended items</h2>
+                    <h2 class="title text-center">Productos recomendados</h2>
 
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
@@ -972,92 +1182,92 @@
 </section>
 
 <footer id="footer"><!--Footer-->
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="companyinfo">
-                        <h2><span>e</span>-shopper</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src="images/home/iframe1.png" alt="" />
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
+%{--    <div class="footer-top">--}%
+%{--        <div class="container">--}%
+%{--            <div class="row">--}%
+%{--                <div class="col-sm-2">--}%
+%{--                    <div class="companyinfo">--}%
+%{--                        <h2><span>e</span>-shopper</h2>--}%
+%{--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--                <div class="col-sm-7">--}%
+%{--                    <div class="col-sm-3">--}%
+%{--                        <div class="video-gallery text-center">--}%
+%{--                            <a href="#">--}%
+%{--                                <div class="iframe-img">--}%
+%{--                                    <img src="images/home/iframe1.png" alt="" />--}%
+%{--                                </div>--}%
+%{--                                <div class="overlay-icon">--}%
+%{--                                    <i class="fa fa-play-circle-o"></i>--}%
+%{--                                </div>--}%
+%{--                            </a>--}%
+%{--                            <p>Circle of Hands</p>--}%
+%{--                            <h2>24 DEC 2014</h2>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
 
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src="images/home/iframe2.png" alt="" />
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
+%{--                    <div class="col-sm-3">--}%
+%{--                        <div class="video-gallery text-center">--}%
+%{--                            <a href="#">--}%
+%{--                                <div class="iframe-img">--}%
+%{--                                    <img src="images/home/iframe2.png" alt="" />--}%
+%{--                                </div>--}%
+%{--                                <div class="overlay-icon">--}%
+%{--                                    <i class="fa fa-play-circle-o"></i>--}%
+%{--                                </div>--}%
+%{--                            </a>--}%
+%{--                            <p>Circle of Hands</p>--}%
+%{--                            <h2>24 DEC 2014</h2>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
 
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src="images/home/iframe3.png" alt="" />
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
+%{--                    <div class="col-sm-3">--}%
+%{--                        <div class="video-gallery text-center">--}%
+%{--                            <a href="#">--}%
+%{--                                <div class="iframe-img">--}%
+%{--                                    <img src="images/home/iframe3.png" alt="" />--}%
+%{--                                </div>--}%
+%{--                                <div class="overlay-icon">--}%
+%{--                                    <i class="fa fa-play-circle-o"></i>--}%
+%{--                                </div>--}%
+%{--                            </a>--}%
+%{--                            <p>Circle of Hands</p>--}%
+%{--                            <h2>24 DEC 2014</h2>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
 
-                    <div class="col-sm-3">
-                        <div class="video-gallery text-center">
-                            <a href="#">
-                                <div class="iframe-img">
-                                    <img src="images/home/iframe4.png" alt="" />
-                                </div>
-                                <div class="overlay-icon">
-                                    <i class="fa fa-play-circle-o"></i>
-                                </div>
-                            </a>
-                            <p>Circle of Hands</p>
-                            <h2>24 DEC 2014</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="address">
-                        <img src="images/home/map.png" alt="" />
-                        <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+%{--                    <div class="col-sm-3">--}%
+%{--                        <div class="video-gallery text-center">--}%
+%{--                            <a href="#">--}%
+%{--                                <div class="iframe-img">--}%
+%{--                                    <img src="images/home/iframe4.png" alt="" />--}%
+%{--                                </div>--}%
+%{--                                <div class="overlay-icon">--}%
+%{--                                    <i class="fa fa-play-circle-o"></i>--}%
+%{--                                </div>--}%
+%{--                            </a>--}%
+%{--                            <p>Circle of Hands</p>--}%
+%{--                            <h2>24 DEC 2014</h2>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--                <div class="col-sm-3">--}%
+%{--                    <div class="address">--}%
+%{--                        <img src="images/home/map.png" alt="" />--}%
+%{--                        <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--            </div>--}%
+%{--        </div>--}%
+%{--    </div>--}%
 
     <div class="footer-widget">
         <div class="container">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="single-widget">
-                        <h2>Service</h2>
+                        <h2>Ayuda</h2>
                         <ul class="nav nav-pills nav-stacked">
                             <li><a href="#">Online Help</a></li>
                             <li><a href="#">Contact Us</a></li>
@@ -1067,33 +1277,33 @@
                         </ul>
                     </div>
                 </div>
+%{--                <div class="col-sm-2">--}%
+%{--                    <div class="single-widget">--}%
+%{--                        <h2>Quock Shop</h2>--}%
+%{--                        <ul class="nav nav-pills nav-stacked">--}%
+%{--                            <li><a href="#">T-Shirt</a></li>--}%
+%{--                            <li><a href="#">Mens</a></li>--}%
+%{--                            <li><a href="#">Womens</a></li>--}%
+%{--                            <li><a href="#">Gift Cards</a></li>--}%
+%{--                            <li><a href="#">Shoes</a></li>--}%
+%{--                        </ul>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--                <div class="col-sm-2">--}%
+%{--                    <div class="single-widget">--}%
+%{--                        <h2>Policies</h2>--}%
+%{--                        <ul class="nav nav-pills nav-stacked">--}%
+%{--                            <li><a href="#">Terms of Use</a></li>--}%
+%{--                            <li><a href="#">Privecy Policy</a></li>--}%
+%{--                            <li><a href="#">Refund Policy</a></li>--}%
+%{--                            <li><a href="#">Billing System</a></li>--}%
+%{--                            <li><a href="#">Ticket System</a></li>--}%
+%{--                        </ul>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
                 <div class="col-sm-2">
                     <div class="single-widget">
-                        <h2>Quock Shop</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">T-Shirt</a></li>
-                            <li><a href="#">Mens</a></li>
-                            <li><a href="#">Womens</a></li>
-                            <li><a href="#">Gift Cards</a></li>
-                            <li><a href="#">Shoes</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>Policies</h2>
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Privecy Policy</a></li>
-                            <li><a href="#">Refund Policy</a></li>
-                            <li><a href="#">Billing System</a></li>
-                            <li><a href="#">Ticket System</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="single-widget">
-                        <h2>About Shopper</h2>
+                        <h2>Respecto a la página</h2>
                         <ul class="nav nav-pills nav-stacked">
                             <li><a href="#">Company Information</a></li>
                             <li><a href="#">Careers</a></li>
@@ -1121,8 +1331,10 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-                <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+                <div class="row">
+                    <p class="pull-left">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}</p>
+                    %{--                <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>--}%
+                </div>
             </div>
         </div>
     </div>

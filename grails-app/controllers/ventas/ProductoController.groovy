@@ -576,7 +576,12 @@ class ProductoController {
             println("error al borrar el producto " + producto.errors)
             render "no"
         }
+    }
 
+
+    def producto_ajax(){
+        def producto = Producto.get(params.id)
+        return[producto:producto]
     }
 
 }
