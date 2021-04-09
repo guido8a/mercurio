@@ -126,9 +126,11 @@ class LoginController {
         if (user.size() == 0) {
             flash.message = "No se ha encontrado el usuario"
             flash.tipo = "error"
+            flash.icon = "fa fa-exclamation-triangle"
         } else if (user.size() > 1) {
             flash.message = "Ha ocurrido un error grave"
             flash.tipo = "error"
+            flash.icon = "fa fa-exclamation-triangle"
         } else {
             user = user[0]
 
@@ -137,6 +139,7 @@ class LoginController {
             if (!user.estaActivo) {
                 flash.message = "El usuario ingresado no esta activo."
                 flash.tipo = "error"
+                flash.icon = "fa fa-exclamation-triangle"
 //                redirect(controller: 'login', action: "login")
                 redirect(controller: 'principal', action: "index")
                 return
@@ -160,20 +163,20 @@ class LoginController {
                 if (perfiles.size() == 0) {
                     flash.message = "No puede ingresar porque no tiene ningun perfil asignado a su usuario. Comuníquese con el administrador."
                     flash.tipo = "error"
-                    flash.icon = "icon-warning"
+                    flash.icon = "fa fa-exclamation-triangle"
                     session.usuario = null
                 } else {
 
                     println "el md5 del pass: ${params.pass} es ${params.pass.encodeAsMD5()} contraseña: ${user.password}"
                     if (params.pass.encodeAsMD5() != user.password) {
-                            flash.message = "Contraseña incorrecta"
-                            flash.tipo = "error"
-                            flash.icon = "icon-warning"
-                            session.usuario = null
-                            session.departamento = null
+                        flash.message = "Contraseña incorrecta"
+                        flash.tipo = "error"
+                        flash.icon = "fa fa-exclamation-triangle"
+                        session.usuario = null
+                        session.departamento = null
 //                            redirect(controller: 'login', action: "login")
-                            redirect(controller: 'principal', action: "index")
-                            return
+                        redirect(controller: 'principal', action: "index")
+                        return
                     }
 
                     // registra sesion activa ------------------------------

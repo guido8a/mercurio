@@ -1229,39 +1229,48 @@ class PersonaController {
     def saveRegistro_ajax(){
 
         println("params" + params)
-        def band  = 0
 
-        params.fecha = new Date()
-        params.activo = 1
-        params.login = params.mail
 
-        def persona = new Persona()
-        persona.properties = params
+        def existeCorreo = Persona.findAllByMail(params.mail)
 
-        if(!persona.save(flush:true)){
-            println("error al crear el usuario " + persona.errors)
-            render "no"
+        if(existeCorreo){
+            render "er_Ya existe un usuario registrado con ese correo"
         }else{
 
-            def sesion = new Sesn()
-            sesion.usuario = persona
-            sesion.fechaInicio = new Date()
-            sesion.perfil = Prfl.findByCodigo('USUV')
+            params.fecha = new Date()
+            params.activo = 1
+            params.login = params.mail
 
-            if(!sesion.save(flush:true)){
-                println("error al asignar el perfil del usuario " + sesion.errors)
+            def persona = new Persona()
+            persona.properties = params
+
+            if(!persona.save(flush:true)){
+                println("error al crear el usuario " + persona.errors)
                 render "no"
             }else{
-                println("persona p " + persona)
 
-                def ec = enviarCorreoRegistro(persona)
-                if(ec){
-                    render "ok"
-                }else{
+                def sesion = new Sesn()
+                sesion.usuario = persona
+                sesion.fechaInicio = new Date()
+                sesion.perfil = Prfl.findByCodigo('USUV')
+
+                if(!sesion.save(flush:true)){
+                    println("error al asignar el perfil del usuario " + sesion.errors)
                     render "no"
+                }else{
+                    println("persona p " + persona)
+
+                    def ec = enviarCorreoRegistro(persona)
+                    if(ec){
+                        render "ok"
+                    }else{
+                        render "no"
+                    }
                 }
             }
         }
+
+
     }
 
     def enviarCorreoRegistro(Persona per){

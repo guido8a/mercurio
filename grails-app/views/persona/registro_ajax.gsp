@@ -29,7 +29,7 @@
                 </label>
 
                 <div class="col-md-8">
-                    <g:textField name="nombre" maxlength="31" required="" class="form-control input-sm required"/>
+                    <g:textField name="nombre" minlength="5" maxlength="31" required="" class="form-control input-sm required"/>
                 </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
                 </label>
 
                 <div class="col-md-8">
-                    <g:textField name="apellido" maxlength="31" class="form-control input-sm"/>
+                    <g:textField name="apellido" minlength="5" maxlength="31" class="form-control input-sm"/>
                 </div>
         </div>
     </div>
@@ -57,8 +57,8 @@
                 </div>
         </div>
     </div>
-    <br/>
-    <p>Al guardar su registro se le enviará a su <strong>correo electrónico la clave de acceso</strong>.<br/>Gracias por usar el sistema.</p>
+%{--    <br/>--}%
+    <br><i class="fa fa-exclamation-circle text-info"></i> La clave de acceso será enviada a <strong>correo electrónico</strong>
 </g:form>
 %{--</div>--}%
 
