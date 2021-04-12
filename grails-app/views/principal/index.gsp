@@ -35,6 +35,7 @@
     <style type="text/css">
     body {
         background: #B4BAC0;
+        line-height: 1.0;
     }
     .lista-item {
         position: relative;
@@ -79,33 +80,62 @@
         border-color: var(--naranja);
     }
 
+    .buscar {
+        /*color: #444 !important;*/
+        border-radius: 4px;
+        background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+        text-align-all: center;
+        margin: 2px;
+    }
+    .buscar:hover{
+        background-image: linear-gradient(var(--naranja),var(--naranja3),var(--naranja));
+    }
+
     .borrar {
         border-radius: 4px;
         background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
         text-align-all: center;
         margin: 2px;
     }
+    .borrar a {
+        color: #000;
+    }
     .borrar:hover{
-        background-image: linear-gradient(#D4DAE0, #848A90, #D4DAE0);
+        color: #000;
+        background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
     }
 
+/*
     .con-borde {
         border-radius: 4px;
         background-image: linear-gradient(#747A80, #343A40, #545A60);
         text-align-all: center;
-        /*height: 35px;*/
+        !*height: 35px;*!
         margin: 2px;
     }
+*/
 
     a.nav-link:hover {
         border-radius: 4px;
-        background-image: linear-gradient(#646A70, #141A20, #444A50);
+        background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
+        height: 30px;
+    }
+
+    .navbar-nav .nav-link{
+        border-radius: 4px;
+        height: 30px;
+        text-decoration: none;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+        border-radius: 4px;
+        background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
     }
 
     :root {
-        /*--naranja: #FFAB19;*/
-        --naranja: #E0A810;
-        --naranja2: #ffFBE9;
+        --naranja: #FFAB2A;
+        --naranja1: #DF8B0A;
+        --naranja3: #FFCB4A;
+        --naranja2: #EFEBEA;
         --naranja0: #AF5B00;
         --naranja00: #4F1B00;
         --gris: #343A40;
@@ -166,18 +196,17 @@
         color: #222;
         background-color: var(--naranja2);
         border-width: 2px;
-        /*border-left: 10px solid;*/
-        border-color: #bF6B00;
-        /*border-left: 10px solid #343a40;*/
+        /*border-color: #bF6B00;*/
+        border-color: var(--naranja0);
     }
 
     .activo {
         color: #222;
         /*background-color: #fdf8f0;*/
-        background-color: #fFAB20;
+        background-color: var(--naranja);
         border-width: 2px;
         /*border-left: 20px solid #343a40;*/
-        border-color: #dF8B00;
+        border-color: var(--naranja0);
     }
 
     .titulo0 {
