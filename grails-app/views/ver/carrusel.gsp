@@ -152,10 +152,6 @@
                 <g:if test="${tipo == '3'}">
 
 
-
-
-
-
                 %{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
                 %{--                            class="fa fa-arrow-left"></i> Regresar</a>--}%
                     <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
@@ -195,8 +191,6 @@
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
         </g:if>
-
-
     </div>
 
 
@@ -247,7 +241,6 @@
     </div>
 
 
-
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
         <div class="alert alert-primary" role="alert" style="text-align: center">
@@ -282,8 +275,6 @@
             </div>
         </div>
     </g:if>
-
-
 
     <div id="preguntas" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
@@ -371,7 +362,7 @@
                 l.modal("hide");
                 if(msg == 'ok'){
                     bootbox.alert("Pregunta enviada correctamente al vendedor!")
-                    $("#pregunta").val('')
+                    $("#pregunta").val('');
                     cargarPreguntas();
                 }else{
                     bootbox.alert("Error al enviar la pregunta al vendedor!")
