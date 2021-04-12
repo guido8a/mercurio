@@ -115,6 +115,13 @@ class MenuTagLib {
         def txt = ""
         def inicio = "${createLink(controller:'login', action: 'login')}"
         def items = [:]
+        def app = ""
+        if (grails.util.Environment.getCurrent().name == 'development') {
+            app = '/'
+        } else {
+            app = '/ventas/'
+        }
+
         def usuario, perfil, dpto
         if (session.usuario) {
             usuario = session.usuario
@@ -194,8 +201,8 @@ class MenuTagLib {
         html += '<a class="navbar-brand navbar-logo" href="' + g.createLink(controller: 'inicio', action: 'index') +
                 '"> <img src="' + g.assetPath(src: 'apli/logo.png') + '" style="float:left; height:40px">' + '</a>'
 */
-        html += '<a class="navbar-brand navbar-logo" href="/"> <img src="' + g.assetPath(src: 'apli/logo.png') +
-                '" style="float:left; height:40px">' + '</a>'
+        html += "<a class='navbar-brand navbar-logo' href='${app}'> <img src='" + g.assetPath(src: 'apli/logo.png') +
+                "' style='float:left; height:40px'>" + "</a>"
 
         html += '</div>'
 
@@ -239,7 +246,13 @@ class MenuTagLib {
         def items = [:]
         def usuario, perfil, dpto
         def ctgr = Categoria.list([sort: 'orden'])
-//        println "ctgr: $ctgr"
+        def app = ""
+        if (grails.util.Environment.getCurrent().name == 'development') {
+            app = '/'
+        } else {
+            app = '/ventas/'
+        }
+
         if (session.usuario) {
             usuario = session.usuario
             perfil = session.perfil
@@ -263,21 +276,15 @@ class MenuTagLib {
 //        html += '<div class="collapse navbar-collapse"> '
         html += '<ul class="navbar-nav"><li class="nav-item">'
 
-        def app = ""
-        if (grails.util.Environment.getCurrent().name == 'development') {
-            app = '/'
-        } else {
-            app = '/ventas/'
-        }
 //        html += "<div class='redondeado'><div class='input-group  class='nav-item''>"
         def txto = "<form name='frm-buscar' class='form-inline' action='${app}principal/index' method='POST'>" +
                 g.select( name: 'ctgr', from: ctgr, optionValue: 'descripcion',
                 optionKey: 'id', noSelection: [0: 'Buscar en todo'],  title: 'Seleccione la categoría', class: 'mr-sm-1') +
                 "<input id='bsca' name='bscr' class='form-control mr-sm-1' type='text' placeholder='Buscar' " +
                 "title='Escriba lo que desee buscar' value='${attrs.search?:''}'>" +
-                "<button class='btn btn-success' type='submit' title='Realizar la búsqueda'>" +
+                "<button class='btn btn-warning' type='submit' title='Realizar la búsqueda'>" +
                 "<i class='fa fa-search'></i></button>" +
-                "<button class='btn btn-info' id='btn-borrar' title='Borrar texto de búsqueda'>" +
+                "<button class='btn borrar' id='btn-borrar' title='Borrar texto de búsqueda'>" +
                 "<i class='fa fa-eraser'></i></button>" +
                 '</form>'
 //        html += g.select( name: 'categoriaBuscar', from: ctgr, optionValue: 'descripcion',

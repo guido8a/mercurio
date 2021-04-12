@@ -52,8 +52,9 @@ class PrincipalController {
         if(params.bscr && anuncios){
             sbct = Subcategoria.get(anuncios?.first().sbct__id)
         } else if(params?.bscr?.size() > 3) {
-            enCategoria = Categoria.get(params.ctgr)?.descripcion?
-                    "la categoría ${Categoria.get(params.ctgr)?.descripcion}" :'todas las categorías'
+            def ctgr = Categoria.get(params.ctgr)
+//            enCategoria = Categoria.get(params.ctgr)?.descripcion?
+            enCategoria = ctgr? "la categoría ${ctgr.descripcion}" :'todas las categorías'
             busqueda = "No se ha encontrado anúncios para su búsqueda '<strong>${params.bscr}</strong>' en " +
                     "<strong>${enCategoria}</strong>"
         }
@@ -89,6 +90,7 @@ class PrincipalController {
         println "carrusel ${carrusel.ruta}"
         println "destacados: ${destacados.rt}"
         println "normales: ${normales.rt}"
+        println "activo: ${sbct?.categoria?.id}, sbct_actv: ${sbct?.id}"
 
         return [activo: sbct?.categoria?.id, sbct_actv: sbct?.id, consultas: consultas,
                 carrusel: carrusel, destacados: destacados, normales: normales, busqueda: busqueda]
