@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
+<%--
+  Created by IntelliJ IDEA.
+  User: guido
+  Date: 12/03/21
+  Time: 10:02
+--%>
 
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    <title>Ventas</title>
+    <title>${producto?.titulo}</title>
 
-    %{--    <g:layoutHead/>--}%
+%{--    <asset:stylesheet src="/merc/bootstrap.min.css"/>--}%
+%{--    <asset:javascript src="/merc/jquery.min.js"/>--}%
+%{--    <asset:javascript src="/merc/bootstrap.bundle.js"/>--}%
+%{--    <asset:javascript src="/apli/bootbox.js"/>--}%
+%{--    <asset:javascript src="/apli/fontawesome.all.min.js"/>--}%
+%{--    <asset:javascript src="/apli/functions.js"/>--}%
 
-    <!-- Bootstrap core CSS -->
     <asset:stylesheet src="/merc/bootstrap.min.css"/>
     <asset:stylesheet src="/apli/shop-homepage.css"/>
 
@@ -30,27 +40,33 @@
         /*background: #B4BAC0;*/
         line-height: 1.0;
     }
-    .lista-item {
-        position: relative;
-        display: block;
-        padding: .5rem 1.0rem;
-        background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, .125);
-        border-top-width: 1px;
+
+    .carousel-indicators {
+        position: static;
     }
 
-    .consulta {
-        color: var(--naranja00);
-        font-size: small;
-        background-color: #fdfdfd;
+    .carousel-indicators .item.active {
+        background: transparent;
+        color: #0a193b;
+        opacity: 0.8;
+    }
+
+    .fotos-guia .inactiva {
+        opacity: 0.5;
+        border-color: #ffffff;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    .fotos-guia .activa {
+        opacity: 1;
     }
 
     .cs900 {
-        width: 800px;
-        height: 350px;
+        /*width: 950px;*/
+        /*height: 500px;*/
         align-content: center;
-        /*background-color: #B4BAC0;*/
-        background-color: var(--gris);
+        background-color: #dfdfdf;
     }
 
     .carousel-inner {
@@ -62,48 +78,15 @@
     }
 
     .imag-item {
-        height: 350px;
+        height: 400px;
         width: auto;
-        max-height: 350px;
+        max-height: 400px;
         margin: 0;
+        max-width: 800px
     }
 
 
-    .marcoDestacados {
-        border-color: var(--naranja0);
-    }
-
-    .buscar {
-        /*color: #444 !important;*/
-        border-radius: 4px;
-        background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
-        text-align-all: center;
-        margin: 2px;
-    }
-    .buscar:hover{
-        background-image: linear-gradient(var(--naranja),var(--naranja3),var(--naranja));
-    }
-
-    .btn-gris {
-        border-radius: 4px;
-        background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
-        text-align-all: center;
-        margin: 2px;
-    }
-    .btn-gris-inv {
-        border-radius: 4px;
-        background-image: linear-gradient(#A4AAB0, #D4DAE0, #A4AAB0);
-        text-align-all: center;
-        margin: 2px;
-    }
-    .btn-gris a {
-        color: #000;
-    }
-    .btn-gris:hover{
-        color: #000;
-        background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
-    }
-
+    /* menu */
     a.nav-link:hover {
         border-radius: 4px;
         background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
@@ -119,153 +102,57 @@
         background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
     }
 
-    :root {
-        --naranja: #FFAB2A;
-        --naranja1: #DF8B0A;
-        --naranja3: #FFCB4A;
-        --naranja2: #EFEBEA;
-        --naranja0: #AF5B00;
-        --naranja00: #4F1B00;
-        --gris: #343A40;
-    }
-
     .redondeado {
         width: 400px;
         border-style:solid;
         border-width: 2px;
-        border-color: var(--naranja);
+        border-color: #FFAB19;
         /*border-color: #e67a00;*/
         border-radius: 4px;
-        background-color:var(--naranja);
+        background-color: #ffab19;
         text-align: center;
     }
-
-    .estilo {
-        border-radius: 50px;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #000000;
-    }
-
-    .categoria {
-        position: relative;
+    .dropdown-menu > li > a {
         display: block;
-        padding: .5rem 1.0rem;
-        background-color: #fff;
-        /*border: 1px solid rgba(0, 0, 0, .25);*/
-        border: 1px solid #0a193b;
-        border-top-width: 1px;
-        border-top-width: 1px;
-        color: #42577d;
-        border-radius: 5px;
-        margin-right: 0px;
-    }
-
-    .subcat {
-        margin-left: 20px;
-        padding-left: 20px;
-        border-radius: 7px;
-    }
-
-    a.categoria:hover{
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
         text-decoration: none;
-        color: #0a193b;
-        background-color: var(--naranja2);
     }
-    a.subcat:hover{
+    .dropdown-menu > .disabled > a,
+    .dropdown-menu > .disabled > a:hover,
+    .dropdown-menu > .disabled > a:focus {
+        color: #b3b3b3;
+    }
+    .open > .dropdown-menu {
+        display: block;
+    }
+    .open > a {
+        outline: 0;
+    }
+
+    .nav > li > a:hover,
+    .nav > li > a:focus {
         text-decoration: none;
-        color: #0a193b;
-        /*background-color: #efeff8;*/
-        background-color: var(--naranja);
-    ;
+        background-color: #242a30;
     }
 
-    .act_ct {
-        color: #222;
-        background-color: var(--naranja2);
-        border-width: 2px;
-        /*border-color: #bF6B00;*/
-        border-color: var(--naranja0);
+    .nav > ul > li > a:hover,
+    .nav > ul > li > a:focus {
+        text-decoration: none;
+        background-color: #444;
     }
-
-    .activo {
-        color: #222;
-        /*background-color: #fdf8f0;*/
-        background-color: var(--naranja);
-        border-width: 2px;
-        /*border-left: 20px solid #343a40;*/
-        border-color: var(--naranja0);
-    }
-
-    .titulo0 {
-        color:var(--naranja00);
-        /*color: #444;*/
-        font-size: 1.5rem;
-    }
-
-    .titulo1 {
-        color:var(--naranja0);
-        font-size: 1.5rem;
-    }
-
-    .titulo2 {
-        color:var(--naranja0);
-        font-size: 1.2rem;
-    }
-
-    a.consulta {
-        color:var(--naranja00);
-        /*font-size: 1.2rem;*/
-        /*text-decoration: none;*/
-    }
-    .titulo2 a {
-        color:var(--naranja0);
-        font-size: 1.2rem;
-    }
-
-    .blink_text {
-        animation:1s blinker linear infinite;
-        -webkit-animation:1s blinker linear infinite;
-        -moz-animation:1s blinker linear infinite;
-        color: black;
-    }
-
-    @-moz-keyframes blinker {
-        0% { opacity: 1.0; }
-        50% { opacity: 0.2; }
-        100% { opacity: 1.0; }
-    }
-
-    @-webkit-keyframes blinker {
-        0% { opacity: 1.0; }
-        50% { opacity: 0.2; }
-        100% { opacity: 1.0; }
-    }
-
-    @keyframes blinker {
-        0% { opacity: 1.0; }
-        50% { opacity: 0.2; }
-        100% { opacity: 1.0; }
-    }
-
-    .columnas {
-        float: left;
-        border-radius: 8px;
-        border-style: solid;
-        border-color: var(--gris);
-        border-width: 1px;
-        padding: 1%;
-        margin-top: 1%;
-    }
-
-    .barra {
-        border-radius: 7px;
-        background-color: var(--gris);
-        padding: 0.5em;
-        margin-bottom: 0.5em;
-        color: #fff;
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        color: #1e2c58;
+        text-decoration: none;
+        background-color: #b3b3b3;
     }
     </style>
+
 </head>
 
 <body>
@@ -276,21 +163,23 @@
 <g:else>
     <mn:menuNuevo search="${params.bscr?:''}"/>
 </g:else>
-%{--<mn:menuNuevo search="${params.bscr?:''}"/>--}%
 
-%{--<div class="container" style="min-width: 60% !important; overflow-y: hidden">--}%
-<div class="container" style="min-width: 60% !important; overflow-y: hidden">
+<div class="container" style="min-width: 60% !important; margin-top: 70px; overflow-y: hidden">
 
 
     <div class="btn-group" style="margin-top: 5px">
         <g:if test="${tipo}">
             <g:if test="${tipo == '1'}">
-                <a href="#" class="btn borre" id="btnAnterior"><i
+                <a href="#" class="btn btn-primary" id="btnAnterior"><i
                         class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
             </g:if>
             <g:else>
                 <g:if test="${tipo == '3'}">
-                    <a href="#" class="btn btn-gris-inv btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
+
+
+                %{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
+                %{--                            class="fa fa-arrow-left"></i> Regresar</a>--}%
+                    <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
                             class="fa fa-arrow-left"></i> Regresar</a>
                 </g:if>
                 <g:else>
@@ -323,21 +212,26 @@
         </g:if>
 
         <g:if test="${publicaciones > 0}">
-            <a href="#" class="btn buscar" id="btnContactar">
+            <a href="#" class="btn btn-success" id="btnContactar">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
         </g:if>
     </div>
 
 
-    <div class="alert alert-dark" style="margin-top: 20px; text-align: center">
-        <h3>${producto.titulo}</h3>
-        <h5>${producto.subtitulo}</h5>
-    </div>
+    <h3 style="margin-top: 20px; text-align: center">
+        <div class="alert alert-dark" role="alert">
+            ${producto.titulo}
+        </div>
+    </h3>
+    <h5 style="text-align: center">
+        <div class="alert alert-info" role="alert">
+            ${producto.subtitulo}
+        </div>
+    </h5>
 
 
-    <div class="col-lg-9" style="float: left; background-color: #dfdfdf; border-style: solid;
-            border-color: #ddd; border-width: 1px">
+    <div class="col-lg-12" style="float: left; background-color: #dfdfdf; border-style: solid; border-color: #ddd; border-width: 1px">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 100%">
             <div class="carousel-inner cs900">
 
@@ -356,12 +250,13 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Siguiente</span>
                 </a>
+
             </div>
 
         </div>
     </div>
 
-    <div id="fotos" class="col-lg-3 fotos-guia" style="float: left; background-color: #dfdfdf; margin-left: 0; border-style: solid; border-color: #ddd;  border-width: thin">
+    <div id="fotos" class="col-lg-12 fotos-guia" style="float: left; background-color: #dfdfdf; margin-left: 0; border-style: solid; border-color: #ddd;  border-width: thin">
         <g:each in="${carrusel}" var="carr" status="i">
             <div id="imagen${i}" class="guia inactiva" style="float: left;">
                 <img src="${request.contextPath}/principal/getImgnCarrusel?ruta=${carr.ruta}"
@@ -369,91 +264,47 @@
             </div>
         </g:each>
     </div>
-</div>
 
-<div class="container" style="min-width: 60% !important; overflow-y: hidden">
 
-        <div class="col-lg-6 columnas">
-            <div class="alert alert-dark" role="alert" style="text-align: center">
-                Características
-            </div>
-            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
-                <g:each in="${atributos}" var="at" status="i">
-                    <tr>
-                        <td class="alert alert-dark" role="alert">
-                            ${at.atributoCategoria.atributo.descripcion}
-                        </td>
-                        <td style="text-align: right"  class="alert alert-dark" role="alert">
-                            ${at.valor}
-                        </td>
-                    </tr>
-                </g:each>
-            </table>
-
-        </div>
-
-    <div class="col-lg-6 columnas">
-        <g:if test="${producto.texto}">
-            <div class="alert alert-dark" role="alert" style="text-align: center">
-                Descripción del Bien o Servicio
-            </div>
-            <g:applyCodec encodeAs="none">
-                ${producto.texto}
-            </g:applyCodec>
-        </g:if>
-    </div>
-    <div class="col-lg-5 columnas" style="float: right">
-        <g:if test="${publicaciones > 0}">
-            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">
-                <i class="fa fa-phone"></i> Contactar con el vendedor
-            </a>
-        </g:if>
-    </div>
-%{--
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
-        <div class="col-md-12">
-        <div class="col-md-6">
-            <div class="alert alert-dark" role="alert" style="text-align: center">
-                Características
-            </div>
+
+        <div class="alert alert-primary" role="alert" style="text-align: center">
+            Características
+        </div>
+
+        <div class="col-md-6" style="margin-left: 280px; background-color: #efefef">
             <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
                 <g:each in="${atributos}" var="at" status="i">
                     <tr>
-                        <td class="alert alert-dark" role="alert">
+                        <td class="alert alert-primary" role="alert">
                             ${at.atributoCategoria.atributo.descripcion}
                         </td>
-                        <td style="text-align: right"  class="alert alert-dark" role="alert">
+                        <td style="text-align: right"  class="alert alert-success" role="alert">
                             ${at.valor}
                         </td>
                     </tr>
                 </g:each>
             </table>
         </div>
-
-        <g:if test="${producto.texto}">
-            <div class="col-md-5">
-                <div id="divDescripcion">
-                    <div class="col-lg-12" style="float: left; padding: 1%; background-color: #efefef; border-style: solid; border-width: thin; border-color: #ddd">
-                        <div class="alert alert-primary" role="alert" style="text-align: center">
-                            Descripción
-                        </div>
-                    <g:applyCodec encodeAs="none">
-                        ${producto.texto}
-                    </g:applyCodec>
-                </div>
-            </div>
-            </div>
-        </g:if>
-
-        </div>
     </div>
---}%
 
+    <g:if test="${producto.texto}">
+        <div id="divDescripcion">
+            <div class="col-lg-12" style="float: left; padding: 1%; background-color: #efefef; border-style: solid; border-width: thin; border-color: #ddd">
+                <div class="alert alert-primary" role="alert" style="text-align: center">
+                    Descripción
+                </div>
+                <g:applyCodec encodeAs="none">
+                    ${producto.texto}
+                </g:applyCodec>
+            </div>
+        </div>
+    </g:if>
 
     <div id="preguntas" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
-        <div class="barra" role="alert" style="text-align: center;">
-            Preguntar al Proveedor
+        <div class="alert alert-primary" role="alert" style="text-align: center">
+            Preguntar
         </div>
 
         <div class="row justify-content-center">
@@ -461,11 +312,11 @@
                 <g:textArea name="pregunta" maxlength="255" class="form-control" style="resize: none; height: 100px" placeholder="Enviar una pregunta al vendedor"/>
             </div>
             <div class="col-4">
-                <a href="#" class="btn btn-gris-inv btnEnvioPregunta"><i class="fa fa-envelope"></i> Enviar pregunta</a>
+                <a href="#" class="btn btn-success btnEnvioPregunta"><i class="fa fa-envelope"></i> Enviar pregunta</a>
             </div>
         </div>
 
-        <div class="barra" role="alert" style="text-align: center; margin-top: 5px">
+        <div class="alert alert-primary" role="alert" style="text-align: center; margin-top: 5px">
             Preguntas y respuestas
         </div>
 
@@ -475,23 +326,6 @@
     </div>
 
 </div>
-
-<!-- Footer -->
-%{--<footer class="py-3 bg-dark">--}%
-<div class="navbar-dark bg-dark" style="width: 100%">
-    %{--    <div class="container">--}%
-    <div style="text-align: center; font-size: small">
-        <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
-        %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
-        </span>
-    </div>
-    %{--    </div>--}%
-    <!-- /.container -->
-</div>
-
-<!-- Bootstrap core JavaScript -->
-%{--<script src="vendor/jquery/jquery.min.js"></script>--}%
-%{--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}%
 
 <script type="text/javascript">
 
@@ -672,7 +506,5 @@
     });
 
 </script>
-
 </body>
-
 </html>

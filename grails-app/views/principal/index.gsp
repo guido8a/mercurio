@@ -25,16 +25,9 @@
     <asset:javascript src="/apli/loader.js"/>
     <asset:javascript src="/apli/fontawesome.all.min.js"/>
 
-    %{--    <asset:javascript src="/mdb/mdb.min.js"/>--}%
-    %{--    <asset:javascript src="/mdb/modules/treeview.min.js"/>--}%
-    %{--    <asset:javascript src="/mdb/modules/animations-extended.min.js"/>--}%
-
-    %{--    <asset:stylesheet src="/arbol/bootstrap-treeview.min.css"/>--}%
-    %{--    <asset:javascript src="/arbol/bootstrap-treeview.min.js"/>--}%
-
     <style type="text/css">
     body {
-        background: #B4BAC0;
+        /*background: #B4BAC0;*/
         line-height: 1.0;
     }
     .lista-item {
@@ -77,7 +70,7 @@
 
 
     .marcoDestacados {
-        border-color: var(--naranja);
+        border-color: var(--naranja0);
     }
 
     .buscar {
@@ -91,34 +84,23 @@
         background-image: linear-gradient(var(--naranja),var(--naranja3),var(--naranja));
     }
 
-    .borrar {
+    .btn-gris {
         border-radius: 4px;
         background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
         text-align-all: center;
         margin: 2px;
     }
-    .borrar a {
+    .btn-gris a {
         color: #000;
     }
-    .borrar:hover{
+    .btn-gris:hover{
         color: #000;
         background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
     }
-
-/*
-    .con-borde {
-        border-radius: 4px;
-        background-image: linear-gradient(#747A80, #343A40, #545A60);
-        text-align-all: center;
-        !*height: 35px;*!
-        margin: 2px;
-    }
-*/
 
     a.nav-link:hover {
         border-radius: 4px;
         background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
-        height: 30px;
     }
 
     .navbar-nav .nav-link{

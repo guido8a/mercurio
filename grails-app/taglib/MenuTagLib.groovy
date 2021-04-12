@@ -284,7 +284,7 @@ class MenuTagLib {
                 "title='Escriba lo que desee buscar' value='${attrs.search?:''}'>" +
                 "<button class='btn buscar' type='submit' title='Realizar la búsqueda'>" +
                 "<i class='fa fa-search'></i></button>" +
-                "<button class='btn borrar' id='btn-borrar' title='Borrar texto de búsqueda'>" +
+                "<button class='btn btn-gris' id='btn-borrar' title='Borrar texto de búsqueda'>" +
                 "<i class='fa fa-eraser'></i></button>" +
                 '</form>'
 //        html += g.select( name: 'categoriaBuscar', from: ctgr, optionValue: 'descripcion',
@@ -303,13 +303,13 @@ class MenuTagLib {
 //        html += '</ul>' + txto
 
         if(usuario) {
-            html += "<span class='nav-item borrar'><a class='nav-link' " +
+            html += "<span class='nav-item btn-gris'><a class='nav-link' " +
                     "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
 //                    "style=\"color:#40cfd0; font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
                     "style=\"font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
                     "</ul>"
 
-            html += '<ul class="nav navbar-nav navbar-right borrar">'
+            html += '<ul class="nav navbar-nav navbar-right btn-gris">'
             html += '<li class="nav-item dropdown">'
             html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#000">' + usuario?.nombres +
                     ' <b class="caret"></b></a>'
@@ -329,9 +329,9 @@ class MenuTagLib {
 //                    "style='color:#FFAB19;font-size:small'>Registrarse</a></span>"
 
 //            html += "<span class='con-borde' id='ingresar'>" +
-            html += "<span class='borrar' id='ingresar'>" +
+            html += "<span class='btn-gris' id='ingresar'>" +
                     "<a class='nav-link' href='#' style='color:#222'> Ingresar</a></span>" +
-                    "<span class='borrar' id='registro'>" +
+                    "<span class='btn-gris' id='registro'>" +
                     "<a class='nav-link' href='#' style='color:#222'>Registrarse</a></span>"
         }
 //        html += '</li>'
