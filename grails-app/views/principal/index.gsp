@@ -103,7 +103,8 @@
     }
 
     :root {
-        --naranja: #FFAB19;
+        /*--naranja: #FFAB19;*/
+        --naranja: #E0A810;
         --naranja2: #ffFBE9;
         --naranja0: #AF5B00;
         --naranja00: #4F1B00;
@@ -157,7 +158,7 @@
             text-decoration: none;
             color: #0a193b;
             /*background-color: #efeff8;*/
-            background-color: #fFAB20;
+            background-color: var(--naranja);
         ;
         }
 
@@ -200,7 +201,7 @@
         /*font-size: 1.2rem;*/
         /*text-decoration: none;*/
     }
-    .titulo0 a {
+    .titulo2 a {
         color:var(--naranja0);
         font-size: 1.2rem;
     }
