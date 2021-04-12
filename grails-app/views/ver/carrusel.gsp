@@ -150,6 +150,12 @@
             </g:if>
             <g:else>
                 <g:if test="${tipo == '3'}">
+
+
+
+
+
+
                 %{--                    <a href="#" class="btn btn-primary" id="btnAnteriorPrincipal"><i--}%
                 %{--                            class="fa fa-arrow-left"></i> Regresar</a>--}%
                     <a href="#" class="btn btn-primary btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
