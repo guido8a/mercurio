@@ -256,11 +256,23 @@ class PrincipalController {
 
     def manual() {
         println "manual: $params"
-        def nombre = 'externos.odt'
-        def path = '/var/ventas/manual/externos.odt'
+        def nombre = 'externos.pdf'
+        def path = '/var/ventas/manual/externos.pdf'
         def file = new File(path)
         def b = file.getBytes()
-        response.setContentType('odt')
+        response.setContentType('pdf')
+        response.setHeader("Content-disposition", "attachment; filename=" + nombre)
+        response.setContentLength(b.length)
+        response.getOutputStream().write(b)
+    }
+
+    def manualAdm() {
+        println "manual: $params"
+        def nombre = 'administracion.pdf'
+        def path = '/var/ventas/manual/administracion.pdf'
+        def file = new File(path)
+        def b = file.getBytes()
+        response.setContentType('pdf')
         response.setHeader("Content-disposition", "attachment; filename=" + nombre)
         response.setContentLength(b.length)
         response.getOutputStream().write(b)

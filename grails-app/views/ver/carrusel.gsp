@@ -402,7 +402,7 @@
             </g:applyCodec>
         </g:if>
     </div>
-    <div class="col-lg-5 columnas" style="float: right">
+    <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">
         <g:if test="${publicaciones > 0}">
             <a href="#" class="btn buscar" id="btnContactar" style="float: right;">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
