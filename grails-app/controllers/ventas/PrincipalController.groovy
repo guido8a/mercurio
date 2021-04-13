@@ -253,4 +253,16 @@ class PrincipalController {
         redirect(action: 'index', params: params)
 //        render "hola"
     }
+
+    def manual() {
+        println "manual: $params"
+        def nombre = 'externos.odt'
+        def path = '/var/ventas/manual/externos.odt'
+        def file = new File(path)
+        def b = file.getBytes()
+        response.setContentType('odt')
+        response.setHeader("Content-disposition", "attachment; filename=" + nombre)
+        response.setContentLength(b.length)
+        response.getOutputStream().write(b)
+    }
 }

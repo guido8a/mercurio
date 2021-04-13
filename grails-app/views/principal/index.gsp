@@ -495,7 +495,7 @@
 %{--    <div class="container">--}%
         <div style="text-align: center; font-size: small">
             <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
-            %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
+            				<a href="${createLink(controller: 'principal', action: 'manual')}" class="btn btn-success" style="text-decoration: none">Manual</a>
             </span>
         </div>
 %{--    </div>--}%
