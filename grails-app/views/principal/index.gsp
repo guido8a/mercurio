@@ -491,13 +491,16 @@
 
 <!-- Footer -->
 %{--<footer class="py-3 bg-dark">--}%
-<div class="navbar-dark bg-dark" style="width: 100%">
+<div class="navbar-dark bg-dark" style="width: 100%; margin-top: 1%">
 %{--    <div class="container">--}%
-        <div style="text-align: center; font-size: small">
+%{--    <a href="${createLink(controller: 'principal', action: 'manual')}" class="btn btn-sm buscar"--}%
+%{--       style="text-decoration: none; margin-left: 10%">Manual de Usuario</a>--}%
+    <a href="${createLink(controller: 'principal', action: 'manual')}" class="badge badge-pill badge-warning buscar"
+       style="text-decoration: none; margin-left: 10%">Manual de Usuario</a>
+        <span style="float: right; font-size: small; margin-right: 10%; margin-top: 3px">
             <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
-            				<a href="${createLink(controller: 'principal', action: 'manual')}" class="btn btn-success" style="text-decoration: none">Manual</a>
             </span>
-        </div>
+        </span>
 %{--    </div>--}%
     <!-- /.container -->
 </div>
@@ -619,7 +622,8 @@
                 success: function (msg) {
                     var parts = msg.split("_");
                     if (parts[0] == 'ok') {
-                        bootbox.alert("<i class='fa fa-envelope fa-2x text-info'></i> Un mail de verificación ha sido enviado a su correo <br> <i class='fa fa-exclamation-circle fa-2x text-warning'></i> Si no ha recibido el corre, revise su bandeja de spam", function(){
+                        bootbox.alert("<i class='fa fa-envelope fa-2x text-info'></i> Un mail de verificación ha sido enviado a su correo " +
+                            "<br> <i class='fa fa-exclamation-circle fa-2x text-warning'></i> Si no ha recibido el correo, revise su bandeja de spam", function(){
                             d.modal('hide');
                         })
                     }else {
