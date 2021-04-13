@@ -9,17 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
-%{--    prueba--}%
+
+%{--
+    <asset:stylesheet src="/merc/bootstrap.min.css"/>
+    <asset:stylesheet src="/apli/shop-homepage.css"/>
+    <asset:javascript src="/merc/jquery.min.js"/>
+    <asset:javascript src="/merc/bootstrap.bundle.js"/>
+    <asset:javascript src="/apli/bootbox.js"/>
+    <asset:javascript src="/jquery-validation-1.11.1/js/jquery.validate.min.js"/>
+    <asset:javascript src="/jquery-validation-1.11.1/js/jquery.validate.js"/>
+    <asset:javascript src="/jquery-validation-1.11.1/localization/messages_es.js"/>
+    <asset:javascript src="/apli/functions.js"/>
+    <asset:javascript src="/apli/loader.js"/>
+    <asset:javascript src="/apli/fontawesome.all.min.js"/>
+--}%
+
     <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.css"/>
-%{--    <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap.min.css"/>--}%
     <asset:stylesheet src="/bootstrap-3.3.2/dist/css/bootstrap-theme.css"/>
-%{--  fin  prueba--}%
-
-
-%{--    <asset:stylesheet src="/apli/bootstrap.min.css"/>--}%
-%{--    <asset:stylesheet src="/bootstrap-grid.css"/>--}%
-%{--    <asset:stylesheet src="/bootstrap-reboot.css"/>--}%
-
 
     <asset:stylesheet src="/jquery/jquery-ui-1.10.3.custom.min.css"/>
     <asset:stylesheet src="/apli/jquery-ui.css"/>
@@ -41,8 +47,6 @@
 
     <asset:javascript src="/apli/moment.js"/>
     <asset:javascript src="/apli/moment-with-locales.js"/>
-
-%{--    <asset:javascript src="/apli/bootstrap.min.js"/>--}%
 
     <asset:javascript src="/apli/funciones.js"/>
     <asset:javascript src="/apli/functions.js"/>

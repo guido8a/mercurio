@@ -45,6 +45,7 @@ template {
 }
 a {
   background-color: transparent;
+  /*background-image: linear-gradient(#E4EAF0, #A4AAB0, #E4EAF0);*/
 }
 a:active,
 a:hover {
@@ -2301,7 +2302,8 @@ th {
   background-color: #e3e6f2;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #bcc3e5;
+  /*background-color: #bcc3e5;  --gdo*/
+  background-color: #EFEBEA;
 }
 table col[class*="col-"] {
   position: static;
@@ -4487,10 +4489,10 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {
-  color: #333;
+  color: #333; /*gdo*/
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #333;
+  color: #ddd;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -4527,7 +4529,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
   color: #333;
-  background-color: transparent;
+  /*background-color: transparent;*/
+  background-image: linear-gradient(#F4FAFF, #C4CAD0, #F4FAFF);
 }
 @media (max-width: 1104px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
@@ -6563,7 +6566,7 @@ button.close {
 }
 .navbar-nav > li > a:hover {
   padding-top: 3px;
-  border-top: 3px solid #1e2c58;
+  border-top: 3px solid #d3d3d3; /* gdo*/
   border-right: solid 1px #b3b3b3;
   border-left: solid 1px #b3b3b3;
 }
@@ -6584,7 +6587,7 @@ button.close {
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar .navbar-nav > li > a:hover {
-  color: #333;
+  color: #fff;
 }
 .navbar-brand {
   padding-top: 10px;
@@ -6593,7 +6596,8 @@ button.close {
 .navbar .navbar-nav > .open > a,
 .navbar .navbar-nav > .open > a:hover,
 .navbar .navbar-nav > .open > a:focus {
-  border-top: 3px solid #5bc0de;
+  /*border-top: 3px solid #5bc0de; --gdo*/
+  border-top: 3px solid #FFAB2A;
   border-right: solid 1px #b3b3b3;
   border-left: solid 1px #b3b3b3;
 }
@@ -6621,7 +6625,8 @@ button.close {
   color: #eee;
   text-align: center;
   vertical-align: middle;
-  background-color: #506c9d;
+  /*background-color: #506c9d;*/
+  background-color: #AF5B00;
   border-bottom: 2px solid #ddd;
 }
 .table > thead > tr > th.sortable {
