@@ -496,7 +496,7 @@
 %{--    <a href="${createLink(controller: 'principal', action: 'manual')}" class="btn btn-sm buscar"--}%
 %{--       style="text-decoration: none; margin-left: 10%">Manual de Usuario</a>--}%
     <a href="${createLink(controller: 'principal', action: 'manual')}" class="badge badge-pill badge-warning buscar"
-       style="text-decoration: none; margin-left: 10%">Manual de Usuario</a>
+       style="text-decoration: none; margin-left: 10%"><i class="fa fa-book"></i> Manual de Usuario</a>
         <span style="float: right; font-size: small; margin-right: 10%; margin-top: 3px">
             <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
             </span>
