@@ -38,11 +38,13 @@ li.section:before {
     border: 2px solid white;
     border-radius: 17px;
     line-height: 30px;
-    background: gray;
+    /*background: gray;*/
+    background: #343A40;
 }
 .status-bar {
     height: 2px;
-    background: gray;
+    /*background: gray;*/
+    background: #343A40;
     position: relative;
     top: 20px;
     margin: 0 auto;
@@ -51,12 +53,15 @@ li.section:before {
     height: 2px;
     width: 0;
     border-radius: 1px;
-    background: mediumseagreen;
+    /*background: mediumseagreen;*/
+    background: #DF8B0A;
 }
 
 @keyframes changeBackground {
-    from {background: gray}
-    to {background: mediumseagreen}
+    /*from {background: gray}*/
+    from {background: #343A40}
+    /*to {background: mediumseagreen}*/
+    to {background: #DF8B0A}
 }
 
 li.section.visited:before {
@@ -66,5 +71,6 @@ li.section.visited:before {
 }
 
 li.section.visited.current:before {
-    box-shadow: 0 0 0 2px mediumseagreen;
+    /*box-shadow: 0 0 0 2px mediumseagreen;*/
+    box-shadow: 0 0 0 2px #DF8B0A;
 }
