@@ -15,6 +15,24 @@
 <asset:javascript src="/apli/jquery.switcher.js"/>
 <asset:stylesheet src="/apli/switcher.css"/>
 
+<style>
+
+.btn-rojo {
+    border-radius: 4px;
+    background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+    text-align-all: center;
+    margin: 2px;
+}
+
+.btn-gris {
+    border-radius: 4px;
+    background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+    text-align-all: center;
+    margin: 2px;
+}
+
+</style>
+
 <g:if test="${!publicacion}">
     No se encontró la publicación
 </g:if>
@@ -76,9 +94,9 @@
                 </span>
 
                 <span>
-                    <a href="#" class="btn btn-success btnAgregar" title="Agregar publicación"><i class="fa fa-plus"></i> </a>
-                    <a href="#" class="btn btn-success btn-sm btnGuardarS hidden" title="Guardar"><i class="fa fa-save"></i> </a>
-                    <a href="#" class="btn btn-warning btn-sm btnCancelar hidden" title="Cancelar edición"><i class="fa fa-times"></i> </a>
+                    <a href="#" class="btn btn-rojo btnAgregar" title="Agregar publicación"><i class="fa fa-plus"></i> </a>
+                    <a href="#" class="btn btn-rojo btn-sm btnGuardarS hidden" title="Guardar"><i class="fa fa-save"></i> </a>
+                    <a href="#" class="btn btn-gris btn-sm btnCancelar hidden" title="Cancelar edición"><i class="fa fa-times"></i> </a>
                 </span>
 
             </div>

@@ -5,6 +5,24 @@
   Time: 15:41
 --%>
 
+<style>
+
+.btn-rojo {
+    border-radius: 4px;
+    background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+    text-align-all: center;
+    margin: 2px;
+}
+
+.btn-gris {
+    border-radius: 4px;
+    background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+    text-align-all: center;
+    margin: 2px;
+}
+
+</style>
+
 <table class="table table-bordered table-hover table-condensed" style="width: 100%">
     <thead>
     <tr>
@@ -19,7 +37,7 @@
             <td>${publicacion?.fechaInicio?.format("dd-MM-yyyy")}</td>
             <td>${publicacion?.fechaFin?.format("dd-MM-yyyy")}</td>
 %{--            <td>${g.formatNumber(number: sueldo?.valor ?: 0, format: '##,##0', maxFractionDigits: 2, minFractionDigits: 2, locale: 'en_US')}</td>--}%
-            <td><a href="#" class="btn btn-sm btn-info btnEditar" title="Editar publicacion" data-fi="${publicacion?.fechaInicio?.format("dd-MM-yyyy")}" data-ff="${publicacion?.fechaFin?.format("dd-MM-yyyy")}" data-d="${publicacion?.destacado}" data-id="${publicacion?.id}"><i class="fa fa-edit"></i> </a> </td>
+            <td><a href="#" class="btn btn-sm btn-gris btnEditar" title="Editar publicacion" data-fi="${publicacion?.fechaInicio?.format("dd-MM-yyyy")}" data-ff="${publicacion?.fechaFin?.format("dd-MM-yyyy")}" data-d="${publicacion?.destacado}" data-id="${publicacion?.id}"><i class="fa fa-edit"></i> </a> </td>
         </tr>
     </g:each>
     </tbody>

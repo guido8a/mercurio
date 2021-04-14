@@ -17,7 +17,7 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="alerta" action="list" class="btn btn-primary btnVolver">
+        <g:link controller="alerta" action="list" class="btn btn-gris btnVolver">
             <i class="fa fa-arrow-left"></i> Alertas
         </g:link>
 %{--        <g:link action="form" class="btn btn-info btnCrear">--}%

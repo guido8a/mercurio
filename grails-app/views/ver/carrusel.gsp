@@ -295,24 +295,24 @@
                 </g:if>
                 <g:else>
                     <g:if test="${tipo == '4'}">
-                        <a href="${createLink(controller: 'alerta', action: 'list')}" class="btn btn-primary" >
+                        <a href="${createLink(controller: 'alerta', action: 'list')}" class="btn btn-gris" >
                             <i class="fa fa-arrow-left"></i> Regresar a la lista de alertas
                         </a>
                     </g:if>
                     <g:else>
                         <g:if test="${tipo == '5'}">
-                            <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-primary" >
+                            <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-gris" >
                                 <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
                             </a>
                         </g:if>
                         <g:else>
                             <g:if test="${tipo == '6'}">
-                                <a href="${createLink(controller: 'alerta', action: 'revisadas')}" class="btn btn-primary" >
+                                <a href="${createLink(controller: 'alerta', action: 'revisadas')}" class="btn btn-gris" >
                                     <i class="fa fa-arrow-left"></i> Regresar a la lista alertas revisadas
                                 </a>
                             </g:if>
                             <g:else>
-                                <a href="#" class="btn btn-primary" id="btnAnteriorLista">
+                                <a href="#" class="btn btn-gris" id="btnAnteriorLista">
                                     <i class="fa fa-arrow-left"></i> Regresar a la lista de productos
                                 </a>
                             </g:else>
@@ -337,7 +337,7 @@
 
 
     <div class="col-lg-9" style="float: left; background-color: #dfdfdf; border-style: solid;
-            border-color: #ddd; border-width: 1px">
+    border-color: #ddd; border-width: 1px">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 100%">
             <div class="carousel-inner cs900">
 
@@ -373,24 +373,24 @@
 
 <div class="container" style="min-width: 60% !important; overflow-y: hidden">
 
-        <div class="col-lg-6 columnas">
-            <div class="alert alert-dark" role="alert" style="text-align: center">
-                Características
-            </div>
-            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
-                <g:each in="${atributos}" var="at" status="i">
-                    <tr>
-                        <td class="alert alert-dark" role="alert">
-                            ${at.atributoCategoria.atributo.descripcion}
-                        </td>
-                        <td style="text-align: right"  class="alert alert-dark" role="alert">
-                            ${at.valor}
-                        </td>
-                    </tr>
-                </g:each>
-            </table>
-
+    <div class="col-lg-6 columnas">
+        <div class="alert alert-dark" role="alert" style="text-align: center">
+            Características
         </div>
+        <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
+            <g:each in="${atributos}" var="at" status="i">
+                <tr>
+                    <td class="alert alert-dark" role="alert">
+                        ${at.atributoCategoria.atributo.descripcion}
+                    </td>
+                    <td style="text-align: right"  class="alert alert-dark" role="alert">
+                        ${at.valor}
+                    </td>
+                </tr>
+            </g:each>
+        </table>
+
+    </div>
 
     <div class="col-lg-6 columnas">
         <g:if test="${producto.texto}">
@@ -402,13 +402,14 @@
             </g:applyCodec>
         </g:if>
     </div>
-    <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">
-        <g:if test="${publicaciones > 0}">
+    <g:if test="${publicaciones > 0}">
+        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">
+
             <a href="#" class="btn buscar" id="btnContactar" style="float: right;">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
-        </g:if>
-    </div>
+        </div>
+    </g:if>
 %{--
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
         <div class="col-md-12">

@@ -36,8 +36,8 @@
         <th style="width: 20%">Categoria</th>
         <th style="width: 28%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
-        <th style="width: 10%">Estado</th>
-        <th style="width: 12%">Acciones</th>
+        <th style="width: 8%">Estado</th>
+        <th style="width: 14%">Acciones</th>
     </tr>
     </thead>
 </table>
@@ -52,14 +52,14 @@
                 <td style="width: 20%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 28%; text-align: center">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
-                <td style="width: 10%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
-                <td style="width: 12%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar producto" data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i> </a>
-                    <a href="#" class="btn btn-xs btn-success btnEditar" title="Editar producto" data-id="${producto?.id}"><i class="fa fa-edit"></i> </a>
-                    <a href="#" class="btn btn-xs btn-warning btnImagenes" title="Imágenes del producto" data-id="${producto?.id}"><i class="fa fa-image"></i> </a>
+                <td style="width: 8%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 14%; text-align: center">
+                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto" data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i> </a>
+                    <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto" data-id="${producto?.id}"><i class="fa fa-edit"></i> </a>
+                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto" data-id="${producto?.id}"><i class="fa fa-image"></i> </a>
                     <g:if test="${producto?.id}">
                         <g:if test="${!ventas.Alerta.findAllByProducto(producto)}">
-                            <a href="#" class="btn btn-xs btn-danger btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
+                            <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
                         </g:if>
                     </g:if>
                 </td>

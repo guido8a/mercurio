@@ -106,7 +106,7 @@
                                     Anuncio (Título)
                                 </label>
                                 <div class="col-md-6">
-                                    <g:textField name="titulo" maxlength="255" class="form-control" title="Texto principal del anuncio"
+                                    <g:textField name="titulo" maxlength="255" class="form-control required" title="Texto principal del anuncio"
                                                  value="${producto?.titulo}" style="background-color: #ffffef"/>
                                 </div>
                             </span>

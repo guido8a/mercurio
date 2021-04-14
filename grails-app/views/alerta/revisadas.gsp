@@ -19,7 +19,7 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="alerta" action="list" class="btn btn-primary btnEnProceso">
+        <g:link controller="alerta" action="list" class="btn btn-gris btnEnProceso">
             <i class="fa fa-user-clock"></i> Alertas en proceso
         </g:link>
     </div>
@@ -49,14 +49,14 @@
                 <td style="width: 15%; text-align: center">${alerta?.fechaAprobacion?.format("dd-MM-yyyy")}</td>
                 <td style="width: 10%; text-align: center">${alerta.estado == '1' ? 'Aprobado' : 'Negado'}</td>
                 <td style="width: 20%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar producto" data-id="${alerta?.producto?.id}" data-per="${alerta.producto.persona.id}"><i class="fa fa-search"></i> </a>
+                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto" data-id="${alerta?.producto?.id}" data-per="${alerta.producto.persona.id}"><i class="fa fa-search"></i> </a>
                     <g:if test="${alerta?.producto?.estado != 'N'}">
                         <g:if test="${!ventas.Anuncio.findByProducto(ventas.Producto.get(alerta?.producto?.id))}">
-                            <a href="#" class="btn btn-xs btn-success btnForzar" title="Forzar creación de anuncio" data-id="${alerta?.id}"><i class="fa fa-hand-rock"></i> </a>
+                            <a href="#" class="btn btn-xs btn-rojo btnForzar" title="Forzar creación de anuncio" data-id="${alerta?.id}"><i class="fa fa-hand-rock"></i> </a>
                         </g:if>
                     </g:if>
 
-                    <a href="#" class="btn btn-xs btn-warning btnRetornar" title="Retornar alerta" data-id="${alerta?.id}"><i class="fa fa-reply"></i> </a>
+                    <a href="#" class="btn btn-xs btn-rojo btnRetornar" title="Retornar alerta" data-id="${alerta?.id}"><i class="fa fa-reply"></i> </a>
                 </td>
             </tr>
         </g:each>

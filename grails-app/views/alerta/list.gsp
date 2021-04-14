@@ -18,12 +18,12 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="alerta" action="revisadas" class="btn btn-primary btnRevisadas">
+        <g:link controller="alerta" action="revisadas" class="btn btn-gris btnRevisadas">
             <i class="fa fa-user-check"></i> Alertas revisadas
         </g:link>
     </div>
     <div class="btn-group">
-        <g:link controller="anuncio" action="list" class="btn btn-info btnAnuncios">
+        <g:link controller="anuncio" action="list" class="btn btn-rojo btnAnuncios">
             <i class="fa fa-copy"></i> Anuncios
         </g:link>
     </div>
@@ -50,9 +50,9 @@
                     <td style="width: 50%">${alerta?.producto?.titulo}</td>
                     <td style="width: 10%; text-align: center">${alerta?.fechaIngreso?.format("dd-MM-yyyy")}</td>
                     <td style="width: 20%; text-align: center">
-                        <a href="#" class="btn btn-info btnRevisar" title="Revisar producto" data-id="${alerta?.producto?.id}" data-per="${alerta.producto.persona.id}"><i class="fa fa-search"></i> </a>
-                        <a href="#" class="btn btn-success btnAceptar" title="Aceptar producto" data-id="${alerta?.id}"><i class="fa fa-thumbs-up"></i> </a>
-                        <a href="#" class="btn btn-danger btnNegar" title="Negar producto" data-id="${alerta?.id}"><i class="fa fa-thumbs-down"></i> </a>
+                        <a href="#" class="btn btn-gris btnRevisar" title="Revisar producto" data-id="${alerta?.producto?.id}" data-per="${alerta.producto.persona.id}"><i class="fa fa-search"></i> </a>
+                        <a href="#" class="btn btn-rojo btnAceptar" title="Aceptar producto" data-id="${alerta?.id}"><i class="fa fa-thumbs-up"></i> </a>
+                        <a href="#" class="btn btn-gris btnNegar" title="Negar producto" data-id="${alerta?.id}"><i class="fa fa-thumbs-down"></i> </a>
                     </td>
                 </tr>
             </g:each>

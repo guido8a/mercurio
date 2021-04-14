@@ -100,15 +100,22 @@
     }
 }
 
+.btn-gris {
+    border-radius: 4px;
+    background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+    text-align-all: center;
+    margin: 2px;
+}
+
 </style>
 
-<span class="btn btn-success fileinput-button" style="position: relative;margin-top: 5px">
+<span class="btn btn-gris fileinput-button" style="position: relative;margin-top: 5px">
     <i class="glyphicon glyphicon-plus"></i>
     <span>Agregar una imagen</span>
     <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
 </span>
 
-<div class="alert alert-info" style="margin-top: 5px;">
+<div class="alert alert-warning" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
     El tamaño de los archivos debe ser de <strong>hasta 5MB</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
     <br>
@@ -174,7 +181,7 @@
         var div = $('<div class="fileContainer ui-corner-all d-' + next + '">');
         var row1 = $("<div class='row resumen'>");
         var row3 = $("<div class='row botones'  style='text-align: right'>");
-        row3.append(" <a href='#' class='btn btn-azul subir' style='margin-right: 15px' clase='" + next + "'><i class='fa fa-upload'></i> Subir Archivo</a>");
+        row3.append(" <a href='#' class='btn btn-gris subir' style='margin-right: 15px' clase='" + next + "'><i class='fa fa-upload'></i> Subir Archivo</a>");
         div.append("<div class='row' style='margin-top: 0px'><div class='titulo-archivo col-md-10'><span style='color: #327BBA'>Archivo:</span> " + ar.name + "</div></div>");
         div.append(row1);
         div.append(row3);

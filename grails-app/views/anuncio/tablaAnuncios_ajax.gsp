@@ -5,6 +5,25 @@
   Time: 15:24
 --%>
 
+<style>
+
+
+.btn-rojo {
+    border-radius: 4px;
+    background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+    text-align-all: center;
+    margin: 2px;
+}
+
+.btn-gris {
+    border-radius: 4px;
+    background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+    text-align-all: center;
+    margin: 2px;
+}
+
+</style>
+
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
@@ -15,13 +34,13 @@
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
                 <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
                 <td style="width: 10%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-info btnRevisar" title="Revisar anuncio"
+                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
                         <i class="fa fa-search"></i> </a>
                     <g:if test="${anuncio?.estado == '1'}">
-                        <a href="#" class="btn btn-xs btn-success btnPublicacion" title="Publicación" data-id="${anuncio?.id}"><i class="fa fa-user-clock"></i> </a>
+                        <a href="#" class="btn btn-xs btn-rojo btnPublicacion" title="Publicación" data-id="${anuncio?.id}"><i class="fa fa-user-clock"></i> </a>
                     </g:if>
-                    <a href="#" class="btn btn-xs btn-warning btnEstado" title="Cambiar estado" data-id="${anuncio?.id}"><i class="fa fa-sync"></i> </a>
+                    <a href="#" class="btn btn-xs btn-gris btnEstado" title="Cambiar estado" data-id="${anuncio?.id}"><i class="fa fa-sync"></i> </a>
                 </td>
                 <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaInicio?.format("dd-MM-yyyy") : ''}</td>
                 <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaFin?.format("dd-MM-yyyy") : ''}</td>
