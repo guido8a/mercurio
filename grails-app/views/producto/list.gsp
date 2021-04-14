@@ -23,7 +23,7 @@
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
         <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [persona: persona?.id])}"
-           class="btn buscar" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
+           class="btn btn-rojo" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
     </div>
 </div>

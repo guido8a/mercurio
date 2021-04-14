@@ -241,14 +241,14 @@ input[type='checkbox'] {
     --gris: #343A40;
 }
 
-.buscar {
+.btn-rojo {
     /*color: #444 !important;*/
     border-radius: 4px;
     background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
     text-align-all: center;
     margin: 2px;
 }
-.buscar:hover{
+.btn-rojo:hover{
     background-image: linear-gradient(var(--naranja),var(--naranja3),var(--naranja));
 }
 
