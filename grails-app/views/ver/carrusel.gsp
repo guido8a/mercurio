@@ -101,7 +101,11 @@
     }
     .btn-gris:hover{
         color: #000;
-        background-image: linear-gradient(#D4DAE0, #D4DAE0, #D4DAE0);
+        background-image: linear-gradient(#A4AAB0, #D4DAE0, #A4AAB0);
+    }
+    .btn-gris-inv:hover{
+        color: #000;
+        background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
     }
 
     a.nav-link:hover {
@@ -273,7 +277,9 @@
         text-align-all: center;
         margin: 2px;
     }
-
+    .btn-rojo:hover{
+        background-image: linear-gradient(var(--naranja),var(--naranja3),var(--naranja));
+    }
     .btn-gris {
         border-radius: 4px;
         background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
@@ -340,7 +346,7 @@
             </g:else>
         </g:if>
 
-        <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">
+        <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris-inv">
             <i class="fa fa-columns"></i> Principal
         </a>
 
@@ -426,14 +432,17 @@
 
         </div>
     </g:if>
-%{--    <g:if test="${publicaciones > 0}">--}%
-%{--        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">--}%
 
-%{--            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">--}%
-%{--                <i class="fa fa-phone"></i> Contactar con el vendedor--}%
-%{--            </a>--}%
-%{--        </div>--}%
-%{--    </g:if>--}%
+%{--
+    <g:if test="${publicaciones > 0}">
+        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">
+            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">
+                <i class="fa fa-phone"></i> Contactar con el vendedor
+            </a>
+        </div>
+    </g:if>
+--}%
+
 %{--
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
         <div class="col-md-12">
@@ -503,15 +512,13 @@
 
 <!-- Footer -->
 %{--<footer class="py-3 bg-dark">--}%
-<div class="navbar-dark bg-dark" style="width: 100%">
-    %{--    <div class="container">--}%
-    <div style="text-align: center; font-size: small">
+<div class="navbar-dark bg-dark" style="width: 100%; margin-top: 1%">
+    <a href="${createLink(controller: 'principal', action: 'manual')}" class="badge badge-pill badge-warning buscar"
+       style="text-decoration: none; margin-left: 10%"><i class="fa fa-book"></i> Manual de Usuario</a>
+    <span style="float: right; font-size: small; margin-right: 10%; margin-top: 3px">
         <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
-        %{--				<a href="${createLink(controller: 'login', action: 'login')}" style="text-decoration: none">Admin</a>--}%
         </span>
-    </div>
-    %{--    </div>--}%
-    <!-- /.container -->
+    </span>
 </div>
 
 <!-- Bootstrap core JavaScript -->
