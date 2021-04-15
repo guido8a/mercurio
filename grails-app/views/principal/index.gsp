@@ -241,6 +241,20 @@
         50% { opacity: 0.2; }
         100% { opacity: 1.0; }
     }
+
+    .btn-rojo {
+        border-radius: 4px;
+        background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+        text-align-all: center;
+        margin: 2px;
+    }
+
+    .btn-gris {
+        border-radius: 4px;
+        background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+        text-align-all: center;
+        margin: 2px;
+    }
     </style>
 </head>
 
@@ -563,8 +577,8 @@
                     message: msg,
                     buttons: {
                         cancelar: {
-                            label: "Cancelar",
-                            className: "btn-primary",
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
                             callback: function () {
                             }
                         }
@@ -580,6 +594,7 @@
 
     function cargarRegistro() {
         // console.log("cargar")
+        bootbox.hideAll()
         $.ajax({
             type: "POST",
             url: "${createLink(controller: 'persona', action: 'registro_ajax')}",
@@ -592,15 +607,15 @@
                     message: msg,
                     buttons: {
                         cancelar: {
-                            label: "Cancelar",
-                            className: "btn-primary",
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
                             callback: function () {
                             }
                         },
                         guardar: {
                             id: "btnSave",
                             label: "<i class='fa fa-save'></i> Guardar",
-                            className: "btn-success",
+                            className: "btn-rojo",
                             callback: function () {
                                 return submitFormRegistro();
                             } //callback
@@ -625,6 +640,7 @@
                         bootbox.alert("<i class='fa fa-envelope fa-2x text-info'></i> Un mail de verificación ha sido enviado a su correo " +
                             "<br> <i class='fa fa-exclamation-circle fa-2x text-warning'></i> Si no ha recibido el correo, revise su bandeja de spam", function(){
                             d.modal('hide');
+                            // bootbox.hideAll()
                         })
                     }else {
                         if(parts[0] == 'er'){

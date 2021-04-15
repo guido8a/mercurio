@@ -56,17 +56,17 @@
         <!-- botones -->
         <div class="btn-toolbar toolbar">
 
-            <div class="btn-group col-md-2" style="margin-top: 4px;">
-                <div class="input-group">
-                    <g:textField name="search" class="form-control input-sm"/>
-                    <span class="input-group-btn">
-                        <a href="#" id="btnSearch" class="btn btn-sm btn-info" type="button">
-                            <i class="fa fa-search"></i>&nbsp;
-                        </a>
-                    </span>
-                </div>
-            </div><!-- /input-group -->
-            <div class="btn-group col-md-1" style="margin-top: 4px; width: 100px">
+%{--            <div class="btn-group col-md-2" style="margin-top: 4px;">--}%
+%{--                <div class="input-group">--}%
+%{--                    <g:textField name="search" class="form-control input-sm"/>--}%
+%{--                    <span class="input-group-btn">--}%
+%{--                        <a href="#" id="btnSearch" class="btn btn-sm btn-info" type="button">--}%
+%{--                            <i class="fa fa-search"></i>&nbsp;--}%
+%{--                        </a>--}%
+%{--                    </span>--}%
+%{--                </div>--}%
+%{--            </div><!-- /input-group -->--}%
+            <div class="btn-group col-md-1" style="margin-top: 4px; width: 200px">
 
             </div>
 

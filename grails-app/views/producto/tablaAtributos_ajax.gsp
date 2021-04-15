@@ -11,6 +11,22 @@
     height: 1px;
     background-color: #5596ff;
 }
+
+
+.btn-rojo {
+    border-radius: 4px;
+    background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+    text-align-all: center;
+    margin: 2px;
+}
+
+.btn-gris {
+    border-radius: 4px;
+    background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+    text-align-all: center;
+    margin: 2px;
+}
+
 </style>
 
 <table class="table table-condensed table-bordered">
@@ -21,7 +37,7 @@
     <tr style="width: 80%">
         <th style="width: 70%">Nombre</th>
         <th style="width: 20%">Valor</th>
-        <th style="width: 10%"><i class="fa fa-trash text-danger"></i> </th>
+        <th style="width: 10%">Acciones </th>
     </tr>
     </thead>
 </table>
@@ -36,7 +52,7 @@
                 </td>
                 <td style="width: 20%">${atributo?.valor}</td>
                 <td style="width: 10%">
-                    <a href="#" class="btn btn-xs btn-danger btnQuitarAt" data-id="${atributo?.id}"><i class="fa fa-trash"></i> </a>
+                    <a href="#" class="btn btn-xs btn-gris btnQuitarAt" data-id="${atributo?.id}" title="Borrar atributo"><i class="fa fa-trash"></i> </a>
                 </td>
             </tr>
         </g:each>

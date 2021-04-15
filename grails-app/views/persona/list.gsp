@@ -26,7 +26,7 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-bottom: 15px">
     <div class="btn-group">
-        <g:link action="form" class="btn btn-primary btnCrear">
+        <g:link action="form" class="btn btn-gris btnCrear">
             <i class="fa fa-user"></i> Nuevo Usuario
         </g:link>
     </div>
@@ -48,7 +48,7 @@
     <tr>
         <th style="width: 60px;" class="text-center">
             <div class="btn-group text-left">
-                <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-gris btn-xs dropdown-toggle" data-toggle="dropdown">
                     <g:if test="${params.estado}">
                         <g:if test="${params.estado == 'usuario'}">
                             <i class="fa fa-user text-info"></i>

@@ -464,10 +464,10 @@ class MenuTagLib {
 //                    "style='color:#FFAB19;font-size:small'>Registrarse</a></span>"
 
 //            html += "<span class='con-borde' id='ingresar'>" +
-            html += "<span class='btn-gris' id='ingresar'>" +
-                    "<a class='nav-link' href='#' style='color:#222'> Ingresar</a></span>" +
+            html += "<span class='btn-rojo' id='ingresar'>" +
+                    "<a class='nav-link' href='#' style='color:#222'> <i class='fa fa-lock-open'></i> Ingresar</a></span>" +
                     "<span class='btn-gris' id='registro'>" +
-                    "<a class='nav-link' href='#' style='color:#222'>Registrarse</a></span>"
+                    "<a class='nav-link' href='#' style='color:#222'> <i class='fa fa-user-plus'></i> Registrarse</a></span>"
         }
 //        html += '</li>'
 //        html += '</ul>'

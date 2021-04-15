@@ -21,7 +21,7 @@
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
         <a href="#"
-           class="btn btn-info btnNuevo" title="Crear un nuevo link"><i class="fa fa-file"></i> Nuevo Link
+           class="btn btn-gris btnNuevo" title="Crear un nuevo link"><i class="fa fa-file"></i> Nuevo Link
         </a>
     </div>
 </div>
@@ -51,9 +51,9 @@
                 <td style="width: 8%; text-align: center">${link?.activo == 'A' ? 'Activo' : 'Inactivo'}</td>
                 <td style="width: 12%; text-align: center">
 %{--                    <a href="#" class="btn btn-xs btn-info btnVer" title="Ver información" data-id="${link?.id}"><i class="fa fa-search"></i> </a>--}%
-                    <a href="#" class="btn btn-xs btn-success btnEditar" title="Editar link" data-id="${link?.id}"><i class="fa fa-edit"></i> </a>
-                    <a href="#" class="btn btn-xs btn-warning btnLogo" title="Logo" data-id="${link?.id}"><i class="fa fa-image"></i> </a>
-                    <a href="#" class="btn btn-xs btn-danger btnBorrar" title="Borrar link" data-id="${link?.id}"><i class="fa fa-trash"></i> </a>
+                    <a href="#" class="btn btn-xs btn-gris btnEditar" title="Editar link" data-id="${link?.id}"><i class="fa fa-edit"></i> </a>
+                    <a href="#" class="btn btn-xs btn-rojo btnLogo" title="Logo" data-id="${link?.id}"><i class="fa fa-image"></i> </a>
+                    <a href="#" class="btn btn-xs btn-gris btnBorrar" title="Borrar link" data-id="${link?.id}"><i class="fa fa-trash"></i> </a>
                 </td>
             </tr>
         </g:each>

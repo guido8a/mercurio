@@ -279,19 +279,41 @@ class ProductoController {
         def file = params.file
         def fileDel = new File(path + file)
 
-        try{
-            def imagen = Imagen.findByProductoAndRuta(producto,file)
-            if(imagen){
-                fileDel.delete()
-                imagen.delete(flush: true)
-                render "ok"
-            }else{
-                render  "no"
+
+        def canti = []
+        def dir = new File(path)
+        dir.eachFileRecurse(FileType.FILES) { f ->
+            def img = ImageIO.read(f)
+
+            if (img) {
+                canti.add([
+                        dir : path,
+                        file: f.name
+                ])
             }
-        }catch(e){
-            println("error al borrar la imagen " + e)
-            render "no"
         }
+
+        if(canti.size() == 1){
+            render "er_No se puede borrar la imagen, el producto tiene una sola imagen asociada."
+        }else{
+            try{
+                def imagen = Imagen.findByProductoAndRuta(producto,file)
+                if(imagen){
+                    fileDel.delete()
+                    imagen.delete(flush: true)
+                    render "ok"
+                }else{
+                    render  "no"
+                }
+            }catch(e){
+                println("error al borrar la imagen " + e)
+                render "no"
+            }
+        }
+
+
+
+
     }
 
     def getImage() {

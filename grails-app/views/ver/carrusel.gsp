@@ -265,6 +265,22 @@
         margin-bottom: 0.5em;
         color: #fff;
     }
+
+
+    .btn-rojo {
+        border-radius: 4px;
+        background-image: linear-gradient(var(--naranja3),var(--naranja),var(--naranja3));
+        text-align-all: center;
+        margin: 2px;
+    }
+
+    .btn-gris {
+        border-radius: 4px;
+        background-image: linear-gradient(#D4DAE0, #A4AAB0, #D4DAE0);
+        text-align-all: center;
+        margin: 2px;
+    }
+
     </style>
 </head>
 
@@ -283,6 +299,8 @@
 
 
     <div class="btn-group" style="margin-top: 5px">
+
+
         <g:if test="${tipo}">
             <g:if test="${tipo == '1'}">
                 <a href="#" class="btn borre" id="btnAnterior"><i
@@ -321,6 +339,11 @@
                 </g:else>
             </g:else>
         </g:if>
+
+        <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">
+            <i class="fa fa-columns"></i> Principal
+        </a>
+
 
         <g:if test="${publicaciones > 0}">
             <a href="#" class="btn buscar" id="btnContactar">
@@ -391,25 +414,26 @@
         </table>
 
     </div>
+    <g:if test="${producto.texto}">
+        <div class="col-lg-6 columnas">
 
-    <div class="col-lg-6 columnas">
-        <g:if test="${producto.texto}">
             <div class="alert alert-dark" role="alert" style="text-align: center">
                 Descripción del Bien o Servicio
             </div>
             <g:applyCodec encodeAs="none">
                 ${producto.texto}
             </g:applyCodec>
-        </g:if>
-    </div>
-    <g:if test="${publicaciones > 0}">
-        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">
 
-            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">
-                <i class="fa fa-phone"></i> Contactar con el vendedor
-            </a>
         </div>
     </g:if>
+%{--    <g:if test="${publicaciones > 0}">--}%
+%{--        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">--}%
+
+%{--            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">--}%
+%{--                <i class="fa fa-phone"></i> Contactar con el vendedor--}%
+%{--            </a>--}%
+%{--        </div>--}%
+%{--    </g:if>--}%
 %{--
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
         <div class="col-md-12">
@@ -457,7 +481,7 @@
             Preguntar al Proveedor
         </div>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-bottom: 10px">
             <div class="col-6">
                 <g:textArea name="pregunta" maxlength="255" class="form-control" style="resize: none; height: 100px" placeholder="Enviar una pregunta al vendedor"/>
             </div>
@@ -466,9 +490,9 @@
             </div>
         </div>
 
-        <div class="barra" role="alert" style="text-align: center; margin-top: 5px">
-            Preguntas y respuestas
-        </div>
+        %{--        <div class="barra" role="alert" style="text-align: center; margin-top: 5px">--}%
+        %{--            Preguntas y respuestas--}%
+        %{--        </div>--}%
 
         <div class="col-md-12" style="background-color: #efefef" id="divPreguntas">
 
@@ -495,6 +519,104 @@
 %{--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}%
 
 <script type="text/javascript">
+
+    $("#ingresar").click(function () {
+        cargarIngreso();
+    });
+
+    function cargarIngreso() {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'principal', action: 'login_ajax')}",
+            data: {},
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    id: "dlgCreateEditIngreso",
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
+                            callback: function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    $("#registro").click(function () {
+        cargarRegistro();
+    });
+
+    function cargarRegistro() {
+        // console.log("cargar")
+        bootbox.hideAll()
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'persona', action: 'registro_ajax')}",
+            data: {},
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    id: "dlgCreateEditRegistro",
+                    // class   : "long",
+                    // title   : "Registro de usuarios",
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
+                            callback: function () {
+                            }
+                        },
+                        guardar: {
+                            id: "btnSave",
+                            label: "<i class='fa fa-save'></i> Guardar",
+                            className: "btn-rojo",
+                            callback: function () {
+                                return submitFormRegistro();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormRegistro() {
+        var $form = $("#frmRegistro");
+        if ($form.valid()) {
+            var d = cargarLoader("Guardando...");
+            $.ajax({
+                type: "POST",
+                url: '${createLink(controller: 'persona', action:'saveRegistro_ajax')}',
+                data: $form.serialize(),
+                success: function (msg) {
+                    var parts = msg.split("_");
+                    if (parts[0] == 'ok') {
+                        bootbox.alert("<i class='fa fa-envelope fa-2x text-info'></i> Un mail de verificación ha sido enviado a su correo " +
+                            "<br> <i class='fa fa-exclamation-circle fa-2x text-warning'></i> Si no ha recibido el correo, revise su bandeja de spam", function(){
+                            d.modal('hide');
+                            // bootbox.hideAll()
+                        })
+                    }else {
+                        if(parts[0] == 'er'){
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1], function(){
+                                d.modal('hide');
+                            })
+                        }else{
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + "Error al crear el usuario", function(){
+                                d.modal('hide');
+                            })
+                        }
+                    }
+                }
+            });
+        } else {
+            return false;
+        } //else
+    }
 
     cargarPreguntas();
 
@@ -553,7 +675,7 @@
             success: function(msg){
                 l.modal("hide");
                 if(msg == 'ok'){
-                    bootbox.alert("Pregunta enviada correctamente al vendedor!")
+                    bootbox.alert("Pregunta enviada correctamente al vendedor!");
                     $("#pregunta").val('');
                     cargarPreguntas();
                 }else{
@@ -580,8 +702,8 @@
                     message: msg,
                     buttons: {
                         cancelar: {
-                            label: "Cancelar",
-                            className: "btn-primary",
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
                             callback: function () {
                             }
                         }

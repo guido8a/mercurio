@@ -35,7 +35,7 @@
                 <div class="thumbnail ${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal == '1' ? 'marco' : ''}">
 
                     <g:if test="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal != '1'}">
-                        <a href="#" class="btn btn-gris btn-sm btnPrincipal" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}" title="Asignar imagen principal">
+                        <a href="#" class="btn btn-rojo btn-sm btnPrincipal" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}" title="Asignar imagen principal">
                             <i class="fa fa-parking"></i>
                         </a>
                     </g:if>
@@ -148,11 +148,17 @@
                         file: file
                     },
                     success: function (msg) {
-                        if(msg == 'ok'){
-                            log("Imagen borrada correctamente","success")
+                        var parts = msg.split("_")
+                        if(parts[0] == 'ok'){
+                            log("Imagen borrada correctamente","success");
                             cargarTablaImagenes();
                         }else{
-                            log("Error al borrar la imagen","error")
+                            if(parts[0] == 'er'){
+                              bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
+                            }else{
+                                log("Error al borrar la imagen","error")
+                            }
+
                         }
                     }
                 });

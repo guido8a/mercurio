@@ -26,7 +26,7 @@
     </div>
 
 
-    <div class="alert alert-info col-md-5" role="alert">
+    <div class="alert alert-warning col-md-5" role="alert">
         <strong>* Los anuncios destacados apareceran de manera preferencial en la página principal!</strong>
     </div>
 

@@ -5,6 +5,7 @@
   Time: 12:21
 --%>
 
+
 <div class="modal-header">
     <h4 class="modal-title" style="text-align: center">Registro en el Sistema</h4>
 </div>
@@ -12,10 +13,11 @@
 <g:form class="form-horizontal" name="frmRegistro" role="form" controller="persona" action="saveRegistro_ajax" method="POST">
     <div class="form-group keeptogether ${hasErrors(bean: persona, field: 'tipoPersona', 'error')} required" style="margin-top: 20px">
         <div class="row form-group">
-                <label for="tipoPersona" class="col-md-4 control-label">
-                    Tipo Persona
+                <label for="tipoPersona" class="col-md-3 control-label">
+                    Tipo de persona
                 </label>
-                <div class="col-md-7">
+                <div class="col-md-8 input-group">
+                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-user-friends"></i></span>
                     <g:select name="tipoPersona" from="${['N': 'Natural', 'J':'Jurídica']}" optionKey="key"
                               optionValue="value" class="form-control"/>
                 </div>
@@ -28,7 +30,8 @@
                     Nombre
                 </label>
 
-                <div class="col-md-8">
+                <div class="col-md-8 input-group">
+                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-user"></i></span>
                     <g:textField name="nombre" minlength="5" maxlength="31" required="" class="form-control input-sm required"/>
                 </div>
         </div>
@@ -40,7 +43,8 @@
                     Apellido
                 </label>
 
-                <div class="col-md-8">
+                <div class="col-md-8 input-group">
+                    <span class="input-group-text" id="basic-addon3"><i class="fa fa-id-card"></i></span>
                     <g:textField name="apellido" minlength="5" maxlength="31" class="form-control input-sm"/>
                 </div>
         </div>
@@ -52,13 +56,14 @@
                     E-mail
                 </label>
 
-                <div class="col-md-8">
+                <div class="col-md-8 input-group">
+                    <span class="input-group-text" id="basic-addon4"><i class="fa fa-envelope"></i></span>
                     <g:textField name="mail" maxlength="63" required="" class="email form-control input-sm unique noEspacios required"/>
                 </div>
         </div>
     </div>
 %{--    <br/>--}%
-    <br><i class="fa fa-exclamation-circle text-info"></i> La clave de acceso será enviada a <strong>correo electrónico</strong>
+    <br><i class="fa fa-exclamation-circle text-warning"></i> La clave de acceso será enviada a su <strong>correo electrónico</strong>
 </g:form>
 %{--</div>--}%
 
