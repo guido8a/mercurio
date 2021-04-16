@@ -73,17 +73,20 @@
     <div class="progress-bar-wrapper"></div>
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
-        <div class="col-md-3 btn-group" style="float: left;">
+        <div class="col-md-5 btn-group" style="float: left;">
             <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
                class="btn btn-gris btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
-        <div class="col-md-3 btn-group" style="float: right">
+
+        <div class="col-md-4 btn-group" >
+            <a href="#" class="btn btn-rojo btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>
+        </div>
+
+        <div class="col-md-3 btn-group">
             <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
             <a href="#" class="btn btn-rojo" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
         </div>
-        <div class="col-md-2 btn-group" style="float: right">
-            <a href="#" class="btn btn-rojo btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>
-        </div>
+
 
     </div>
 
@@ -206,15 +209,15 @@
                                     message : msg,
                                     buttons : {
                                         cancelar : {
-                                            label     : "Cancelar",
-                                            className : "btn-primary",
+                                            label     : "<i class='fa fa-times'></i> Cancelar",
+                                            className : "btn-gris",
                                             callback  : function () {
                                             }
                                         },
                                         guardar  : {
                                             id        : "btnSave",
                                             label     : "<i class='fa fa-save'></i> Aceptar",
-                                            className : "btn-success",
+                                            className : "btn-rojo",
                                             callback  : function () {
                                                 bootbox.dialog({
                                                     title   : "Alerta",
@@ -224,13 +227,13 @@
                                                     buttons : {
                                                         cancelar : {
                                                             label     : "<i class='fa fa-times'></i> Cancelar",
-                                                            className : "btn-primary",
+                                                            className : "btn-gris",
                                                             callback  : function () {
                                                             }
                                                         },
                                                         publicar : {
                                                             label     : "<i class='fa fa-check'></i> Publicar",
-                                                            className : "btn-success",
+                                                            className : "btn-rojo",
                                                             callback  : function () {
                                                                 publicarProducto();
                                                             }
@@ -252,7 +255,7 @@
                             buttons : {
                                 cancelar : {
                                     label     : "<i class='fa fa-times'></i> Aceptar",
-                                    className : "btn-primary",
+                                    className : "btn-rojo",
                                     callback  : function () {
                                     }
                                 }

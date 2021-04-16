@@ -8,6 +8,16 @@
     .auth {
         width : 155px !important;
     }
+
+    .nav-pills li {
+        background-color: #eeb51f !important;
+    }
+
+    .nav-pills li:active {
+        background-color: #afafaf !important;
+    }
+
+
     </style>
 
 </head>
@@ -18,7 +28,6 @@
     <!-- Nav tabs -->
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Datos de la cuenta</a></li>
-        %{--        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"></a></li>--}%
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Datos de contacto</a></li>
         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Cambiar password</a></li>
     </ul>
@@ -27,7 +36,7 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
 
-            <div class="panel panel-info" style="margin-top: 10px">
+            <div class="panel panel-warning" style="margin-top: 10px">
                 <div class="panel-heading" role="tab" id="headerInfo">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#info" aria-expanded="true" aria-controls="info">
@@ -189,7 +198,7 @@
                         </g:form>
 
                         <div class="col-md-6">
-                            <a href="#" id="btnSaveInfo" class="btn btn-success" style="float: right">
+                            <a href="#" id="btnSaveInfo" class="btn btn-rojo" style="float: right">
                                 <i class="fa fa-save"></i> Guardar
                             </a>
                         </div>
@@ -201,7 +210,7 @@
         <div role="tabpanel" class="tab-pane" id="profile">2</div>
         <div role="tabpanel" class="tab-pane" id="messages">
 
-            <div class="panel panel-info" style="margin-top: 10px">
+            <div class="panel panel-warning" style="margin-top: 10px">
                 <div class="panel-heading" role="tab" id="headerContacto">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#contacto" aria-expanded="true" aria-controls="contacto">
@@ -262,7 +271,7 @@
                         </g:form>
 
                         <div class="col-md-6">
-                            <a href="#" id="btnSaveContacto" class="btn btn-success" style="float: right">
+                            <a href="#" id="btnSaveContacto" class="btn btn-rojo" style="float: right">
                                 <i class="fa fa-save"></i> Guardar
                             </a>
                         </div>
@@ -275,7 +284,7 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="settings">
 
-            <div class="panel panel-info" style="margin-top: 10px">
+            <div class="panel panel-warning" style="margin-top: 10px">
                 <div class="panel-heading" role="tab" id="headerPass">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -304,7 +313,7 @@
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 </div>
                             </div>
-                            <a href="#" id="btnSavePass" class="btn btn-success" style="margin-left: 40px;">
+                            <a href="#" id="btnSavePass" class="btn btn-rojo" style="margin-left: 40px;">
                                 <i class="fa fa-save"></i> Guardar
                             </a>
                         </g:form>

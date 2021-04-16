@@ -11,13 +11,13 @@
 <div class="container">
 
     <div class="col-md-5" style="text-align: center; margin-bottom: 12px">
-        <strong style="font-size: 16px; "><i class="fa fa-exclamation-triangle fa-2x text-success"></i> Desea destacar este anuncio?</strong>
+        <strong style="font-size: 16px; "><i class="fa fa-question fa-2x text-warning"></i> Desea destacar este anuncio?</strong>
     </div>
 
     <div class="col-md-12 form-group">
         <span class="grupo">
             <label class="col-md-2 control-label text-info">
-                <span class="badge bg-primary">Destacado</span>
+%{--                <span class="badge bg-primary">Destacado</span>--}%
             </label>
             <div class="col-md-2 form-check form-check-inline" style="margin-top: 5px">
                 <input name="destacado" class="form-check-input tipo" type="checkbox" id="inlineCheckbox1" ${producto?.destacado == '1' ? 'checked' : ''}>
@@ -25,9 +25,8 @@
         </span>
     </div>
 
-
-    <div class="alert alert-warning col-md-5" role="alert">
-        <strong>* Los anuncios destacados apareceran de manera preferencial en la página principal!</strong>
+    <div class="alert alert-warning col-md-5" role="alert" style="font-size: 13px">
+        <strong>* Los anuncios destacados aparecerán de manera preferencial en la página principal!</strong>
     </div>
 
 </div>

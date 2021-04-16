@@ -69,11 +69,11 @@
     <div class="progress-bar-wrapper"></div>
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
-        <div class="col-md-3 btn-group" style="float: left;">
+        <div class="col-md-9 btn-group" style="float: left;">
             <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
                class="btn btn-gris btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
-        <div class="col-md-3 btn-group" style="float: right">
+        <div class="col-md-3 btn-group">
             <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
             <a href="#" class="btn btn-rojo btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>
         </div>

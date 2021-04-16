@@ -309,13 +309,18 @@
 
         <g:if test="${tipo}">
             <g:if test="${tipo == '1'}">
-                <a href="#" class="btn borre" id="btnAnterior"><i
+                <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
                         class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
             </g:if>
             <g:else>
                 <g:if test="${tipo == '3'}">
-                    <a href="#" class="btn btn-gris-inv btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
+                    <a href="#" class="btn btn-gris btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
                             class="fa fa-arrow-left"></i> Regresar</a>
+
+                    <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">
+                        <i class="fa fa-columns"></i> Principal
+                    </a>
+
                 </g:if>
                 <g:else>
                     <g:if test="${tipo == '4'}">
@@ -346,10 +351,13 @@
             </g:else>
         </g:if>
 
-        <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris-inv">
-            <i class="fa fa-columns"></i> Principal
-        </a>
-
+%{--        <g:if test="${tipo}">--}%
+%{--            <g:if test="${tipo != '1'}">--}%
+%{--                <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">--}%
+%{--                    <i class="fa fa-columns"></i> Principal--}%
+%{--                </a>--}%
+%{--            </g:if>--}%
+%{--        </g:if>--}%
 
         <g:if test="${publicaciones > 0}">
             <a href="#" class="btn buscar" id="btnContactar">
@@ -432,17 +440,14 @@
 
         </div>
     </g:if>
+%{--    <g:if test="${publicaciones > 0}">--}%
+%{--        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">--}%
 
-%{--
-    <g:if test="${publicaciones > 0}">
-        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">
-            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">
-                <i class="fa fa-phone"></i> Contactar con el vendedor
-            </a>
-        </div>
-    </g:if>
---}%
-
+%{--            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">--}%
+%{--                <i class="fa fa-phone"></i> Contactar con el vendedor--}%
+%{--            </a>--}%
+%{--        </div>--}%
+%{--    </g:if>--}%
 %{--
     <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
         <div class="col-md-12">
