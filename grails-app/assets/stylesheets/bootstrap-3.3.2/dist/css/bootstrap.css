@@ -6671,12 +6671,12 @@ legend {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #444;
+  color: #141A20;
   /*background-color: #1e2c58;*/
   background-color: #FFAB2A;
 }
 .nav-pills > li > a:hover {
-  color: #444;
+  color: #242A30;
   /*background-color: #506c9d;*/
   background-color: #FFCB4A;
 }
