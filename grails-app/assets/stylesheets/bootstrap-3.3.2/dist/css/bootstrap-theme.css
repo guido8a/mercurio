@@ -449,10 +449,10 @@
   background-repeat: repeat-x;
 }
 .panel-warning > .panel-heading {
-  background-image: -webkit-linear-gradient(top, #8c7421 0%, #77631c 100%);
-  background-image:      -o-linear-gradient(top, #8c7421 0%, #77631c 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#8c7421), to(#77631c));
-  background-image:         linear-gradient(to bottom, #8c7421 0%, #77631c 100%);
+  background-image: -webkit-linear-gradient(top, #DF8B0A 0%, #CF7B00 100%);
+  background-image:      -o-linear-gradient(top, #DF8B0A 0%, #CF7B00 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#DF8B0A), to(#CF7B00));
+  background-image:         linear-gradient(to bottom, #DF8B0A 0%, #CF7B00 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff8c7421', endColorstr='#ff77631c', GradientType=0);
   background-repeat: repeat-x;
 }
