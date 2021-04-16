@@ -441,7 +441,7 @@ class MenuTagLib {
             html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
                     "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
 //                    "style=\"color:#40cfd0; font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
-                    "style=\"font-size:small\"><i class=\"fa fa-paste\"></i> Sus Anuncios</a></span>" +
+                    "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>" +
                     "</ul>"
 
             html += '<ul class="nav navbar-nav navbar-right btn-gris">'

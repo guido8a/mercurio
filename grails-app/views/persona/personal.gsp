@@ -9,15 +9,6 @@
         width : 155px !important;
     }
 
-    .nav-pills li {
-        background-color: #eeb51f !important;
-    }
-
-    .nav-pills li:active {
-        background-color: #afafaf !important;
-    }
-
-
     </style>
 
 </head>

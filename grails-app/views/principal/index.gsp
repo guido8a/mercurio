@@ -315,8 +315,8 @@
                 <g:each in="${consultas}" var="cs">
                     <a href="${cs?.link}" class="lista-item consulta" title="${cs.texto}" target="_blank">
                         <img src="${request.contextPath}/principal/getImgnCnsl?ruta=${cs.logo}"
-                             style='float:left; height:30px'>
-                        ${cs.titulo}</a>
+                             style='float:left; height:20px'>
+                        <span style="margin-left: 10px">${cs.titulo}</span></a>
                 </g:each>
             </div>
 
