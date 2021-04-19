@@ -277,4 +277,10 @@ class PrincipalController {
         response.setContentLength(b.length)
         response.getOutputStream().write(b)
     }
+
+    def pp(){
+
+        println("---> " + params)
+
+    }
 }

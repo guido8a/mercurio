@@ -2,7 +2,7 @@ package ventas
 
 import seguridad.Accn
 
-class ActividadSitio {
+class Actividad {
 
     Link link
     Accn accion

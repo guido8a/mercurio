@@ -313,7 +313,8 @@
 
             <div class="list-group">
                 <g:each in="${consultas}" var="cs">
-                    <a href="${cs?.link}" class="lista-item consulta" title="${cs.texto}" target="_blank">
+%{--                    <a href="${cs?.link}" class="lista-item consulta" title="${cs.texto}">--}%
+                    <a href="#" class="lista-item consulta" title="${cs.texto}" onclick="guardarConsulta('${cs?.id}','${cs?.link}')">
                         <img src="${request.contextPath}/principal/getImgnCnsl?ruta=${cs.logo}"
                              style='float:left; height:20px'>
                         <span style="margin-left: 10px">${cs.titulo}</span></a>
@@ -347,6 +348,7 @@
                         <div class="carousel-item ${i == 0 ? 'active' : ''}">
                             <img class="img-fluid imag-item" alt="First slide"
                                  src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
+%{--                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>--}%
                         </div>
                     </g:each>
                 </div>
@@ -524,6 +526,20 @@
 %{--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}%
 
 <script type="text/javascript">
+
+    function guardarConsulta(id,link){
+        console.log("netro....")
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'actividad', action: 'pp')}",
+            data:{
+                id: id
+            },
+            success: function(msg){
+                window.location.replace(link);
+            }
+        });
+    }
 
     $( document ).ready(function() {
         cargarCategorias("ct_${activo}", "sbct_${sbct_actv}");

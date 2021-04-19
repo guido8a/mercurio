@@ -15,7 +15,7 @@
 
 <body>
 
-<div>
+%{--<div>--}%
     <!-- Nav tabs -->
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Datos de la cuenta</a></li>
@@ -198,7 +198,6 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="profile">2</div>
         <div role="tabpanel" class="tab-pane" id="messages">
 
             <div class="panel panel-warning" style="margin-top: 10px">
@@ -209,7 +208,7 @@
                         </a>
                     </h4>
                 </div>
-                <div id="contactoDiv" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headerContacto">
+                <div id="contacto" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headerContacto">
                     <div class="panel-body">
 
                         <g:form class="form-horizontal" name="frmContacto" role="form" controller="persona" action="savePersona_ajax" method="POST">
@@ -273,47 +272,52 @@
             </div>
 
         </div>
-        <div role="tabpanel" class="tab-pane" id="settings">
 
-            <div class="panel panel-warning" style="margin-top: 10px">
-                <div class="panel-heading" role="tab" id="headerPass">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            Cambiar clave de ingreso al sistema
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headerPass">
-                    <div class="panel-body">
-                        <g:form class="form-inline" name="frmPass" action="savePass_ajax">
-                            <g:hiddenField name="id" value="${persona?.id}"/>
-                            <div class="form-group" style="margin-left: 40px;">
-                                <label for="nuevoPass">Nueva clave</label>
 
-                                <div class="input-group">
-                                    <g:passwordField name="nuevoPass" class="form-control required auth"/>
-                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                </div>
-                            </div>
+%{--        <div role="tabpanel" class="tab-pane" id="messages">--}%
+            <div role="tabpanel" class="tab-pane" id="settings">
 
-                            <div class="form-group" style="margin-left: 40px;">
-                                <label for="passConfirm">Confirme la clave nueva</label>
-
-                                <div class="input-group">
-                                    <g:passwordField name="passConfirm" class="form-control required auth"/>
-                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                </div>
-                            </div>
-                            <a href="#" id="btnSavePass" class="btn btn-rojo" style="margin-left: 40px;">
-                                <i class="fa fa-save"></i> Guardar
+                <div class="panel panel-warning" style="margin-top: 10px">
+                    <div class="panel-heading" role="tab" id="headerPass">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Cambiar clave de ingreso al sistema
                             </a>
-                        </g:form>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headerPass">
+                        <div class="panel-body">
+                            <g:form class="form-inline" name="frmPass" action="savePass_ajax">
+                                <g:hiddenField name="id" value="${persona?.id}"/>
+                                <div class="form-group" style="margin-left: 40px;">
+                                    <label for="nuevoPass">Nueva clave</label>
+
+                                    <div class="input-group">
+                                        <g:passwordField name="nuevoPass" class="form-control required auth"/>
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-left: 40px;">
+                                    <label for="passConfirm">Confirme la clave nueva</label>
+
+                                    <div class="input-group">
+                                        <g:passwordField name="passConfirm" class="form-control required auth"/>
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                </div>
+                                <a href="#" id="btnSavePass" class="btn btn-rojo" style="margin-left: 40px;">
+                                    <i class="fa fa-save"></i> Guardar
+                                </a>
+                            </g:form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+%{--        </div>--}%
     </div>
-</div>
+
+%{--</div>--}%
 
 <script type="text/javascript">
 
