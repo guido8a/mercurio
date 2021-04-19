@@ -278,9 +278,20 @@ class PrincipalController {
         response.getOutputStream().write(b)
     }
 
-    def pp(){
+    def actividad_ajax(){
 
-        println("---> " + params)
+        def link = Link.get(params.id)
+
+        def actividad = new Actividad()
+        actividad.link = link
+        actividad.fecha = new Date()
+
+        if(!actividad.save(flush:true)){
+            println("error al guardar la actividad " + actividad.errors)
+            render "no"
+        }else{
+            render "ok"
+        }
 
     }
 }

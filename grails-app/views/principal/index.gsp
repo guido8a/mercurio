@@ -528,15 +528,17 @@
 <script type="text/javascript">
 
     function guardarConsulta(id,link){
-        console.log("netro....")
         $.ajax({
             type: "POST",
-            url: "${createLink(controller: 'actividad', action: 'pp')}",
+            url: "${createLink(controller: 'principal', action: 'actividad_ajax')}",
             data:{
                 id: id
             },
             success: function(msg){
-                window.location.replace(link);
+                if(msg == 'ok'){
+                    window.location.replace(link);
+                }
+
             }
         });
     }

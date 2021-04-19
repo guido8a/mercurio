@@ -1,8 +1,0 @@
-package ventas
-
-
-class ActividadController {
-
-
-
-}

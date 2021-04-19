@@ -27,6 +27,6 @@ class Actividad {
         consulta(size: 1..255, blank: true, nullable: true)
         fecha(blank: true, nullable: true)
         link(blank: false, nullable: false)
-        accion(blank: false, nullable: false)
+        accion(blank: true, nullable: true)
     }
 }
