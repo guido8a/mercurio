@@ -288,10 +288,11 @@ class PrincipalController {
 
         if(!actividad.save(flush:true)){
             println("error al guardar la actividad " + actividad.errors)
-            render "no"
         }else{
-            render "ok"
+
         }
+
+        render "ok"
 
     }
 }
