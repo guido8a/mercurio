@@ -221,7 +221,7 @@
                                             callback  : function () {
                                                 bootbox.dialog({
                                                     title   : "Alerta",
-                                                    message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> " +
+                                                    message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
                                                         "<p style='font-size: 14px; font-weight: bold'>&nbsp;El producto será publicado con la " +
                                                         "información guardada hasta el momento.</p>",
                                                     buttons : {
@@ -285,11 +285,11 @@
 
                     bootbox.dialog({
                         title   : "Confirmación",
-                        message : "<i class='fa fa-check fa-3x pull-left text-success text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
                         buttons : {
                             aceptar : {
                                 label     : "<i class='fa fa-check'></i> Aceptar",
-                                className : "btn-success",
+                                className : "btn-gris",
                                 callback  : function () {
                                     location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
                                 }
