@@ -351,24 +351,26 @@
             </g:else>
         </g:if>
 
-%{--        <g:if test="${tipo}">--}%
-%{--            <g:if test="${tipo != '1'}">--}%
-%{--                <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">--}%
-%{--                    <i class="fa fa-columns"></i> Principal--}%
-%{--                </a>--}%
-%{--            </g:if>--}%
-%{--        </g:if>--}%
+    %{--        <g:if test="${tipo}">--}%
+    %{--            <g:if test="${tipo != '1'}">--}%
+    %{--                <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">--}%
+    %{--                    <i class="fa fa-columns"></i> Principal--}%
+    %{--                </a>--}%
+    %{--            </g:if>--}%
+    %{--        </g:if>--}%
 
         <g:if test="${publicaciones > 0}">
             <a href="#" class="btn buscar" id="btnContactar">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
         </g:if>
-
-        <span style="margin: 10px">Compartir:</span>
-        <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
-        <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
-        <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
+        <g:if test="${tipo}">
+            <g:if test="${tipo == '3'}">
+                <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
+                <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
+                <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
+            </g:if>
+        </g:if>
     </div>
 
 
