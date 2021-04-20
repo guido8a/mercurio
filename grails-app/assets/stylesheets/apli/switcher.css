@@ -34,7 +34,7 @@
   left: 7px;
 }
 .ui-switcher[aria-checked=true] {
-  background-color: #25ba9a;
+  background-color: #AF5B00;
 }
 .ui-switcher:after {
   background-color: #ffffff;

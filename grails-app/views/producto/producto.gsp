@@ -307,7 +307,7 @@
                 if(msg == 'ok'){
                     bootbox.dialog({
                         title   : "Alerta",
-                        message : "<i class='fa fa-clipboard-check fa-3x pull-left text-info text-shadow'></i> " +
+                        message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
                             "<p style='font-size: 14px; font-weight: bold'>&nbsp;El producto será publicado con la " +
                             "información guardada hasta el momento.</p>",
                         buttons : {
@@ -360,7 +360,7 @@
                         buttons : {
                             aceptar : {
                                 label     : "<i class='fa fa-check'></i> Aceptar",
-                                className : "btn-success",
+                                className : "btn-warnning",
                                 callback  : function () {
                                     location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
                                 }

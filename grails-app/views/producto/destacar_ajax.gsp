@@ -11,7 +11,7 @@
 <div class="container">
 
     <div class="col-md-5" style="text-align: center; margin-bottom: 12px">
-        <strong style="font-size: 16px; "><i class="fa fa-question fa-2x text-warning"></i> Desea destacar este anuncio?</strong>
+        <strong style="font-size: 16px; "><i class="fa fa-question fa-2x text-warning"></i> ¿Desea destacar este anuncio?</strong>
     </div>
 
     <div class="col-md-12 form-group">
