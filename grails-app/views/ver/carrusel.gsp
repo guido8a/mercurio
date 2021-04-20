@@ -364,6 +364,11 @@
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
         </g:if>
+
+
+        <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square"></i></a>
+        <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter"></i></a>
+        <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
 
