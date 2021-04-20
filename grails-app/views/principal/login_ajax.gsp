@@ -62,7 +62,7 @@
         <br/>
 %{--        <p>Si no se ha registrado en el sistema, utilice primero el botón <strong>Registrarse</strong> para poder ingresar.</p>--}%
         <div style="text-align: center">
-            <p style="font-style: italic; font-weight: bold"> No se encuentra en el sistema?</p>
+            <p style="font-style: italic; font-weight: bold">¿No se encuentra en el sistema?</p>
             <a href="#" class="btn btn-gris btn-block" id="btnRegistrarse"  style="width: 160px; margin: auto"> <i class="fa fa-user-plus"></i> Registrarse </a>
         </div>
 
