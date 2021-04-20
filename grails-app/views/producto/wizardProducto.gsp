@@ -21,7 +21,7 @@
         -webkit-border-radius: 300px;
         -moz-border-radius: 300px;
         border-radius: 300px;
-        color: #158CBA;
+        color: #AF5B00;
         float: left;
         font-size: 36px;
         height: 70px;
@@ -33,7 +33,7 @@
     }
 
     .textoPaso {
-        color: #158CBA;
+        color: #AF5B00;
         font-size: 36px;
         float: left;
         margin-top: 8px;

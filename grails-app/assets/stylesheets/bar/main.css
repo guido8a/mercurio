@@ -61,7 +61,7 @@ li.section:before {
     /*from {background: gray}*/
     from {background: #343A40}
     /*to {background: mediumseagreen}*/
-    to {background: #DF8B0A}
+    to {background: #AF5B00}
 }
 
 li.section.visited:before {
