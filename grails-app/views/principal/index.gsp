@@ -161,18 +161,18 @@
         border-radius: 7px;
     }
 
-        a.categoria:hover{
-            text-decoration: none;
-            color: #0a193b;
-            background-color: var(--naranja2);
-        }
-        a.subcat:hover{
-            text-decoration: none;
-            color: #0a193b;
-            /*background-color: #efeff8;*/
-            background-color: var(--naranja);
-        ;
-        }
+    a.categoria:hover{
+        text-decoration: none;
+        color: #0a193b;
+        background-color: var(--naranja2);
+    }
+    a.subcat:hover{
+        text-decoration: none;
+        color: #0a193b;
+        /*background-color: #efeff8;*/
+        background-color: var(--naranja);
+    ;
+    }
 
     .act_ct {
         color: #222;
@@ -294,26 +294,26 @@
 
         <div class="col-lg-3">
             <div id="categorias"></div>
-%{--
-            <h2 class="titulo">Categorías</h2>
-            <div class="list-group">
-                <g:each in="${ventas.Categoria.findAll([sort: 'orden'])}" var="ct">
-                    <a href="#" class="item_cat categoria" id="ct_${ct?.id}">${ct.descripcion}</a>
-                    <g:if test="${ct?.id == activo}">
-                        <g:each in="${ventas.Subcategoria.findAllByCategoria(ct, [sort: 'orden'])}" var="sbct">
-                            <a href="#" class="categoria subcat ${sbct.orden==1?'activo': ''}" id="ct_${sbct?.id}">${sbct.descripcion}</a>
-                        </g:each>
-                    </g:if>
-                </g:each>
-            </div>
---}%
-%{--            <div style="height: 20px"></div>--}%
+            %{--
+                        <h2 class="titulo">Categorías</h2>
+                        <div class="list-group">
+                            <g:each in="${ventas.Categoria.findAll([sort: 'orden'])}" var="ct">
+                                <a href="#" class="item_cat categoria" id="ct_${ct?.id}">${ct.descripcion}</a>
+                                <g:if test="${ct?.id == activo}">
+                                    <g:each in="${ventas.Subcategoria.findAllByCategoria(ct, [sort: 'orden'])}" var="sbct">
+                                        <a href="#" class="categoria subcat ${sbct.orden==1?'activo': ''}" id="ct_${sbct?.id}">${sbct.descripcion}</a>
+                                    </g:each>
+                                </g:if>
+                            </g:each>
+                        </div>
+            --}%
+            %{--            <div style="height: 20px"></div>--}%
 
             <h2 class="my-4 titulo0">Consultas</h2>
 
             <div class="list-group">
                 <g:each in="${consultas}" var="cs">
-%{--                    <a href="${cs?.link}" class="lista-item consulta" title="${cs.texto}">--}%
+                %{--                    <a href="${cs?.link}" class="lista-item consulta" title="${cs.texto}">--}%
                     <a href="#" class="lista-item consulta" title="${cs.texto}" onclick="guardarConsulta('${cs?.id}','${cs?.link}')">
                         <img src="${request.contextPath}/principal/getImgnCnsl?ruta=${cs.logo}"
                              style='float:left; height:20px'>
@@ -348,7 +348,7 @@
                         <div class="carousel-item ${i == 0 ? 'active' : ''}">
                             <img class="img-fluid imag-item" alt="First slide"
                                  src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
-%{--                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>--}%
+                            %{--                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>--}%
                         </div>
                     </g:each>
                 </div>
@@ -362,15 +362,15 @@
                 </a>
             </div>
 
-        <g:if test="${busqueda}">
-            <div class="activo blink_text" style="height: 60px; background-color:#ffab19;
-            text-align: center; border-radius: 10px; margin: 10px">
-                <g:applyCodec encodeAs="none">
-                    ${busqueda}
-                </g:applyCodec>
-                <p>Pruebe buscar en otra categoría</p>
-            </div>
-        </g:if>
+            <g:if test="${busqueda}">
+                <div class="activo blink_text" style="height: 60px; background-color:#ffab19;
+                text-align: center; border-radius: 10px; margin: 10px">
+                    <g:applyCodec encodeAs="none">
+                        ${busqueda}
+                    </g:applyCodec>
+                    <p>Pruebe buscar en otra categoría</p>
+                </div>
+            </g:if>
 
         %{--        Destacados--}%
             <g:if test="${destacados?.size() > 0}">
@@ -395,9 +395,9 @@
 
                                     %{--                            <p class="card-text">${prod.sb}</p>--}%
                                 </div>
-%{--                                <div class="card-footer">--}%
-%{--                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-%{--                                </div>--}%
+                                %{--                                <div class="card-footer">--}%
+                                %{--                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
+                                %{--                                </div>--}%
                             </div>
                         </div>
                     </g:each>
@@ -434,66 +434,66 @@
                         </div>
                     </g:each>
                 </g:if>
-%{--
-                <g:else>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+            %{--
+                            <g:else>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Aquí su anuncio</a>
-                                </h4>
-                                <h5>$124.99</h5>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Aquí su anuncio</a>
+                                            </h4>
+                                            <h5>$124.99</h5>
 
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                            </div>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
 
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Aquí su anuncio</a>
-                                </h4>
-                                <h5>$1.99</h5>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Aquí su anuncio</a>
+                                            </h4>
+                                            <h5>$1.99</h5>
 
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                            </div>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
 
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Aquí su anuncio</a>
-                                </h4>
-                                <h5>$99.99</h5>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Aquí su anuncio</a>
+                                            </h4>
+                                            <h5>$99.99</h5>
 
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                            </div>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
 
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-                </g:else>
---}%
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </g:else>
+            --}%
 
             </div>
             <!-- /.col-lg-9 -->
@@ -508,16 +508,20 @@
 <!-- Footer -->
 %{--<footer class="py-3 bg-dark">--}%
 <div class="navbar-dark bg-dark" style="width: 100%; margin-top: 1%">
-%{--    <div class="container">--}%
-%{--    <a href="${createLink(controller: 'principal', action: 'manual')}" class="btn btn-sm buscar"--}%
-%{--       style="text-decoration: none; margin-left: 10%">Manual de Usuario</a>--}%
+    %{--    <div class="container">--}%
+    %{--    <a href="${createLink(controller: 'principal', action: 'manual')}" class="btn btn-sm buscar"--}%
+    %{--       style="text-decoration: none; margin-left: 10%">Manual de Usuario</a>--}%
     <a href="${createLink(controller: 'principal', action: 'manual')}" class="badge badge-pill badge-warning buscar"
-       style="text-decoration: none; margin-left: 10%"><i class="fa fa-book"></i> Manual de Usuario</a>
-        <span style="float: right; font-size: small; margin-right: 10%; margin-top: 3px">
-            <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
-            </span>
+       style="text-decoration: none; margin-left: 10%"><i class="fa fa-book"></i> Manual de Usuario
+    </a>
+    <a href="${createLink(controller: 'principal', action: 'terminos')}" class="badge badge-pill badge-warning buscar"
+       style="text-decoration: none;"><i class="fa fa-book"></i> Política del Sitio
+    </a>
+    <span style="float: right; font-size: small; margin-right: 10%; margin-top: 3px">
+        <span class="text-white">Copyright &copy; Tedein S.A. 2021 &nbsp;  Versión: ${message(code: 'version', default: '1.1.0x')}
         </span>
-%{--    </div>--}%
+    </span>
+    %{--    </div>--}%
     <!-- /.container -->
 </div>
 

@@ -278,6 +278,18 @@ class PrincipalController {
         response.getOutputStream().write(b)
     }
 
+    def terminos() {
+//        println "manual: $params"
+        def nombre = 'politica del sitio.pdf'
+        def path = '/var/ventas/manual/politica del sitio.pdf'
+        def file = new File(path)
+        def b = file.getBytes()
+        response.setContentType('pdf')
+        response.setHeader("Content-disposition", "attachment; filename=" + nombre)
+        response.setContentLength(b.length)
+        response.getOutputStream().write(b)
+    }
+
     def actividad_ajax(){
 
         def link = Link.get(params.id)
