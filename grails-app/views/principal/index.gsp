@@ -536,7 +536,8 @@
             },
             success: function(msg){
                 if(msg == 'ok'){
-                    window.location.replace(link);
+                    // window.location.replace(link);
+                    window.open(link);
                 }
 
             }
