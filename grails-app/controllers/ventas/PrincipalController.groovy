@@ -4,6 +4,7 @@ import grails.converters.JSON
 import groovy.io.FileType
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
+import org.springframework.web.context.request.RequestContextHolder
 import wslite.json.JSONObject
 
 import javax.imageio.ImageIO
@@ -15,6 +16,21 @@ class PrincipalController {
 
     def index() {
         println "index params: $params"
+
+
+        def a = request.getRemoteAddr()
+        def b = request.getHeader("HTTP_X_FORWARDED_FOR")
+        def c = request.getHeader("HTTP_CLIENT_IP")
+        def d = request.getHeader("user-agent")
+
+        println("a " + a)
+        println("b " + b)
+        println("c " + c)
+        println("d " + d)
+
+//        def hostname = 'google.com'
+//        println InetAddress.getByName(hostname).address.collect { it & 0xFF }.join('.')
+
         def cn = dbConnectionService.getConnection()
         def busqueda = ""
         def enCategoria = ""
