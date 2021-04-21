@@ -183,7 +183,7 @@
                         guardar  : {
                             id        : "btnSave",
                             label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
+                            className : "btn-rojo",
                             callback  : function () {
                                 return submitForm();
                             } //callback
@@ -212,8 +212,8 @@
                     message : msg,
                     buttons : {
                         cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
+                            label     : "<i class='fa fa-times'></i>  Salir",
+                            className : "btn-gris",
                             callback  : function () {
                             }
                         }
@@ -304,7 +304,7 @@
 
             var editar = {
                 label           : 'Editar',
-                icon            : "fa fa-pen text-success",
+                icon            : "fa fa-pen",
                 separator_after : true,
                 action          : function (e) {
                     var id = $tr.data("id");
@@ -314,7 +314,7 @@
 
             var imas = {
                 label           : 'Imágenes',
-                icon            : "fa fa-image text-info",
+                icon            : "fa fa-image",
                 separator_after : true,
                 action          : function (e){
                     var id = $tr.data("id");
@@ -324,7 +324,7 @@
 
             var eliminar = {
                 label            : 'Eliminar',
-                icon             : "fa fa-trash text-danger",
+                icon             : "fa fa-trash text-warning",
                 action           : function (e) {
                     var id = $tr.data("id");
                     deleteRow(id);

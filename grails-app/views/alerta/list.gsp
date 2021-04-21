@@ -87,17 +87,17 @@
     function generarAnuncio(id) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-check fa-3x pull-left text-success text-shadow'></i><p>¿Está seguro que desea aceptar y generar un anuncio de este producto?.</p>",
+            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea aceptar y generar un anuncio de este producto?.</p>",
             buttons : {
                 cancelar : {
                     label     : "<i class='fa fa-times'></i> Cancelar",
-                    className : "btn-primary",
+                    className : "btn-gris",
                     callback  : function () {
                     }
                 },
                 aceptar : {
                     label     : "<i class='fa fa-check'></i> Aceptar",
-                    className : "btn-success",
+                    className : "btn-rojo",
                     callback  : function () {
                         $.ajax({
                             type: 'POST',
@@ -109,11 +109,11 @@
                                 if(msg == 'ok'){
                                     bootbox.dialog({
                                         title   : "Alerta",
-                                        message : "<i class='fa fa-check fa-3x pull-left text-info text-shadow'></i> <p>Producto revisado correctamente</p>",
+                                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i> <p>Producto revisado correctamente</p>",
                                         buttons : {
                                             aceptar : {
                                                 label     : "<i class='fa fa-check'></i> Aceptar",
-                                                className : "btn-primary",
+                                                className : "btn-gris",
                                                 callback  : function () {
                                                     location.href="${createLink(controller: 'anuncio', action: 'list')}?id=" + id
                                                 }
@@ -121,7 +121,7 @@
                                            }
                                     });
                                 }else{
-                                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al crear el anuncio del producto</p>")
+                                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al crear el anuncio del producto</p>")
                                 }
                             }
                         })
@@ -134,17 +134,17 @@
     function negarProducto(id) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea negar este producto?.</p>",
+            message : "<i class='fa fa-trash fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea negar este producto?.</p>",
             buttons : {
                 cancelar : {
                     label     : "<i class='fa fa-times'></i> Cancelar",
-                    className : "btn-primary",
+                    className : "btn-gris",
                     callback  : function () {
                     }
                 },
                 aceptar : {
                     label     : "<i class='fa fa-check'></i> Aceptar",
-                    className : "btn-danger",
+                    className : "btn-rojo",
                     callback  : function () {
                         $.ajax({
                             type    : "POST",
@@ -198,11 +198,12 @@
                         var id = $element.data("pr");
                         var persona = $element.data("per");
                         location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + persona + "&tipo=" + 4;
+
                     }
                 },
                 publicacion : {
                     label            : "Aceptar producto",
-                    icon             : "fa fa-check text-success",
+                    icon             : "fa fa-check",
                     separator_before : true,
                     action           : function ($element) {
                         var id = $element.data("id");
@@ -221,7 +222,7 @@
                 // },
                 negar : {
                     label            : "Negar producto",
-                    icon             : "fa fa-trash text-danger",
+                    icon             : "fa fa-trash",
                     separator_before : true,
                     action           : function ($element) {
                         var id = $element.data("id");

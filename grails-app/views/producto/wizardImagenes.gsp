@@ -70,7 +70,7 @@
 
     .carrusel {
         width:4000px;
-        left:0px;
+        left:70px;
         position:absolute;
         z-index:0;
     }
@@ -178,15 +178,7 @@
 
                     </div>
                 </div>
-
-
-%{--                <div class="col-md-4 btn-group" style="float: right">--}%
-
-%{--                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
-%{--                    <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>--}%
-%{--                </div>--}%
             </div>
-
         </div>
     </div>
 
@@ -251,7 +243,7 @@
                     buttons : {
                         cancelar : {
                             label     : "<i class='fa fa-times'></i> Salir",
-                            className : "btn-primary",
+                            className : "btn-gris",
                             callback  : function () {
                                 location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
                             }

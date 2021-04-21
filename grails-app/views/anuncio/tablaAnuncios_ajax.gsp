@@ -32,7 +32,7 @@
                 <td style="width: 30%; text-align: center">${anuncio?.titulo}</td>
                 <td style="width: 20%">${anuncio?.subtitulo}</td>
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
-                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#EC5415'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
+                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#CBA51D'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
                 <td style="width: 10%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">

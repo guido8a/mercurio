@@ -40,7 +40,7 @@
                         </a>
                     </g:if>
 
-                    <a href="#" class="btn btn-rojo btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
+                    <a href="#" class="btn btn-gris btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
                         <i class="fa fa-trash"></i>
                     </a>
                     <a href="#" class="btn btn-gris btn-sm pull-right btnTexto" title="Texto de la imagen" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}" style="margin-bottom: 5px">
@@ -82,13 +82,13 @@
                     buttons : {
                         cancelar : {
                             label     : "<i class='fa fa-times'></i> Cancelar",
-                            className : "btn-primary",
+                            className : "btn-gris",
                             callback  : function () {
                             }
                         },
                         guardar : {
                             label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
+                            className : "btn-rojo",
                             callback  : function () {
                                 guardarTexto(id)
                             }
@@ -138,7 +138,7 @@
 
     $(".btn-delete").click(function () {
         var file = $(this).data("file");
-        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> Está seguro que desea borrar la imagen?", function (res) {
+        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i> Está seguro que desea borrar la imagen?", function (res) {
             if (res) {
                 $.ajax({
                     type: 'POST',
@@ -148,7 +148,7 @@
                         file: file
                     },
                     success: function (msg) {
-                        var parts = msg.split("_")
+                        var parts = msg.split("_");
                         if(parts[0] == 'ok'){
                             log("Imagen borrada correctamente","success");
                             cargarTablaImagenes();

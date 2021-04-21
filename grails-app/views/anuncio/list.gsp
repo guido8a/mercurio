@@ -83,8 +83,8 @@
                     message : msg,
                     buttons : {
                         cancelar : {
-                            label     : "Salir",
-                            className : "btn-primary",
+                            label     : "<i class='fa fa-times'></i> Salir",
+                            className : "btn-gris",
                             callback  : function () {
                                 cargarTablaAnuncios();
                             }
@@ -129,14 +129,14 @@
             message : "<i class='fa fa-sync fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea cambiar el estado del anuncio seleccionado?.</p>",
             buttons : {
                 cancelar : {
-                    label     : "Cancelar",
-                    className : "btn-primary",
+                    label     : "<i class='fa fa-times'></i> Cancelar",
+                    className : "btn-gris",
                     callback  : function () {
                     }
                 },
                 aceptar : {
                     label     : "<i class='fa fa-save'></i> Aceptar",
-                    className : "btn-success",
+                    className : "btn-rojo",
                     callback  : function () {
                         var l1 = cargarLoader("Guardando...");
                         $.ajax({
