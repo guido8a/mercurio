@@ -9,7 +9,7 @@
 <style>
 
 .marco{
-    border-color: #47b636;
+    border-color: #AF5B00;
 }
 
 .btn-rojo {

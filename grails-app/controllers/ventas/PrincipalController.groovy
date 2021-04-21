@@ -273,7 +273,7 @@ class PrincipalController {
     def manual() {
         println "manual: $params"
         def nombre = 'externos.pdf'
-        def path = '/var/ventas/manual/externos.pdf'
+        def path = '/var/ventas/manual/anuncios.pdf'
         def file = new File(path)
         def b = file.getBytes()
         response.setContentType('pdf')
@@ -297,7 +297,7 @@ class PrincipalController {
     def terminos() {
 //        println "manual: $params"
         def nombre = 'politica del sitio.pdf'
-        def path = '/var/ventas/manual/politica del sitio.pdf'
+        def path = '/var/ventas/manual/política del sitio.pdf'
         def file = new File(path)
         def b = file.getBytes()
         response.setContentType('pdf')
