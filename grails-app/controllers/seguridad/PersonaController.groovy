@@ -1322,4 +1322,48 @@ class PersonaController {
         def cantones = Canton.findAllByProvincia(provincia).sort{it.nombre}
         return[cantones: cantones, persona: persona]
     }
+
+    def password_ajax(){
+
+    }
+
+    def recuperarPassword_ajax(){
+
+        println("params " + params)
+
+        def existePassword = Persona.findByMail(params.mail.toString().trim())
+
+        if(existePassword){
+
+            def pass = crearContrasenia()
+            existePassword.password = pass.encodeAsMD5()
+            existePassword.save(flush: true)
+
+            def mail = existePassword.mail
+            def errores = ''
+
+            try{
+                mailService.sendMail {
+                    to mail
+                    subject "Correo de recuperación de contraseña del sistema Ventas"
+                    body "Datos: " +
+                            "\n Usuario: ${existePassword.mail} " +
+                            "\n Nueva Contraseña: ${pass} "
+                }
+            }catch (e){
+                println("Error al enviar el mail: " + e)
+                errores += e
+            }
+
+            if(errores == ''){
+                render "ok"
+            }else{
+                render "no"
+            }
+
+        }else{
+            render "er_El mail ingresado no se encuentra registrado en el sistema"
+        }
+
+    }
 }

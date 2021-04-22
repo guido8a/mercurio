@@ -305,8 +305,6 @@
 
 
     <div class="btn-group" style="margin-top: 5px">
-
-
         <g:if test="${tipo}">
             <g:if test="${tipo == '1'}">
                 <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
@@ -351,14 +349,6 @@
             </g:else>
         </g:if>
 
-    %{--        <g:if test="${tipo}">--}%
-    %{--            <g:if test="${tipo != '1'}">--}%
-    %{--                <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">--}%
-    %{--                    <i class="fa fa-columns"></i> Principal--}%
-    %{--                </a>--}%
-    %{--            </g:if>--}%
-    %{--        </g:if>--}%
-
         <g:if test="${publicaciones > 0}">
             <a href="#" class="btn buscar" id="btnContactar">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
@@ -366,9 +356,9 @@
         </g:if>
         <g:if test="${tipo}">
             <g:if test="${tipo == '3'}">
-                <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
-                <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
-                <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20https://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
+                <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
+                <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
+                <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
             </g:if>
         </g:if>
     </div>
@@ -520,7 +510,70 @@
         </div>
     </div>
 
+
 </div>
+
+<div class="container" style="min-width: 60% !important; overflow-y: hidden">
+<div class="btn-group" style="margin-top: 5px;">
+    <g:if test="${tipo}">
+        <g:if test="${tipo == '1'}">
+            <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
+                    class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
+        </g:if>
+        <g:else>
+            <g:if test="${tipo == '3'}">
+                <a href="#" class="btn btn-gris btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
+                        class="fa fa-arrow-left"></i> Regresar</a>
+
+                <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">
+                    <i class="fa fa-columns"></i> Principal
+                </a>
+
+            </g:if>
+            <g:else>
+                <g:if test="${tipo == '4'}">
+                    <a href="${createLink(controller: 'alerta', action: 'list')}" class="btn btn-gris" >
+                        <i class="fa fa-arrow-left"></i> Regresar a la lista de alertas
+                    </a>
+                </g:if>
+                <g:else>
+                    <g:if test="${tipo == '5'}">
+                        <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-gris" >
+                            <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
+                        </a>
+                    </g:if>
+                    <g:else>
+                        <g:if test="${tipo == '6'}">
+                            <a href="${createLink(controller: 'alerta', action: 'revisadas')}" class="btn btn-gris" >
+                                <i class="fa fa-arrow-left"></i> Regresar a la lista alertas revisadas
+                            </a>
+                        </g:if>
+                        <g:else>
+                            <a href="#" class="btn btn-gris" id="btnAnteriorLista">
+                                <i class="fa fa-arrow-left"></i> Regresar a la lista de productos
+                            </a>
+                        </g:else>
+                    </g:else>
+                </g:else>
+            </g:else>
+        </g:else>
+    </g:if>
+
+    <g:if test="${publicaciones > 0}">
+        <a href="#" class="btn buscar" id="btnContactar">
+            <i class="fa fa-phone"></i> Contactar con el vendedor
+        </a>
+    </g:if>
+    <g:if test="${tipo}">
+        <g:if test="${tipo == '3'}">
+            <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
+            <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
+            <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
+        </g:if>
+    </g:if>
+</div>
+</div>
+
 
 <!-- Footer -->
 %{--<footer class="py-3 bg-dark">--}%

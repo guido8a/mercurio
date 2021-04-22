@@ -60,16 +60,22 @@
             </a>
         </div>
         <br/>
-%{--        <p>Si no se ha registrado en el sistema, utilice primero el botón <strong>Registrarse</strong> para poder ingresar.</p>--}%
         <div style="text-align: center">
             <p style="font-style: italic; font-weight: bold">¿No se encuentra en el sistema?</p>
             <a href="#" class="btn btn-gris btn-block" id="btnRegistrarse"  style="width: 160px; margin: auto"> <i class="fa fa-user-plus"></i> Registrarse </a>
+        </div>
+        <div style="text-align: left; margin-top: 30px">
+            ¿Olvidó su contraseña? <a href="#" class="" id="btnOlvidoPass"> <i class="fa fa-user-secret"></i> Recuperar contraseña </a>
         </div>
 
     </g:form>
 </div>
 
 <script type="text/javascript">
+
+    $("#btnOlvidoPass").click(function () {
+        cargarPassword();
+    });
 
     $("#btnRegistrarse").click(function () {
         cargarRegistro();

@@ -660,18 +660,83 @@
                 success: function (msg) {
                     var parts = msg.split("_");
                     if (parts[0] == 'ok') {
-                        bootbox.alert("<i class='fa fa-envelope fa-2x text-info'></i> Un mail de verificación ha sido enviado a su correo " +
+                        bootbox.alert("<i class='fa fa-envelope fa-2x text-warning'></i> Un mail de verificación ha sido enviado a su correo " +
                             "<br> <i class='fa fa-exclamation-circle fa-2x text-warning'></i> Si no ha recibido el correo, revise su bandeja de spam", function(){
                             d.modal('hide');
                             // bootbox.hideAll()
                         })
                     }else {
                         if(parts[0] == 'er'){
-                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1], function(){
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>" + parts[1], function(){
                                 d.modal('hide');
                             })
                         }else{
-                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + "Error al crear el usuario", function(){
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>" + "Error al crear el usuario", function(){
+                                d.modal('hide');
+                            })
+                        }
+                    }
+                }
+            });
+        } else {
+            return false;
+        } //else
+    }
+
+    function cargarPassword() {
+        bootbox.hideAll();
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'persona', action: 'password_ajax')}",
+            data: {},
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    id: "dlgPassword",
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
+                            callback: function () {
+                            }
+                        },
+                        guardar: {
+                            id: "btnSave",
+                            label: "<i class='fa fa-check'></i> Aceptar",
+                            className: "btn-rojo",
+                            callback: function () {
+                                return submitFormPassword();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
+    function submitFormPassword() {
+        var $form = $("#frmPassword");
+        if ($form.valid()) {
+            var d = cargarLoader("Procesando...");
+            $.ajax({
+                type: "POST",
+                url: '${createLink(controller: 'persona', action:'recuperarPassword_ajax')}',
+                data: $form.serialize(),
+                success: function (msg) {
+                    var parts = msg.split("_");
+                    if (parts[0] == 'ok') {
+                        bootbox.alert("<i class='fa fa-envelope fa-2x text-warning'></i> Un mail con su contraseña ha sido enviado a su correo " +
+                            "<br> <i class='fa fa-exclamation-circle fa-2x text-warning'></i> Si no ha recibido el correo, revise su bandeja de spam", function(){
+                            d.modal('hide');
+                            // bootbox.hideAll()
+                        })
+                    }else {
+                        if(parts[0] == 'er'){
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>" + parts[1], function(){
+                                d.modal('hide');
+                            })
+                        }else{
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>" + "Error al recuperar el password", function(){
                                 d.modal('hide');
                             })
                         }

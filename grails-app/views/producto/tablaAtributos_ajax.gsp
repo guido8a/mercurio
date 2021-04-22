@@ -42,7 +42,8 @@
     </thead>
 </table>
 
-<div class=""  style="width: 99.7%;height: ${atributos.size() * 50}px; overflow-y: auto; margin-top: -20px">
+%{--<div class=""  style="width: 99.7%;height: ${atributos.size() * 50}px; overflow-y: auto; margin-top: -20px">--}%
+<div class=""  style="width: 99.7%;height: 140px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${atributos}" var="atributo">
