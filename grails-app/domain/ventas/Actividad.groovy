@@ -5,8 +5,8 @@ import seguridad.Accn
 class Actividad {
 
     Link link
-    Accn accion
-    String consulta
+    String ip
+    String informacion
     Date fecha
 
     static mapping = {
@@ -18,15 +18,15 @@ class Actividad {
         columns {
             id column: 'actv__id'
             link column: 'link__id'
-            accion column: 'accn__id'
-            consulta column: 'actvcnsl'
+            ip column: 'actv__ip'
+            informacion column: 'actvinfo'
             fecha column: 'actvfcha'
         }
     }
     static constraints = {
-        consulta(size: 1..255, blank: true, nullable: true)
+        informacion(size: 0..255, blank: true, nullable: true)
         fecha(blank: true, nullable: true)
         link(blank: false, nullable: false)
-        accion(blank: true, nullable: true)
+        ip(blank: true, nullable: true)
     }
 }

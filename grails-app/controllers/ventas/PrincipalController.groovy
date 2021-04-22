@@ -18,18 +18,15 @@ class PrincipalController {
         println "index params: $params"
 
 
-        def a = request.getRemoteAddr()
-        def b = request.getHeader("HTTP_X_FORWARDED_FOR")
-        def c = request.getHeader("HTTP_CLIENT_IP")
-        def d = request.getHeader("user-agent")
-
-        println("a " + a)
-        println("b " + b)
-        println("c " + c)
-        println("d " + d)
-
-//        def hostname = 'google.com'
-//        println InetAddress.getByName(hostname).address.collect { it & 0xFF }.join('.')
+//        def a = request.getRemoteAddr()
+//        def b = request.getHeader("HTTP_X_FORWARDED_FOR")
+//        def c = request.getHeader("HTTP_CLIENT_IP")
+//        def d = request.getHeader("user-agent")
+//
+//        println("a " + a)
+//        println("b " + b)
+//        println("c " + c)
+//        println("d " + d)
 
         def cn = dbConnectionService.getConnection()
         def busqueda = ""
@@ -308,11 +305,16 @@ class PrincipalController {
 
     def actividad_ajax(){
 
-        def link = Link.get(params.id)
 
+        def a = request.getRemoteAddr()
+        def d = request.getHeader("user-agent")
+
+        def link = Link.get(params.id)
         def actividad = new Actividad()
         actividad.link = link
         actividad.fecha = new Date()
+        actividad.ip = a
+        actividad.informacion = d
 
         if(!actividad.save(flush:true)){
             println("error al guardar la actividad " + actividad.errors)
