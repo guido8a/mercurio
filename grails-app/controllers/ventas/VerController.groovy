@@ -11,6 +11,7 @@ class VerController {
 //        println "index params: $params"
 
 //        params.id = params.id?:1
+        /** si el producto se puede ver --> avanza **/
         def producto = Producto.get(params.id)
         def persona = Persona.get(params.persona)
         def atrb = Valores.findAllByProducto(producto)
@@ -26,7 +27,7 @@ class VerController {
         def anuncio = Anuncio.findByProducto(producto)
         def publicaciones
         if(anuncio){
-            publicaciones = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+            publicaciones = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date()-1)?.size()
         }else{
             publicaciones = 0
         }
