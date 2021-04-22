@@ -118,14 +118,6 @@
                 $.ajax({
                     type: 'POST',
                     url: '${createLink(controller: 'publicacion', action: 'savePublicacion')}',
-                    // data:{
-                        %{--anuncio: '${anuncio?.id}',--}%
-                        %{--id: $("#id").val(),--}%
-                        %{--fechaInicio: $("#datetimepicker1").val(),--}%
-                        %{--fechaFin: $("#datetimepicker2").val(),--}%
-                        %{--destacado : $("#des option:checked").val()--}%
-
-                    // },
                     data    : $form.serialize(),
                     success: function (msg) {
                         l.modal("hide");
@@ -135,7 +127,7 @@
                             cargarTablaPublicacion();
                         }else{
                             if(parts[0] == 'er'){
-                                bootbox.alert(parts[1])
+                                bootbox.alert("<i class='fa fa-exclamation-triangle text-warning fa-2x'></i>" + '<strong style="font-size: 14px">' + parts[1] + '</strong>')
                             }else{
                                 log("Error al agregar la publicación","error")
                             }

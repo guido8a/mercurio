@@ -12,32 +12,53 @@ class VerController {
 
 //        params.id = params.id?:1
         /** si el producto se puede ver --> avanza **/
-        def producto = Producto.get(params.id)
-        def persona = Persona.get(params.persona)
-        def atrb = Valores.findAllByProducto(producto)
-        def carrusel = []
 
-        def imag = Imagen.findAllByProducto(producto, [sort: 'principal', order: 'desc'])
+        def producto = Producto.get(params.id)
+        def anuncio = Anuncio.findByProducto(producto)
+        def estadoAnuncio = anuncio?.estado ?: 0
+        def persona = Persona.get(params.persona)
+
+        def existePublicacion = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+
+        if(existePublicacion){
+
+
+            def atrb = Valores.findAllByProducto(producto)
+            def carrusel = []
+
+            def imag = Imagen.findAllByProducto(producto, [sort: 'principal', order: 'desc'])
 //        println "imagen: ${imag}"
-        imag.each { im ->
-            carrusel.add([ruta: "/var/ventas/productos/pro_${producto.id}/${im.ruta}"])
-        }
+            imag.each { im ->
+                carrusel.add([ruta: "/var/ventas/productos/pro_${producto.id}/${im.ruta}"])
+            }
 //        println "carrusel: ${carrusel}"
 
-        def anuncio = Anuncio.findByProducto(producto)
-        def publicaciones
-        if(anuncio){
-            publicaciones = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date()-1)?.size()
+
+            def publicaciones
+            if(anuncio){
+                println("estado " + estadoAnuncio)
+                if(estadoAnuncio == '1'){
+                    publicaciones = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+                }else{
+                    publicaciones = 0
+                }
+            }else{
+                publicaciones = 0
+            }
+
+            def preguntas = Pregunta.findAllByProducto(producto).sort{it.fecha}
+
+            println("publicaciones " + publicaciones)
+
+            return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
+                    publicaciones: publicaciones, preguntas: preguntas]
         }else{
-            publicaciones = 0
+
+            redirect(controller: 'principal', action: 'error');
+
         }
 
-        def preguntas = Pregunta.findAllByProducto(producto).sort{it.fecha}
 
-        println("publicaciones " + publicaciones)
-
-        return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
-                publicaciones: publicaciones, preguntas: preguntas]
     }
 
     def preguntas_ajax(){

@@ -304,8 +304,6 @@ class PrincipalController {
     }
 
     def actividad_ajax(){
-
-
         def a = request.getRemoteAddr()
         def d = request.getHeader("user-agent")
 
@@ -323,6 +321,9 @@ class PrincipalController {
         }
 
         render "ok"
+    }
+
+    def error(){
 
     }
 }
