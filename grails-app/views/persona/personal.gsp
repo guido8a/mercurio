@@ -19,8 +19,9 @@
     <!-- Nav tabs -->
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Datos de la cuenta</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Datos de contacto</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Cambiar password</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+            Datos del contacto para ventas</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -204,7 +205,7 @@
                 <div class="panel-heading" role="tab" id="headerContacto">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#contacto" aria-expanded="true" aria-controls="contacto">
-                            Datos de contacto
+                            Datos del contacto para Ventas
                         </a>
                     </h4>
                 </div>
@@ -260,11 +261,17 @@
 
                         </g:form>
 
-                        <div class="col-md-6">
-                            <a href="#" id="btnSaveContacto" class="btn btn-rojo" style="float: right">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" id="btnSaveContacto" class="btn btn-rojo">
                                 <i class="fa fa-save"></i> Guardar
                             </a>
                         </div>
+
+                        <div class="col-md-12">
+                            <div class="text-primary"><strong>Nota</strong>: Se le enviarán al <strong>mail del Contacto</strong> las preguntas que se hagan sobre su anuncio y los datos de quienes
+                            deseen contactar con el anunciante.</div>
+                        </div>
+
 
 
                     </div>
@@ -281,7 +288,7 @@
                     <div class="panel-heading" role="tab" id="headerPass">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                Cambiar clave de ingreso al sistema
+                                Cambiar la contraseña de ingreso al sistema
                             </a>
                         </h4>
                     </div>
@@ -290,7 +297,7 @@
                             <g:form class="form-inline" name="frmPass" action="savePass_ajax">
                                 <g:hiddenField name="id" value="${persona?.id}"/>
                                 <div class="form-group" style="margin-left: 40px;">
-                                    <label for="nuevoPass">Nueva clave</label>
+                                    <label for="nuevoPass">Nueva contraseña</label>
 
                                     <div class="input-group">
                                         <g:passwordField name="nuevoPass" class="form-control required auth"/>
@@ -299,7 +306,7 @@
                                 </div>
 
                                 <div class="form-group" style="margin-left: 40px;">
-                                    <label for="passConfirm">Confirme la clave nueva</label>
+                                    <label for="passConfirm">Confirme la contraseña nueva</label>
 
                                     <div class="input-group">
                                         <g:passwordField name="passConfirm" class="form-control required auth"/>
