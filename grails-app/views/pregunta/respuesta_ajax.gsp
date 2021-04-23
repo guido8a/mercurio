@@ -9,7 +9,7 @@
     <g:hiddenField name="id" value="${pregunta?.id}" />
     <g:hiddenField name="producto" value="${pregunta?.producto?.id}" />
 
-    <div class="alert alert-info" role="alert" style="font-size: 14px">
+    <div class="alert alert-warning" role="alert" style="font-size: 14px">
         <strong>Pregunta:</strong> ${pregunta?.texto}
     </div>
 

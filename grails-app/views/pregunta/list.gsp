@@ -52,10 +52,10 @@
                     <td style="width: 30%; text-align: center">${pregunta.producto.titulo}</td>
                     <td style="width: 40%">${pregunta.texto}</td>
                     <td style="width: 10%; text-align: center">${pregunta?.fecha?.format("dd-MM-yyyy")}</td>
-                    <td style="width: 10%; text-align: center; background-color: ${pregunta?.respuesta ? '#78b665' : '#ff4517'}">${pregunta?.respuesta ? 'SI' : 'NO'}</td>
+                    <td style="width: 10%; text-align: center; background-color: ${pregunta?.respuesta ? '#67A153' : '#afafaf'}">${pregunta?.respuesta ? 'SI' : 'NO'}</td>
                     <td style="width: 10%; text-align: center">
-                        <a href="#" class="btn btn-sm btn-info btnResponder" title="Respuesta" data-id="${pregunta.id}"><i class="fa fa-bullhorn"></i> </a>
-                        <a href="#" class="btn btn-sm btn-danger btnEliminar" title="Eliminar pregunta" data-id="${pregunta?.id}"><i class="fa fa-trash"></i> </a>
+                        <a href="#" class="btn btn-sm btn-rojo btnResponder" title="Respuesta" data-id="${pregunta.id}"><i class="fa fa-bullhorn"></i> </a>
+                        <a href="#" class="btn btn-sm btn-gris btnEliminar" title="Eliminar pregunta" data-id="${pregunta?.id}"><i class="fa fa-trash"></i> </a>
                     </td>
                 </tr>
             </g:each>
@@ -87,14 +87,14 @@
                     buttons : {
                         cancelar : {
                             label     : "<i class='fa fa-times'></i> Cancelar",
-                            className : "btn-primary",
+                            className : "btn-gris",
                             callback  : function () {
 
                             }
                         },
                         aceptar : {
                             label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
+                            className : "btn-rojo",
                             callback  : function () {
                                 guardarRespuesta();
                             }
@@ -133,17 +133,17 @@
     function eliminarPregunta(id) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea borrar esta pregunta?.</p>",
+            message : "<i class='fa fa-trash fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea borrar esta pregunta?.</p>",
             buttons : {
                 cancelar : {
                     label     : "<i class='fa fa-times'></i> Cancelar",
-                    className : "btn-primary",
+                    className : "btn-gris",
                     callback  : function () {
                     }
                 },
                 aceptar : {
                     label     : "<i class='fa fa-check'></i> Aceptar",
-                    className : "btn-danger",
+                    className : "btn-rojo",
                     callback  : function () {
                         $.ajax({
                             type    : "POST",

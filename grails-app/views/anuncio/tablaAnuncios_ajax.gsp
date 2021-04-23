@@ -32,7 +32,7 @@
                 <td style="width: 30%; text-align: center">${anuncio?.titulo}</td>
                 <td style="width: 20%">${anuncio?.subtitulo}</td>
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
-                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#CBA51D'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
+                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#afafaf'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
                 <td style="width: 10%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
@@ -44,7 +44,7 @@
                 </td>
                 <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaInicio?.format("dd-MM-yyyy") : ''}</td>
                 <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaFin?.format("dd-MM-yyyy") : ''}</td>
-                <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? '#67a153' : '#cba51d') : '#cba51d'}">${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? 'SI' : 'NO') : 'NO'}</td>
+                <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? '#67a153' : '#afafaf') : '#afafaf'}">${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? 'SI' : 'NO') : 'NO'}</td>
             </tr>
         </g:each>
         </tbody>
