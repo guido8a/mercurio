@@ -57,8 +57,6 @@ class VerController {
             redirect(controller: 'principal', action: 'error');
 
         }
-
-
     }
 
     def preguntas_ajax(){

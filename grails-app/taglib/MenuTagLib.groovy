@@ -451,6 +451,8 @@ class MenuTagLib {
             html += '<div class="dropdown-menu">'
             html += '<a class="dropdown-item" href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
                     '"><i class="fa fa-edit"></i> Sus Anuncios</a>'
+            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id) +
+                    '"><i class="far fa-file-alt"></i> Sus Preguntas</a>'
             html += '<a class="dropdown-item" href="' + g.createLink(controller: 'persona', action: 'personal') +
                     '"><i class="fa fa-cogs"></i> Configuración</a>'
 //            html += '<span class="divider"></span>'
