@@ -102,7 +102,7 @@
         <div class="card-body">
 
             <div style="margin-top: 10px">
-                <p class="numeroPaso">5</p>
+                <p class="numeroPaso">6</p>
                 <h1 class="textoPaso">Información de contacto</h1>
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
@@ -170,6 +170,7 @@
     ProgressBar.init(
         [ 'Categoría',
             'Información',
+            'Localización',
             'Atributos',
             'Imágenes',
             'Contacto'

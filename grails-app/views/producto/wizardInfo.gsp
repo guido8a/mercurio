@@ -201,7 +201,8 @@
                         // log("Producto guardado correctamente","success");
                         setTimeout(function () {
                             if(tipo == '1'){
-                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                                %{--location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';--}%
+                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
                             }else{
                                 location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
                             }

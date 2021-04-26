@@ -90,7 +90,7 @@
     <div class="card2" style="width: 100%">
         <div class="card-body">
             <div style="margin-top: 10px">
-                <p class="numeroPaso">3</p>
+                <p class="numeroPaso">4</p>
                 <h1 class="textoPaso">Atributos</h1>
 
 
@@ -171,6 +171,7 @@
     ProgressBar.init(
         [ 'Categoría',
             'Información',
+            'Localización',
             'Atributos',
             'Imágenes',
             'Contacto'
@@ -180,7 +181,8 @@
     );
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+        %{--location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'--}%
+        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
     });
 
     $(".btnSiguiente").click(function () {

@@ -1,6 +1,7 @@
 package geografia
 
 import seguridad.Persona
+import ventas.Producto
 
 class CantonController {
 
@@ -565,6 +566,18 @@ class CantonController {
         } else {
             render ""
         }
+    }
+
+    def canton_ajax(){
+        def provincia = Provincia.get(params.id)
+        def cantones = Canton.findAllByProvincia(provincia)
+        def producto
+        if(params.producto){
+            producto = Producto.get(params.producto)
+        }else{
+            producto = new Producto()
+        }
+        return[cantones:cantones, producto:producto]
     }
 
 

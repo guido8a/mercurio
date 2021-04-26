@@ -606,4 +606,10 @@ class ProductoController {
         return[producto:producto]
     }
 
+    def wizardGeo(){
+        def persona = Persona.get(params.persona)
+        def producto = Producto.get(params.id)
+        return[producto: producto, persona: persona]
+    }
+
 }

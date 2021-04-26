@@ -1,15 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: fabricio
-  Date: 10/03/21
-  Time: 12:44
+  Date: 26/04/21
+  Time: 13:23
 --%>
+
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Anuncio - Categoría</title>
+    <title>Localización del producto</title>
 
     <asset:stylesheet src="/bar/main.css"/>
     <asset:javascript src="/bar/progress-bar.js"/>
@@ -47,85 +48,121 @@
         box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     }
 
+    .card2 {
+        border: green;
+        width: 100%;
+        -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+        height: 450px;
+    }
+
     </style>
 
 </head>
 
 <body>
 
-<g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
+<g:form class="form-horizontal" name="frmGeo" role="form" action="saveProducto" method="POST">
     <g:hiddenField name="id" value="${producto?.id}" />
     <g:hiddenField name="persona" value="${persona?.id}" />
 
     <div class="progress-bar-wrapper"></div>
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
-        <div class="col-md-10 btn-group" style="float: left;">
+        <div class="col-md-9 btn-group" style="float: left;">
             <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
                class="btn btn-gris btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
-        <div class="col-md-2 btn-group">
-            <a href="#" class="btn btn-rojo btnSiguiente flush-right" >Siguiente <i class="fa fa-arrow-right"></i></a>
+        <div class="col-md-3 btn-group">
+            <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
+            <a href="#" class="btn btn-rojo btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            &nbsp;
+            .
         </div>
         <div class="card-body">
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 230px">
+
+    <div class="card2" style="width: 100%">
+
         <div class="card-body">
 
             <div style="margin-top: 10px">
-                <p class="numeroPaso">1</p>
-                <h1 class="textoPaso">Categoría</h1>
-                %{--                <div class="col-md-8" style="margin-top: 0px">--}%
+                <p class="numeroPaso">3</p>
+                <h1 class="textoPaso">Localización</h1>
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <h3> Seleccione una categoría para su producto</h3>
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-                            <span class="grupo">
-                                <label for="categoria" class="col-md-3 control-label text-info">
-                                    Categoría
-                                </label>
-                                <div class="col-md-6">
-                                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
-                                              optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                        <h3> Ingrese la localización del producto</h3>
+                        <div class="form-group">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
-                                    Subcategoría
+                                    Provincia
                                 </label>
-                                <div class="col-md-6" id="divSubcategoria">
+                                <div class="col-md-6">
+                                    <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${producto?.canton?.provincia?.id}"/>
                                 </div>
                             </span>
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="col-md-3 btn-group" style="float: right">
-%{--                            <a href="#" class="btn btn-primary btnSiguiente" >Siguiente<i class="fa fa-arrow-right"></i></a>--}%
-                            .
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'canton', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Cantón
+                                </label>
+                                <div class="col-md-6" id="divCanton">
+
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="col-md-3 control-label text-info">
+                           Sitio
+                        </label>
+                        <div class="col-md-6 form-group ${hasErrors(bean: 'producto', field: 'sitio', 'error')}">
+                            <g:textArea name="sitio" class="form-control" style="resize: none" value="${producto?.sitio}"/>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 </g:form>
+
+<div class="col-md-12">
+    .
+</div>
 
 <script type="text/javascript">
 
+    $("#provincia").change(function () {
+        var id = $(this).val();
+        cargarCanton(id)
+    });
+
+    cargarCanton($("#provincia").val());
+
+    function cargarCanton(id){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'canton', action: 'canton_ajax')}',
+            data:{
+                id: id,
+                producto: $("#id").val()
+            },
+            success: function (msg) {
+                $("#divCanton").html(msg)
+            }
+        });
+    }
 
     ProgressBar.init(
         [ 'Categoría',
@@ -135,17 +172,22 @@
             'Imágenes',
             'Contacto'
         ],
-        'Categoría',
+        'Localización',
         'progress-bar-wrapper'
     );
 
-    $(".btnSiguiente").click(function () {
-        submitFormProducto();
+
+    $(".btnAnterior").click(function () {
+        submitFormProducto(0)
     });
 
-    function submitFormProducto() {
+    $(".btnSiguiente").click(function () {
+        submitFormProducto(1)
+    });
 
-        var $form = $("#frmProducto");
+    function submitFormProducto(tipo) {
+
+        var $form = $("#frmGeo");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             $btn.replaceWith(spinner);
@@ -155,11 +197,8 @@
                 url     : '${createLink(action:'saveProducto')}',
                 data    : {
                     id: $("#id").val(),
-                    persona: $("#persona").val(),
-                    subcategoria: $("#subcategoria").val(),
-                    // titulo: $("#titulo").val(),
-                    // subtitulo: $("#subtitulo").val(),
-                    // texto: texto
+                    sitio: $("#sitio").val(),
+                    canton: $("#canton").val(),
                 },
                 success : function (msg) {
                     l.modal("hide");
@@ -167,7 +206,12 @@
                     if (parts[0] == "ok") {
                         // log("Producto guardado correctamente","success");
                         setTimeout(function () {
-                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                            if(tipo == '1'){
+                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                            }else{
+                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                            }
+
                         }, 500);
                     } else {
                         log("Error al guardar el producto","error");
@@ -177,28 +221,6 @@
         } else {
             return false;
         } //else
-    }
-
-
-    $("#categoria").change(function () {
-        var id = $(this).val();
-        cargarSubcategoria(id)
-    });
-
-    cargarSubcategoria($("#categoria").val());
-
-    function cargarSubcategoria(id){
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'subcategoria', action: 'subcategoria_ajax')}',
-            data:{
-                id: id,
-                producto: $("#id").val()
-            },
-            success: function (msg) {
-                $("#divSubcategoria").html(msg)
-            }
-        });
     }
 
 
