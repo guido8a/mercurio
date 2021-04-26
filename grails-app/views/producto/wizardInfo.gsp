@@ -156,6 +156,7 @@
     ProgressBar.init(
         [ 'Categoría',
             'Información',
+            'Localización',
             'Atributos',
             'Imágenes',
             'Contacto'
@@ -163,6 +164,7 @@
         'Información',
         'progress-bar-wrapper'
     );
+
 
 
     $(".btnAnterior").click(function () {

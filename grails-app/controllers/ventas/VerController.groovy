@@ -18,11 +18,47 @@ class VerController {
         def estadoAnuncio = anuncio?.estado ?: 0
         def persona = Persona.get(params.persona)
 
-        def existePublicacion = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
 
-        if(existePublicacion){
+        if(params.tipo == '3'){
+            def existePublicacion = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+
+            if(existePublicacion){
 
 
+                def atrb = Valores.findAllByProducto(producto)
+                def carrusel = []
+
+                def imag = Imagen.findAllByProducto(producto, [sort: 'principal', order: 'desc'])
+//        println "imagen: ${imag}"
+                imag.each { im ->
+                    carrusel.add([ruta: "/var/ventas/productos/pro_${producto.id}/${im.ruta}"])
+                }
+//        println "carrusel: ${carrusel}"
+
+                def publicaciones
+                if(anuncio){
+                    println("estado " + estadoAnuncio)
+                    if(estadoAnuncio == '1'){
+                        publicaciones = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+                    }else{
+                        publicaciones = 0
+                    }
+                }else{
+                    publicaciones = 0
+                }
+
+                def preguntas = Pregunta.findAllByProducto(producto).sort{it.fecha}
+
+                println("publicaciones " + publicaciones)
+
+                return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
+                        publicaciones: publicaciones, preguntas: preguntas]
+            }else{
+
+                redirect(controller: 'principal', action: 'error');
+
+            }
+        }else{
             def atrb = Valores.findAllByProducto(producto)
             def carrusel = []
 
@@ -32,7 +68,6 @@ class VerController {
                 carrusel.add([ruta: "/var/ventas/productos/pro_${producto.id}/${im.ruta}"])
             }
 //        println "carrusel: ${carrusel}"
-
 
             def publicaciones
             if(anuncio){
@@ -52,11 +87,48 @@ class VerController {
 
             return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
                     publicaciones: publicaciones, preguntas: preguntas]
-        }else{
-
-            redirect(controller: 'principal', action: 'error');
-
         }
+
+
+//        def existePublicacion = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+//
+//        if(existePublicacion){
+//
+//
+//            def atrb = Valores.findAllByProducto(producto)
+//            def carrusel = []
+//
+//            def imag = Imagen.findAllByProducto(producto, [sort: 'principal', order: 'desc'])
+////        println "imagen: ${imag}"
+//            imag.each { im ->
+//                carrusel.add([ruta: "/var/ventas/productos/pro_${producto.id}/${im.ruta}"])
+//            }
+////        println "carrusel: ${carrusel}"
+//
+//
+//            def publicaciones
+//            if(anuncio){
+//                println("estado " + estadoAnuncio)
+//                if(estadoAnuncio == '1'){
+//                    publicaciones = Publicacion.findAllByAnuncioAndFechaInicioIsNotNullAndFechaFinGreaterThanEquals(anuncio, new Date())?.size()
+//                }else{
+//                    publicaciones = 0
+//                }
+//            }else{
+//                publicaciones = 0
+//            }
+//
+//            def preguntas = Pregunta.findAllByProducto(producto).sort{it.fecha}
+//
+//            println("publicaciones " + publicaciones)
+//
+//            return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
+//                    publicaciones: publicaciones, preguntas: preguntas]
+//        }else{
+//
+//            redirect(controller: 'principal', action: 'error');
+//
+//        }
     }
 
     def preguntas_ajax(){
