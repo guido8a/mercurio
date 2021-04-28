@@ -437,27 +437,48 @@ class MenuTagLib {
         html += txto + '</li></ul></div>'
 //        html += '</ul>' + txto
 
+        println "usuario: $perfil"
         if(usuario) {
-            html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
-                    "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
+            if(perfil.codigo != 'ADMN') {
+                html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
+                        "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
 //                    "style=\"color:#40cfd0; font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
-                    "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>" +
-                    "</ul>"
+                        "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>"
+                html += '<ul class="nav navbar-nav navbar-right btn-gris">'
+                html += '<li class="nav-item dropdown">'
+                html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#000">' +
+                        '<i class="fa fa-user"></i>' + '  ' + usuario?.nombres + ' <b class="caret"></b></a>'
+                html += '<div class="dropdown-menu">'
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
+                        '"><i class="fa fa-edit"></i> Sus Anuncios</a>'
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id) +
+                        '"><i class="far fa-file-alt"></i> Sus Preguntas</a>'
+                html += '<hr>'
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'persona', action: 'personal') +
+                        '"><i class="fa fa-cogs"></i> Configuración</a>'
 
-            html += '<ul class="nav navbar-nav navbar-right btn-gris">'
-            html += '<li class="nav-item dropdown">'
-            html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#000">' + '<i class="fa fa-user"></i>' + '  ' + usuario?.nombres +
-                    ' <b class="caret"></b></a>'
-            html += '<div class="dropdown-menu">'
-            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
-                    '"><i class="fa fa-edit"></i> Sus Anuncios</a>'
-            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id) +
-                    '"><i class="far fa-file-alt"></i> Sus Preguntas</a>'
-            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'persona', action: 'personal') +
-                    '"><i class="fa fa-cogs"></i> Configuración</a>'
-//            html += '<span class="divider"></span>'
-            html += '<a class="dropdown-item" href="' + g.createLink(controller: 'login', action: 'logout') +
-                    '"><i class="fa fa-power-off"></i> Salir</a></div>'
+//                html += '<span class="divider"><hr></span>'
+                html += '<hr>'
+
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'login', action: 'logout') +
+                        '"><i class="fa fa-power-off"></i> Salir</a></div>'
+            } else {
+                html += '<ul class="nav navbar-nav navbar-right btn-gris">'
+                html += '<li class="nav-item dropdown">'
+                html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#000">' +
+                        '<i class="fa fa-user"></i> Administrador <b class="caret"></b></a>'
+                html += '<div class="dropdown-menu">'
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'inicio', action: 'index') +
+                        '"><i class="fa fa-edit"></i> Administrar</a>'
+                html += '<hr>'
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'persona', action: 'personal') +
+                        '"><i class="fa fa-cogs"></i> Configuración</a>'
+                html += '<hr>'
+                html += '<a class="dropdown-item" href="' + g.createLink(controller: 'login', action: 'logout') +
+                        '"><i class="fa fa-power-off"></i> Salir</a></div>'
+
+            }
+
 
         } else {
 //            html += "</div><span class='nav-item' id='ingresar'><a class='nav-link' href='#' " +
