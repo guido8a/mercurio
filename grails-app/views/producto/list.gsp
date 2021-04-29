@@ -32,12 +32,12 @@
     <thead>
     <tr style="width: 100%">
         <th style="width: 20%">Anuncio</th>
-%{--        <th style="width: 25%">Descripción resuminda</th>--}%
         <th style="width: 20%">Categoria</th>
-        <th style="width: 28%">Subcategoria</th>
+        <th style="width: 20%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
         <th style="width: 8%">Estado</th>
         <th style="width: 14%">Acciones</th>
+        <th style="width: 14%">Pagos</th>
     </tr>
     </thead>
 </table>
@@ -48,9 +48,8 @@
         <g:each in="${productos}" var="producto">
             <tr data-id="${producto?.id}" class="${ventas.Alerta.findAllByProducto(producto) ? 'tieneAlerta' : 'no'}" style="width: 100%">
                 <td style="width: 20%">${producto?.titulo}</td>
-%{--                <td style="width: 25%;">${producto?.subtitulo}</td>--}%
                 <td style="width: 20%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
-                <td style="width: 28%; text-align: center">${producto?.subcategoria?.descripcion}</td>
+                <td style="width: 20%; text-align: center">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
                 <td style="width: 8%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
                 <td style="width: 14%; text-align: center">
@@ -63,6 +62,12 @@
                         </g:if>
                     </g:if>
                 </td>
+                <td style="width: 12%; text-align: center">
+                    <g:if test="${producto?.id}">
+                        <a href="#" class="btn btn-xs btn-gris btnPagoPublicacion" title="Publicación pagada" data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> </a>
+                        <a href="#" class="btn btn-xs btn-rojo btnPagoDestacado" title="Pago destacado" data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> </a>
+                    </g:if>
+                </td>
             </tr>
         </g:each>
         </tbody>
@@ -71,6 +76,35 @@
 
 
 <script type="text/javascript">
+
+    $(".btnPagoPublicacion").click(function (){
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'pago', action:'form_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgPagarPub",
+                    title   : "Pagar publicación",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    });
 
     $(".btnRevisar").click(function (){
         var id = $(this).data("id");
