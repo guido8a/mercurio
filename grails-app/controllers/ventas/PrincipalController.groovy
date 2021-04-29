@@ -5,6 +5,7 @@ import groovy.io.FileType
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.springframework.web.context.request.RequestContextHolder
+import utilitarios.Parametros
 import wslite.json.JSONObject
 
 import javax.imageio.ImageIO
@@ -16,14 +17,14 @@ class PrincipalController {
 
     def index() {
         println "index params: $params"
+        def pagado = (Parametros.get(1).pagado == 'S')
 
-
-//        def a = request.getRemoteAddr()
+        def a = request.getRemoteAddr()
 //        def b = request.getHeader("HTTP_X_FORWARDED_FOR")
 //        def c = request.getHeader("HTTP_CLIENT_IP")
 //        def d = request.getHeader("user-agent")
 //
-//        println("a " + a)
+        println("a " + a)
 //        println("b " + b)
 //        println("c " + c)
 //        println("d " + d)
@@ -42,10 +43,19 @@ class PrincipalController {
         def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id " +
                 "from publ, anun, prod, sbct " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id"
+                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id anunactv = '1' "
         def sqlDs = "select imagruta, prod.prod__id from publ, anun, prod, imag " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and publdstc = '1' and imag.prod__id = prod.prod__id and imagpncp = '1'"
+                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1'"
+
+        if(pagado) {
+            sqlDs += " and publdstc = '1'"
+        } else {
+            sqlDs += " and random() > 0.5 limit 5"
+            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, anun.prod__id from publ, anun, prod " +
+                    "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id}"
+        }
 
         /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
 
@@ -58,7 +68,9 @@ class PrincipalController {
                     sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
                 }
         }
+        println "pagado: $pagado"
         println "sql: $sql"
+        println "sqlDs: $sqlDs"
         def anuncios = cn.rows(sql.toString())
         println "anuncios: $anuncios"
 
@@ -80,7 +92,7 @@ class PrincipalController {
             carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
         }
         def i = 1   /* completa las imágenes del carrusel */
-        while(carrusel.size() < 3) {
+        while(carrusel.size() < 5) {
             carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
         }
 
@@ -89,7 +101,8 @@ class PrincipalController {
             def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
             println "producto: ${pb.prod__id} --> imágenes: ${imag}"
             imag.each { im ->
-                if(im.principal == '1') {
+//                if(im.principal == '1') {
+                if(pb.destacado == '1') {
                     destacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
                                     sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
                 }

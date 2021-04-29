@@ -5,8 +5,7 @@ import audita.Auditable
 class Parametros implements Auditable {
     static auditable = true
 
-    String imagenes
-    String institucion
+    String pagado
 
     static mapping = {
         table 'prax'
@@ -15,12 +14,10 @@ class Parametros implements Auditable {
         id generator: 'identity'
         version false
         columns {
-            imagenes column: 'praximgn'
-            institucion column: 'praxinst'
+            pagado column: 'praxpago'
         }
     }
     static constraints = {
-        imagenes(blank: true, nullable: true, attributes: [title: 'Imagen'])
-        institucion(blank: false, nullable: false, attributes: [title: 'Nombre de la Institución'])
+        pagado(blank: false, nullable: false, attributes: [title: 'Pagado'])
     }
 }

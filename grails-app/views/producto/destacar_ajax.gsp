@@ -26,7 +26,7 @@
     </div>
 
     <div class="alert alert-warning col-md-5" role="alert" style="font-size: 13px">
-        <strong>* Los anuncios destacados aparecerán de manera preferencial en la página principal!</strong>
+        <strong>Los anuncios destacados aparecerán en la parte superior de Anuncios!</strong>
     </div>
 
 </div>

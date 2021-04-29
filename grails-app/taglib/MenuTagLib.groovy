@@ -437,7 +437,7 @@ class MenuTagLib {
         html += txto + '</li></ul></div>'
 //        html += '</ul>' + txto
 
-        println "usuario: $perfil"
+//        println "usuario: $perfil"
         if(usuario) {
             if(perfil.codigo != 'ADMN') {
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
