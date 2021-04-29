@@ -11,7 +11,7 @@
             Período de publicación
         </label>
         <div class="col-md-3">
-            <g:select name="periodo" from="${[1:'1 Semana', 2:'2 Semanas', 3:'3 Semanas', 4:'4 Semanas']}" class="form-control per" optionValue="value" optionKey="key"/>
+            <g:select name="periodo" from="${ventas.TipoPago.list().sort{it.descripcion}}" class="form-control per" optionValue="descripcion" optionKey="id"/>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
             Fecha de inicio de la publicación
         </label>
         <div class="col-md-3">
-            <input name="fechaInicio" id='datetimepicker1' type='text' required="" class="form-control required" value="${new Date()}"/>
+            <input name="fechaInicio" id='datetimepicker1' type='text' required="" class="form-control required" value="${new Date().format("dd-MM-yyyy")}"/>
         </div>
     </div>
 
@@ -43,14 +43,17 @@
 </div>
 
 <script type="text/javascript">
+
     cargarFechaFin($("#datetimepicker1").val());
 
     function cargarFechaFin(inicio){
+        var tipo = $("#periodo option:selected").val();
         $.ajax({
             type: 'POST',
             url:'${createLink(controller: 'pago', action: 'fin_ajax')}',
             data:{
-                inicio:inicio
+                inicio:inicio,
+                tipo:tipo
             },
             success: function(msg){
                 $("#divFin").html(msg)
@@ -79,7 +82,10 @@
             type    : "POST",
             url     : "${createLink(controller: 'pago', action:'pago_ajax')}",
             data    : {
-                id:id
+                id:id,
+                fi: $("#datetimepicker1").val(),
+                ff: $("#datetimepicker2").val(),
+                tipo: $("#periodo option:selected").val()
             },
             success : function (msg) {
                 var b = bootbox.dialog({
@@ -119,7 +125,17 @@
 
     $(".per").change(function (){
         var s = $("#periodo option:selected").val();
-        valor(s)
+        valor(s);
+        cargarFechaFin($("#datetimepicker1").val());
     });
+
+    // $("#datetimepicker1").change(function () {
+    //     cargarFechaFin($("#datetimepicker1").val());
+    // });
+
+    $('#datetimepicker1').on('dp.change', function(e){
+        var formatedValue = e.date.format(e.date._f);
+        cargarFechaFin(formatedValue);
+    })
 
 </script>

@@ -234,6 +234,9 @@
 
     function upload(indice) {
         var tramite = "${producto.id}";
+        var tipo = "${tipo.id}";
+        var fechaIni = "${fi}";
+        var fechaF = "${ff}";
         var file = document.getElementById("file");
         /* Create a FormData instance */
         var formData = new FormData();
@@ -252,6 +255,9 @@
                 if (mb <= 5) {
                     formData.append("file", file.files[indice]);
                     formData.append("id", tramite);
+                    formData.append("tipo", tipo);
+                    formData.append("fi", fechaIni);
+                    formData.append("ff", fechaF);
                     $("." + (indice + 1)).each(function () {
                         formData.append($(this).attr("name"), $(this).val());
                     });
@@ -316,8 +322,6 @@
             });
         }
 
-
-
     }
 
     var okContents = {
@@ -331,7 +335,7 @@
         var c  = cargarLoader("Subiendo...");
         return $.ajax({
             type: "POST",
-            url: '${createLink(controller: 'producto', action: 'revisarImas_ajax')}',
+            url: '${createLink(controller: 'pago', action: 'revisarImas_ajax')}',
             data: {
                 id: '${producto?.id}'
             },

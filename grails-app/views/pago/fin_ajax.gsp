@@ -5,7 +5,7 @@
   Time: 12:13
 --%>
 
-<input name="fechaFin" id='datetimepicker2' type='text' class="form-control" disabled value="${new java.util.Date()}"/>
+<input name="fechaFin" id='datetimepicker2' type='text' class="form-control" disabled value="${ff}"/>
 
 <script type="text/javascript">
 

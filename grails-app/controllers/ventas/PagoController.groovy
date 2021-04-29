@@ -1,5 +1,6 @@
 package ventas
 
+import geografia.Canton
 import groovy.io.FileType
 
 import javax.imageio.ImageIO
@@ -17,13 +18,18 @@ class PagoController {
     }
 
     def valor_ajax(){
-        def valor = 10 * params.valor.toInteger()
+        def tipoPago = TipoPago.get(params.valor)
+        def valor = tipoPago.tarifa ?: 0
         return[valor:valor]
     }
 
     def pago_ajax(){
+        println("pago " + params)
         def producto = Producto.get(params.id)
-        return[producto: producto]
+        def tipo = TipoPago.get(params.tipo)
+        def fechaInicio = params.fi
+        def fechaFin = params.ff
+        return[producto: producto, tipo: tipo, fi: fechaInicio, ff: fechaFin]
     }
 
     def tablaPagos_ajax(){
@@ -53,6 +59,9 @@ class PagoController {
     def upload_ajax() {
         println ("params imas " +  params)
         def producto = Producto.get(params.id)
+        def tipo = TipoPago.get(params.tipo)
+        def fi = new Date().parse("dd-MM-yyyy", params.fi)
+        def ff = new Date().parse("dd-MM-yyyy", params.ff)
         def path = "/var/ventas/pagos/pro_" + producto.id + "/"
         new File(path).mkdirs()
 
@@ -112,17 +121,15 @@ class PagoController {
                     try {
                         f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
                         def pago = new Pago()
-                        imagenNueva.producto = producto
-                        imagenNueva.estado = 1
-                        imagenNueva.ruta = nombre
-
-                        if(canti.size() == 0){
-                            imagenNueva.principal = 1
-                        }
-
-                        imagenNueva.save(flush:true)
+                        pago.producto = producto
+                        pago.tipoPago = tipo
+                        pago.fecha = new Date()
+                        pago.fechaInicio = fi
+                        pago.fechaFin = ff
+                        pago.valor = tipo.tarifa
+                        pago.save(flush:true)
                     } catch (e) {
-                        println ("error al subir la imagen " + e)
+                        println ("error al subir la imagen del comprobante" + e)
                     }
 
                     /* fin resize */
@@ -206,9 +213,35 @@ class PagoController {
 
     def fin_ajax(){
 
+        println("params fechas" + params)
+        def tipoPago = TipoPago.get(params.tipo)
+
         def fi = new Date().parse("dd-MM-yyyy", params.inicio)
+        println("params fi " + fi.format("dd-MM-yyyy"))
+        def ff
+
+//        switch (params.tipo) {
+//
+//            case "1":
+//                ff  = fi.plus(7).format("dd-MM-yyyy")
+//            break;
+//            case "2":
+//                ff  = fi.plus(14).format("dd-MM-yyyy")
+//                break;
+//            case "3":
+//                ff  = fi.plus(21).format("dd-MM-yyyy")
+//                break;
+//            case "4":
+//                ff  = fi.plus(28).format("dd-MM-yyyy")
+//                break;
+//        }
+
+        ff  = fi.plus(tipoPago.dias.toInteger()).format("dd-MM-yyyy")
+
+
         println("params ff " + ff)
 
+        return[ff:ff]
     }
 
 
