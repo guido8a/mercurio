@@ -110,7 +110,7 @@
                         if(msg == 'ok'){
                             log("Categoría guardada correctamente","success");
                             setTimeout(function () {
-                                location.reload(true)
+                                $('#tree').jstree(true).refresh();
                             }, 1000);
                         }else{
                             log("Error al guardar la categoría","error")
@@ -172,8 +172,7 @@
                         if(msg == 'ok'){
                             log("Subcategoría guardada correctamente","success");
                             setTimeout(function () {
-                                location.reload(true)
-                                // $('#tree').jstree(true).search($.trim(''));
+                                $('#tree').jstree(true).refresh();
                             }, 1000);
                         }else{
                             log("Error al guardar la Subcategoría","error")
@@ -238,7 +237,7 @@
                         if(parts[0] == 'ok'){
                             log("Atributo guardado correctamente","success");
                             setTimeout(function () {
-                                location.reload(true)
+                                $('#tree').jstree(true).refresh();
                             }, 1000);
                         }else{
                             if(parts[0] == 'er'){
@@ -303,7 +302,7 @@
                                 if(parts[0] == 'ok'){
                                     log("Categoría borrada correctamente","success");
                                     setTimeout(function () {
-                                        location.reload(true)
+                                        $('#tree').jstree(true).refresh();
                                     }, 1000);
                                 }else{
                                     bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
@@ -328,7 +327,7 @@
                             if(parts[0] == 'ok'){
                                 log("Subcategoría borrada correctamente","success")
                                 setTimeout(function () {
-                                    location.reload(true)
+                                    $('#tree').jstree(true).refresh();
                                 }, 1000);
                             }else{
                                 if(parts[0] == 'er'){
@@ -358,7 +357,7 @@
                             if(msg == 'ok'){
                                 log("Atributo borrado correctamente","success");
                                 setTimeout(function () {
-                                    location.reload(true)
+                                    $('#tree').jstree(true).refresh();
                                 }, 1000);
                             }else{
                                log("Error al borrar el atributo" ,"error")

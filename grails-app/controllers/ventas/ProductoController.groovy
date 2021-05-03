@@ -310,11 +310,7 @@ class ProductoController {
                 render "no"
             }
         }
-
-
-
-
-    }
+ }
 
     def getImage() {
         println "params get image $params"

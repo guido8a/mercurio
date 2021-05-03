@@ -244,5 +244,61 @@ class PagoController {
         return[ff:ff]
     }
 
+    def deleteImagen_ajax() {
+        println "params borrar comprobante" + params
+        def producto = Producto.get(params.id)
+        def path = "/var/ventas/pago/pro_" + producto.id + "/"
+        def file = params.file
+        def fileDel = new File(path + file)
+
+        def canti = []
+        def dir = new File(path)
+        dir.eachFileRecurse(FileType.FILES) { f ->
+            def img = ImageIO.read(f)
+
+            if (img) {
+                canti.add([
+                        dir : path,
+                        file: f.name
+                ])
+            }
+        }
+
+//        if(canti.size() == 1){
+//            render "er_No se puede borrar el comprobante."
+//        }else{
+            try{
+//                def imagen = Imagen.findByProductoAndRuta(producto,file)
+                def pago = Pago.findByProducto(producto)
+                if(pago){
+                    fileDel.delete()
+                    pago.delete(flush: true)
+                    render "ok"
+                }else{
+                    render  "no"
+                }
+            }catch(e){
+                println("error al borrar la imagen " + e)
+                render "no"
+            }
+//        }
+    }
+
+    def getImage() {
+        println "params get image $params"
+        byte[] imageInBytes = im(params.id, params.format, params.pro)
+        response.with{
+            setHeader('Content-length', imageInBytes.length.toString())
+            contentType = "image/${params.format}" // or the appropriate image content type
+            outputStream << imageInBytes
+            outputStream.flush()
+        }
+    }
+
+    byte[] im(nombre,ext,producto) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        ImageIO.write(ImageIO.read(new File("/var/ventas/pagos/pro_" + producto + "/" + nombre + "." + ext)), ext.toString(), baos)
+        baos.toByteArray()
+    }
 
 }

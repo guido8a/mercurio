@@ -37,7 +37,7 @@
                     <a href="#" class="btn btn-gris btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
                         <i class="fa fa-trash"></i>
                     </a>
-                    <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"/>
+                    <img src="${createLink(controller: 'pago', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"/>
                     <div class="caption">
                         <p>${file.file}</p>
                     </div>
@@ -62,7 +62,7 @@
             if (res) {
                 $.ajax({
                     type: 'POST',
-                    url: '${createLink(controller: 'producto', action: 'deleteImagen_ajax')}',
+                    url: '${createLink(controller: 'pago', action: 'deleteImagen_ajax')}',
                     data:{
                         id: '${producto?.id}',
                         file: file
