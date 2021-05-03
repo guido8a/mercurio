@@ -442,10 +442,12 @@ class MenuTagLib {
             if(perfil.codigo != 'ADMN') {
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
                         "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
-//                    "style=\"color:#40cfd0; font-size:small\"><i class=\"fa fa-edit\"></i> Crear Anuncio</a></span>" +
                         "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>"
-                html += '<ul class="nav navbar-nav navbar-right btn-gris">'
-                html += '<li class="nav-item dropdown">'
+                html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
+                        "href='${g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id)}' " +
+                        "style='color:#222'><i class='fa fa-paste'></i> Sus Preguntas</a></span>"
+                html += '<ul class="nav navbar-nav navbar-right btn-rojo">'
+                html += '<li class="nav-item btn-rojo dropdown">'
                 html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#000">' +
                         '<i class="fa fa-user"></i>' + '  ' + usuario?.nombres + ' <b class="caret"></b></a>'
                 html += '<div class="dropdown-menu">'
