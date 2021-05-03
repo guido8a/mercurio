@@ -445,7 +445,7 @@ class MenuTagLib {
                         "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>"
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
                         "href='${g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id)}' " +
-                        "style='color:#222'><i class='fa fa-paste'></i> Sus Preguntas</a></span>"
+                        "style='color:#222'><i class='far fa-comment-alt'></i> Sus Preguntas</a></span>"
                 html += '<ul class="nav navbar-nav navbar-right btn-rojo">'
                 html += '<li class="nav-item btn-rojo dropdown">'
                 html += '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:#000">' +
