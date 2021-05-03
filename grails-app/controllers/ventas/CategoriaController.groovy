@@ -101,7 +101,7 @@ class CategoriaController {
                 tree = ""
             }
         } else if (id == "root") {
-            hijos = Categoria.list().sort{it.descripcion}
+            hijos = Categoria.list().sort{it.orden}
         } else if(id == 'lidep'){
 
 //            def parts = id.split("_")
@@ -111,7 +111,7 @@ class CategoriaController {
                 padre = Categoria.get(node_id)
                 if (padre) {
                     hijos = []
-                    hijos += Subcategoria.findAllByCategoria(padre).sort{it.descripcion}
+                    hijos += Subcategoria.findAllByCategoria(padre).sort{it.orden}
                 }
 //            }else{
 //

@@ -163,7 +163,7 @@
 
     <div class="row mbr-justify-content-center">
 
-    <a href= "${createLink(controller:'categoria', action: 'list')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'categoria', action: 'arbol')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">
@@ -184,8 +184,8 @@
                     <asset:image src="apli/proyecto.png" title="Períodos y semáforos por cantón"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Promotores</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de promotores</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Promotores o Clientes</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Revisión de Promotores y Clientes</p>
                 </div>
             </div>
         </div>
@@ -212,8 +212,8 @@
                     <asset:image src="apli/proyecto.png" title="Cantones"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Bienes y Servicios</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de bienes y servicios</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>División política</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">División política</p>
                 </div>
             </div>
         </div>

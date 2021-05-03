@@ -479,7 +479,7 @@
                         stripes : true
                     },
                     data           : {
-                        async : false,
+                        async : true,
                         url   : '${createLink(controller: 'categoria', action:"loadTreePart")}',
                         data  : function (node) {
                             return {
@@ -492,7 +492,7 @@
                     }
                 },
                 contextmenu : {
-                    show_at_node : false,
+                    show_at_node : true,
                     items        : createContextMenu
                 },
                 search      : {
