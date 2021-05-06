@@ -72,6 +72,9 @@
     .marcoDestacados {
         border-color: var(--naranja0);
     }
+    .marcoNormal {
+        border-color: var(--gris);
+    }
 
     .buscar {
         /*color: #444 !important;*/
@@ -206,6 +209,25 @@
         color:var(--naranja0);
         font-size: 1.2rem;
     }
+    .titulo2n {
+        color:var(--gris);
+        font-size: 1.0rem;
+    }
+    .titulo3 {
+        color:#000;
+        font-size: 0.9rem;
+    }
+    .titulo4 {
+        color:#000;
+        font-size: 0.8rem;
+        font-weight: normal;
+    }
+    .normal {
+        text-align: center;
+        color:#000;
+        font-size: 10pt;
+        font-weight: normal;
+    }
 
     a.consulta {
         color:var(--naranja00);
@@ -215,6 +237,10 @@
     .titulo2 a {
         color:var(--naranja0);
         font-size: 1.2rem;
+    }
+    .titulo2n a {
+        color:var(--naranja0);
+        font-size: 1rem;
     }
 
     .blink_text {
@@ -381,7 +407,6 @@
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 marcoDestacados">
                                 <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">
-                                    %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
                                     <img width="253px" height="auto" style="padding: 1px"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                                 </a>
@@ -391,44 +416,33 @@
                                         <a href="${createLink(controller: 'ver', action: 'carrusel',
                                                 params: [id: prod.id, tipo: 3])}">${prod.tt}</a>
                                     </h4>
-                                    <h5>${prod.sb ?: 'Sin descripción'}</h5>
-
-                                    %{--                            <p class="card-text">${prod.sb}</p>--}%
+                                    <h5 class="titulo3">${prod.sb ?: 'Sin descripción'}</h5>
+                                    <div class="normal">${prod.gf}</div>
                                 </div>
-                                %{--                                <div class="card-footer">--}%
-                                %{--                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--}%
-                                %{--                                </div>--}%
                             </div>
                         </div>
                     </g:each>
                 </div>
             </g:if>
 
-        %{--        Normales--}%
-
-
+        %{--  Normales--}%
             <div class="row">
                 <g:if test="${normales?.size() > 0}">
                     <g:each in="${normales}" var="prod" status="i">
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
+                            <div class="card h-100 marcoNormal">
                                 <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">
-                                    %{--                                <img width="250px" height="200px" src="${createLink(controller: 'producto', action: 'getImage', params: [id: prod.rt, pro: prod?.p] )}"/>--}%
-                                    <img width="250px" height="200px"
+                                    <img width="253px" height="auto" style="padding: 1px"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                                 </a>
 
                                 <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">${prod.tt}</a>
+                                    <h4 class="titulo2n">
+                                        <a href="${createLink(controller: 'ver', action: 'carrusel',
+                                                params: [id: prod.id, tipo: 3])}">${prod.tt}</a>
                                     </h4>
-                                    <h5>${prod.sb ?: 'Sin descripción'}</h5>
-
-                                    %{--                            <p class="card-text">${prod.sb}</p>--}%
-                                </div>
-
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                    <h5 class="titulo4">${prod.sb ?: 'Sin descripción'}</h5>
+                                    <div class="normal">${prod.gf}</div>
                                 </div>
                             </div>
                         </div>

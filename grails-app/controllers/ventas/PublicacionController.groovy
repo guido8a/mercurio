@@ -16,7 +16,7 @@ class PublicacionController {
 
         println("params " + params)
 
-        def fi = new Date().parse("dd-MM-yyyy HH:mm:ss", params.fechaInicio + " 00:01:00")
+        def fi = new Date().parse("dd-MM-yyyy HH:mm:ss", params.fechaInicio + " 00:00:00")
         params.fechaInicio = fi
 
         def ff

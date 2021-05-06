@@ -37,24 +37,33 @@ class PrincipalController {
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
-        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id from publ, anun, prod " +
+        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, provnmbr||' - '||cntnnmbr lugar" +
+                "from publ, anun, prod, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id}"
-        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id " +
-                "from publ, anun, prod, sbct " +
+                "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and cntn.cntn__id = prod.cntn__id and " +
+                "prov.prov__id = cntn.prov__id "
+        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id, " +
+                "provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, sbct, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id anunactv = '1' "
-        def sqlDs = "select imagruta, prod.prod__id from publ, anun, prod, imag " +
+                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id and anunactv = '1' and " +
+                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
+        def sqlDs = "select imagruta, prod.prod__id, provnmbr||' - '||cntnnmbr lugar from publ, anun, prod, imag, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1'"
+                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1' and " +
+                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
 
         if(pagado) {
             sqlDs += " and publdstc = '1'"
         } else {
             sqlDs += " and random() > 0.5 limit 5"
-            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, anun.prod__id from publ, anun, prod " +
+            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, " +
+                    "anun.prod__id, provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, cntn, prov " +
                     "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id}"
+                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and " +
+                    "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
+//            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, anun.prod__id from publ, anun, prod " +
+//                    "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+//                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id}"
         }
 
         /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
@@ -104,11 +113,13 @@ class PrincipalController {
 //                if(im.principal == '1') {
                 if(pb.destacado == '1') {
                     destacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                    sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
+                                    sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id,
+                                    gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
                 }
                 else {
                     normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id])
+                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id,
+                                  gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
                 }
             }
         }

@@ -29,7 +29,7 @@
         <tbody id="tabla_bandeja">
         <g:each in="${anuncios}" var="anuncio">
             <tr data-id="${anuncio?.id}" data-prod="${anuncio?.producto?.id}" data-est="${anuncio?.estado}" data-per="${anuncio.producto.persona.id}" style="width: 100%">
-                <td style="width: 30%; text-align: center">${anuncio?.titulo}</td>
+                <td style="width: 30%; text-align: left">${anuncio?.titulo}</td>
                 <td style="width: 20%">${anuncio?.subtitulo}</td>
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
                 <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#afafaf'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>

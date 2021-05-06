@@ -5,10 +5,12 @@ import seguridad.Persona
 class VerController {
 
     def mailService
+    def dbConnectionService
 
     /* debe llegar el id del producto */
     def carrusel() {
-//        println "index params: $params"
+        def cn = dbConnectionService.getConnection()
+        println "index params: $params"
 
 //        params.id = params.id?:1
         /** si el producto se puede ver --> avanza **/
@@ -17,6 +19,11 @@ class VerController {
         def anuncio = Anuncio.findByProducto(producto)
         def estadoAnuncio = anuncio?.estado ?: 0
         def persona = Persona.get(params.persona)
+        def sql = "select provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from prod, cntn, prov " +
+                "where cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and prod__id = ${params.id}"
+        def prod = cn.rows(sql.toString())[0]
+        println "prod: $prod"
+        def lugar = (prod.cntn__id == 226)? 'Ecuador' : prod.lugar
 
 
         if(params.tipo == '3'){
@@ -49,10 +56,10 @@ class VerController {
 
                 def preguntas = Pregunta.findAllByProducto(producto).sort{it.fecha}
 
-                println("publicaciones " + publicaciones)
+                println("publicaciones3 " + publicaciones)
 
                 return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
-                        publicaciones: publicaciones, preguntas: preguntas]
+                        publicaciones: publicaciones, preguntas: preguntas, lugar: lugar]
             }else{
 
                 redirect(controller: 'principal', action: 'error');
@@ -86,7 +93,7 @@ class VerController {
             println("publicaciones " + publicaciones)
 
             return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
-                    publicaciones: publicaciones, preguntas: preguntas]
+                    publicaciones: publicaciones, preguntas: preguntas, lugar: lugar]
         }
 
 

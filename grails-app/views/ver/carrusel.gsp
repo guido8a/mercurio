@@ -366,7 +366,8 @@
 
     <div class="alert alert-dark" style="margin-top: 20px; text-align: center">
         <h3>${producto.titulo}</h3>
-        <h5>${producto.subtitulo}</h5>
+        <div><strong>${producto.subtitulo}</strong></div>
+        <div style="margin-top: 5px">Lugar: ${lugar}</div>
     </div>
 
 
