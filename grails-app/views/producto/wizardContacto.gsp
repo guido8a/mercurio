@@ -206,7 +206,7 @@
                             success : function (msg) {
                                 var b = bootbox.dialog({
                                     id      : "dlgDestacar",
-                                    title   : "Destacar Producto",
+                                    title   : "Destacar el Anuncio",
                                     message : msg,
                                     buttons : {
                                         cancelar : {

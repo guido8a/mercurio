@@ -8,6 +8,14 @@
 <asset:javascript src="/apli/jquery.switcher.js"/>
 <asset:stylesheet src="/apli/switcher.css"/>
 
+<style type="text/css">
+    .titulo0 {
+        color:var(--naranja0);
+        font-size: 1.6rem;
+        font-weight: bolder;
+    }
+</style>
+
 <div class="container">
 
     <div class="col-md-5" style="text-align: center; margin-bottom: 12px">
@@ -20,14 +28,20 @@
 %{--                <span class="badge bg-primary">Destacado</span>--}%
             </label>
             <div class="col-md-2 form-check form-check-inline" style="margin-top: 5px">
-                <input name="destacado" class="form-check-input tipo" type="checkbox" id="inlineCheckbox1" ${producto?.destacado == '1' ? 'checked' : ''}>
+                <input name="destacado" class="form-check-input tipo" type="checkbox" id="inlineCheckbox1"
+                    ${producto?.destacado == '1' ? 'checked' : ''}>
             </div>
         </span>
+
     </div>
 
-    <div class="alert alert-warning col-md-5" role="alert" style="font-size: 13px">
-        <strong>Los anuncios destacados aparecerán en la parte superior de Anuncios!</strong>
+%{--        <div class="alert alert-warning col-md-6" role="alert" style="font-size: 13px">--}%
+    <div class="col-md-6" style="font-size: 15px">
+        Con una <strong>pequeña inversión</strong>, destaque su anuncio para que aparezca en la parte superior de
+        Anuncios, o que se halle <span class="titulo0">siempre visible</span> en el carrusel principal.
     </div>
+
+
 
 </div>
 

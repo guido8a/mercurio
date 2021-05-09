@@ -403,6 +403,8 @@ class MenuTagLib {
 
         def html = "<nav class='navbar navbar-expand-sm bg-dark navbar-dark fixed-top'>"
         html += "<div class='container-fluid' style=\"min-width: 400px !important;\">"
+        html += "<a class='navbar-brand navbar-logo' href='${app}'> <img src='" + g.assetPath(src: 'apli/logo.png') +
+                "' style='float:left; height:36px'>" + "</a>"
         html += "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#collapsibleNavbar'>" +
                 "<span class='navbar-toggler-icon'></span></button>"
 
@@ -411,9 +413,18 @@ class MenuTagLib {
 //        html += '<div class="collapse navbar-collapse"> '
         html += '<ul class="navbar-nav"><li class="nav-item">'
 
-//        html += "<div class='redondeado'><div class='input-group  class='nav-item''>"
+/*
+        html += "<a class='navbar-logo' href='${app}'> <img src='" + g.assetPath(src: 'apli/logo.png') +
+                "' style='float:left; height:40px'>" + "</a>"
+*/
+
+
         def txto = "<form name='frm-buscar' class='form-inline' action='${app}principal/index' method='POST'>" +
-                g.select( name: 'ctgr', from: ctgr, optionValue: 'descripcion',
+/*
+                "<a class='navbar-logo' href='${app}'> <img src='" + g.assetPath(src: 'apli/logo.png') +
+                "' style='float:left; height:40px'>" + "</a>" +
+*/
+                g.select( name: 'ctgr', from: ctgr, optionValue: 'descripcion', width:'160px',
                 optionKey: 'id', noSelection: [0: 'Buscar en todo'],  title: 'Seleccione la categoría', class: 'mr-sm-1') +
                 "<input id='bsca' name='bscr' class='form-control mr-sm-1' type='text' placeholder='Buscar' " +
                 "title='Escriba lo que desee buscar' value='${attrs.search?:''}'>" +

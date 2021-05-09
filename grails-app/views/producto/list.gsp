@@ -31,13 +31,13 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 20%">Anuncio</th>
-        <th style="width: 20%">Categoria</th>
+        <th style="width: 25%">Anuncio</th>
+        <th style="width: 15%">Categoria</th>
         <th style="width: 20%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
-        <th style="width: 8%">Estado</th>
-        <th style="width: 14%">Acciones</th>
-        <th style="width: 14%">Pagos</th>
+        <th style="width: 7%">Estado</th>
+        <th style="width: 13%">Acciones</th>
+        <th style="width: 10%">Pagos</th>
     </tr>
     </thead>
 </table>
@@ -47,25 +47,29 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="producto">
             <tr data-id="${producto?.id}" class="${ventas.Alerta.findAllByProducto(producto) ? 'tieneAlerta' : 'no'}" style="width: 100%">
-                <td style="width: 20%">${producto?.titulo}</td>
-                <td style="width: 20%; text-align: center">${producto?.subcategoria?.categoria?.descripcion}</td>
-                <td style="width: 20%; text-align: center">${producto?.subcategoria?.descripcion}</td>
-                <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MM-yyyy")}</td>
-                <td style="width: 8%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
-                <td style="width: 14%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto" data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i> </a>
-                    <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto" data-id="${producto?.id}"><i class="fa fa-edit"></i> </a>
-                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto" data-id="${producto?.id}"><i class="fa fa-image"></i> </a>
+                <td style="width: 25%">${producto?.titulo}</td>
+                <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
+                <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
+                <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
+                <td style="width: 7%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 13%; text-align: center">
+                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
+                       data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
+                    <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto"
+                       data-id="${producto?.id}"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"
+                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>
                     <g:if test="${producto?.id}">
                         <g:if test="${!ventas.Alerta.findAllByProducto(producto)}">
                             <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
                         </g:if>
                     </g:if>
                 </td>
-                <td style="width: 12%; text-align: center">
+                <td style="width: 10%; text-align: center">
                     <g:if test="${producto?.id}">
-                        <a href="#" class="btn btn-xs btn-gris btnPagoPublicacion" title="Publicación pagada" data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> </a>
-                        <a href="#" class="btn btn-xs btn-rojo btnPagoDestacado" title="Pago destacado" data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> </a>
+                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"
+                           data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>
+%{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoDestacado" title="Pago destacado" data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> </a>--}%
                     </g:if>
                 </td>
             </tr>
