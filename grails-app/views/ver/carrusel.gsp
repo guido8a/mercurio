@@ -499,7 +499,8 @@
             Mapa
         </div>
 
-        <div class="col-md-12"  style="width: 900px; height: 500px; margin-left: 10px; float: left; margin-bottom: 20px;" id="divLocalizacion">
+%{--        <div class="col-md-12"  style="width: 95%; height: 500px; margin-left: 10px; float: left; margin-bottom: 20px;" id="divLocalizacion">--}%
+        <div class="col-md-12"  style="width: 100%; height: 500px;" id="divLocalizacion">
 
         </div>
     </div>
