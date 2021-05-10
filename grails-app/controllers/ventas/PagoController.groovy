@@ -119,7 +119,7 @@ class PagoController {
                         i++
                     }
                     try {
-                        f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
+//                        f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
                         def pago = new Pago()
                         pago.producto = producto
                         pago.tipoPago = tipo
@@ -128,6 +128,14 @@ class PagoController {
                         pago.fechaFin = ff
                         pago.valor = tipo.tarifa
                         pago.save(flush:true)
+
+                        def path2 = "/var/ventas/pagos/pro_" + producto.id + "/" + pago.id + "/"
+                        new File(path2).mkdirs()
+
+                        def pathFile2 = path2 + nombre
+
+                        f.transferTo(new File(pathFile2)) // guarda el archivo subido al nuevo path
+
                     } catch (e) {
                         println ("error al subir la imagen del comprobante" + e)
                     }

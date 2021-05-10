@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpasnhIQUsHfgCvC3qeJpEgcB9_ppWQI0&sensor=true"></script>
+
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <title>Ventas</title>
 
@@ -26,6 +29,10 @@
     <asset:javascript src="/apli/fontawesome.all.min.js"/>
 
     <style type="text/css">
+
+
+
+
     body {
         /*background: #B4BAC0;*/
         line-height: 1.0;
@@ -486,6 +493,17 @@
     </div>
 --}%
 
+    <div id="local" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
+
+        <div class="barra" role="alert" style="text-align: center;">
+            Mapa
+        </div>
+
+        <div class="col-md-12"  style="width: 900px; height: 500px; margin-left: 10px; float: left; margin-bottom: 20px;" id="divLocalizacion">
+
+        </div>
+    </div>
+
 
     <div id="preguntas" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
@@ -510,7 +528,6 @@
 
         </div>
     </div>
-
 
 </div>
 
@@ -596,7 +613,29 @@
 
 <script type="text/javascript">
 
-    $("#ingresar").click(function () {
+    $(function () {
+        initMap();
+    });
+
+    // Initialize and add the map
+    function initMap() {
+        // The location of Uluru
+        var uluru = { lat: -25.344, lng: 131.036 };
+        // The map, centered at Uluru
+        var map = new google.maps.Map(document.getElementById("divLocalizacion"), {
+            zoom: 4,
+            center: uluru
+        });
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    }
+
+
+
+$("#ingresar").click(function () {
         cargarIngreso();
     });
 
