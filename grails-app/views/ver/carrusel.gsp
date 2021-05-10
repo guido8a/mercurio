@@ -626,8 +626,8 @@
         var map = new google.maps.Map(document.getElementById("divLocalizacion"), {
             zoom: 16,
             center: uluru,
-            maxZoom            : 24,
-            minZoom            : 16
+            // maxZoom            : 24,
+            // minZoom            : 16
         });
         // The marker, positioned at Uluru
         var marker = new google.maps.Marker({
