@@ -1,3 +1,4 @@
+<%@ page import="ventas.Producto" %>
 <%--
   Created by IntelliJ IDEA.
   User: fabricio
@@ -31,13 +32,14 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 25%">Anuncio</th>
+        <th style="width: 21%">Anuncio</th>
         <th style="width: 15%">Categoria</th>
         <th style="width: 20%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
         <th style="width: 7%">Estado</th>
         <th style="width: 13%">Acciones</th>
-        <th style="width: 10%">Pagos</th>
+        <th style="width: 6%">Publicar</th>
+        <th style="width: 8%">Pagos</th>
     </tr>
     </thead>
 </table>
@@ -47,11 +49,11 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="producto">
             <tr data-id="${producto?.id}" class="${ventas.Alerta.findAllByProducto(producto) ? 'tieneAlerta' : 'no'}" style="width: 100%">
-                <td style="width: 25%">${producto?.titulo}</td>
+                <td style="width: 21%">${producto?.titulo}</td>
                 <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
-                <td style="width: 7%; text-align: center">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
                 <td style="width: 13%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
                        data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
@@ -65,11 +67,17 @@
                         </g:if>
                     </g:if>
                 </td>
-                <td style="width: 10%; text-align: center">
+                <td style="width: 6%; text-align: center">
+                    <g:if test="${producto?.id}">
+                        <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
+                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>
+                        </g:if>
+                    </g:if>
+                </td>
+                <td style="width: 8%; text-align: center">
                     <g:if test="${producto?.id}">
                         <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"
                            data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>
-%{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoDestacado" title="Pago destacado" data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> </a>--}%
                     </g:if>
                 </td>
             </tr>
@@ -80,6 +88,31 @@
 
 
 <script type="text/javascript">
+
+    $(".btnPublicar").click(function () {
+        var id = $(this).data("id");
+        bootbox.dialog({
+            title   : "Alerta",
+            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
+                "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +
+                "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprovación</p>",
+            buttons : {
+                cancelar : {
+                    label     : "<i class='fa fa-times'></i> Cancelar",
+                    className : "btn-gris",
+                    callback  : function () {
+                    }
+                },
+                publicar : {
+                    label     : "<i class='fa fa-check'></i> Publicar",
+                    className : "btn-rojo",
+                    callback  : function () {
+                        // publicarProducto();
+                    }
+                }
+            }
+        });
+    });
 
     $(".btnPagoPublicacion").click(function (){
         var id = $(this).data("id");

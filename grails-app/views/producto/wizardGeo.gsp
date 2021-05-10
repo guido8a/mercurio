@@ -138,12 +138,12 @@
                         </label>
                         <div class="col-md-3 form-group ${hasErrors(bean: 'producto', field: 'latitud', 'error')}">
                            <label>Latitud</label>
-                           <g:textField name="latitud" value="${producto?.latitud}" class="form-control"/>
+                           <g:textField name="latitud" value="${producto?.latitud ?: 0}" class="form-control"/>
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-3 form-group ${hasErrors(bean: 'producto', field: 'longitud', 'error')}">
                             <label>Longitud</label>
-                            <g:textField name="longitud" value="${producto?.longitud}" class="form-control"/>
+                            <g:textField name="longitud" value="${producto?.longitud ?: 0}" class="form-control"/>
                         </div>
                     </div>
                 </div>

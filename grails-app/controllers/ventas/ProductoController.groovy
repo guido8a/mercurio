@@ -75,7 +75,8 @@ class ProductoController {
             producto = new Producto()
             params.estado = 'I'
             params.fecha = new Date()
-
+            params.latitud = 0
+            params.longitud = 0
         }
 
         producto.properties = params

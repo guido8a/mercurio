@@ -209,12 +209,12 @@
                                     title   : "Destacar el Anuncio",
                                     message : msg,
                                     buttons : {
-                                        cancelar : {
-                                            label     : "<i class='fa fa-times'></i> Cancelar",
-                                            className : "btn-gris",
-                                            callback  : function () {
-                                            }
-                                        },
+                                        // cancelar : {
+                                        //     label     : "<i class='fa fa-times'></i> Cancelar",
+                                        //     className : "btn-gris",
+                                        //     callback  : function () {
+                                        //     }
+                                        // },
                                         guardar  : {
                                             id        : "btnSave",
                                             label     : "<i class='fa fa-save'></i> Aceptar",

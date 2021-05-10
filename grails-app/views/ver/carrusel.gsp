@@ -493,18 +493,16 @@
     </div>
 --}%
 
-    <div id="local" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
+     <g:if test="${producto?.subcategoria?.categoria?.id == 1}">
+         <div id="local" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
-        <div class="barra" role="alert" style="text-align: center;">
-            Mapa
-        </div>
-
-%{--        <div class="col-md-12"  style="width: 95%; height: 500px; margin-left: 10px; float: left; margin-bottom: 20px;" id="divLocalizacion">--}%
-        <div class="col-md-12"  style="width: 100%; height: 500px;" id="divLocalizacion">
-
-        </div>
-    </div>
-
+             <div class="barra" role="alert" style="text-align: center;">
+                 Mapa
+             </div>
+             <div class="col-md-12"  style="width: 100%; height: 500px;" id="divLocalizacion">
+             </div>
+         </div>
+     </g:if>
 
     <div id="preguntas" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
 
@@ -615,7 +613,7 @@
 <script type="text/javascript">
 
     $(function () {
-        initMap();
+            initMap();
     });
 
     // Initialize and add the map
