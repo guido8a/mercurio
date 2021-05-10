@@ -15,6 +15,8 @@ class Producto {
     Date fecha
     String destacado
     String sitio
+    double latitud
+    double longitud
 
     static mapping = {
         table 'prod'
@@ -34,6 +36,8 @@ class Producto {
             fecha column: 'prodfcha'
             destacado column: 'proddstc'
             sitio column: 'prodsito'
+            latitud column: 'prodlatt'
+            longitud column: 'prodlong'
         }
     }
 
@@ -48,7 +52,8 @@ class Producto {
         fecha(blank: false, nullable:false)
         destacado(blank: true, nullable:true)
         sitio(blank:true, nullable: true, size:0..127)
-
+        latitud(blank:true, nullable:true)
+        longitud(blank:true, nullable:true)
     }
 
     String toString(){

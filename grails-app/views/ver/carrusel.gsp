@@ -621,17 +621,23 @@
     // Initialize and add the map
     function initMap() {
         // The location of Uluru
-        var uluru = { lat: -0.242779, lng: -78.508217};
+        // var coord = { lat: -0.242779, lng: -78.508217};
+
+        var latitud = ${producto?.latitud ? (producto?.latitud != 0 ? producto?.latitud : (producto?.canton?.latitud != 0 ? producto?.canton?.latitud : producto?.canton?.provincia?.latitud)) : (producto?.canton?.latitud != 0 ? producto?.canton?.latitud : producto?.canton?.provincia?.latitud)};
+        var longitud = ${producto?.longitud ? (producto?.longitud != 0 ? producto?.longitud : (producto?.canton?.longitud != 0 ? producto?.canton?.longitud : producto?.canton?.provincia?.longitud)) : (producto?.canton?.longitud != 0 ? producto?.canton?.longitud : producto?.canton?.provincia?.longitud)};
+
+        var coord = {lat: latitud, lng: longitud};
+
         // The map, centered at Uluru
         var map = new google.maps.Map(document.getElementById("divLocalizacion"), {
             zoom: 16,
-            center: uluru,
+            center: coord,
             // maxZoom            : 24,
             // minZoom            : 16
         });
         // The marker, positioned at Uluru
         var marker = new google.maps.Marker({
-            position: uluru,
+            position: coord,
             map: map
         });
     }

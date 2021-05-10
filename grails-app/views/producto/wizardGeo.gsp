@@ -131,6 +131,21 @@
                             <g:textArea name="sitio" class="form-control" style="resize: none" value="${producto?.sitio}"/>
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <label class="col-md-3 control-label text-info">
+                            Coordenadas
+                        </label>
+                        <div class="col-md-3 form-group ${hasErrors(bean: 'producto', field: 'latitud', 'error')}">
+                           <label>Latitud</label>
+                           <g:textField name="latitud" value="${producto?.latitud}" class="form-control"/>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3 form-group ${hasErrors(bean: 'producto', field: 'longitud', 'error')}">
+                            <label>Longitud</label>
+                            <g:textField name="longitud" value="${producto?.longitud}" class="form-control"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,6 +157,20 @@
 </div>
 
 <script type="text/javascript">
+
+    function validarNumPunto(ev) {
+        return ((ev.keyCode >= 48 && ev.keyCode <= 57) ||
+            (ev.keyCode >= 96 && ev.keyCode <= 105) ||
+            ev.keyCode == 190 || ev.keyCode == 110 ||
+            ev.keyCode == 8 || ev.keyCode == 46 || ev.keyCode == 9 ||
+            ev.keyCode == 37 || ev.keyCode == 39 ||
+            ev.keyCode == 173 || ev.keyCode == 109);
+    }
+
+
+    $("#latitud, #longitud").keydown(function (ev) {
+        return validarNumPunto(ev)
+    });
 
     $("#provincia").change(function () {
         var id = $(this).val();
@@ -199,6 +228,8 @@
                     id: $("#id").val(),
                     sitio: $("#sitio").val(),
                     canton: $("#canton").val(),
+                    latitud: $("#latitud").val(),
+                    longitud: $("#longitud").val()
                 },
                 success : function (msg) {
                     l.modal("hide");
