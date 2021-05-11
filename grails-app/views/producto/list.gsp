@@ -70,7 +70,7 @@
                 <td style="width: 6%; text-align: center">
                     <g:if test="${producto?.id}">
                         <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
-                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>
+                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto gratuitamente" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>
                         </g:if>
                     </g:if>
                 </td>
@@ -88,6 +88,36 @@
 
 
 <script type="text/javascript">
+
+    function publicarGratis(id){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'alerta', action: 'generarAlerta2_ajax')}',
+            data:{
+                id: id
+             },
+            success: function (msg) {
+                if(msg == 'ok'){
+
+                    bootbox.dialog({
+                        title   : "Confirmación",
+                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        buttons : {
+                            aceptar : {
+                                label     : "<i class='fa fa-check'></i> Aceptar",
+                                className : "btn-gris",
+                                callback  : function () {
+                                    location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")
+                }
+            }
+        });
+    }
 
     $(".btnPublicar").click(function () {
         var id = $(this).data("id");
@@ -107,7 +137,7 @@
                     label     : "<i class='fa fa-check'></i> Publicar",
                     className : "btn-rojo",
                     callback  : function () {
-                        // publicarProducto();
+                        publicarGratis(id);
                     }
                 }
             }
