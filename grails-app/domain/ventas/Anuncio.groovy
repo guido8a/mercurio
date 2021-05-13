@@ -1,8 +1,11 @@
 package ventas
 
+import seguridad.Persona
+
 class Anuncio {
 
     Producto producto
+    Persona persona
     String titulo
     String subtitulo
     String estado
@@ -22,6 +25,7 @@ class Anuncio {
         columns {
             id          column: 'anun__id'
             producto column: 'prod__id'
+            persona column: 'prsn__id'
             titulo column: 'anuntitl'
             subtitulo column: 'anunsbtl'
             estado column: 'anunactv'
@@ -36,6 +40,7 @@ class Anuncio {
 
     static constraints = {
         producto(blank:false, nullable: false)
+        persona(blank:false, nullable: false)
         titulo(size: 1..255, blank:false, nullable: false)
         subtitulo(size: 1..255, blank:true, nullable: true)
         estado(blank:false, nullable: false)
