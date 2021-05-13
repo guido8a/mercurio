@@ -13,7 +13,6 @@ class Producto {
     String estado
     String texto
     Date fecha
-    String destacado
     String sitio
     double latitud
     double longitud
@@ -34,7 +33,6 @@ class Producto {
             estado column: 'prodetdo'
             texto column: 'prodtxto'
             fecha column: 'prodfcha'
-            destacado column: 'proddstc'
             sitio column: 'prodsito'
             latitud column: 'prodlatt'
             longitud column: 'prodlong'
@@ -50,7 +48,6 @@ class Producto {
         estado(blank:false)
         texto(blank: true, nullable: true)
         fecha(blank: false, nullable:false)
-        destacado(blank: true, nullable:true)
         sitio(blank:true, nullable: true, size:0..127)
         latitud(blank:true, nullable:true)
         longitud(blank:true, nullable:true)

@@ -209,38 +209,12 @@
                                     title   : "Destacar el Anuncio",
                                     message : msg,
                                     buttons : {
-                                        // cancelar : {
-                                        //     label     : "<i class='fa fa-times'></i> Cancelar",
-                                        //     className : "btn-gris",
-                                        //     callback  : function () {
-                                        //     }
-                                        // },
                                         guardar  : {
                                             id        : "btnSave",
-                                            label     : "<i class='fa fa-save'></i> Aceptar",
+                                            label     : "Aceptar <i class='fa fa-arrow-right'></i>",
                                             className : "btn-rojo",
                                             callback  : function () {
-                                                bootbox.dialog({
-                                                    title   : "Alerta",
-                                                    message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
-                                                        "<p style='font-size: 14px; font-weight: bold'>&nbsp;El producto será publicado con la " +
-                                                        "información guardada hasta el momento.</p>",
-                                                    buttons : {
-                                                        cancelar : {
-                                                            label     : "<i class='fa fa-times'></i> Cancelar",
-                                                            className : "btn-gris",
-                                                            callback  : function () {
-                                                            }
-                                                        },
-                                                        publicar : {
-                                                            label     : "<i class='fa fa-check'></i> Publicar",
-                                                            className : "btn-rojo",
-                                                            callback  : function () {
-                                                                publicarProducto();
-                                                            }
-                                                        }
-                                                    }
-                                                });
+                                            guardarContacto();
                                             } //callback
                                         } //guardar
                                     } //buttons
@@ -269,6 +243,53 @@
             return false;
         }
     });
+
+    function publicar(){
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'publicar_ajax')}',
+            data:{
+                id: '${producto?.id}'
+            },
+            success: function(msg){
+                bootbox.dialog({
+                    title   : "Publicar producto",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cancelar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function guardarContacto(){
+        var a = cargarLoader("Procesando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'guardarContacto_ajax')}',
+            data:{
+                id: '${producto?.id}',
+                persona: $("#persona").val(),
+                contacto: $("#contacto").val(),
+                telefono: $("#telefonoContacto").val(),
+                mail: $("#mailContacto").val()
+            },
+            success: function(msg){
+                a.modal("hide");
+                if(msg == 'ok'){
+                    publicar();
+                }else{
+                    log("Error al guardar la información de contacto","error")
+                }
+            }
+        });
+    }
 
     function publicarProducto(){
         $.ajax({

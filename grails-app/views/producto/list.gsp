@@ -125,7 +125,7 @@
             title   : "Alerta",
             message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
                 "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +
-                "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprovación</p>",
+                "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprobación</p>",
             buttons : {
                 cancelar : {
                     label     : "<i class='fa fa-times'></i> Cancelar",

@@ -66,6 +66,7 @@
             locale: 'es',
             format: 'DD-MM-YYYY',
             showClose: true,
+            minDate: moment().subtract(1, 'days'),
             icons: {
                 close: 'closeText'
             }
@@ -74,7 +75,11 @@
 
     $(".btnPagar").click(function () {
         var pro = $(this).data("id");
-        cargarImagenes(pro)
+        if($("#datetimepicker1").val() == '' || $("#datetimepicker1").val() == null){
+           bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>&nbsp; <strong style='font-size: 15px'>Ingrese una fecha de inicio</strong>");
+        }else{
+            cargarImagenes(pro)
+        }
     });
 
     function cargarImagenes(id) {

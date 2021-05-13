@@ -272,11 +272,7 @@ class PagoController {
             }
         }
 
-//        if(canti.size() == 1){
-//            render "er_No se puede borrar el comprobante."
-//        }else{
             try{
-//                def imagen = Imagen.findByProductoAndRuta(producto,file)
                 def pago = Pago.findByProducto(producto)
                 if(pago){
                     fileDel.delete()
@@ -289,7 +285,6 @@ class PagoController {
                 println("error al borrar la imagen " + e)
                 render "no"
             }
-//        }
     }
 
     def getImage() {

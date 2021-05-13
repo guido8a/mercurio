@@ -3,12 +3,13 @@ package ventas
 class Pago {
 
     TipoPago tipoPago
-    Producto producto
     Date fecha
     double valor
     String tipo
     Date fechaInicio
     Date fechaFin
+    String ruta
+    String estado
     String observaciones
 
 
@@ -21,23 +22,25 @@ class Pago {
         columns {
             id column: 'pago__id'
             tipoPago column: 'tppg__id'
-            producto column: 'prod__id'
             fecha column: 'pagofcha'
             valor column: 'pagovlor'
             tipo column: 'pagotipo'
             fechaInicio column: 'pagofcin'
             fechaFin column: 'pagofcfn'
+            ruta column: 'pagoruta'
+            estado column: 'pagoetdo'
             observaciones column: 'pagoobsr'
         }
     }
     static constraints = {
-        producto(blank: false, nullable: false)
         tipoPago(blank: false, nullable: false)
         fecha(blank: false, nullable: false)
         valor(blank: false, nullable: false)
         tipo(blank: true, nullable: true)
         fechaInicio(blank: false, nullable: false)
         fechaFin(blank: false, nullable: false)
+        ruta(size:1..127, blank: true, nullable: true)
+        estado(size: 0..1, blank: true, nullable: true)
         observaciones(blank: true, nullable: true)
     }
 }

@@ -6,6 +6,7 @@ class Alerta {
 
     Producto producto
     Persona persona
+    Pago pago
     Date fechaIngreso
     Date fechaAprobacion
     String observaciones
@@ -21,6 +22,7 @@ class Alerta {
             id column: 'alrt__id'
             producto column: 'prod__id'
             persona column: 'prsn__id'
+            pago column: 'pago__id'
             fechaIngreso column: 'alrtfcig'
             fechaAprobacion column: 'alrtfcap'
             observaciones column: 'alrtobsr'
@@ -30,6 +32,7 @@ class Alerta {
     static constraints = {
         producto(blank: false, nullable: false)
         persona(blank: true, nullable: true)
+        pago(blank: true, nullable: true)
         fechaIngreso(blank: false, nullable: false)
         fechaAprobacion(blank: true, nullable: true)
         observaciones(blank: true, nullable: true, size: 0..255)

@@ -3,6 +3,7 @@ package ventas
 class Publicacion {
 
     Anuncio anuncio
+    Pago pago
     Date fechaInicio
     Date fechaFin
     String destacado
@@ -16,6 +17,7 @@ class Publicacion {
         columns {
             id column: 'publ__id'
             anuncio column: 'anun__id'
+            pago column: 'pago__id'
             fechaInicio column: 'publfcin'
             fechaFin column: 'publfcfn'
             destacado column: 'publdstc'
@@ -23,6 +25,7 @@ class Publicacion {
     }
     static constraints = {
         anuncio(blank: false, nullable: false)
+        pago(blank: true, nullable: true)
         fechaInicio(blank: false, nullable: false)
         fechaFin(blank: true, nullable: true)
         destacado(blank: true, nullable: true)

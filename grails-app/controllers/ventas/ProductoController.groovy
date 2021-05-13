@@ -300,8 +300,10 @@ class ProductoController {
             try{
                 def imagen = Imagen.findByProductoAndRuta(producto,file)
                 if(imagen){
-                    fileDel.delete()
-                    imagen.delete(flush: true)
+//                    fileDel.delete()
+                    imagen.estado = 0
+//                    imagen.delete(flush: true)
+                    imagen.save(flush: true)
                     render "ok"
                 }else{
                     render  "no"
@@ -607,6 +609,25 @@ class ProductoController {
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
         return[producto: producto, persona: persona]
+    }
+
+    def publicar_ajax(){
+        def producto = Producto.get(params.id)
+        return [producto:producto]
+    }
+
+    def guardarContacto_ajax(){
+        def persona = Persona.get(params.persona)
+        persona.mailContacto = params.mail
+        persona.contacto = params.contacto
+        persona.telefonoContacto = params.telefono
+
+        if(!persona.save(flush:true)){
+            println("error al guardar la información de contacto " + persona.errors)
+            render "no"
+        }else{
+            render "ok"
+        }
     }
 
 }
