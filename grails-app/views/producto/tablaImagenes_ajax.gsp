@@ -28,7 +28,8 @@
 
 </style>
 
-<g:if test="${imagenes.size() > 0}">
+%{--<g:if test="${imagenes.size() > 0}">--}%
+<g:if test="${tam > 0}">
     <div class="row">
         <g:each in="${imagenes}" var="file" status="i">
             <div class="col-sm-3 ${i}">

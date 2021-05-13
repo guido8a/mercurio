@@ -118,8 +118,9 @@ class ProductoController {
 
 
     def upload_ajax() {
-//        println ("params imas " +  params)
+        println ("params imas " +  params)
         def producto = Producto.get(params.id)
+        def imagenes = Imagen.findAllByProductoAndEstado(producto, '1')
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(path).mkdirs()
 
@@ -143,7 +144,9 @@ class ProductoController {
             }
         }
 
-        if(canti.size() < 5){
+//        if(canti.size() < 5){
+        if(imagenes.size() < 5){
+
             if (f && !f.empty) {
                 def fileName = f.getOriginalFilename() //nombre original del archivo
                 def ext
@@ -162,8 +165,10 @@ class ProductoController {
                     fileName = fileName.size() < 40 ? fileName : fileName[0..39]
                     fileName = fileName.tr(/áéíóúñÑÜüÁÉÍÓÚàèìòùÀÈÌÒÙÇç .!¡¿?&#°"'/, "aeiounNUuAEIOUaeiouAEIOUCc_")
 
+//                    def nombre = fileName + "_${new Date().format("dd-MM-yyyy HH:mm")}" + "." + ext
                     def nombre = fileName + "." + ext
                     def pathFile = path + nombre
+//                    def fn = fileName + "_${new Date().format("dd-MM-yyyy HH:mm")}"
                     def fn = fileName
                     def src = new File(pathFile)
 
@@ -246,6 +251,7 @@ class ProductoController {
 
     def revisarImas_ajax(){
         def producto = Producto.get(params.id)
+        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(path).mkdirs()
 
@@ -265,7 +271,8 @@ class ProductoController {
             }
         }
 
-        if(canti.size() < 5){
+//        if(canti.size() < 5){
+        if(imagenes.size() < 5){
             render "ok"
         }else{
             render "no"
@@ -276,6 +283,7 @@ class ProductoController {
     def deleteImagen_ajax() {
         println "deleteImagen_ajax params $params"
         def producto = Producto.get(params.id)
+        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         def file = params.file
         def fileDel = new File(path + file)
@@ -294,7 +302,8 @@ class ProductoController {
             }
         }
 
-        if(canti.size() == 1){
+//        if(canti.size() == 1){
+        if(imagenes.size() == 1){
             render "er_No se puede borrar la imagen, el producto tiene una sola imagen asociada."
         }else{
             try{
@@ -334,6 +343,7 @@ class ProductoController {
 
     def tablaImagenes_ajax(){
         def producto = Producto.get(params.id)
+        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
 
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(path).mkdirs()
@@ -342,18 +352,21 @@ class ProductoController {
 
         def dir = new File(path)
         dir.eachFileRecurse(FileType.FILES) { file ->
-            def img = ImageIO.read(file)
-            if (img) {
-                files.add([
-                        dir : path,
-                        file: file.name,
-                        w   : img?.getWidth(),
-                        h   : img?.getHeight(),
-                ])
+            if(file.name.toString() in imagenes.ruta){
+                println("si " + file.name)
+                def img = ImageIO.read(file)
+                if (img) {
+                    files.add([
+                            dir : path,
+                            file: file.name,
+                            w   : img?.getWidth(),
+                            h   : img?.getHeight(),
+                    ])
+                }
             }
         }
 
-        return[imagenes: files, producto: producto]
+        return[imagenes: files, producto: producto, tam: imagenes.size()]
     }
 
     def tablaAtributos_ajax(){
@@ -406,7 +419,7 @@ class ProductoController {
     def ponerPrincipal_ajax(){
         def imagen = Imagen.get(params.id)
         def producto = imagen.producto
-        def imagenes = Imagen.findAllByProducto(producto)
+        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
 
         imagenes.each{
             it.principal = 0
