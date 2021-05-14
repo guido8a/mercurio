@@ -86,8 +86,6 @@
             <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
             <a href="#" class="btn btn-rojo" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
         </div>
-
-
     </div>
 
     <div class="card">
@@ -146,12 +144,6 @@
                         </div>
                     </div>
                 </div>
-
-                %{--                <div class="col-md-4 btn-group" style="float: right">--}%
-                %{--                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
-                %{--                    <a href="#" class="btn btn-info btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>--}%
-                %{--                    <a href="#" class="btn btn-success" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>--}%
-                %{--                </div>--}%
             </div>
         </div>
     </div>
@@ -196,33 +188,32 @@
                 },
                 success: function(msg){
                     if(msg == 'ok'){
+                        publicar();
 
-                        $.ajax({
-                            type    : "POST",
-                            url     : "${createLink(controller: 'producto', action:'destacar_ajax')}",
-                            data    : {
-                                id: '${producto?.id}'
-                            },
-                            success : function (msg) {
-                                var b = bootbox.dialog({
-                                    id      : "dlgDestacar",
-                                    title   : "Destacar el Anuncio",
-                                    message : msg,
-                                    buttons : {
-                                        guardar  : {
-                                            id        : "btnSave",
-                                            label     : "Aceptar <i class='fa fa-arrow-right'></i>",
-                                            className : "btn-rojo",
-                                            callback  : function () {
-                                            guardarContacto();
-                                            } //callback
-                                        } //guardar
-                                    } //buttons
-                                }); //dialog
-                            } //success
-                        }); //ajax
-
-
+                        %{--$.ajax({--}%
+                        %{--    type    : "POST",--}%
+                        %{--    url     : "${createLink(controller: 'producto', action:'destacar_ajax')}",--}%
+                        %{--    data    : {--}%
+                        %{--        id: '${producto?.id}'--}%
+                        %{--    },--}%
+                        %{--    success : function (msg) {--}%
+                        %{--        var b = bootbox.dialog({--}%
+                        %{--            id      : "dlgDestacar",--}%
+                        %{--            title   : "Destacar el Anuncio",--}%
+                        %{--            message : msg,--}%
+                        %{--            buttons : {--}%
+                        %{--                guardar  : {--}%
+                        %{--                    id        : "btnSave",--}%
+                        %{--                    label     : "Aceptar <i class='fa fa-arrow-right'></i>",--}%
+                        %{--                    className : "btn-rojo",--}%
+                        %{--                    callback  : function () {--}%
+                        %{--                        guardarContacto();--}%
+                        %{--                    } //callback--}%
+                        %{--                } //guardar--}%
+                        %{--            } //buttons--}%
+                        %{--        }); //dialog--}%
+                        %{--    } //success--}%
+                        %{--}); //ajax--}%
                     }else{
                         bootbox.dialog({
                             title   : "Alerta",
@@ -261,6 +252,13 @@
                             className : "btn-gris",
                             callback  : function () {
                             }
+                        },
+                        aceptar : {
+                            label     : "<i class='fa fa-check'></i> Publicar",
+                            className : "btn-rojo",
+                            callback  : function () {
+                               guardarContacto()
+                            }
                         }
                     }
                 });
@@ -283,7 +281,7 @@
             success: function(msg){
                 a.modal("hide");
                 if(msg == 'ok'){
-                    publicar();
+                   publicarProducto();
                 }else{
                     log("Error al guardar la información de contacto","error")
                 }
@@ -292,19 +290,22 @@
     }
 
     function publicarProducto(){
+        var a = cargarLoader("Procesando...");
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'alerta', action: 'generarAlerta_ajax')}',
+            %{--url: '${createLink(controller: 'alerta', action: 'generarAlerta_ajax')}',--}%
+            url: '${createLink(controller: 'producto', action: 'crearAnuncio_ajax')}',
             data:{
                 id: $("#id").val(),
-                persona: $("#persona").val(),
-                contacto: $("#contacto").val(),
-                telefono: $("#telefonoContacto").val(),
-                mail: $("#mailContacto").val()
+                persona: $("#persona").val()
+                // contacto: $("#contacto").val(),
+                // telefono: $("#telefonoContacto").val(),
+                // mail: $("#mailContacto").val()
             },
             success: function (msg) {
-                if(msg == 'ok'){
-
+                a.modal("hide");
+                var parts = msg.split("_");
+                if(parts[0] == 'ok'){
                     bootbox.dialog({
                         title   : "Confirmación",
                         message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
@@ -319,7 +320,11 @@
                         }
                     });
                 }else{
-                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")
+                    if(parts[0] == 'er'){
+                        bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Ya existe un anuncio activo </p>')
+                    }else{
+                        bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
+                    }
                 }
             }
         });

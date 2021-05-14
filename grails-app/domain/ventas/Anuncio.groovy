@@ -1,11 +1,14 @@
 package ventas
 
+import geografia.Canton
 import seguridad.Persona
 
 class Anuncio {
 
     Producto producto
     Persona persona
+    Canton canton
+    Subcategoria subcategoria
     String titulo
     String subtitulo
     String estado
@@ -26,6 +29,8 @@ class Anuncio {
             id          column: 'anun__id'
             producto column: 'prod__id'
             persona column: 'prsn__id'
+            canton column: 'cntn__id'
+            subcategoria column: 'sbct__id'
             titulo column: 'anuntitl'
             subtitulo column: 'anunsbtl'
             estado column: 'anunactv'
@@ -40,7 +45,9 @@ class Anuncio {
 
     static constraints = {
         producto(blank:false, nullable: false)
-        persona(blank:false, nullable: false)
+        persona(blank:true, nullable: true)
+        canton(blank:true, nullable: true)
+        subcategoria(blank:true, nullable: true)
         titulo(size: 1..255, blank:false, nullable: false)
         subtitulo(size: 1..255, blank:true, nullable: true)
         estado(blank:false, nullable: false)

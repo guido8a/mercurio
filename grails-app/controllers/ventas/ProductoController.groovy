@@ -1,5 +1,6 @@
 package ventas
 
+import com.itextpdf.tool.xml.html.Image
 import groovy.io.FileType
 import seguridad.Persona
 
@@ -507,6 +508,7 @@ class ProductoController {
         println "wizardImagenes: $params"
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
+        def imas = Imagen.findAllByProductoAndEstado(producto, '1')
 
         def imagenes = []
 
@@ -517,15 +519,17 @@ class ProductoController {
 
             def imag = new File(path)
             imag?.eachFileRecurse(FileType.FILES) { file ->
-                def img = ImageIO.read(file)
-                if (img) {
-                    imagenes.add([file: file.name])
+                if(file.name.toString() in imas.ruta) {
+                    def img = ImageIO.read(file)
+                    if (img) {
+                        imagenes.add([file: file.name])
+                    }
                 }
             }
             println "path: $path --> imagenes: $imagenes"
         }
 
-        return[producto: producto, persona: persona, imagenes: imagenes]
+        return[producto: producto, persona: persona, imagenes: imagenes, tam: imas.size()]
     }
 
     def wizardContacto() {
@@ -638,6 +642,36 @@ class ProductoController {
         if(!persona.save(flush:true)){
             println("error al guardar la información de contacto " + persona.errors)
             render "no"
+        }else{
+            render "ok"
+        }
+    }
+
+    def crearAnuncio_ajax(){
+        println("params crear anuncio " + params)
+        def producto = Producto.get(params.id)
+        def activo = Anuncio.findByProductoAndEstado(producto,'A')
+        def anuncio = new Anuncio()
+
+        if(activo){
+            render"er_Ya existe un anuncio activo"
+            return
+        }else{
+            anuncio.producto = producto
+            anuncio.canton = producto.canton
+            anuncio.subcategoria = producto.subcategoria
+            anuncio.estado = 'R'
+            anuncio.titulo = producto.titulo
+            anuncio.subtitulo = producto.subtitulo
+            anuncio.texto = producto.texto
+            anuncio.longitud = producto.longitud
+            anuncio.latitud = producto.latitud
+            anuncio.fecha = new Date()
+        }
+
+        if(!anuncio.save(flush:true)){
+            println("error al crear el anuncio " + anuncio.errors)
+            render "no_Error al publicar el producto"
         }else{
             render "ok"
         }

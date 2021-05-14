@@ -15,15 +15,15 @@
 
 <div class="container">
 
-    <div style="font-size: 15px; margin-bottom: 20px"><span class="titulo0">Nota:</span> el producto será publicado con la información guardada hasta el momento</div>
+    <div style="font-size: 15px; margin-bottom: 20px"><span class="titulo0"><i class="fa fa-exclamation-triangle text-warning fa-2x"></i>&nbsp; Nota:</span> el producto será publicado con la información guardada hasta el momento</div>
 
-    <div class="col-md-3 btn-group" style="float: left;">
-        <a href="#" class="btn btn-gris btnPublicarGratis" ><i class="fab fa-product-hunt"></i> Publicar gratuitamente</a>
-    </div>
+%{--    <div class="col-md-3 btn-group" style="float: left;">--}%
+%{--        <a href="#" class="btn btn-gris btnPublicarGratis" ><i class="fab fa-product-hunt"></i> Publicar gratuitamente</a>--}%
+%{--    </div>--}%
 
-    <div class="col-md-3 btn-group" style="float: left;">
-        <a href="#" class="btn btn-rojo btnPublicarDestacar" ><i class="fa fa-star"></i> Publicar y destacar el anuncio</a>
-    </div>
+%{--    <div class="col-md-3 btn-group" style="float: left;">--}%
+%{--        <a href="#" class="btn btn-rojo btnPublicarDestacar" ><i class="fa fa-star"></i> Publicar y destacar el anuncio</a>--}%
+%{--    </div>--}%
 
 </div>
 

@@ -154,7 +154,7 @@
                         </a>
 
                         <g:if test="${producto?.id}">
-                            <g:if test="${imagenes.size() > 0}">
+                            <g:if test="${tam > 0}">
                                 <div class="col-md-12">
                                     <div id="carrusel">
                                         <a href="#" class="left-arrow"><asset:image src="apli/left-arrow.png" title='Anterior'/></a>
