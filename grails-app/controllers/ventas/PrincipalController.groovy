@@ -37,33 +37,54 @@ class PrincipalController {
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
+//        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, provnmbr||' - '||cntnnmbr lugar" +
+//                "from publ, anun, prod, cntn, prov " +
+//                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+//                "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and cntn.cntn__id = prod.cntn__id and " +
+//                "prov.prov__id = cntn.prov__id "
         def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, provnmbr||' - '||cntnnmbr lugar" +
-                "from publ, anun, prod, cntn, prov " +
+                "from publ, anun, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and cntn.cntn__id = prod.cntn__id and " +
+                "sbct__id = ${sbct_id} and cntn.cntn__id = anun.cntn__id and " +
                 "prov.prov__id = cntn.prov__id "
-        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id, " +
-                "provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, sbct, cntn, prov " +
+
+//        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id, " +
+//                "provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, sbct, cntn, prov " +
+//                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+//                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id and anunactv = '1' and " +
+//                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
+
+        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, anun.sbct__id, " +
+                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id from publ, anun, sbct, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id and anunactv = '1' and " +
-                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
-        def sqlDs = "select imagruta, prod.prod__id, provnmbr||' - '||cntnnmbr lugar from publ, anun, prod, imag, cntn, prov " +
+                "sbct.sbct__id = anun.sbct__id and anunactv = '1' and " +
+                "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
+
+//        def sqlDs = "select imagruta, prod.prod__id, provnmbr||' - '||cntnnmbr lugar from publ, anun, prod, imag, cntn, prov " +
+//                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+//                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1' and " +
+//                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
+
+        def sqlDs = "select imagruta, anun.prod__id, provnmbr||' - '||cntnnmbr lugar " +
+                "from publ, anun, iman, imag, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1' and " +
-                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
+                "imag.imag__id = iman.imag__id and imag.prod__id = anun.prod__id and imagpncp = '1' and anunactv = '1' and " +
+                "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
 
         if(pagado) {
             sqlDs += " and publdstc = '1'"
         } else {
             sqlDs += " and random() > 0.5 limit 5"
-            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, " +
-                    "anun.prod__id, provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, cntn, prov " +
-                    "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and " +
-                    "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
-//            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, anun.prod__id from publ, anun, prod " +
+//            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, " +
+//                    "anun.prod__id, provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, cntn, prov " +
 //                    "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-//                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id}"
+//                    "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and " +
+//                    "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
+            sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, " +
+                    "anun.prod__id, provnmbr||' - '||cntnnmbr lugar, anun.cntn__id from publ, anun, cntn, prov " +
+                    "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                    "sbct__id = ${sbct_id} and " +
+                    "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
         }
 
         /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
@@ -94,7 +115,7 @@ class PrincipalController {
         }
 
         def carrusel = [], destacados = [], normales = []
-//        println "publ: $sqlDs"
+        println "publ: $sqlDs"
         /** se muestran en el carrusel todos los anuncios vigentes con publicación "destacada": publdstc = '1' **/
         def publ = cn.rows(sqlDs.toString())
         publ.each {pb ->
