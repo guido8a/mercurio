@@ -17,18 +17,7 @@ class PrincipalController {
 
     def index() {
         println "index params: $params"
-        def pagado = (Parametros.get(1).pagado == 'S')
-
-        def a = request.getRemoteAddr()
-//        def b = request.getHeader("HTTP_X_FORWARDED_FOR")
-//        def c = request.getHeader("HTTP_CLIENT_IP")
-//        def d = request.getHeader("user-agent")
-//
-        println("a " + a)
-//        println("b " + b)
-//        println("c " + c)
-//        println("d " + d)
-
+        def carrusel = [], destacados = [], normales = [], pagados = ""
         def cn = dbConnectionService.getConnection()
         def busqueda = ""
         def enCategoria = ""
@@ -37,28 +26,24 @@ class PrincipalController {
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
+        def campos = "publ__id, anun.anun__id, anun.prod__id, anuntitl, anunsbtl, anuntxto, " +
+                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id, anun.sbct__id, imagruta "
+
+        def sql = ""
+
+
 //        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, provnmbr||' - '||cntnnmbr lugar" +
 //                "from publ, anun, prod, cntn, prov " +
 //                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
 //                "prod.prod__id = anun.prod__id and sbct__id = ${sbct_id} and cntn.cntn__id = prod.cntn__id and " +
 //                "prov.prov__id = cntn.prov__id "
-        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, provnmbr||' - '||cntnnmbr lugar" +
-                "from publ, anun, cntn, prov " +
-                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "sbct__id = ${sbct_id} and cntn.cntn__id = anun.cntn__id and " +
-                "prov.prov__id = cntn.prov__id "
+//        def sql = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, provnmbr||' - '||cntnnmbr lugar" +
 
 //        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, prod.sbct__id, " +
 //                "provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from publ, anun, prod, sbct, cntn, prov " +
 //                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
 //                "prod.prod__id = anun.prod__id and sbct.sbct__id = prod.sbct__id and anunactv = '1' and " +
 //                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
-
-        def sqlBs = "select publ__id, anun.anun__id, publdstc destacado, anun.prod__id, anun.sbct__id, " +
-                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id from publ, anun, sbct, cntn, prov " +
-                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "sbct.sbct__id = anun.sbct__id and anunactv = '1' and " +
-                "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
 
 //        def sqlDs = "select imagruta, prod.prod__id, provnmbr||' - '||cntnnmbr lugar from publ, anun, prod, imag, cntn, prov " +
 //                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
@@ -71,6 +56,45 @@ class PrincipalController {
                 "imag.imag__id = iman.imag__id and imag.prod__id = anun.prod__id and imagpncp = '1' and anunactv = '1' and " +
                 "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
 
+//        println "Carrusel destacados: $sqlDs"
+        def publ = cn.rows(sqlDs + " and publdstc = '1'".toString())
+        publ.each {pb ->
+            carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
+            pagados += pagados? ",${pb.prod__id}" : pb.prod__id
+        }
+
+        /* si hay espacio para destacados se usa publicaciones gratuitas */
+//        def cntddstc = cn.rows("select count(*) cnta from publ where now()::date between publfcin and publfcfn and " +
+//                "publdstc = '1'")[0].cnta
+
+        println "Cantidad destacados: ${carrusel.size()}"
+        if(carrusel.size() < 5) {
+            sqlDs += " and anun.prod__id not in (${pagados}) and random() > 0.1 limit ${5 - carrusel.size()}"
+            println "sqlDs: $sqlDs"
+            publ = cn.rows(sqlDs .toString())
+            publ.each {pb ->
+                carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
+            }
+
+            campos += ", case when random() > 0.5 then '1' else '0' end destacado"
+        } else {
+//            sqlDs += " and publdstc = '1'"
+            campos += ", publdstc destacado "
+        }
+
+        sql = "select ${campos} from publ, anun, cntn, prov, iman, imag " +
+                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                "sbct__id = ${sbct_id} and cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id and " +
+                "iman.anun__id = anun.anun__id and imag.imag__id = iman.imag__id and imagpncp = '1'"
+
+        def sqlBs = "select ${campos} from publ, anun, sbct, cntn, prov, iman, imag " +
+                "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
+                "sbct.sbct__id = anun.sbct__id and cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id and " +
+                "iman.anun__id = anun.anun__id and imag.imag__id = iman.imag__id and imagpncp = '1'"
+
+
+
+/*
         if(pagado) {
             sqlDs += " and publdstc = '1'"
         } else {
@@ -83,10 +107,9 @@ class PrincipalController {
             sql = "select publ__id, anun.anun__id, case when random() > 0.5 then '1' else '0' end destacado, " +
                     "anun.prod__id, provnmbr||' - '||cntnnmbr lugar, anun.cntn__id from publ, anun, cntn, prov " +
                     "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                    "sbct__id = ${sbct_id} and " +
-                    "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
+                    "sbct__id = ${sbct_id} and cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
         }
-
+*/
         /* todo: hacer función para descartar palabras: "de para a la el las los las .." */
 
         /** Se deben mostrar los anuncios vigentes
@@ -95,14 +118,14 @@ class PrincipalController {
         if(params.bscr) {
             sql = ""
             params.bscr.split(' ').each { t ->
-                    sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
+//                    sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
+                    sql += (sql=='')? "${sqlBs} and anuntitl ilike '%${t}%'" : " union ${sqlBs} and anuntitl ilike '%${t}%'"
                 }
         }
-        println "pagado: $pagado"
         println "sql: $sql"
         println "sqlDs: $sqlDs"
         def anuncios = cn.rows(sql.toString())
-        println "anuncios: $anuncios"
+        println "anuncios: ${anuncios.size()}"
 
         if(params.bscr && anuncios){
             sbct = Subcategoria.get(anuncios?.first().sbct__id)
@@ -114,41 +137,32 @@ class PrincipalController {
                     "<strong>${enCategoria}</strong>"
         }
 
-        def carrusel = [], destacados = [], normales = []
-        println "publ: $sqlDs"
         /** se muestran en el carrusel todos los anuncios vigentes con publicación "destacada": publdstc = '1' **/
-        def publ = cn.rows(sqlDs.toString())
-        publ.each {pb ->
-            carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
-        }
         def i = 1   /* completa las imágenes del carrusel */
         while(carrusel.size() < 5) {
             carrusel.add([tp: 't', ruta: "anuncio${i++}.jpg", prod: 1])
         }
 
+//        def campos = "publ__id, anun.anun__id, anun.prod__id, anuntitl, anunsbtl, anuntxto, " +
+//                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id, anun.sbct__id, imagruta "
+
         anuncios.each {pb ->
-            def producto = Producto.get(pb.prod__id)
-            def imag = Imagen.findAllByProductoAndPrincipal(producto, '1')
-            println "producto: ${pb.prod__id} --> imágenes: ${imag}"
-            imag.each { im ->
-//                if(im.principal == '1') {
-                if(pb.destacado == '1') {
-                    destacados.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                    sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id,
-                                    gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
-                }
-                else {
-                    normales.add([tp: 'p', rt: im.ruta, p: im.producto.id, tt: im.producto.titulo,
-                                  sb: im.producto.subtitulo, t: im.producto.texto, id: im.producto.id,
-                                  gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
-                }
+            if(pb.destacado == '1') {
+                destacados.add([tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.anuntitl,
+                                sb: pb.anunsbtl, t: pb.anuntxto, id: pb.prod__id,
+                                gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
+            }
+            else {
+                normales.add([tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.anuntitl,
+                              sb: pb.anunsbtl, t: pb.anuntxto, id: pb.prod__id,
+                              gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
             }
         }
 
         println "carrusel ${carrusel.ruta}"
         println "destacados: ${destacados.rt}"
         println "normales: ${normales.rt}"
-        println "activo: ${sbct?.categoria?.id}, sbct_actv: ${sbct?.id}"
+//        println "activo: ${sbct?.categoria?.id}, sbct_actv: ${sbct?.id}"
 
         return [activo: sbct?.categoria?.id, sbct_actv: sbct?.id, consultas: consultas,
                 carrusel: carrusel, destacados: destacados, normales: normales, busqueda: busqueda]
@@ -300,7 +314,7 @@ class PrincipalController {
             sbct = 0
         }
 */
-        println "activo: ${ct_id}, sbct_actv: ${sbct}"
+        println "categorias activo: ${ct_id}, sbct_actv: ${sbct}"
 //        redirect(action: 'index', params: params)
         [activo: ct_id, sbct_actv: sbct]
 //        [activo: ct_id, sbct_actv: 0]
