@@ -3,6 +3,7 @@ package ventas
 class Pago {
 
     TipoPago tipoPago
+    Anuncio anuncio
     Date fecha
     double valor
     String tipo
@@ -22,6 +23,7 @@ class Pago {
         columns {
             id column: 'pago__id'
             tipoPago column: 'tppg__id'
+            anuncio column: 'anun__id'
             fecha column: 'pagofcha'
             valor column: 'pagovlor'
             tipo column: 'pagotipo'
@@ -34,6 +36,7 @@ class Pago {
     }
     static constraints = {
         tipoPago(blank: false, nullable: false)
+        anuncio(blank: true, nullable: true)
         fecha(blank: false, nullable: false)
         valor(blank: false, nullable: false)
         tipo(blank: true, nullable: true)

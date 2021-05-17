@@ -681,6 +681,8 @@ class ProductoController {
             println("error al crear el anuncio " + anuncio.errors)
             render "no_Error al publicar el producto"
         }else{
+            producto.estado = 'R'
+            producto.save(flush:true)
             render "ok"
         }
     }

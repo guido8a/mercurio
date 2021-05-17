@@ -8,50 +8,59 @@ class AnuncioController {
 
     def crearAnuncio_ajax(){
 
-        def anuncio
-        def alerta = Alerta.get(params.id)
-        def producto = alerta.producto
-        alerta.estado = 1
-        alerta.fechaAprobacion = new Date()
+        def anuncio = Anuncio.get(params.id)
+        anuncio.estado = 'A'
 
-        if(!alerta.save(flush:true)){
-            println("error al colocar la fecha de aprobación en la alerta " + alerta.errors)
+        if(!anuncio.save(flush:true)){
+            println("error al aceptar el anuncio " + anuncio.errors)
             render "no"
         }else{
-            def existe = Anuncio.findByProducto(producto)
-
-            if(existe){
-                anuncio = existe
-            }else{
-                anuncio = new Anuncio()
-                anuncio.producto = producto
-                anuncio.estado = 'N'
-            }
-
-            anuncio.titulo = producto.titulo
-            anuncio.subtitulo = producto.subtitulo
-            anuncio.texto = producto.texto
-
-            if(!anuncio.save(flush:true)){
-                println("error al guardar el anuncio " + anuncio.errors)
-                render "no"
-            }else{
-                render "ok"
-            }
+            render "ok"
         }
+
+//        def anuncio
+//        def alerta = Alerta.get(params.id)
+//        def producto = alerta.producto
+//        alerta.estado = 1
+//        alerta.fechaAprobacion = new Date()
+//
+//        if(!alerta.save(flush:true)){
+//            println("error al colocar la fecha de aprobación en la alerta " + alerta.errors)
+//            render "no"
+//        }else{
+//            def existe = Anuncio.findByProducto(producto)
+//
+//            if(existe){
+//                anuncio = existe
+//            }else{
+//                anuncio = new Anuncio()
+//                anuncio.producto = producto
+//                anuncio.estado = 'N'
+//            }
+//
+//            anuncio.titulo = producto.titulo
+//            anuncio.subtitulo = producto.subtitulo
+//            anuncio.texto = producto.texto
+//
+//            if(!anuncio.save(flush:true)){
+//                println("error al guardar el anuncio " + anuncio.errors)
+//                render "no"
+//            }else{
+//                render "ok"
+//            }
+//        }
 
 
     }
 
     def list(){
-
+        def anuncios = Anuncio.findAllByEstado('R')
+        return[anuncios:anuncios]
     }
 
     def tablaAnuncios_ajax(){
-
-        def anuncios = Anuncio.list().sort{it.id}
+        def anuncios = Anuncio.findAllByEstado('A').sort{it.id}
         return[anuncios: anuncios]
-
     }
 
     def cambiarEstado_ajax(){
@@ -335,6 +344,9 @@ class AnuncioController {
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
         ImageIO.write(ImageIO.read(new File("/var/ventas/anuncios/anun_" + anuncio + "/" + nombre + "." + ext)), ext.toString(), baos)
         baos.toByteArray()
+    }
+
+    def revisados(){
     }
 
 }

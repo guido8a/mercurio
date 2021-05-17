@@ -69,7 +69,7 @@ class VerController {
             def atrb = Valores.findAllByProducto(producto)
             def carrusel = []
 
-            def imag = Imagen.findAllByProducto(producto, [sort: 'principal', order: 'desc'])
+            def imag = Imagen.findAllByProductoAndEstado(producto, '1',[sort: 'principal', order: 'desc'])
 //        println "imagen: ${imag}"
             imag.each { im ->
                 carrusel.add([ruta: "/var/ventas/productos/pro_${producto.id}/${im.ruta}"])

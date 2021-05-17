@@ -329,13 +329,13 @@
                 </g:if>
                 <g:else>
                     <g:if test="${tipo == '4'}">
-                        <a href="${createLink(controller: 'alerta', action: 'list')}" class="btn btn-gris" >
-                            <i class="fa fa-arrow-left"></i> Regresar a la lista de alertas
+                        <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-gris" >
+                            <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
                         </a>
                     </g:if>
                     <g:else>
                         <g:if test="${tipo == '5'}">
-                            <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-gris" >
+                            <a href="${createLink(controller: 'anuncio', action: 'revisados')}" class="btn btn-gris" >
                                 <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
                             </a>
                         </g:if>

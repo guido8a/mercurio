@@ -32,15 +32,15 @@
                 <td style="width: 30%; text-align: left">${anuncio?.titulo}</td>
                 <td style="width: 20%">${anuncio?.subtitulo}</td>
                 %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
-                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == '1' ? '#67a153' : '#afafaf'}">${anuncio?.estado == '1' ? 'ACTIVO' : 'INACTIVO'}</td>
+                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == 'A' ? '#67a153' : '#afafaf'}">${anuncio?.estado == 'A' ? 'ACTIVO' : 'INACTIVO'}</td>
                 <td style="width: 10%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
                         <i class="fa fa-search"></i> </a>
-                    <g:if test="${anuncio?.estado == '1'}">
+                    <g:if test="${anuncio?.estado == 'A'}">
                         <a href="#" class="btn btn-xs btn-rojo btnPublicacion" title="Publicación" data-id="${anuncio?.id}"><i class="fa fa-user-clock"></i> </a>
                     </g:if>
-                    <a href="#" class="btn btn-xs btn-gris btnEstado" title="Cambiar estado" data-id="${anuncio?.id}"><i class="fa fa-sync"></i> </a>
+%{--                    <a href="#" class="btn btn-xs btn-gris btnEstado" title="Cambiar estado" data-id="${anuncio?.id}"><i class="fa fa-sync"></i> </a>--}%
                 </td>
                 <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaInicio?.format("dd-MM-yyyy") : ''}</td>
                 <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaFin?.format("dd-MM-yyyy") : ''}</td>
