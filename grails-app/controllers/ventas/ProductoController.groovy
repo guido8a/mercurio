@@ -309,9 +309,17 @@ class ProductoController {
         }else{
             try{
                 def imagen = Imagen.findByProductoAndRuta(producto,file)
+                def otras = Imagen.findAllByProductoAndEstadoAndIdNotEqual(producto, '1',imagen.id)
+                def principal = otras[0]
+
                 if(imagen){
 //                    fileDel.delete()
+                    if(imagen.principal == '1'){
+                      principal.principal = 1
+                    }
+
                     imagen.estado = 0
+                    imagen.principal = 0
 //                    imagen.delete(flush: true)
                     imagen.save(flush: true)
                     render "ok"
