@@ -53,7 +53,7 @@
                 <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
-%{--                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>--}%
+                %{--                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>--}%
                 <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
                 <td style="width: 13%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
@@ -70,15 +70,18 @@
                 </td>
                 <td style="width: 6%; text-align: center">
                     <g:if test="${producto?.id}">
-                        <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
+                        <g:if test="${producto?.estado == 'I'}">
+                            <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
 %{--                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto gratuitamente" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>--}%
+                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar producto" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>
+                            </g:if>
                         </g:if>
                     </g:if>
                 </td>
                 <td style="width: 8%; text-align: center">
                     <g:if test="${producto?.id}">
-%{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"--}%
-%{--                           data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>--}%
+                    %{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"--}%
+                    %{--                           data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>--}%
                     </g:if>
                 </td>
             </tr>
@@ -96,7 +99,7 @@
             url: '${createLink(controller: 'alerta', action: 'generarAlerta2_ajax')}',
             data:{
                 id: id
-             },
+            },
             success: function (msg) {
                 if(msg == 'ok'){
 
