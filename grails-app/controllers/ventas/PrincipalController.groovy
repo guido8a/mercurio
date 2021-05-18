@@ -27,7 +27,7 @@ class PrincipalController {
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
         def campos = "publ__id, anun.anun__id, anun.prod__id, prodtitl, prodsbtl, prodtxto, " +
-                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id, prod.sbct__id, imagruta "
+                "provnmbr||' - '||cntnnmbr lugar, prod.cntn__id, prod.sbct__id, imagruta "
 
         def sql = ""
 
@@ -53,7 +53,7 @@ class PrincipalController {
         def sqlDs = "select imagruta, anun.prod__id, provnmbr||' - '||cntnnmbr lugar " +
                 "from publ, anun, imag, prod, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1' and " +
+                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunetdo = 'A' and " +
                 "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
 
 //        println "Carrusel destacados: $sqlDs"
