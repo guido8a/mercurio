@@ -89,7 +89,7 @@ class PrincipalController {
 
         def sqlBs = "select ${campos} from publ, anun, sbct, cntn, prov, prod, imag " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "sbct.sbct__id = anun.sbct__id and cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and " +
+                "sbct.sbct__id = prod.sbct__id and cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and " +
                 "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1'"
 
 
@@ -119,7 +119,7 @@ class PrincipalController {
             sql = ""
             params.bscr.split(' ').each { t ->
 //                    sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
-                    sql += (sql=='')? "${sqlBs} and anuntitl ilike '%${t}%'" : " union ${sqlBs} and anuntitl ilike '%${t}%'"
+                    sql += (sql=='')? "${sqlBs} and prodtitl ilike '%${t}%'" : " union ${sqlBs} and prodtitl ilike '%${t}%'"
                 }
         }
         println "sql: $sql"
