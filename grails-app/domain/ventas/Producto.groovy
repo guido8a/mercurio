@@ -8,6 +8,7 @@ class Producto {
     Subcategoria subcategoria
     Persona persona
     Canton canton
+    Producto padre
     String titulo
     String subtitulo
     String estado
@@ -28,6 +29,7 @@ class Producto {
             subcategoria column: 'sbct__id'
             persona column: 'prsn__id'
             canton column: 'cntn__id'
+            padre column: 'prodpdre'
             titulo column: 'prodtitl'
             subtitulo column: 'prodsbtl'
             estado column: 'prodetdo'
@@ -43,6 +45,7 @@ class Producto {
         canton(blank:true, nullable: true)
         subcategoria(blank:false, nullable: false)
         persona(blank:true, nullable: true)
+        padre(blank:true, nullable: true)
         titulo(blank:true,nullable: true, size:0..255)
         subtitulo(blank:true, nullable: true, size:0..255)
         estado(blank:false)
