@@ -26,8 +26,8 @@ class PrincipalController {
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
         def sbct = Subcategoria.get(params.sbct.split("_")[1])
-        def campos = "publ__id, anun.anun__id, anun.prod__id, anuntitl, anunsbtl, anuntxto, " +
-                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id, anun.sbct__id, imagruta "
+        def campos = "publ__id, anun.anun__id, anun.prod__id, prodtitl, prodsbtl, prodtxto, " +
+                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id, prod.sbct__id, imagruta "
 
         def sql = ""
 
@@ -51,10 +51,10 @@ class PrincipalController {
 //                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
 
         def sqlDs = "select imagruta, anun.prod__id, provnmbr||' - '||cntnnmbr lugar " +
-                "from publ, anun, iman, imag, cntn, prov " +
+                "from publ, anun, imag, prod, cntn, prov " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "imag.imag__id = iman.imag__id and imag.prod__id = anun.prod__id and imagpncp = '1' and anunactv = '1' and " +
-                "cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id"
+                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunactv = '1' and " +
+                "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
 
 //        println "Carrusel destacados: $sqlDs"
         def publ = cn.rows(sqlDs + " and publdstc = '1'".toString())
@@ -82,15 +82,15 @@ class PrincipalController {
             campos += ", publdstc destacado "
         }
 
-        sql = "select ${campos} from publ, anun, cntn, prov, iman, imag " +
+        sql = "select ${campos} from publ, anun, prod, cntn, prov, imag " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "sbct__id = ${sbct_id} and cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id and " +
-                "iman.anun__id = anun.anun__id and imag.imag__id = iman.imag__id and imagpncp = '1'"
+                "prod.sbct__id = ${sbct_id} and cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and " +
+                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1'"
 
-        def sqlBs = "select ${campos} from publ, anun, sbct, cntn, prov, iman, imag " +
+        def sqlBs = "select ${campos} from publ, anun, sbct, cntn, prov, prod, imag " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +
-                "sbct.sbct__id = anun.sbct__id and cntn.cntn__id = anun.cntn__id and prov.prov__id = cntn.prov__id and " +
-                "iman.anun__id = anun.anun__id and imag.imag__id = iman.imag__id and imagpncp = '1'"
+                "sbct.sbct__id = anun.sbct__id and cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and " +
+                "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1'"
 
 
 
@@ -147,15 +147,14 @@ class PrincipalController {
 //                "provnmbr||' - '||cntnnmbr lugar, anun.cntn__id, anun.sbct__id, imagruta "
 
         anuncios.each {pb ->
+            def ls = [tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.prodtitl,
+                      sb: pb.prodsbtl, t: pb.prodtxto, id: pb.prod__id,
+                      gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)]
             if(pb.destacado == '1') {
-                destacados.add([tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.anuntitl,
-                                sb: pb.anunsbtl, t: pb.anuntxto, id: pb.prod__id,
-                                gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
+                destacados.add(ls)
             }
             else {
-                normales.add([tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.anuntitl,
-                              sb: pb.anunsbtl, t: pb.anuntxto, id: pb.prod__id,
-                              gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)])
+                normales.add(ls)
             }
         }
 
