@@ -107,7 +107,7 @@
                                 </label>
                                 <div class="col-md-6">
                                     <g:textField name="titulo" maxlength="255" class="form-control required" title="Texto principal del anuncio"
-                                                 value="${producto?.titulo}" style="background-color: #ffffef"/>
+                                                 value="${producto?.titulo ?  producto?.titulo : producto?.padre?.titulo}" style="background-color: #ffffef"/>
                                 </div>
                             </span>
                         </div>
