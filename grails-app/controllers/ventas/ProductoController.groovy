@@ -15,7 +15,7 @@ class ProductoController {
     def list(){
         println("params " + params)
         def persona = Persona.get(session.usuario.id)
-        def productos = Producto.findAllByPersona(persona)
+        def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B')
         return[productos: productos, persona: persona]
     }
 
@@ -68,17 +68,17 @@ class ProductoController {
 
         println("params " + params)
 
-        def producto
+        def producto = Producto.get(params.id)
 
-        if(params.id){
-            producto = Producto.get(params.id)
-        }else{
-            producto = new Producto()
-            params.estado = 'I'
-            params.fecha = new Date()
-            params.latitud = 0
-            params.longitud = 0
-        }
+//        if(params.id){
+//            producto = Producto.get(params.id)
+//        }else{
+//            producto = new Producto()
+//            params.estado = 'I'
+//            params.fecha = new Date()
+//            params.latitud = 0
+//            params.longitud = 0
+//        }
 
         producto.properties = params
 
@@ -315,7 +315,7 @@ class ProductoController {
                 if(imagen){
 //                    fileDel.delete()
                     if(imagen.principal == '1'){
-                      principal.principal = 1
+                        principal.principal = 1
                     }
 
                     imagen.estado = 0
@@ -331,7 +331,7 @@ class ProductoController {
                 render "no"
             }
         }
- }
+    }
 
     def getImage() {
         println "params get image $params"
@@ -482,16 +482,41 @@ class ProductoController {
     }
 
     def wizardProducto() {
-        println "params: $params"
+        println ("params wp"  + params)
         def persona = Persona.get(params.persona)
-        println("persona " + persona)
+        def padre
+//        println("persona " + persona)
+
         def producto
 
-        if(params.id){
-            producto = Producto.get(params.id)
-        }else{
-            producto = new Producto()
+        switch (params.tipo) {
+
+            case "1":
+                producto = new Producto()
+                padre = Producto.get(params.id)
+                producto.padre = padre
+                producto.estado = 'I'
+                producto.fecha = new Date()
+                producto.latitud = 0
+                producto.longitud = 0
+                producto.save(flush:true)
+                break;
+            case "2" :
+                producto = Producto.get(params.id)
+                break;
+            case "3" :
+                producto = new Producto()
+                producto.padre = null
+                producto.estado = 'I'
+                producto.fecha = new Date()
+                producto.latitud = 0
+                producto.longitud = 0
+                producto.save(flush:true)
+                break;
         }
+
+//        producto.save(flush:true)
+        println("producto " + producto.errors)
 
         return[producto: producto, persona: persona]
     }
@@ -658,24 +683,49 @@ class ProductoController {
     def crearAnuncio_ajax(){
         println("params crear anuncio " + params)
         def producto = Producto.get(params.id)
-        def activo = Anuncio.findByProductoAndEstado(producto,'A')
+//        def activo = Anuncio.findByProductoAndEstado(producto,'A')
+        def band = false
+        def activo
+
+        if(producto?.padre){
+            def padre = Producto.get(producto?.padre?.id)
+            activo = Anuncio.findByProductoAndEstado(padre,'A')
+            if(activo){
+                band = true
+            }else{
+                band = false
+            }
+        }else{
+            band = false
+        }
+
+
         def anuncio = new Anuncio()
 
-        if(activo){
-            render"er_Ya existe un anuncio activo"
-            return
+        if(band){
+            render"er"
         }else{
             anuncio.producto = producto
-            anuncio.canton = producto.canton
-            anuncio.subcategoria = producto.subcategoria
             anuncio.estado = 'R'
-            anuncio.titulo = producto.titulo
-            anuncio.subtitulo = producto.subtitulo
-            anuncio.texto = producto.texto
-            anuncio.longitud = producto.longitud
-            anuncio.latitud = producto.latitud
             anuncio.fecha = new Date()
+            if(!anuncio.save(flush:true)){
+                println("error al crear el anuncio " + anuncio.errors)
+                render "no_Error al publicar el producto"
+            }else{
+                producto.estado = 'R'
+                producto.save(flush:true)
+                render "ok"
+            }
         }
+    }
+
+    def reemplazar_ajax(){
+        def anuncio = new Anuncio()
+        def producto = Producto.get(params.id)
+
+        anuncio.producto = producto
+        anuncio.estado = 'R'
+        anuncio.fecha = new Date()
 
         if(!anuncio.save(flush:true)){
             println("error al crear el anuncio " + anuncio.errors)
@@ -683,8 +733,19 @@ class ProductoController {
         }else{
             producto.estado = 'R'
             producto.save(flush:true)
+
+
+            def padre = Producto.get(producto?.padre?.id)
+            def activo = Anuncio.findByProductoAndEstado(padre,'A')
+
+            padre.estado = 'B'
+            padre.save(flush:true)
+            activo.estado = 'B'
+            activo.save(flush:true)
+
             render "ok"
         }
+
     }
 
 }

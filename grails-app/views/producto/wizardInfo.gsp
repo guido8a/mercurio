@@ -191,7 +191,6 @@
                 data    : {
                     id: $("#id").val(),
                     persona: $("#persona").val(),
-                    // subcategoria: $("#subcategoria").val(),
                     titulo: $("#titulo").val(),
                     subtitulo: $("#subtitulo").val(),
                     texto: texto
@@ -206,7 +205,7 @@
                                 %{--location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';--}%
                                 location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
                             }else{
-                                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
                             }
 
                         }, 500);

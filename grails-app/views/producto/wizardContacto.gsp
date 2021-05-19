@@ -257,7 +257,7 @@
                             label     : "<i class='fa fa-check'></i> Publicar",
                             className : "btn-rojo",
                             callback  : function () {
-                               guardarContacto()
+                                guardarContacto()
                             }
                         }
                     }
@@ -281,7 +281,7 @@
             success: function(msg){
                 a.modal("hide");
                 if(msg == 'ok'){
-                   publicarProducto();
+                    publicarProducto();
                 }else{
                     log("Error al guardar la información de contacto","error")
                 }
@@ -298,9 +298,6 @@
             data:{
                 id: $("#id").val(),
                 persona: $("#persona").val()
-                // contacto: $("#contacto").val(),
-                // telefono: $("#telefonoContacto").val(),
-                // mail: $("#mailContacto").val()
             },
             success: function (msg) {
                 a.modal("hide");
@@ -321,7 +318,27 @@
                     });
                 }else{
                     if(parts[0] == 'er'){
-                        bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Ya existe un anuncio activo </p>')
+                        // bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Ya existe un anuncio activo </p>')
+                        bootbox.dialog({
+                            title   : "Confirmación",
+                            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Ya existe un anuncio activo. <br> Desea volver a publicar su producto con la información actual?</p>",
+                            buttons : {
+                                cancelar : {
+                                    label     : "<i class='fa fa-times'></i> Cancelar",
+                                    className : "btn-gris",
+                                    callback  : function () {
+                                        location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                    }
+                                },
+                                aceptar : {
+                                    label     : "<i class='fa fa-check'></i> Aceptar",
+                                    className : "btn-rojo",
+                                    callback  : function () {
+                                        reemplazarAnuncio();
+                                    }
+                                }
+                            }
+                        });
                     }else{
                         bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
                     }
@@ -330,6 +347,38 @@
         });
     }
 
+    function reemplazarAnuncio(){
+        var a = cargarLoader("Procesando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'reemplazar_ajax')}',
+            data:{
+                id: $("#id").val(),
+                persona: $("#persona").val()
+            },
+            success: function (msg) {
+                a.modal("hide");
+                var parts = msg.split("_");
+                if(parts[0] == 'ok'){
+                    bootbox.dialog({
+                        title   : "Confirmación",
+                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        buttons : {
+                            aceptar : {
+                                label     : "<i class='fa fa-check'></i> Aceptar",
+                                className : "btn-gris",
+                                callback  : function () {
+                                    location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
+                }
+            }
+        });
+    }
 
 
     %{--function submitFormProducto(tipo) {--}%

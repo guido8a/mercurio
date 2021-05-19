@@ -43,7 +43,7 @@ class Producto {
 
     static constraints = {
         canton(blank:true, nullable: true)
-        subcategoria(blank:false, nullable: false)
+        subcategoria(blank:true, nullable:true)
         persona(blank:true, nullable: true)
         padre(blank:true, nullable: true)
         titulo(blank:true,nullable: true, size:0..255)

@@ -184,7 +184,7 @@
 
     $(".btnEditar").click(function () {
         var id = $(this).data("id");
-        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
+        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 1
     });
 
     $(".btnImagenes").click(function () {

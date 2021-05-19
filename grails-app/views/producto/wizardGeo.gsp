@@ -105,7 +105,7 @@
                                     Provincia
                                 </label>
                                 <div class="col-md-6">
-                                    <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${producto?.canton?.provincia?.id}"/>
+                                    <g:select name="provincia" from="${geografia.Provincia.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${producto?.canton?.provincia?.id ? producto?.canton?.provincia?.id : producto?.padre?.canton?.provincia?.id}"/>
                                 </div>
                             </span>
                         </div>
@@ -128,7 +128,7 @@
                            Sitio
                         </label>
                         <div class="col-md-6 form-group ${hasErrors(bean: 'producto', field: 'sitio', 'error')}">
-                            <g:textArea name="sitio" class="form-control" style="resize: none" value="${producto?.sitio}"/>
+                            <g:textArea name="sitio" class="form-control" style="resize: none" value="${producto?.sitio ? producto?.sitio : producto?.padre?.sitio}"/>
                         </div>
                     </div>
 
@@ -138,12 +138,12 @@
                         </label>
                         <div class="col-md-3 form-group ${hasErrors(bean: 'producto', field: 'latitud', 'error')}">
                            <label>Latitud</label>
-                           <g:textField name="latitud" value="${producto?.latitud ?: 0}" class="form-control"/>
+                           <g:textField name="latitud" value="${producto?.latitud ? producto?.latitud : (producto?.padre?.latitud ? producto?.padre?.latitud : 0)}" class="form-control"/>
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-3 form-group ${hasErrors(bean: 'producto', field: 'longitud', 'error')}">
                             <label>Longitud</label>
-                            <g:textField name="longitud" value="${producto?.longitud ?: 0}" class="form-control"/>
+                            <g:textField name="longitud" value="${producto?.longitud ? producto?.longitud : (producto?.padre?.longitud ? producto?.padre?.longitud : 0)}" class="form-control"/>
                         </div>
                     </div>
                 </div>

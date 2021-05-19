@@ -55,7 +55,7 @@
 
 <g:form class="form-horizontal" name="frmProducto" role="form" action="saveProducto" method="POST">
     <g:hiddenField name="id" value="${producto?.id}" />
-    <g:hiddenField name="persona" value="${persona?.id}" />
+    <g:hiddenField name="persona" value="${persona?.id}"/>
 
     <div class="progress-bar-wrapper"></div>
 
@@ -94,7 +94,7 @@
                                 </label>
                                 <div class="col-md-6">
                                     <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
-                                              optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id}"/>
+                                              optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id ? producto?.subcategoria?.categoria?.id : producto?.padre?.subcategoria?.categoria?.id}"/>
                                 </div>
                             </span>
                         </div>
@@ -111,9 +111,7 @@
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="col-md-3 btn-group" style="float: right">
-%{--                            <a href="#" class="btn btn-primary btnSiguiente" >Siguiente<i class="fa fa-arrow-right"></i></a>--}%
-                            .
+                        <div class="col-md-3 btn-group" style="float: right">.
                         </div>
                     </div>
                 </div>
@@ -156,16 +154,12 @@
                 data    : {
                     id: $("#id").val(),
                     persona: $("#persona").val(),
-                    subcategoria: $("#subcategoria").val(),
-                    // titulo: $("#titulo").val(),
-                    // subtitulo: $("#subtitulo").val(),
-                    // texto: texto
+                    subcategoria: $("#subcategoria").val()
                 },
                 success : function (msg) {
                     l.modal("hide");
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
-                        // log("Producto guardado correctamente","success");
                         setTimeout(function () {
                             location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
                         }, 500);
