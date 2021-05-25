@@ -7,6 +7,8 @@ import seguridad.Persona
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
 
 import static java.awt.RenderingHints.KEY_INTERPOLATION
 import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
@@ -811,10 +813,18 @@ class ProductoController {
     def copiarImagenes_ajax(){
         def producto = Producto.get(params.id)
         def padre = producto.padre
+        def nmbr = "", arch = ""
 
         def pathHijo = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(pathHijo).mkdirs()
         def pathPadre = "/var/ventas/productos/pro_" + padre.id + "/"
+        new File(pathPadre).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*/) { ar ->
+            nmbr = ar.toString() - pathPadre
+            arch = nmbr.substring(nmbr.lastIndexOf("/") + 1)
+            File original = new File(ar.toString())
+            File destino = new File(pathHijo + nmbr)
+            Files.copy(Paths.get(original.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING)
+        }
 
         def canti = []
         def dir = new File(pathPadre)
