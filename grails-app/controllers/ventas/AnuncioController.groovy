@@ -1,6 +1,7 @@
 package ventas
 
 import groovy.io.FileType
+import seguridad.Persona
 
 import javax.imageio.ImageIO
 
@@ -8,13 +9,21 @@ class AnuncioController {
 
     def crearAnuncio_ajax(){
 
+        def personaAprueba = Persona.get(session.usuario.id)
+
         def anuncio = Anuncio.get(params.id)
+        def producto = anuncio.producto
+
         anuncio.estado = 'A'
+        anuncio.persona = personaAprueba
+        anuncio.fechaAprobacion = new Date()
 
         if(!anuncio.save(flush:true)){
             println("error al aceptar el anuncio " + anuncio.errors)
             render "no"
         }else{
+            producto.estado = 'A'
+            producto.save(flush:true)
             render "ok"
         }
 

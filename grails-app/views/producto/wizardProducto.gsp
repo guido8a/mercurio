@@ -161,7 +161,7 @@
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
                         setTimeout(function () {
-                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
                         }, 500);
                     } else {
                         log("Error al guardar el producto","error");

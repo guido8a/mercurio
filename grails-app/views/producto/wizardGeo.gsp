@@ -235,14 +235,12 @@
                     l.modal("hide");
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
-                        // log("Producto guardado correctamente","success");
                         setTimeout(function () {
                             if(tipo == '1'){
-                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
                             }else{
-                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
                             }
-
                         }, 500);
                     } else {
                         log("Error al guardar el producto","error");
@@ -253,8 +251,6 @@
             return false;
         } //else
     }
-
-
 </script>
 
 </body>

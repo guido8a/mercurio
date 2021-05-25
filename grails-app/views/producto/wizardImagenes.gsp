@@ -203,7 +203,7 @@
     );
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+        location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
     });
 
     $(".btnSiguiente").click(function () {
@@ -215,7 +215,7 @@
             },
             success: function(msg){
                 if(msg == 'ok'){
-                    location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+                    location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
                 }else{
                     bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> Debe ingrear al menos una imagen para su producto")
                 }
@@ -223,6 +223,30 @@
         });
 
     });
+
+    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
+    copiarImagenes();
+    </g:if>
+
+    function copiarImagenes(){
+        var a = cargarLoader("Procesando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'copiarImagenes_ajax')}',
+            data:{
+                id: '${producto?.id}'
+            },
+            success: function (msg) {
+                a.modal("hide");
+                if(msg == 'ok'){
+                    // cargarImagenes($("#id").val())
+                    // cargarTablaImagenes();
+                }else{
+
+                }
+            }
+        });
+    }
 
     $("#btnImasProducto").click(function () {
         cargarImagenes($("#id").val())
@@ -246,7 +270,7 @@
                             label     : "<i class='fa fa-times'></i> Salir",
                             className : "btn-gris",
                             callback  : function () {
-                                location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+                                location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
                             }
                         }
                     } //buttons

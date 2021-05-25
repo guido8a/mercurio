@@ -98,16 +98,11 @@
                     <h3> Ingrese los atributos de su producto</h3>
                     <div class="col-md-12" style="margin-bottom: 10px">
 
-
                         <div class="col-md-2"></div>
 
                         <div class="col-lg-8">
 
                             <g:if test="${producto?.id}">
-
-                            %{--                                <label class="col-md-2 control-label text-info">--}%
-
-                            %{--                                </label>--}%
 
                                 <div class="col-md-6">
                                     <div class="col-md-12">
@@ -120,8 +115,6 @@
                                                   class="form-control" optionKey="id"/>
                                     </div>
                                 </div>
-
-
 
                                 <div class="col-md-6">
                                     <div class="col-md-12">
@@ -138,23 +131,12 @@
 
                                 </div>
 
-                            %{--                                <div class="col-md-1">--}%
-                            %{--                                  --}%
-                            %{--                                </div>--}%
-
                                 <div class="col-md-12" id="tablaAtributos" style="max-height: 300px; margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
 
                                 </div>
                             </g:if>
                         </div>
                     </div>
-
-                    %{--                    <div class="col-md-12">--}%
-                    %{--                        <div class="col-md-3 btn-group" style="float: right">--}%
-                    %{--                            <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
-                    %{--                            <a href="#" class="btn btn-primary btnSiguiente" > Siguiente <i class="fa fa-arrow-right"></i></a>--}%
-                    %{--                        </div>--}%
-                    %{--                    </div>--}%
 
                 </div>
             </div>
@@ -180,13 +162,34 @@
         'progress-bar-wrapper'
     );
 
+    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
+    copiarAtributos();
+    </g:if>
+
+    function copiarAtributos(){
+        var a = cargarLoader("Procesando...");
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'producto', action: 'copiarAtributos_ajax')}',
+            data:{
+                id: '${producto?.id}'
+            },
+            success: function (msg) {
+                a.modal("hide");
+                if(msg == 'ok'){
+                    location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
+                }else{
+                }
+            }
+        });
+    }
+
     $(".btnAnterior").click(function () {
-        %{--location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'--}%
-        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
     });
 
     $(".btnSiguiente").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
     });
 
     $("#btnAgregarAt").click(function () {
@@ -230,8 +233,6 @@
             }
         });
     }
-
-
 
 </script>
 

@@ -6,6 +6,7 @@ import seguridad.Persona
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
+import java.nio.file.Files
 
 import static java.awt.RenderingHints.KEY_INTERPOLATION
 import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
@@ -16,7 +17,9 @@ class ProductoController {
         println("params " + params)
         def persona = Persona.get(session.usuario.id)
         def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B')
-        return[productos: productos, persona: persona]
+        def productosConAnuncios = Anuncio.findAllByProductoInList(productos)
+
+        return[productos: productosConAnuncios.producto, persona: persona]
     }
 
     def form_ajax(){
@@ -490,7 +493,6 @@ class ProductoController {
         def producto
 
         switch (params.tipo) {
-
             case "1":
                 producto = new Producto()
                 padre = Producto.get(params.id)
@@ -516,29 +518,25 @@ class ProductoController {
         }
 
 //        producto.save(flush:true)
-        println("producto " + producto.errors)
 
-        return[producto: producto, persona: persona]
+        return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def wizardInfo() {
-        println "params: $params"
+//        println "params: $params"
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
-
-        return[producto: producto, persona: persona]
+        return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def wizardAtributos() {
-        println "params: $params"
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
-
-        return[producto: producto, persona: persona]
+        return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def wizardImagenes() {
-        println "wizardImagenes: $params"
+//        println "wizardImagenes: $params"
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
         def imas = Imagen.findAllByProductoAndEstado(producto, '1')
@@ -562,7 +560,7 @@ class ProductoController {
             println "path: $path --> imagenes: $imagenes"
         }
 
-        return[producto: producto, persona: persona, imagenes: imagenes, tam: imas.size()]
+        return[producto: producto, persona: persona, imagenes: imagenes, tam: imas.size(), tipo: params.tipo]
     }
 
     def wizardContacto() {
@@ -570,7 +568,7 @@ class ProductoController {
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
 
-        return[producto: producto, persona: persona]
+        return[producto: producto, persona: persona,tipo: params.tipo]
     }
 
     def comprobarImagenes_ajax(){
@@ -658,7 +656,7 @@ class ProductoController {
     def wizardGeo(){
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
-        return[producto: producto, persona: persona]
+        return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def publicar_ajax(){
@@ -683,24 +681,46 @@ class ProductoController {
     def crearAnuncio_ajax(){
         println("params crear anuncio " + params)
         def producto = Producto.get(params.id)
-//        def activo = Anuncio.findByProductoAndEstado(producto,'A')
         def band = false
         def activo
 
-        if(producto?.padre){
-            def padre = Producto.get(producto?.padre?.id)
-            activo = Anuncio.findByProductoAndEstado(padre,'A')
-            if(activo){
-                band = true
-            }else{
-                band = false
-            }
-        }else{
-            band = false
-        }
-
+//        if(producto?.padre){
+//            def padre = Producto.get(producto?.padre?.id)
+//            activo = Anuncio.findByProductoAndEstado(padre,'A')
+//            if(activo){
+//                band = true
+//            }else{
+//                band = false
+//            }
+//        }else{
+//            band = false
+//        }
 
         def anuncio = new Anuncio()
+
+        switch (params.tipo) {
+            case "1":
+                def padre = Producto.get(producto?.padre?.id)
+                activo = Anuncio.findByProductoAndEstado(padre,'A')
+                if(activo){
+                    band = true
+                }else{
+                    band = false
+                }
+                break;
+            case "2" :
+                def anuncioExiste = Anuncio.findByProductoAndEstado(producto, 'A')
+                def anuncioPadre = Anuncio.findByProductoAndEstado(producto.padre, 'A')
+                if(anuncioExiste || anuncioPadre){
+                    band = true
+                }else{
+                    band = false
+                }
+                break;
+            case "3" :
+                band = false
+                break;
+        }
 
         if(band){
             render"er"
@@ -731,20 +751,94 @@ class ProductoController {
             println("error al crear el anuncio " + anuncio.errors)
             render "no_Error al publicar el producto"
         }else{
+
+            switch (params.tipo) {
+                case "1":
+                    def padre = Producto.get(producto?.padre?.id)
+                    padre.estado = 'B'
+                    padre.save(flush:true)
+
+                    def activo = Anuncio.findByProductoAndEstado(padre,'A')
+                    if(activo){
+                        activo.estado = 'B'
+                        activo.save(flush:true)
+                    }
+                    break;
+                case "2" :
+                    def activo2 = Anuncio.findByProductoAndEstado(producto,'A')
+                    if(activo2){
+                        activo2.estado = 'B'
+                        activo2.observaciones = 'Dado de baja por reemplazo'
+                        activo2.save(flush:true)
+                    }
+                    break;
+                case "3" :
+                    break;
+            }
+
             producto.estado = 'R'
             producto.save(flush:true)
 
-
-            def padre = Producto.get(producto?.padre?.id)
-            def activo = Anuncio.findByProductoAndEstado(padre,'A')
-
-            padre.estado = 'B'
-            padre.save(flush:true)
-            activo.estado = 'B'
-            activo.save(flush:true)
-
             render "ok"
         }
+    }
+
+    def copiarAtributos_ajax(){
+        def producto = Producto.get(params.id)
+        def padre = producto.padre
+        def atributos = Valores.findAllByProducto(producto)
+        def atributosPadre = Valores.findAllByProducto(padre)
+
+        if(atributos.size() == 0){
+            atributosPadre.each {
+                def atr = new Valores()
+                atr.producto = producto
+                atr.valor = it.valor
+                atr.orden = it.orden
+                atr.atributoCategoria = it.atributoCategoria
+
+                atr.save(flush:true)
+            }
+
+            render "ok"
+
+        }else{
+            render "no"
+        }
+
+    }
+
+    def copiarImagenes_ajax(){
+        def producto = Producto.get(params.id)
+        def padre = producto.padre
+
+        def pathHijo = "/var/ventas/productos/pro_" + producto.id + "/"
+        new File(pathHijo).mkdirs()
+        def pathPadre = "/var/ventas/productos/pro_" + padre.id + "/"
+
+        def canti = []
+        def dir = new File(pathPadre)
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            def img = ImageIO.read(file)
+            if (img) {
+                canti.add([
+                        dir : pathPadre,
+                        file: file.name
+                ])
+            }
+        }
+
+        if(canti.size() > 0){
+
+
+            println("-- " + canti)
+
+
+            render "ok"
+        }else{
+            render "no"
+        }
+
 
     }
 

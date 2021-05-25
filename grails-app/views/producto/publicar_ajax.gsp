@@ -29,84 +29,84 @@
 
 <script type="text/javascript">
 
-    $(".btnPublicarGratis").click(function () {
-        bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
-                "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +
-                "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprobación</p>",
-            buttons : {
-                cancelar : {
-                    label     : "<i class='fa fa-times'></i> Cancelar",
-                    className : "btn-gris",
-                    callback  : function () {
-                    }
-                },
-                publicar : {
-                    label     : "<i class='fa fa-check'></i> Publicar",
-                    className : "btn-rojo",
-                    callback  : function () {
-                        publicarProductoGratis();
-                    }
-                }
-            }
-        });
-    });
+    %{--$(".btnPublicarGratis").click(function () {--}%
+    %{--    bootbox.dialog({--}%
+    %{--        title   : "Alerta",--}%
+    %{--        message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +--}%
+    %{--            "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +--}%
+    %{--            "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprobación</p>",--}%
+    %{--        buttons : {--}%
+    %{--            cancelar : {--}%
+    %{--                label     : "<i class='fa fa-times'></i> Cancelar",--}%
+    %{--                className : "btn-gris",--}%
+    %{--                callback  : function () {--}%
+    %{--                }--}%
+    %{--            },--}%
+    %{--            publicar : {--}%
+    %{--                label     : "<i class='fa fa-check'></i> Publicar",--}%
+    %{--                className : "btn-rojo",--}%
+    %{--                callback  : function () {--}%
+    %{--                    publicarProductoGratis();--}%
+    %{--                }--}%
+    %{--            }--}%
+    %{--        }--}%
+    %{--    });--}%
+    %{--});--}%
 
-    function publicarProductoGratis(){
-        var b = cargarLoader("Procesando...");
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'alerta', action: 'generarAlerta2_ajax')}',
-            data:{
-                id: '${producto?.id}'
-            },
-            success: function (msg) {
-                b.modal("hide");
-                if(msg == 'ok'){
-                    bootbox.dialog({
-                        title   : "Confirmación",
-                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
-                        buttons : {
-                            aceptar : {
-                                label     : "<i class='fa fa-check'></i> Aceptar",
-                                className : "btn-gris",
-                                callback  : function () {
-                                    location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${producto?.persona?.id}'
-                                }
-                            }
-                        }
-                    });
-                }else{
-                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")
-                }
-            }
-        });
-    }
+    %{--function publicarProductoGratis(){--}%
+    %{--    var b = cargarLoader("Procesando...");--}%
+    %{--    $.ajax({--}%
+    %{--        type: 'POST',--}%
+    %{--        url: '${createLink(controller: 'alerta', action: 'generarAlerta2_ajax')}',--}%
+    %{--        data:{--}%
+    %{--            id: '${producto?.id}'--}%
+    %{--        },--}%
+    %{--        success: function (msg) {--}%
+    %{--            b.modal("hide");--}%
+    %{--            if(msg == 'ok'){--}%
+    %{--                bootbox.dialog({--}%
+    %{--                    title   : "Confirmación",--}%
+    %{--                    message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",--}%
+    %{--                    buttons : {--}%
+    %{--                        aceptar : {--}%
+    %{--                            label     : "<i class='fa fa-check'></i> Aceptar",--}%
+    %{--                            className : "btn-gris",--}%
+    %{--                            callback  : function () {--}%
+    %{--                                location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${producto?.persona?.id}'--}%
+    %{--                            }--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                });--}%
+    %{--            }else{--}%
+    %{--                bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")--}%
+    %{--            }--}%
+    %{--        }--}%
+    %{--    });--}%
+    %{--}--}%
 
-    $(".btnPublicarDestacar").click(function () {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller: 'pago', action:'form_ajax')}",
-            data    : {
-                id: '${producto?.id}'
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgPagarPub",
-                    title   : "Pagar publicación",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-            } //success
-        }); //ajax
-    });
+    %{--$(".btnPublicarDestacar").click(function () {--}%
+    %{--    $.ajax({--}%
+    %{--        type    : "POST",--}%
+    %{--        url     : "${createLink(controller: 'pago', action:'form_ajax')}",--}%
+    %{--        data    : {--}%
+    %{--            id: '${producto?.id}'--}%
+    %{--        },--}%
+    %{--        success : function (msg) {--}%
+    %{--            var b = bootbox.dialog({--}%
+    %{--                id      : "dlgPagarPub",--}%
+    %{--                title   : "Pagar publicación",--}%
+    %{--                message : msg,--}%
+    %{--                buttons : {--}%
+    %{--                    cancelar : {--}%
+    %{--                        label     : "Cancelar",--}%
+    %{--                        className : "btn-primary",--}%
+    %{--                        callback  : function () {--}%
+    %{--                        }--}%
+    %{--                    }--}%
+    %{--                } //buttons--}%
+    %{--            }); //dialog--}%
+    %{--        } //success--}%
+    %{--    }); //ajax--}%
+    %{--});--}%
 
 </script>

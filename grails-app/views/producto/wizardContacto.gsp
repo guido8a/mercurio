@@ -174,7 +174,7 @@
     ProgressBar.singleStepAnimation = 100;
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'  + "&tipo=" + '${tipo}'
     });
 
     $("#btnAprobacion").click(function () {
@@ -189,31 +189,6 @@
                 success: function(msg){
                     if(msg == 'ok'){
                         publicar();
-
-                        %{--$.ajax({--}%
-                        %{--    type    : "POST",--}%
-                        %{--    url     : "${createLink(controller: 'producto', action:'destacar_ajax')}",--}%
-                        %{--    data    : {--}%
-                        %{--        id: '${producto?.id}'--}%
-                        %{--    },--}%
-                        %{--    success : function (msg) {--}%
-                        %{--        var b = bootbox.dialog({--}%
-                        %{--            id      : "dlgDestacar",--}%
-                        %{--            title   : "Destacar el Anuncio",--}%
-                        %{--            message : msg,--}%
-                        %{--            buttons : {--}%
-                        %{--                guardar  : {--}%
-                        %{--                    id        : "btnSave",--}%
-                        %{--                    label     : "Aceptar <i class='fa fa-arrow-right'></i>",--}%
-                        %{--                    className : "btn-rojo",--}%
-                        %{--                    callback  : function () {--}%
-                        %{--                        guardarContacto();--}%
-                        %{--                    } //callback--}%
-                        %{--                } //guardar--}%
-                        %{--            } //buttons--}%
-                        %{--        }); //dialog--}%
-                        %{--    } //success--}%
-                        %{--}); //ajax--}%
                     }else{
                         bootbox.dialog({
                             title   : "Alerta",
@@ -297,7 +272,8 @@
             url: '${createLink(controller: 'producto', action: 'crearAnuncio_ajax')}',
             data:{
                 id: $("#id").val(),
-                persona: $("#persona").val()
+                persona: $("#persona").val(),
+                tipo: '${tipo}'
             },
             success: function (msg) {
                 a.modal("hide");
@@ -354,7 +330,8 @@
             url: '${createLink(controller: 'producto', action: 'reemplazar_ajax')}',
             data:{
                 id: $("#id").val(),
-                persona: $("#persona").val()
+                persona: $("#persona").val(),
+                tipo: '${tipo}'
             },
             success: function (msg) {
                 a.modal("hide");

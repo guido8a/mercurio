@@ -120,7 +120,7 @@
                                 </label>
                                 <div class="col-md-6">
                                     <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
-                                                 value="${producto?.subtitulo}"/>
+                                                 value="${producto?.subtitulo ?  producto?.subtitulo : producto?.padre?.subtitulo}"/>
                                 </div>
                             </span>
                         </div>
@@ -131,18 +131,11 @@
                             Detalles o Especificaciones
                         </label>
                         <div class="col-md-7 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
-                            <textarea id="texto" class="editor">${producto?.texto}</textarea>
+                            <textarea id="texto" class="editor">${producto?.texto ?  producto?.texto : producto?.padre?.texto}</textarea>
                         </div>
                     </div>
                 </div>
             </div>
-%{--            <div class="col-md-12">--}%
-%{--                <div class="col-md-3 btn-group" style="float: right">--}%
-%{--                    <a href="#" class="btn btn-warning btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>--}%
-%{--                    <a href="#" class="btn btn-primary btnSiguiente"> Siguiente <i class="fa fa-arrow-right"></i></a>--}%
-%{--                </div>--}%
-%{--            </div>--}%
-
         </div>
     </div>
 </g:form>
@@ -164,8 +157,6 @@
         'Información',
         'progress-bar-wrapper'
     );
-
-
 
     $(".btnAnterior").click(function () {
         submitFormProducto(0)
@@ -203,11 +194,10 @@
                         setTimeout(function () {
                             if(tipo == '1'){
                                 %{--location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';--}%
-                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&persona=" + '${persona?.id}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
                             }else{
                                 location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
                             }
-
                         }, 500);
                     } else {
                         log("Error al guardar el producto","error");
@@ -218,7 +208,6 @@
             return false;
         } //else
     }
-
 
     $(function () {
 

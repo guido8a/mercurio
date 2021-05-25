@@ -23,7 +23,7 @@
         <g:link controller="principal" action="index" class="btn btn-gris" title="Volver a página principal">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
-        <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [persona: persona?.id])}"
+        <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [tipo: 3, persona: persona?.id])}"
            class="btn btn-rojo" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
     </div>
@@ -59,7 +59,7 @@
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
                        data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto"
-                       data-id="${producto?.id}"><i class="fa fa-edit"></i></a>
+                       data-id="${producto?.id}" data-est="${producto?.estado}"><i class="fa fa-edit"></i></a>
                     <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"
                        data-id="${producto?.id}"><i class="fa fa-image"></i></a>
                     <g:if test="${producto?.id}">
@@ -184,7 +184,13 @@
 
     $(".btnEditar").click(function () {
         var id = $(this).data("id");
-        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 1
+        var estado = $(this).data("est");
+        if(estado == 'R' || estado == 'I'){
+            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2
+        }else{
+            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 1
+        }
+
     });
 
     $(".btnImagenes").click(function () {

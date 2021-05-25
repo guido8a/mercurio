@@ -20,9 +20,6 @@
         <g:link controller="anuncio" action="list" class="btn btn-gris btnVolver">
             <i class="fa fa-arrow-left"></i> Anuncios por revisar
         </g:link>
-%{--        <g:link action="form" class="btn btn-info btnCrear">--}%
-%{--            <i class="fa fa-file"></i> Nuevo anuncio--}%
-%{--        </g:link>--}%
     </div>
 </div>
 
@@ -35,7 +32,6 @@
     <tr style="width: 100%">
         <th style="width: 30%">Título</th>
         <th style="width: 20%">Subtítulo</th>
-%{--        <th style="width: 10%">Orden</th>--}%
         <th style="width: 10%">Estado</th>
         <th style="width: 10%">Acciones</th>
         <th style="width: 10%">Fecha Inicio</th>
