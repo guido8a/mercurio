@@ -162,7 +162,7 @@
         'progress-bar-wrapper'
     );
 
-    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
+    <g:if test="${tipo != '3' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
     copiarAtributos();
     </g:if>
 
@@ -172,7 +172,8 @@
             type: 'POST',
             url: '${createLink(controller: 'producto', action: 'copiarAtributos_ajax')}',
             data:{
-                id: '${producto?.id}'
+                id: '${producto?.id}',
+                tipo: '${tipo}'
             },
             success: function (msg) {
                 a.modal("hide");

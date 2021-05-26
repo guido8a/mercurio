@@ -268,7 +268,6 @@
         var a = cargarLoader("Procesando...");
         $.ajax({
             type: 'POST',
-            %{--url: '${createLink(controller: 'alerta', action: 'generarAlerta_ajax')}',--}%
             url: '${createLink(controller: 'producto', action: 'crearAnuncio_ajax')}',
             data:{
                 id: $("#id").val(),
@@ -294,16 +293,16 @@
                     });
                 }else{
                     if(parts[0] == 'er'){
-                        // bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Ya existe un anuncio activo </p>')
                         bootbox.dialog({
                             title   : "Confirmación",
-                            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Ya existe un anuncio activo. <br> Desea volver a publicar su producto con la información actual?</p>",
+                            // message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Ya existe un anuncio activo. <br> Desea volver a publicar su producto con la información actual?</p>",
+                            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + parts[1] + "</p>",
                             buttons : {
                                 cancelar : {
                                     label     : "<i class='fa fa-times'></i> Cancelar",
                                     className : "btn-gris",
                                     callback  : function () {
-                                        location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                        %{--location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'--}%
                                     }
                                 },
                                 aceptar : {

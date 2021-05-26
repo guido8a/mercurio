@@ -494,32 +494,39 @@ class ProductoController {
 
         def producto
 
-        switch (params.tipo) {
-            case "1":
-                producto = new Producto()
-                padre = Producto.get(params.id)
-                producto.padre = padre
-                producto.estado = 'I'
-                producto.fecha = new Date()
-                producto.latitud = 0
-                producto.longitud = 0
-                producto.save(flush:true)
-                break;
-            case "2" :
-                producto = Producto.get(params.id)
-                break;
-            case "3" :
-                producto = new Producto()
-                producto.padre = null
-                producto.estado = 'I'
-                producto.fecha = new Date()
-                producto.latitud = 0
-                producto.longitud = 0
-                producto.save(flush:true)
-                break;
+        if(params.e){
+            producto = Producto.get(params.id)
+        }else{
+            switch (params.tipo) {
+                case "1":
+                    producto = new Producto()
+                    padre = Producto.get(params.id)
+                    producto.padre = padre
+                    producto.estado = 'I'
+                    producto.fecha = new Date()
+                    producto.latitud = 0
+                    producto.longitud = 0
+                    producto.save(flush:true)
+                    break;
+                case "2" :
+                    def productoOriginal = Producto.get(params.id)
+                    producto = new Producto()
+                    producto.properties = productoOriginal.properties
+                    producto.estado = 'I'
+                    producto.anterior = productoOriginal.id
+                    producto.save(flush:true)
+                    break;
+                case "3" :
+                    producto = new Producto()
+                    producto.padre = null
+                    producto.estado = 'I'
+                    producto.fecha = new Date()
+                    producto.latitud = 0
+                    producto.longitud = 0
+                    producto.save(flush:true)
+                    break;
+            }
         }
-
-//        producto.save(flush:true)
 
         return[producto: producto, persona: persona, tipo: params.tipo]
     }
@@ -684,6 +691,7 @@ class ProductoController {
         println("params crear anuncio " + params)
         def producto = Producto.get(params.id)
         def band = false
+        def texto= ''
         def activo
 
 //        if(producto?.padre){
@@ -706,16 +714,26 @@ class ProductoController {
                 activo = Anuncio.findByProductoAndEstado(padre,'A')
                 if(activo){
                     band = true
+                    texto = 'Ya existe un anuncio activo. <br> Desea volver a publicar su producto con la información actual?'
                 }else{
                     band = false
                 }
                 break;
             case "2" :
-                def anuncioExiste = Anuncio.findByProductoAndEstado(producto, 'A')
+                def productoOriginal = Producto.get(producto.anterior.toInteger())
+                def estados = ['A','R']
+                def anuncioExiste = Anuncio.findByProductoAndEstadoInList(productoOriginal, estados)
                 def anuncioPadre = Anuncio.findByProductoAndEstado(producto.padre, 'A')
+
+                println("ae " + anuncioExiste)
+                println("ap " + anuncioPadre)
+
                 if(anuncioExiste || anuncioPadre){
                     band = true
+                    texto = 'Su producto se encuentra actualmente en estado de revisión. <br> Desea volver a publicar su producto con la información actual?'
                 }else{
+                    productoOriginal.estado = 'B'
+                    productoOriginal.save(flush:true)
                     band = false
                 }
                 break;
@@ -725,7 +743,7 @@ class ProductoController {
         }
 
         if(band){
-            render"er"
+            render"er_${texto}"
         }else{
             anuncio.producto = producto
             anuncio.estado = 'R'
@@ -763,16 +781,21 @@ class ProductoController {
                     def activo = Anuncio.findByProductoAndEstado(padre,'A')
                     if(activo){
                         activo.estado = 'B'
+                        activo.observaciones = 'Dado de baja por reemplazo'
                         activo.save(flush:true)
                     }
                     break;
                 case "2" :
-                    def activo2 = Anuncio.findByProductoAndEstado(producto,'A')
+//                    def activo2 = Anuncio.findByProductoAndEstado(producto,'A')
+                    def productoOriginal = Producto.get(producto.anterior.toInteger())
+                    def activo2 = Anuncio.findByProducto(productoOriginal)
                     if(activo2){
                         activo2.estado = 'B'
                         activo2.observaciones = 'Dado de baja por reemplazo'
                         activo2.save(flush:true)
                     }
+                    productoOriginal.estado = 'B'
+                    productoOriginal.save(flush:true)
                     break;
                 case "3" :
                     break;
@@ -787,23 +810,32 @@ class ProductoController {
 
     def copiarAtributos_ajax(){
         def producto = Producto.get(params.id)
-        def padre = producto.padre
+        def padre
+        if(params.tipo == '1'){
+            padre = producto.padre
+        }else{
+            padre = Producto.get(producto.anterior)
+        }
         def atributos = Valores.findAllByProducto(producto)
         def atributosPadre = Valores.findAllByProducto(padre)
 
         if(atributos.size() == 0){
-            atributosPadre.each {
-                def atr = new Valores()
-                atr.producto = producto
-                atr.valor = it.valor
-                atr.orden = it.orden
-                atr.atributoCategoria = it.atributoCategoria
 
-                atr.save(flush:true)
+            if(atributosPadre.size() != 0){
+                atributosPadre.each {
+                    def atr = new Valores()
+                    atr.producto = producto
+                    atr.valor = it.valor
+                    atr.orden = it.orden
+                    atr.atributoCategoria = it.atributoCategoria
+
+                    atr.save(flush:true)
+                }
+
+                render "ok"
+            }else{
+                render "no"
             }
-
-            render "ok"
-
         }else{
             render "no"
         }
@@ -812,37 +844,60 @@ class ProductoController {
 
     def copiarImagenes_ajax(){
         def producto = Producto.get(params.id)
-        def padre = producto.padre
+        def padre
+        if(params.tipo == '1'){
+            padre = producto.padre
+        }else{
+            padre = Producto.get(producto.anterior.toInteger())
+        }
+
         def nmbr = "", arch = ""
 
         def pathHijo = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(pathHijo).mkdirs()
         def pathPadre = "/var/ventas/productos/pro_" + padre.id + "/"
-        new File(pathPadre).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*/) { ar ->
-            nmbr = ar.toString() - pathPadre
-            arch = nmbr.substring(nmbr.lastIndexOf("/") + 1)
-            File original = new File(ar.toString())
-            File destino = new File(pathHijo + nmbr)
-            Files.copy(Paths.get(original.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING)
-        }
 
-        def canti = []
-        def dir = new File(pathPadre)
+        def imasHijo = []
+        def dir = new File(pathHijo)
         dir.eachFileRecurse(FileType.FILES) { file ->
             def img = ImageIO.read(file)
             if (img) {
-                canti.add([
+                imasHijo.add([
                         dir : pathPadre,
                         file: file.name
                 ])
             }
         }
 
-        if(canti.size() > 0){
+        if(imasHijo.size() == 0){
 
+            def band = 0
+            def dirPadre = new File(pathPadre)
+            dirPadre.eachFileRecurse(FileType.FILES) { file ->
+                def img = ImageIO.read(file)
+                if (img) {
+                    def imagenNueva = new Imagen()
+                    imagenNueva.producto = producto
+                    imagenNueva.estado = 1
+                    imagenNueva.ruta = file.name
 
-            println("-- " + canti)
+                    if(band == 0){
+                        imagenNueva.principal = 1
+                    }
 
+                    imagenNueva.save(flush:true)
+                    band ++
+                }
+            }
+
+            new File(pathPadre).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*/) { ar ->
+                nmbr = ar.toString() - pathPadre
+                arch = nmbr.substring(nmbr.lastIndexOf("/") + 1)
+                def imagenNueva = new Imagen()
+                File original = new File(ar.toString())
+                File destino = new File(pathHijo + nmbr)
+                Files.copy(Paths.get(original.getAbsolutePath()), Paths.get(destino.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING)
+            }
 
             render "ok"
         }else{

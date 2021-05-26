@@ -17,6 +17,7 @@ class Producto {
     String sitio
     double latitud
     double longitud
+    String anterior
 
     static mapping = {
         table 'prod'
@@ -38,6 +39,7 @@ class Producto {
             sitio column: 'prodsito'
             latitud column: 'prodlatt'
             longitud column: 'prodlong'
+            anterior column: 'prodantr'
         }
     }
 
@@ -54,6 +56,7 @@ class Producto {
         sitio(blank:true, nullable: true, size:0..127)
         latitud(blank:true, nullable:true)
         longitud(blank:true, nullable:true)
+        anterior(blank:true, nullable:true)
     }
 
     String toString(){

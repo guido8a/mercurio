@@ -224,7 +224,7 @@
 
     });
 
-    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
+    <g:if test="${tipo != '3' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
     copiarImagenes();
     </g:if>
 
@@ -234,15 +234,14 @@
             type: 'POST',
             url: '${createLink(controller: 'producto', action: 'copiarImagenes_ajax')}',
             data:{
-                id: '${producto?.id}'
+                id: '${producto?.id}',
+                tipo: '${tipo}'
             },
             success: function (msg) {
                 a.modal("hide");
                 if(msg == 'ok'){
-                    // cargarImagenes($("#id").val())
-                    // cargarTablaImagenes();
+                    location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
                 }else{
-
                 }
             }
         });
