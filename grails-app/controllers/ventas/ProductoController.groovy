@@ -757,17 +757,18 @@ class ProductoController {
     }
 
     def reemplazar_ajax(){
-        def anuncio = new Anuncio()
+//        def anuncio = new Anuncio()
+        def anuncio
         def producto = Producto.get(params.id)
 
-        anuncio.producto = producto
-        anuncio.estado = 'R'
-        anuncio.fecha = new Date()
-
-        if(!anuncio.save(flush:true)){
-            println("error al crear el anuncio " + anuncio.errors)
-            render "no_Error al publicar el producto"
-        }else{
+//        anuncio.producto = producto
+//        anuncio.estado = 'R'
+//        anuncio.fecha = new Date()
+//
+//        if(!anuncio.save(flush:true)){
+//            println("error al crear el anuncio " + anuncio.errors)
+//            render "no_Error al publicar el producto"
+//        }else{
 
             switch (params.tipo) {
                 case "1":
@@ -781,18 +782,24 @@ class ProductoController {
                         activo.observaciones = 'Dado de baja por reemplazo'
                         activo.save(flush:true)
                     }
+
+                    anuncio = new Anuncio()
+                    anuncio.producto = producto
+                    anuncio.estado = 'R'
+                    anuncio.fecha = new Date()
+                    anuncio.save(flush:true)
+
                     break;
                 case "2" :
                     def activo2 = Anuncio.findByProductoAndEstado(producto,'R')
-//                    def productoOriginal = Producto.get(producto.anterior.toInteger())
-//                    def activo2 = Anuncio.findByProducto(productoOriginal)
+
                     if(activo2){
-                        activo2.estado = 'B'
-                        activo2.observaciones = 'Dado de baja por reemplazo'
+                        activo2.estado = 'R'
+                        activo2.fecha = new Date()
+                        activo2.observaciones = 'Anuncio editado el ' + new Date()
                         activo2.save(flush:true)
                     }
-//                    productoOriginal.estado = 'B'
-//                    productoOriginal.save(flush:true)
+
                     break;
                 case "3" :
                     break;
@@ -802,7 +809,7 @@ class ProductoController {
             producto.save(flush:true)
 
             render "ok"
-        }
+//        }
     }
 
     def copiarAtributos_ajax(){
