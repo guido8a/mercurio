@@ -19,9 +19,9 @@ class ProductoController {
         println("params " + params)
         def persona = Persona.get(session.usuario.id)
         def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B')
-        def productosConAnuncios = Anuncio.findAllByProductoInList(productos)
+//        def productosConAnuncios = Anuncio.findAllByProductoInList(productos)
 
-        return[productos: productosConAnuncios.producto, persona: persona]
+        return[productos: productos, persona: persona]
     }
 
     def form_ajax(){
