@@ -122,8 +122,9 @@
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
         <div class="col-md-9 btn-group" style="float: left;">
-            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
-               class="btn btn-gris btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
+            %{--            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"--}%
+            %{--               class="btn btn-gris btnRetornar" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>--}%
+            <a href="#" class="btn btn-gris btnRetornar" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
         <div class="col-md-3 btn-group">
             <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
@@ -190,6 +191,32 @@
 
 <script type="text/javascript">
 
+    $(".btnRetornar").click(function () {
+        if(${tipo == '1'}){
+            bootbox.dialog({
+                title   : "Alerta",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                buttons : {
+                    cancelar : {
+                        label     : "<i class='fa fa-times'></i> Cancelar",
+                        className : "btn-gris",
+                        callback  : function () {
+                        }
+                    },
+                    aceptar : {
+                        label     : "<i class='fa fa-check'></i> Aceptar",
+                        className : "btn-rojo",
+                        callback  : function () {
+                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                        }
+                    }
+                }
+            });
+        }else{
+            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+        }
+    });
+
     ProgressBar.init(
         [ 'Categoría',
             'Información',
@@ -224,7 +251,7 @@
 
     });
 
-    <g:if test="${tipo != '3' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
+    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
     copiarImagenes();
     </g:if>
 

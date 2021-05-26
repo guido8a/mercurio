@@ -93,7 +93,7 @@ class VerController {
             println("publicaciones " + publicaciones)
 
             return [carrusel: carrusel, producto: producto, atributos: atrb, tipo: params.tipo, persona: persona,
-                    publicaciones: publicaciones, preguntas: preguntas, lugar: lugar]
+                    publicaciones: publicaciones, preguntas: preguntas, lugar: lugar, band: params.band]
         }
 
 

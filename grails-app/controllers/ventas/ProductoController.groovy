@@ -509,12 +509,13 @@ class ProductoController {
                     producto.save(flush:true)
                     break;
                 case "2" :
-                    def productoOriginal = Producto.get(params.id)
-                    producto = new Producto()
-                    producto.properties = productoOriginal.properties
-                    producto.estado = 'I'
-                    producto.anterior = productoOriginal.id
-                    producto.save(flush:true)
+//                    def productoOriginal = Producto.get(params.id)
+//                    producto = new Producto()
+//                    producto.properties = productoOriginal.properties
+//                    producto.estado = 'I'
+//                    producto.anterior = productoOriginal.id
+//                    producto.save(flush:true)
+                    producto = Producto.get(params.id)
                     break;
                 case "3" :
                     producto = new Producto()
@@ -573,10 +574,9 @@ class ProductoController {
     }
 
     def wizardContacto() {
-        println "params: $params"
+//        println "params: $params"
         def persona = Persona.get(params.persona)
         def producto = Producto.get(params.id)
-
         return[producto: producto, persona: persona,tipo: params.tipo]
     }
 
@@ -720,20 +720,17 @@ class ProductoController {
                 }
                 break;
             case "2" :
-                def productoOriginal = Producto.get(producto.anterior.toInteger())
+//                def productoOriginal = Producto.get(producto.anterior.toInteger())
                 def estados = ['A','R']
                 def anuncioExiste = Anuncio.findByProductoAndEstadoInList(productoOriginal, estados)
                 def anuncioPadre = Anuncio.findByProductoAndEstado(producto.padre, 'A')
-
-                println("ae " + anuncioExiste)
-                println("ap " + anuncioPadre)
 
                 if(anuncioExiste || anuncioPadre){
                     band = true
                     texto = 'Su producto se encuentra actualmente en estado de revisión. <br> Desea volver a publicar su producto con la información actual?'
                 }else{
-                    productoOriginal.estado = 'B'
-                    productoOriginal.save(flush:true)
+//                    productoOriginal.estado = 'B'
+//                    productoOriginal.save(flush:true)
                     band = false
                 }
                 break;
@@ -786,16 +783,16 @@ class ProductoController {
                     }
                     break;
                 case "2" :
-//                    def activo2 = Anuncio.findByProductoAndEstado(producto,'A')
-                    def productoOriginal = Producto.get(producto.anterior.toInteger())
-                    def activo2 = Anuncio.findByProducto(productoOriginal)
+                    def activo2 = Anuncio.findByProductoAndEstado(producto,'R')
+//                    def productoOriginal = Producto.get(producto.anterior.toInteger())
+//                    def activo2 = Anuncio.findByProducto(productoOriginal)
                     if(activo2){
                         activo2.estado = 'B'
                         activo2.observaciones = 'Dado de baja por reemplazo'
                         activo2.save(flush:true)
                     }
-                    productoOriginal.estado = 'B'
-                    productoOriginal.save(flush:true)
+//                    productoOriginal.estado = 'B'
+//                    productoOriginal.save(flush:true)
                     break;
                 case "3" :
                     break;
@@ -811,11 +808,11 @@ class ProductoController {
     def copiarAtributos_ajax(){
         def producto = Producto.get(params.id)
         def padre
-        if(params.tipo == '1'){
+//        if(params.tipo == '1'){
             padre = producto.padre
-        }else{
-            padre = Producto.get(producto.anterior)
-        }
+//        }else{
+//            padre = Producto.get(producto.anterior)
+//        }
         def atributos = Valores.findAllByProducto(producto)
         def atributosPadre = Valores.findAllByProducto(padre)
 
@@ -845,11 +842,11 @@ class ProductoController {
     def copiarImagenes_ajax(){
         def producto = Producto.get(params.id)
         def padre
-        if(params.tipo == '1'){
+//        if(params.tipo == '1'){
             padre = producto.padre
-        }else{
-            padre = Producto.get(producto.anterior.toInteger())
-        }
+//        }else{
+//            padre = Producto.get(producto.anterior.toInteger())
+//        }
 
         def nmbr = "", arch = ""
 

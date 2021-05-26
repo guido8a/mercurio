@@ -61,8 +61,9 @@
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
         <div class="col-md-10 btn-group" style="float: left;">
-            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
-               class="btn btn-gris btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
+%{--            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"--}%
+%{--               class="btn btn-gris btnRetornar" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>--}%
+            <a href="#" class="btn btn-gris btnRetornar" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
         <div class="col-md-2 btn-group">
             <a href="#" class="btn btn-rojo btnSiguiente flush-right" >Siguiente <i class="fa fa-arrow-right"></i></a>
@@ -83,7 +84,6 @@
             <div style="margin-top: 10px">
                 <p class="numeroPaso">1</p>
                 <h1 class="textoPaso">Categoría</h1>
-                %{--                <div class="col-md-8" style="margin-top: 0px">--}%
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
                         <h3> Seleccione una categoría para su producto</h3>
@@ -124,6 +124,35 @@
 
 <script type="text/javascript">
 
+    $(".btnRetornar").click(function () {
+        if(${tipo == '1'}){
+            bootbox.dialog({
+                title   : "Alerta",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                buttons : {
+                    cancelar : {
+                        label     : "<i class='fa fa-times'></i> Cancelar",
+                        className : "btn-gris",
+                        callback  : function () {
+                        }
+                    },
+                    aceptar : {
+                        label     : "<i class='fa fa-check'></i> Aceptar",
+                        className : "btn-rojo",
+                        callback  : function () {
+                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                        }
+                    }
+                }
+            });
+        }else{
+            if(${tipo == '3'}){
+                submitFormProducto(3);
+            }else{
+                location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+            }
+        }
+    });
 
     ProgressBar.init(
         [ 'Categoría',
@@ -138,11 +167,10 @@
     );
 
     $(".btnSiguiente").click(function () {
-        submitFormProducto();
+        submitFormProducto(1);
     });
 
-    function submitFormProducto() {
-
+    function submitFormProducto(band) {
         var $form = $("#frmProducto");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
@@ -160,9 +188,14 @@
                     l.modal("hide");
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
-                        setTimeout(function () {
+                        if(band == 1){
                             location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
-                        }, 500);
+                        }else{
+                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                        }
+                        %{--setTimeout(function () {--}%
+                        %{--    location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';--}%
+                        %{--}, 500);--}%
                     } else {
                         log("Error al guardar el producto","error");
                     }

@@ -74,8 +74,9 @@
 
     <div class="col-md-12" style="background-color: #d0d0d0; padding: 5px">
         <div class="col-md-5 btn-group" style="float: left;">
-            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"
-               class="btn btn-gris btnAtras" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
+            %{--            <a href="${createLink(controller: 'producto', action: 'list', id: persona.id)}"--}%
+            %{--               class="btn btn-gris btnRetornar" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>--}%
+            <a href="#" class="btn btn-gris btnRetornar" ><i class="fa fa-arrow-left"></i> Lista de Anuncios - Productos</a>
         </div>
 
         <div class="col-md-4 btn-group" >
@@ -155,8 +156,34 @@
 
 <script type="text/javascript">
 
+    $(".btnRetornar").click(function () {
+        if(${tipo == '1'}){
+            bootbox.dialog({
+                title   : "Alerta",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                buttons : {
+                    cancelar : {
+                        label     : "<i class='fa fa-times'></i> Cancelar",
+                        className : "btn-gris",
+                        callback  : function () {
+                        }
+                    },
+                    aceptar : {
+                        label     : "<i class='fa fa-check'></i> Aceptar",
+                        className : "btn-rojo",
+                        callback  : function () {
+                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                        }
+                    }
+                }
+            });
+        }else{
+            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+        }
+    });
+
     $(".btnVer").click(function () {
-        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + 1
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + 1 + "&band=" + '${tipo}'
     });
 
     ProgressBar.init(

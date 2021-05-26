@@ -850,9 +850,9 @@ $("#ingresar").click(function () {
         }
     }
 
-    $("#btnAnterior").click(function () {
-        location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
-    });
+    %{--$("#btnAnterior").click(function () {--}%
+    %{--    location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'--}%
+    %{--});--}%
 
     $("#btnAnteriorLista").click(function () {
         location.href = "${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
@@ -861,7 +861,7 @@ $("#ingresar").click(function () {
     $(document).ready(function () {
 
         $('#btnAnterior').click(function () {
-            location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'
+            location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${band}'
         });
 
 
