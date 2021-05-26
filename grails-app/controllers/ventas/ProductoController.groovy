@@ -722,7 +722,7 @@ class ProductoController {
             case "2" :
 //                def productoOriginal = Producto.get(producto.anterior.toInteger())
                 def estados = ['A','R']
-                def anuncioExiste = Anuncio.findByProductoAndEstadoInList(productoOriginal, estados)
+                def anuncioExiste = Anuncio.findByProductoAndEstadoInList(producto, estados)
                 def anuncioPadre = Anuncio.findByProductoAndEstado(producto.padre, 'A')
 
                 if(anuncioExiste || anuncioPadre){
