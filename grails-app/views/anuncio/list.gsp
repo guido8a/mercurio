@@ -19,15 +19,15 @@
 <!-- botones -->
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
-        <g:link controller="anuncio" action="revisados" class="btn btn-gris btnRevisadas">
-            <i class="fa fa-user-check"></i> Anuncios revisados
+        <g:link controller="anuncio" action="revisados" class="btn btn-rojo btnRevisadas">
+            <i class="fa fa-user-check"></i> Publicaciones
         </g:link>
     </div>
-%{--    <div class="btn-group">--}%
-%{--        <g:link controller="anuncio" action="list" class="btn btn-rojo btnAnuncios">--}%
-%{--            <i class="fa fa-copy"></i> Anuncios--}%
-%{--        </g:link>--}%
-%{--    </div>--}%
+    <div class="btn-group">
+        <g:link controller="anuncio" action="negados" class="btn btn-gris btnNegados">
+            <i class="fa fa-user-slash"></i> Anuncios negados
+        </g:link>
+    </div>
 </div>
 
 <table class="table table-condensed table-bordered">
@@ -51,8 +51,9 @@
                     <td style="width: 20%; text-align: center">${anuncio?.producto?.persona?.nombre}</td>
                     <td style="width: 40%">${anuncio?.producto?.titulo}</td>
                     <td style="width: 10%; text-align: center">${anuncio?.fecha?.format("dd-MM-yyyy")}</td>
-                    <td style="width: 10%; text-align: center">
-                        <g:if test="${ventas.Pago.findByAnuncio(ventas.Anuncio.get(anuncio.id))}">
+                    <td style="width: 10%; text-align: center; font-weight: bold">
+%{--                        <g:if test="${ventas.Pago.findByAnuncio(ventas.Anuncio.get(anuncio.id))}">--}%
+                        <g:if test="${anuncio.pago == 'S'}">
                             <a href="#" class="btn btn-rojo btn-sm btnVerPago" title="Pago del producto" data-id="${anuncio?.id}"><i class="fa fa-dollar-sign"></i> </a>
                         </g:if>
                         <g:else>
@@ -86,7 +87,7 @@
 
     $(".btnAceptar").click(function () {
         var id = $(this).data("id");
-        generarAnuncio(id)
+        aceptarAnuncio(id)
     });
 
     $(".btnNegar").click(function () {
@@ -94,10 +95,10 @@
         negarProducto(id)
     });
 
-    function generarAnuncio(id) {
+    function aceptarAnuncio(id) {
         bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea aceptar el anuncio de este producto?.</p>",
+            title   : "Aceptar producto",
+            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><span style='font-size: 14px; font-weight: bold'>&nbsp;¿Está seguro que desea aceptar el anuncio de este producto?.</span>",
             buttons : {
                 cancelar : {
                     label     : "<i class='fa fa-times'></i> Cancelar",
@@ -111,15 +112,15 @@
                     callback  : function () {
                         $.ajax({
                             type: 'POST',
-                            url: '${createLink(controller: 'anuncio', action: 'crearAnuncio_ajax')}',
+                            url: '${createLink(controller: 'anuncio', action: 'aceptarAnuncio_ajax')}',
                             data:{
                                 id: id
                             },
                             success: function (msg){
                                 if(msg == 'ok'){
                                     bootbox.dialog({
-                                        title   : "Alerta",
-                                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i> <p>Anuncio revisado correctamente</p>",
+                                        title   : "Confirmación",
+                                        message : "<i class='fa fa-thumbs-up fa-3x pull-left text-warning text-shadow'></i><p>&nbsp; Anuncio revisado correctamente</p>",
                                         buttons : {
                                             aceptar : {
                                                 label     : "<i class='fa fa-check'></i> Aceptar",
@@ -131,7 +132,7 @@
                                         }
                                     });
                                 }else{
-                                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al crear el anuncio del producto</p>")
+                                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-warning text-shadow'></i><span style='font-size: 14px; font-weight: bold'>&nbsp;Error al aceptar anuncio del producto</span>")
                                 }
                             }
                         })
@@ -143,8 +144,8 @@
 
     function negarProducto(id) {
         bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-warning text-shadow'></i><p>¿Está seguro que desea negar este producto?.</p>",
+            title   : "Negar producto",
+            message : "<i class='fa fa-user-slash fa-2x pull-left text-warning text-shadow'></i><span style='font-size: 14px; font-weight: bold'>&nbsp; ¿Está seguro que desea negar el anuncio de este producto?.</span>",
             buttons : {
                 cancelar : {
                     label     : "<i class='fa fa-times'></i> Cancelar",
@@ -158,7 +159,7 @@
                     callback  : function () {
                         $.ajax({
                             type    : "POST",
-                            url     : "${createLink(controller: 'alerta', action:'negar_ajax')}",
+                            url     : "${createLink(controller: 'anuncio', action:'negarAnuncio_ajax')}",
                             data    : {
                                 id:id
                             },
@@ -179,58 +180,7 @@
         });
     } //createEdit
 
-    $(function () {
 
-        $(".btnCrear").click(function() {
-            createEditRow();
-            return false;
-        });
-
-        %{--$("tbody tr").contextMenu({--}%
-        %{--    items  : {--}%
-        %{--        header   : {--}%
-        %{--            label  : "Acciones",--}%
-        %{--            header : true--}%
-        %{--        },--}%
-        %{--        producto : {--}%
-        %{--            label            : "Revisar Producto",--}%
-        %{--            icon             : "fa fa-clipboard-check",--}%
-        %{--            separator_before : true,--}%
-        %{--            action           : function ($element) {--}%
-        %{--                var id = $element.data("pr");--}%
-        %{--                var persona = $element.data("per");--}%
-        %{--                location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + persona + "&tipo=" + 4;--}%
-
-        %{--            }--}%
-        %{--        },--}%
-        %{--        publicacion : {--}%
-        %{--            label            : "Aceptar producto",--}%
-        %{--            icon             : "fa fa-check",--}%
-        %{--            separator_before : true,--}%
-        %{--            action           : function ($element) {--}%
-        %{--                var id = $element.data("id");--}%
-        %{--                generarAnuncio(id)--}%
-        %{--            }--}%
-        %{--        }--}%
-        %{--        ,--}%
-        %{--        negar : {--}%
-        %{--            label            : "Negar producto",--}%
-        %{--            icon             : "fa fa-trash",--}%
-        %{--            separator_before : true,--}%
-        %{--            action           : function ($element) {--}%
-        %{--                var id = $element.data("id");--}%
-        %{--                negarProducto(id)--}%
-        %{--            }--}%
-        %{--        }--}%
-        %{--    },--}%
-        %{--    onShow : function ($element) {--}%
-        %{--        $element.addClass("trHighlight");--}%
-        %{--    },--}%
-        %{--    onHide : function ($element) {--}%
-        %{--        $(".trHighlight").removeClass("trHighlight");--}%
-        %{--    }--}%
-        %{--});--}%
-    });
 </script>
 
 </body>

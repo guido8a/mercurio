@@ -68,19 +68,19 @@ class PrincipalController {
 //                "publdstc = '1'")[0].cnta
 
         println "Cantidad destacados: ${carrusel.size()}"
-        if(carrusel.size() < 5) {
-            sqlDs += " and anun.prod__id not in (${pagados}) and random() > 0.1 limit ${5 - carrusel.size()}"
-            println "sqlDs: $sqlDs"
-            publ = cn.rows(sqlDs .toString())
-            publ.each {pb ->
-                carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
-            }
-
-            campos += ", case when random() > 0.5 then '1' else '0' end destacado"
-        } else {
+//        if(carrusel.size() < 5) {
+//            sqlDs += " and anun.prod__id not in (${pagados}) and random() > 0.1 limit ${5 - carrusel.size()}"
+//            println "sqlDs: $sqlDs"
+//            publ = cn.rows(sqlDs .toString())
+//            publ.each {pb ->
+//                carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
+//            }
+//
+//            campos += ", case when random() > 0.5 then '1' else '0' end destacado"
+//        } else {
 //            sqlDs += " and publdstc = '1'"
             campos += ", publdstc destacado "
-        }
+//        }
 
         sql = "select ${campos} from publ, anun, prod, cntn, prov, imag " +
                 "where now()::date between publfcin and publfcfn and anun.anun__id = publ.anun__id and " +

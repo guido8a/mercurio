@@ -244,11 +244,10 @@
                 if(msg == 'ok'){
                     location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
                 }else{
-                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> Debe ingrear al menos una imagen para su producto")
+                    bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>&nbsp;" + "<span style='font-size: 14px; font-weight: bold'>Debe ingrear al menos una imagen para su producto</span>")
                 }
             }
         });
-
     });
 
     <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">

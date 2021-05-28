@@ -30,8 +30,8 @@
         <th style="width: 30%" colspan="3">Publicación</th>
     </tr>
     <tr style="width: 100%">
-        <th style="width: 30%">Título</th>
-        <th style="width: 20%">Subtítulo</th>
+        <th style="width: 15%">Usuario</th>
+        <th style="width: 35%">Título</th>
         <th style="width: 10%">Estado</th>
         <th style="width: 10%">Acciones</th>
         <th style="width: 10%">Fecha Inicio</th>
@@ -65,7 +65,6 @@
 
     function fijarPublicacion(id) {
         var title = id ? "Editar" : "Crear";
-        // var data = id ? { id: id } : {};
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'publicacion', action:'form_ajax')}",

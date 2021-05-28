@@ -7,7 +7,7 @@ import javax.imageio.ImageIO
 
 class AnuncioController {
 
-    def crearAnuncio_ajax(){
+    def aceptarAnuncio_ajax(){
 
         def personaAprueba = Persona.get(session.usuario.id)
 
@@ -24,42 +24,57 @@ class AnuncioController {
         }else{
             producto.estado = 'A'
             producto.save(flush:true)
+
+            def nuevaPublicacion
+            def publicacionActual = Publicacion.findByAnuncioAndEstado(anuncio,"A")
+
+            if(publicacionActual){
+                publicacionActual.estado = 'N'
+                publicacionActual.save(flush:true)
+            }
+
+            nuevaPublicacion = new Publicacion()
+            nuevaPublicacion.anuncio = anuncio
+            nuevaPublicacion.estado = 'A'
+
+            if(anuncio.pago == 'S'){
+                def pago = Pago.findByAnuncioAndEstado(anuncio, 'A')
+                nuevaPublicacion.fechaInicio = pago.fechaInicio
+                nuevaPublicacion.fechaFin = pago.fechaFin
+                nuevaPublicacion.pago = pago
+            }else{
+                nuevaPublicacion.fechaInicio = new Date()
+                nuevaPublicacion.fechaFin = new Date() + 6
+            }
+
+            if(!nuevaPublicacion.save(flush:true)){
+                println("error al crear la nueva publicacion " + nuevaPublicacion.error)
+                render "no"
+            }else{
+                render "ok"
+            }
+        }
+    }
+
+    def negarAnuncio_ajax(){
+
+        def personaNiega = Persona.get(session.usuario.id)
+
+        def anuncio = Anuncio.get(params.id)
+        def producto = anuncio.producto
+
+        anuncio.estado = 'N'
+        anuncio.persona = personaNiega
+        anuncio.fechaAprobacion = new Date()
+
+        if(!anuncio.save(flush:true)){
+            println("error al negar el anuncio " + anuncio.errors)
+            render "no"
+        }else{
+            producto.estado = 'N'
+            producto.save(flush:true)
             render "ok"
         }
-
-//        def anuncio
-//        def alerta = Alerta.get(params.id)
-//        def producto = alerta.producto
-//        alerta.estado = 1
-//        alerta.fechaAprobacion = new Date()
-//
-//        if(!alerta.save(flush:true)){
-//            println("error al colocar la fecha de aprobación en la alerta " + alerta.errors)
-//            render "no"
-//        }else{
-//            def existe = Anuncio.findByProducto(producto)
-//
-//            if(existe){
-//                anuncio = existe
-//            }else{
-//                anuncio = new Anuncio()
-//                anuncio.producto = producto
-//                anuncio.estado = 'N'
-//            }
-//
-//            anuncio.titulo = producto.titulo
-//            anuncio.subtitulo = producto.subtitulo
-//            anuncio.texto = producto.texto
-//
-//            if(!anuncio.save(flush:true)){
-//                println("error al guardar el anuncio " + anuncio.errors)
-//                render "no"
-//            }else{
-//                render "ok"
-//            }
-//        }
-
-
     }
 
     def list(){
@@ -356,6 +371,11 @@ class AnuncioController {
     }
 
     def revisados(){
+    }
+
+    def negados(){
+        def anuncios = Anuncio.findAllByEstado('N')
+        return[anuncios:anuncios]
     }
 
 }

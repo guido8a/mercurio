@@ -27,26 +27,32 @@
 <div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
-        <g:each in="${anuncios}" var="anuncio">
-            <tr data-id="${anuncio?.id}" data-prod="${anuncio?.producto?.id}" data-est="${anuncio?.estado}" data-per="${anuncio.producto.persona.id}" style="width: 100%">
-                <td style="width: 30%; text-align: left">${anuncio?.producto?.titulo}</td>
-                <td style="width: 20%">${anuncio?.producto?.subtitulo}</td>
-                %{--                <td style="width: 10%">${anuncio?.orden}</td>--}%
-                <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == 'A' ? '#67a153' : '#afafaf'}">${anuncio?.estado == 'A' ? 'ACTIVO' : 'INACTIVO'}</td>
-                <td style="width: 10%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
-                       data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
-                        <i class="fa fa-search"></i> </a>
-                    <g:if test="${anuncio?.estado == 'A'}">
-                        <a href="#" class="btn btn-xs btn-rojo btnPublicacion" title="Publicación" data-id="${anuncio?.id}"><i class="fa fa-user-clock"></i> </a>
-                    </g:if>
-%{--                    <a href="#" class="btn btn-xs btn-gris btnEstado" title="Cambiar estado" data-id="${anuncio?.id}"><i class="fa fa-sync"></i> </a>--}%
-                </td>
-                <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaInicio?.format("dd-MM-yyyy") : ''}</td>
-                <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaFin?.format("dd-MM-yyyy") : ''}</td>
-                <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? '#67a153' : '#afafaf') : '#afafaf'}">${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? 'SI' : 'NO') : 'NO'}</td>
-            </tr>
-        </g:each>
+        <g:if test="${anuncios.size() > 0}">
+            <g:each in="${anuncios}" var="anuncio">
+                <tr data-id="${anuncio?.id}" data-prod="${anuncio?.producto?.id}" data-est="${anuncio?.estado}" data-per="${anuncio.producto.persona.id}" style="width: 100%">
+                    <td style="width: 15%; text-align: left">${anuncio?.producto?.persona?.nombres}</td>
+                    <td style="width: 35%">${anuncio?.producto?.titulo}</td>
+                    <td style="width: 10%; text-align: center; background-color:  ${anuncio?.estado == 'A' ? '#67a153' : '#afafaf'}">${anuncio?.estado == 'A' ? 'ACTIVO' : 'INACTIVO'}</td>
+                    <td style="width: 10%; text-align: center">
+                        <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
+                           data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
+                            <i class="fa fa-search"></i> </a>
+                        <g:if test="${anuncio?.estado == 'A'}">
+                            <a href="#" class="btn btn-xs btn-rojo btnPublicacion" title="Publicación" data-id="${anuncio?.id}"><i class="fa fa-user-clock"></i> </a>
+                        </g:if>
+                                        <a href="#" class="btn btn-xs btn-gris btnEstado" title="Cambiar estado" data-id="${anuncio?.id}"><i class="fa fa-sync"></i> </a>
+                    </td>
+                    <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaInicio?.format("dd-MM-yyyy") : ''}</td>
+                    <td style="width: 10%; text-align: center">${ventas.Publicacion.findAllByAnuncio(anuncio) ? ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.fechaFin?.format("dd-MM-yyyy") : ''}</td>
+                    <td style="width: 10%; text-align: center; background-color: ${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? '#67a153' : '#afafaf') : '#afafaf'}">${ventas.Publicacion.findAllByAnuncio(anuncio) ? (ventas.Publicacion.findAllByAnuncio(anuncio)?.last()?.destacado == '1' ? 'SI' : 'NO') : 'NO'}</td>
+                </tr>
+            </g:each>
+        </g:if>
+        <g:else>
+            <div class="alert alert-warning" role="alert" style="text-align: center">
+                <p style="font-size: 14px"><i class="fa fa-exclamation-triangle"></i> No existen anuncios</p>
+            </div>
+        </g:else>
         </tbody>
     </table>
 </div>

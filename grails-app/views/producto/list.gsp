@@ -32,14 +32,14 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 21%">Anuncio</th>
+        <th style="width: 29%">Anuncio</th>
         <th style="width: 15%">Categoria</th>
         <th style="width: 20%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
         <th style="width: 7%">Estado</th>
         <th style="width: 13%">Acciones</th>
         <th style="width: 6%">Publicar</th>
-        <th style="width: 8%">Pagos</th>
+%{--        <th style="width: 8%">Pagos</th>--}%
     </tr>
     </thead>
 </table>
@@ -49,12 +49,12 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="producto">
             <tr data-id="${producto?.id}" class="${ventas.Alerta.findAllByProducto(producto) ? 'tieneAlerta' : 'no'}" style="width: 100%">
-                <td style="width: 21%">${producto?.titulo}</td>
+                <td style="width: 29%">${producto?.titulo}</td>
                 <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
                 %{--                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>--}%
-                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 7%; text-align: center; font-weight: bold; background-color: ${producto?.estado == 'A' ? '#67a153' : (producto?.estado == 'R' ? '#EEB51F' : ( producto?.estado == 'N' ? '#876945' :'#afafaf'))}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
                 <td style="width: 13%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
                        data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
@@ -70,7 +70,7 @@
                 </td>
                 <td style="width: 6%; text-align: center">
                     <g:if test="${producto?.id}">
-                        <g:if test="${producto?.estado == 'I'}">
+                        <g:if test="${producto?.estado == 'R'}">
                             <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
 %{--                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto gratuitamente" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>--}%
                                 <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar producto" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>
@@ -78,12 +78,12 @@
                         </g:if>
                     </g:if>
                 </td>
-                <td style="width: 8%; text-align: center">
-                    <g:if test="${producto?.id}">
+%{--                <td style="width: 8%; text-align: center">--}%
+%{--                    <g:if test="${producto?.id}">--}%
                     %{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"--}%
                     %{--                           data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>--}%
-                    </g:if>
-                </td>
+%{--                    </g:if>--}%
+%{--                </td>--}%
             </tr>
         </g:each>
         </tbody>
@@ -105,7 +105,7 @@
 
                     bootbox.dialog({
                         title   : "Confirmación",
-                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>&nbsp; Su producto será revisado y publicado en las próximas 24 horas</p>",
                         buttons : {
                             aceptar : {
                                 label     : "<i class='fa fa-check'></i> Aceptar",
@@ -117,7 +117,7 @@
                         }
                     });
                 }else{
-                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Error al publicar el producto</p>")
+                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-danger text-shadow'></i><p style='font-size: 14px; font-weight: bold'>&nbsp; Error al publicar el producto</p>")
                 }
             }
         });
@@ -233,7 +233,7 @@
     function deleteRow(itemId) {
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>¿Está seguro que desea eliminar el producto seleccionado? Esta acción no se puede deshacer.</p>",
+            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>&nbsp; ¿Está seguro que desea eliminar el producto seleccionado? Esta acción no se puede deshacer.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -391,77 +391,77 @@
         %{--});--}%
 
 
-        function createContextMenu(node) {
-            var $tr = $(node);
+        %{--function createContextMenu(node) {--}%
+        %{--    var $tr = $(node);--}%
 
-            var items = {
-                header : {
-                    label  : "Acciones",
-                    header : true
-                }
-            };
+        %{--    var items = {--}%
+        %{--        header : {--}%
+        %{--            label  : "Acciones",--}%
+        %{--            header : true--}%
+        %{--        }--}%
+        %{--    };--}%
 
-            var id = $tr.data("id");
-            var alerta = $tr.hasClass("tieneAlerta");
+        %{--    var id = $tr.data("id");--}%
+        %{--    var alerta = $tr.hasClass("tieneAlerta");--}%
 
-            var ver = {
-                label  : 'Ver',
-                icon   : "fa fa-search",
-                action : function () {
-                    var id = $tr.data("id");
-                    location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
-                }
-            };
+        %{--    var ver = {--}%
+        %{--        label  : 'Ver',--}%
+        %{--        icon   : "fa fa-search",--}%
+        %{--        action : function () {--}%
+        %{--            var id = $tr.data("id");--}%
+        %{--            location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;--}%
+        %{--        }--}%
+        %{--    };--}%
 
-            var editar = {
-                label           : 'Editar',
-                icon            : "fa fa-pen",
-                separator_after : true,
-                action          : function (e) {
-                    var id = $tr.data("id");
-                    location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
-                }
-            };
+        %{--    var editar = {--}%
+        %{--        label           : 'Editar',--}%
+        %{--        icon            : "fa fa-pen",--}%
+        %{--        separator_after : true,--}%
+        %{--        action          : function (e) {--}%
+        %{--            var id = $tr.data("id");--}%
+        %{--            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'--}%
+        %{--        }--}%
+        %{--    };--}%
 
-            var imas = {
-                label           : 'Imágenes',
-                icon            : "fa fa-image",
-                separator_after : true,
-                action          : function (e){
-                    var id = $tr.data("id");
-                    cargarImagenes(id)
-                }
-            };
+        %{--    var imas = {--}%
+        %{--        label           : 'Imágenes',--}%
+        %{--        icon            : "fa fa-image",--}%
+        %{--        separator_after : true,--}%
+        %{--        action          : function (e){--}%
+        %{--            var id = $tr.data("id");--}%
+        %{--            cargarImagenes(id)--}%
+        %{--        }--}%
+        %{--    };--}%
 
-            var eliminar = {
-                label            : 'Eliminar',
-                icon             : "fa fa-trash text-warning",
-                action           : function (e) {
-                    var id = $tr.data("id");
-                    deleteRow(id);
-                }
-            };
+        %{--    var eliminar = {--}%
+        %{--        label            : 'Eliminar',--}%
+        %{--        icon             : "fa fa-trash text-warning",--}%
+        %{--        action           : function (e) {--}%
+        %{--            var id = $tr.data("id");--}%
+        %{--            deleteRow(id);--}%
+        %{--        }--}%
+        %{--    };--}%
 
-            items.ver = ver;
-            items.editar = editar;
-            items.imas = imas;
+        %{--    items.ver = ver;--}%
+        %{--    items.editar = editar;--}%
+        %{--    items.imas = imas;--}%
 
-            if (!alerta) {
-                items.eliminar = eliminar;
-            }
+        %{--    if (!alerta) {--}%
+        %{--        items.eliminar = eliminar;--}%
+        %{--    }--}%
 
-            return items;
-        }
+        %{--    return items;--}%
+        %{--}--}%
 
-        $("tr").contextMenu({
-            items  : createContextMenu,
-            onShow : function ($element) {
-                $element.addClass("trHighlight");
-            },
-            onHide : function ($element) {
-                $(".trHighlight").removeClass("trHighlight");
-            }
-        });
+        %{--$("tr").contextMenu({--}%
+        %{--    items  : createContextMenu,--}%
+        %{--    onShow : function ($element) {--}%
+        %{--        $element.addClass("trHighlight");--}%
+        %{--    },--}%
+        %{--    onHide : function ($element) {--}%
+        %{--        $(".trHighlight").removeClass("trHighlight");--}%
+        %{--    }--}%
+        %{--});--}%
 
 
 

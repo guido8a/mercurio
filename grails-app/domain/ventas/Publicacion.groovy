@@ -7,6 +7,7 @@ class Publicacion {
     Date fechaInicio
     Date fechaFin
     String destacado
+    String estado
 
     static mapping = {
         table 'publ'
@@ -21,6 +22,7 @@ class Publicacion {
             fechaInicio column: 'publfcin'
             fechaFin column: 'publfcfn'
             destacado column: 'publdstc'
+            estado column: 'publetdo'
         }
     }
     static constraints = {
@@ -29,5 +31,6 @@ class Publicacion {
         fechaInicio(blank: false, nullable: false)
         fechaFin(blank: true, nullable: true)
         destacado(blank: true, nullable: true)
+        estado(blank: true, nullable: true)
     }
 }

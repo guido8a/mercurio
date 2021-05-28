@@ -76,8 +76,8 @@ class AlertaController {
 
     def negar_ajax(){
         def persona = Persona.get(session.usuario.id)
-        def alerta = Alerta.get(params.id)
-        def producto = alerta.producto
+        def producto = Producto.get(params.id)
+
         producto.estado = 'N'
 
         if(!producto.save(flush:true)){

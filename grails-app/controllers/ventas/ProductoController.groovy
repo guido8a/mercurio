@@ -744,6 +744,7 @@ class ProductoController {
         }else{
             anuncio.producto = producto
             anuncio.estado = 'R'
+            anuncio.pago = 'N'
             anuncio.fecha = new Date()
             if(!anuncio.save(flush:true)){
                 println("error al crear el anuncio " + anuncio.errors)
@@ -787,6 +788,7 @@ class ProductoController {
                     anuncio.producto = producto
                     anuncio.estado = 'R'
                     anuncio.fecha = new Date()
+                    anuncio.pago = 'N'
                     anuncio.save(flush:true)
 
                     break;
@@ -796,7 +798,8 @@ class ProductoController {
                     if(activo2){
                         activo2.estado = 'R'
                         activo2.fecha = new Date()
-                        activo2.observaciones = 'Anuncio editado el ' + new Date()
+                        activo2.pago = 'N'
+                        activo2.observaciones = 'Anuncio editado el ' + new Date().format("dd-MM-yyyy")
                         activo2.save(flush:true)
                     }
 
