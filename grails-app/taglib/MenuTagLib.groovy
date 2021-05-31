@@ -452,10 +452,10 @@ class MenuTagLib {
         if(usuario) {
             if(perfil.codigo != 'ADMN') {
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
-                        "href='${g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id)}' " +
+                        "href='${g.createLink(controller: 'producto', action: 'list')}' " +
                         "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>"
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
-                        "href='${g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id)}' " +
+                        "href='${g.createLink(controller: 'pregunta', action: 'list')}' " +
                         "style='color:#222'><i class='far fa-comment-alt'></i> Sus Preguntas</a></span>"
                 html += '<ul class="nav navbar-nav navbar-right btn-rojo">'
                 html += '<li class="nav-item btn-rojo dropdown">'

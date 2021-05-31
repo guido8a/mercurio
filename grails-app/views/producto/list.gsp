@@ -23,7 +23,7 @@
         <g:link controller="principal" action="index" class="btn btn-gris" title="Volver a página principal">
             <i class="fa fa-arrow-left"></i> Volver
         </g:link>
-        <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [tipo: 3, persona: persona?.id])}"
+        <a href="${createLink(controller: 'producto', action: 'wizardProducto', params: [tipo: 3])}"
            class="btn btn-rojo" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
     </div>
@@ -60,8 +60,8 @@
                        data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto"
                        data-id="${producto?.id}" data-est="${producto?.estado}"><i class="fa fa-edit"></i></a>
-                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"
-                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>
+%{--                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"--}%
+%{--                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>--}%
                     <g:if test="${producto?.id}">
                         <g:if test="${!ventas.Alerta.findAllByProducto(producto)}">
                             <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
@@ -185,10 +185,39 @@
     $(".btnEditar").click(function () {
         var id = $(this).data("id");
         var estado = $(this).data("est");
-        if(estado == 'R' || estado == 'I'){
-            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2
+        var mensaje = "en Revisión";
+        console.log('..1', estado);
+        if(estado == 'R' || estado == 'A'){
+            if(estado == 'A') {
+                mensaje = "Publicado";
+                tipo = '1';
+            } else {
+                mensaje = "en Revisión";
+                tipo = '2';
+            }
+            bootbox.dialog({
+                title   : "Alerta",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow' style='width: 80px; height: 50px; display: block'></i>" +
+                    "<p style='font-size: 14px;'>" + "El producto se encuentra " + mensaje +
+                    "<br>Si hace cambios en el anuncio debe <strong>volver a publicarlo</strong>." + "<br>¿Desea continuar la edición?</p>",
+                buttons : {
+                    cancelar : {
+                        label     : "<i class='fa fa-times'></i> Cancelar",
+                        className : "btn-gris",
+                        callback  : function () {
+                        }
+                    },
+                    aceptar : {
+                        label     : "<i class='fa fa-check'></i> Aceptar",
+                        className : "btn-rojo",
+                        callback  : function () {
+                            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&tipo=" + tipo
+                        }
+                    }
+                }
+            });
         }else{
-            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 1
+            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&tipo=" + 2
         }
 
     });

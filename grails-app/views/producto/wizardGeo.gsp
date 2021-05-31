@@ -163,7 +163,9 @@
         if(${tipo == '1'}){
             bootbox.dialog({
                 title   : "Alerta",
-                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
+                    "<p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra " +
+                    "completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
@@ -175,13 +177,13 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                            location.href="${createLink(controller: 'producto', action: 'list')}"
                         }
                     }
                 }
             });
         }else{
-            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+            location.href="${createLink(controller: 'producto', action: 'list')}"
         }
     });
 
@@ -220,17 +222,8 @@
         });
     }
 
-    ProgressBar.init(
-        [ 'Categoría',
-            'Información',
-            'Localización',
-            'Atributos',
-            'Imágenes',
-            'Contacto'
-        ],
-        'Localización',
-        'progress-bar-wrapper'
-    );
+    ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
+        'Localización','progress-bar-wrapper');
 
 
     $(".btnAnterior").click(function () {
@@ -264,9 +257,9 @@
                     if (parts[0] == "ok") {
                         setTimeout(function () {
                             if(tipo == '1'){
-                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&tipo=" + '${tipo}';
                             }else{
-                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&tipo=" + '${tipo}';
                             }
                         }, 500);
                     } else {

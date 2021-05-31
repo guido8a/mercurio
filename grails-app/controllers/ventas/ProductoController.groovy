@@ -16,10 +16,9 @@ import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
 class ProductoController {
 
     def list(){
-        println("params " + params)
+        println("params list" + params)
         def persona = Persona.get(session.usuario.id)
         def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B')
-//        def productosConAnuncios = Anuncio.findAllByProductoInList(productos)
 
         return[productos: productos, persona: persona]
     }
@@ -71,7 +70,7 @@ class ProductoController {
 
     def saveProducto(){
 
-        println("params " + params)
+        println "saveProducto $params"
 
         def producto = Producto.get(params.id)
 
@@ -256,28 +255,9 @@ class ProductoController {
     }
 
     def revisarImas_ajax(){
+        println "revisarImas_ajax $params"
         def producto = Producto.get(params.id)
         def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
-        def path = "/var/ventas/productos/pro_" + producto.id + "/"
-        new File(path).mkdirs()
-
-
-        def canti = []
-        def dir = new File(path)
-        dir.eachFileRecurse(FileType.FILES) { file ->
-            def img = ImageIO.read(file)
-
-            if (img) {
-                canti.add([
-                        dir : path,
-                        file: file.name,
-                        w   : img?.getWidth(),
-                        h   : img?.getHeight(),
-                ])
-            }
-        }
-
-//        if(canti.size() < 5){
         if(imagenes.size() < 5){
             render "ok"
         }else{
@@ -288,49 +268,19 @@ class ProductoController {
 
     def deleteImagen_ajax() {
         println "deleteImagen_ajax params $params"
-        def producto = Producto.get(params.id)
-        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
-        def path = "/var/ventas/productos/pro_" + producto.id + "/"
-        def file = params.file
-        def fileDel = new File(path + file)
+        def imagen = Imagen.get(params.idim)
+        def imagenes = Imagen.findAllByProductoAndIdNotEqual(imagen.producto, imagen.id)
+        def path = "/var/ventas/productos/pro_" + imagen.producto.id + "/${imagen.ruta}"
 
-
-        def canti = []
-        def dir = new File(path)
-        dir.eachFileRecurse(FileType.FILES) { f ->
-            def img = ImageIO.read(f)
-
-            if (img) {
-                canti.add([
-                        dir : path,
-                        file: f.name
-                ])
-            }
-        }
-
-//        if(canti.size() == 1){
-        if(imagenes.size() == 1){
+        if(imagenes.size() == 0){
             render "er_No se puede borrar la imagen, el producto tiene una sola imagen asociada."
         }else{
             try{
-                def imagen = Imagen.findByProductoAndRuta(producto,file)
-                def otras = Imagen.findAllByProductoAndEstadoAndIdNotEqual(producto, '1',imagen.id)
-                def principal = otras[0]
-
-                if(imagen){
-//                    fileDel.delete()
-                    if(imagen.principal == '1'){
-                        principal.principal = 1
-                    }
-
-                    imagen.estado = 0
-                    imagen.principal = 0
-//                    imagen.delete(flush: true)
-                    imagen.save(flush: true)
-                    render "ok"
-                }else{
-                    render  "no"
-                }
+                def principal = imagenes[0]
+                principal.principal = 1
+                imagen.delete(flush: true)
+                def file = new File(path).delete()
+                render "ok"
             }catch(e){
                 println("error al borrar la imagen " + e)
                 render "no"
@@ -365,6 +315,7 @@ class ProductoController {
         def files = []
 
         def dir = new File(path)
+/*
         dir.eachFileRecurse(FileType.FILES) { file ->
             if(file.name.toString() in imagenes.ruta){
                 println("si " + file.name)
@@ -377,6 +328,21 @@ class ProductoController {
                             h   : img?.getHeight(),
                     ])
                 }
+            }
+        }
+*/
+        imagenes.each { im ->
+            def file = new File(path + im.ruta)
+            def img = ImageIO.read(file)
+            if (img) {
+                files.add([
+                        id : im.id,
+                        dir : path,
+                        file: file.name,
+                        w   : img?.getWidth(),
+                        h   : img?.getHeight(),
+                        pncp: im.principal
+                ])
             }
         }
 
@@ -488,10 +454,8 @@ class ProductoController {
 
     def wizardProducto() {
         println ("params wp"  + params)
-        def persona = Persona.get(params.persona)
+        def persona = Persona.get(session.usuario.id)
         def padre
-//        println("persona " + persona)
-
         def producto
 
         if(params.e){
@@ -502,52 +466,51 @@ class ProductoController {
                     producto = new Producto()
                     padre = Producto.get(params.id)
                     producto.padre = padre
+                    producto.persona = persona
                     producto.estado = 'I'
                     producto.fecha = new Date()
                     producto.latitud = 0
                     producto.longitud = 0
-                    producto.save(flush:true)
+//                    producto.save(flush:true)
                     break;
                 case "2" :
-//                    def productoOriginal = Producto.get(params.id)
-//                    producto = new Producto()
-//                    producto.properties = productoOriginal.properties
-//                    producto.estado = 'I'
-//                    producto.anterior = productoOriginal.id
-//                    producto.save(flush:true)
                     producto = Producto.get(params.id)
+                    if(producto.estado == 'R') producto.estado = 'I'
+                    producto.save(flush:true)
                     break;
                 case "3" :
                     producto = new Producto()
+                    producto.persona = persona
                     producto.padre = null
                     producto.estado = 'I'
                     producto.fecha = new Date()
                     producto.latitud = 0
                     producto.longitud = 0
-                    producto.save(flush:true)
+//                    producto.save(flush:true)
                     break;
             }
         }
-
+        println "producto: ${producto.id}, persona: ${persona.id}, tipo: ${params.tipo}"
         return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def wizardInfo() {
-//        println "params: $params"
-        def persona = Persona.get(params.persona)
+        println "wizardInfo: $params"
+        def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
         return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def wizardAtributos() {
-        def persona = Persona.get(params.persona)
+        println "wizardAtributos: $params"
+        def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
         return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def wizardImagenes() {
-//        println "wizardImagenes: $params"
-        def persona = Persona.get(params.persona)
+        println "wizardImagenes: $params"
+        def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
         def imas = Imagen.findAllByProductoAndEstado(producto, '1')
 
@@ -574,10 +537,10 @@ class ProductoController {
     }
 
     def wizardContacto() {
-//        println "params: $params"
-        def persona = Persona.get(params.persona)
+        println "wizardContacto: $params"
+        def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
-        return[producto: producto, persona: persona,tipo: params.tipo]
+        return[producto: producto, persona: persona, tipo: params.tipo]
     }
 
     def comprobarImagenes_ajax(){
@@ -643,7 +606,7 @@ class ProductoController {
             imag?.eachFileRecurse(FileType.FILES) { file ->
                 file.delete()
             }
-
+            println "imagen a borrar: $path --> $imag"
             imag.delete()
         }
 
@@ -663,7 +626,7 @@ class ProductoController {
     }
 
     def wizardGeo(){
-        def persona = Persona.get(params.persona)
+        def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
         return[producto: producto, persona: persona, tipo: params.tipo]
     }
@@ -674,7 +637,8 @@ class ProductoController {
     }
 
     def guardarContacto_ajax(){
-        def persona = Persona.get(params.persona)
+        println"guardarContacto_ajax: $params"
+        def persona = Persona.get(session.usuario.id)
         persona.mailContacto = params.mail
         persona.contacto = params.contacto
         persona.telefonoContacto = params.telefono
@@ -686,6 +650,10 @@ class ProductoController {
             render "ok"
         }
     }
+
+    /*
+    * Si ya existe un anuncio ne estado en revisión: R se cambia el estado a 'I' para que se vuelva a publicar una vez
+    * completada la edición --Avisar antes de editar */
 
     def crearAnuncio_ajax(){
         println("params crear anuncio " + params)
@@ -719,15 +687,15 @@ class ProductoController {
                     band = false
                 }
                 break;
-            case "2" :
-//                def productoOriginal = Producto.get(producto.anterior.toInteger())
-                def estados = ['A','R']
+            case "2" :  /* editando el producto -- puede estar en revisión R si ya tiene anuncio */
+                def estados = ['R']
                 def anuncioExiste = Anuncio.findByProductoAndEstadoInList(producto, estados)
-                def anuncioPadre = Anuncio.findByProductoAndEstado(producto.padre, 'A')
+                println "anuncioExiste: ${anuncioExiste}"
 
-                if(anuncioExiste || anuncioPadre){
+                if(anuncioExiste){
                     band = true
-                    texto = 'Su producto se encuentra actualmente en estado de revisión. <br> Desea volver a publicar su producto con la información actual?'
+                    texto = 'Su producto se encuentra actualmente en estado de revisión. <br> ' +
+                            'Desea publicar su producto con la información actual?'
                 }else{
 //                    productoOriginal.estado = 'B'
 //                    productoOriginal.save(flush:true)

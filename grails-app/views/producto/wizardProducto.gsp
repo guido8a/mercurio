@@ -78,15 +78,45 @@
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 230px">
+    <div class="card" style="width: 100%; height: 330px">
         <div class="card-body">
 
             <div style="margin-top: 10px">
                 <p class="numeroPaso">1</p>
                 <h1 class="textoPaso">Categoría</h1>
                 <div class="col-md-10">
+                    <h3> Título del anuncio y categoría para su producto</h3>
+
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <h3> Seleccione una categoría para su producto</h3>
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Anuncio (Título)
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="titulo" maxlength="255" class="form-control required" title="Texto principal del anuncio"
+                                                 value="${producto?.titulo ?  producto?.titulo : producto?.padre?.titulo}" style="background-color: #ffffef"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Descripción resumida
+                                </label>
+                                <div class="col-md-6">
+                                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
+                                                 value="${producto?.subtitulo ?  producto?.subtitulo : producto?.padre?.subtitulo}"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="margin-bottom: 10px">
                         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
                             <span class="grupo">
                                 <label for="categoria" class="col-md-3 control-label text-info">
@@ -110,11 +140,17 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-12" style="margin-bottom: 10px">
+
+                </div>
+
+                <div class="col-md-12" style="margin-bottom: 10px">
                         <div class="col-md-3 btn-group" style="float: right">.
                         </div>
                     </div>
-                </div>
+
+
+
+
 
             </div>
         </div>
@@ -125,10 +161,12 @@
 <script type="text/javascript">
 
     $(".btnRetornar").click(function () {
-        if(${tipo == '1'}){
+        %{--if(${tipo == '1'}){--}%
             bootbox.dialog({
                 title   : "Alerta",
-                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
+                    "<p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra " +
+                    "completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
@@ -140,31 +178,22 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                            location.href="${createLink(controller: 'producto', action: 'list')}"
                         }
                     }
                 }
             });
-        }else{
-            if(${tipo == '3'}){
-                submitFormProducto(3);
-            }else{
-                location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
-            }
-        }
+        %{--}else{--}%
+        %{--    if(${tipo == '3'}){--}%
+        %{--        submitFormProducto(3);--}%
+        %{--    }else{--}%
+        %{--        location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'--}%
+        %{--    }--}%
+        %{--}--}%
     });
 
-    ProgressBar.init(
-        [ 'Categoría',
-            'Información',
-            'Localización',
-            'Atributos',
-            'Imágenes',
-            'Contacto'
-        ],
-        'Categoría',
-        'progress-bar-wrapper'
-    );
+    ProgressBar.init(['Categoría', 'Información', 'Localización', 'Atributos', 'Imágenes','Contacto'],
+        'Categoría', 'progress-bar-wrapper');
 
     $(".btnSiguiente").click(function () {
         submitFormProducto(1);
@@ -182,6 +211,8 @@
                 data    : {
                     id: $("#id").val(),
                     persona: $("#persona").val(),
+                    titulo: $("#titulo").val(),
+                    subtitulo: $("#subtitulo").val(),
                     subcategoria: $("#subcategoria").val()
                 },
                 success : function (msg) {
@@ -189,9 +220,9 @@
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
                         if(band == 1){
-                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
+                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&tipo=" + '${tipo}';
                         }else{
-                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                            location.href="${createLink(controller: 'producto', action: 'list')}"
                         }
                         %{--setTimeout(function () {--}%
                         %{--    location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';--}%
@@ -227,7 +258,6 @@
             }
         });
     }
-
 
 </script>
 

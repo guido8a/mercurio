@@ -107,8 +107,10 @@
                                     Anuncio (Título)
                                 </label>
                                 <div class="col-md-6">
-                                    <g:textField name="titulo" maxlength="255" class="form-control required" title="Texto principal del anuncio"
-                                                 value="${producto?.titulo ?  producto?.titulo : producto?.padre?.titulo}" style="background-color: #ffffef"/>
+                                    <g:textField name="titulo" maxlength="255" class="form-control required"
+                                                 title="Texto principal del anuncio"
+                                                 value="${producto?.titulo ?  producto?.titulo : producto?.padre?.titulo}"
+                                                 style="background-color: #ffffef"/>
                                 </div>
                             </span>
                         </div>
@@ -151,7 +153,9 @@
         if(${tipo == '1'}){
             bootbox.dialog({
                 title   : "Alerta",
-                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
+                    "<p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se " +
+                    "encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
@@ -163,27 +167,18 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                            location.href="${createLink(controller: 'producto', action: 'list')}"
                         }
                     }
                 }
             });
         }else{
-            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+            location.href="${createLink(controller: 'producto', action: 'list')}"
         }
     });
 
-    ProgressBar.init(
-        [ 'Categoría',
-            'Información',
-            'Localización',
-            'Atributos',
-            'Imágenes',
-            'Contacto'
-        ],
-        'Información',
-        'progress-bar-wrapper'
-    );
+    ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
+        'Información','progress-bar-wrapper');
 
     $(".btnAnterior").click(function () {
         submitFormProducto(0)
@@ -221,9 +216,9 @@
                         setTimeout(function () {
                             if(tipo == '1'){
                                 %{--location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';--}%
-                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&tipo=" + '${tipo}';
                             }else{
-                                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}' + "&e=" + 1;
+                                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&tipo=" + '${tipo}' + "&e=" + 1;
                             }
                         }, 500);
                     } else {
@@ -237,7 +232,6 @@
     }
 
     $(function () {
-
         CKEDITOR.replace( 'texto', {
             height: "140px",
             width: "100%",

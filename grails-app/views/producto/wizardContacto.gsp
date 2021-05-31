@@ -85,7 +85,7 @@
 
         <div class="col-md-3 btn-group">
             <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-            <a href="#" class="btn btn-rojo" id="btnAprobacion" > Publicar <i class="fa fa-check"></i></a>
+            <a href="#" class="btn btn-rojo" id="btnAprobacion" > Publicar &nbsp;<i class="fa fa-check"></i></a>
         </div>
     </div>
 
@@ -144,6 +144,18 @@
                             </span>
                         </div>
                     </div>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'tipopago', field: 'pago', 'error')}">
+                            <label class="col-md-3 control-label text-warning" style="font-size: 10pt">
+                                Seleccione su tipo de publicación
+                            </label>
+                            <div class="col-md-6 text-info">
+                                <g:select name="tipopago" from="${ventas.TipoPago.list([sort: 'orden'])}"
+                                          class="form-control per required" optionValue="descripcion" optionKey="id"
+                                          style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,25 +195,16 @@
     });
 
     $(".btnVer").click(function () {
-        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + 1 + "&band=" + '${tipo}'
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&tipo=" + 1 + "&band=" + '${tipo}'
     });
 
-    ProgressBar.init(
-        [ 'Categoría',
-            'Información',
-            'Localización',
-            'Atributos',
-            'Imágenes',
-            'Contacto'
-        ],
-        'Contacto',
-        'progress-bar-wrapper'
-    );
+    ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
+        'Contacto','progress-bar-wrapper');
 
     ProgressBar.singleStepAnimation = 100;
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'  + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
     });
 
     $("#btnAprobacion").click(function () {
@@ -209,7 +212,7 @@
         if ($form.valid()) {
             $.ajax({
                 type: 'POST',
-                url: '${createLink(controller: 'producto', action:'verificarImagen_ajax')}',
+                url: '${createLink(controller: 'producto', action:'verificarImagen_ajax')}', /* existen imágenes*/
                 data:{
                     id: $("#id").val()
                 },
@@ -219,7 +222,9 @@
                     }else{
                         bootbox.dialog({
                             title   : "Alerta",
-                            message : "<i class='fa fa-times fa-3x pull-left text-info text-shadow'></i> <p style='font-size: 14px; font-weight: bold'>Se debe ingresar al menos UNA imagen para el producto.</p>",
+                            message : "<i class='fa fa-times fa-3x pull-left text-info text-shadow'></i> " +
+                                "<p style='font-size: 14px; font-weight: bold'>Se debe ingresar al menos UNA imagen " +
+                                "para el producto.</p>",
                             buttons : {
                                 cancelar : {
                                     label     : "<i class='fa fa-times'></i> Aceptar",
@@ -275,10 +280,10 @@
             url: '${createLink(controller: 'producto', action: 'guardarContacto_ajax')}',
             data:{
                 id: '${producto?.id}',
-                persona: $("#persona").val(),
                 contacto: $("#contacto").val(),
                 telefono: $("#telefonoContacto").val(),
-                mail: $("#mailContacto").val()
+                mail: $("#mailContacto").val(),
+                pago: $("#tipopago").val()
             },
             success: function(msg){
                 a.modal("hide");
@@ -298,7 +303,6 @@
             url: '${createLink(controller: 'producto', action: 'crearAnuncio_ajax')}',
             data:{
                 id: $("#id").val(),
-                persona: $("#persona").val(),
                 tipo: '${tipo}'
             },
             success: function (msg) {
@@ -307,13 +311,15 @@
                 if(parts[0] == 'ok'){
                     bootbox.dialog({
                         title   : "Confirmación",
-                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i>" +
+                            "<p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado " +
+                            "en las próximas 24 horas</p>",
                         buttons : {
                             aceptar : {
                                 label     : "<i class='fa fa-check'></i> Aceptar",
                                 className : "btn-gris",
                                 callback  : function () {
-                                    location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                    location.href="${createLink(controller: 'producto', action: 'list')}"
                                 }
                             }
                         }
@@ -323,7 +329,8 @@
                         bootbox.dialog({
                             title   : "Confirmación",
                             // message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Ya existe un anuncio activo. <br> Desea volver a publicar su producto con la información actual?</p>",
-                            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + parts[1] + "</p>",
+                            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i>" +
+                                "<p style='font-size: 14px; font-weight: bold'>" + parts[1] + "</p>",
                             buttons : {
                                 cancelar : {
                                     label     : "<i class='fa fa-times'></i> Cancelar",
@@ -342,7 +349,8 @@
                             }
                         });
                     }else{
-                        bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
+                        bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i>' +
+                            '<p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
                     }
                 }
             }
@@ -365,19 +373,22 @@
                 if(parts[0] == 'ok'){
                     bootbox.dialog({
                         title   : "Confirmación",
-                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado en las próximas 24 horas</p>",
+                        message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i>" +
+                            "<p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado " +
+                            "en las próximas 24 horas</p>",
                         buttons : {
                             aceptar : {
                                 label     : "<i class='fa fa-check'></i> Aceptar",
                                 className : "btn-gris",
                                 callback  : function () {
-                                    location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                                    location.href="${createLink(controller: 'producto', action: 'list')}"
                                 }
                             }
                         }
                     });
                 }else{
-                    bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i><p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
+                    bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i>' +
+                        '<p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
                 }
             }
         });

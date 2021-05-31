@@ -155,7 +155,9 @@
         if(${tipo == '1'}){
             bootbox.dialog({
                 title   : "Alerta",
-                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
+                    "<p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra " +
+                    "completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
@@ -167,27 +169,18 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                            location.href="${createLink(controller: 'producto', action: 'list')}"
                         }
                     }
                 }
             });
         }else{
-            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+            location.href="${createLink(controller: 'producto', action: 'list')}"
         }
     });
 
-    ProgressBar.init(
-        [ 'Categoría',
-            'Información',
-            'Localización',
-            'Atributos',
-            'Imágenes',
-            'Contacto'
-        ],
-        'Atributos',
-        'progress-bar-wrapper'
-    );
+    ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
+        'Atributos','progress-bar-wrapper');
 
     <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
     copiarAtributos();
@@ -205,7 +198,7 @@
             success: function (msg) {
                 a.modal("hide");
                 if(msg == 'ok'){
-                    location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
+                    location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
                 }else{
                 }
             }
@@ -213,11 +206,11 @@
     }
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
     });
 
     $(".btnSiguiente").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
     });
 
     $("#btnAgregarAt").click(function () {

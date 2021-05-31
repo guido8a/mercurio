@@ -12,8 +12,8 @@ class WardInterceptor {
     }
 
     boolean before() {
-        println "before acción: " + actionName + " controlador: " + controllerName + " params: $params"
-        println "usuario: ${session.usuario} , perfil: ${session?.perfil}"
+//        println "before acción: " + actionName + " controlador: " + controllerName + " params: $params"
+//        println "usuario: ${session.usuario} , perfil: ${session?.perfil}"
         session.an = actionName
         session.cn = controllerName
         session.pr = params

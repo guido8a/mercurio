@@ -117,10 +117,9 @@
 
 <div class="alert alert-warning" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
-    El tamaño de los archivos debe ser de <strong>hasta 5MB</strong> de tipo <strong>.jpeg, .jpg, .png</strong>
+    Se puede cargar hasta <strong>5</strong> imágenes, de tipo <strong>.jpeg, .jpg, .png</strong>
+    Peso máximo del archivo <strong>5MB</strong>.
     <br>
-    <i class="fa fa-info-circle fa-2x"></i>
-    Máxima cantidad de imágenes que pueden ser cargadas: <strong>5</strong>
 </div>
 
 <div style="margin-top:5px;margin-bottom: 5px" id="files">
@@ -179,10 +178,12 @@
             next++;
         var ar = file.files[next - 1];
         var div = $('<div class="fileContainer ui-corner-all d-' + next + '">');
-        var row1 = $("<div class='row resumen'>");
-        var row3 = $("<div class='row botones'  style='text-align: right'>");
-        row3.append(" <a href='#' class='btn btn-gris subir' style='margin-right: 15px' clase='" + next + "'><i class='fa fa-upload'></i> Subir Archivo</a>");
-        div.append("<div class='row' style='margin-top: 0px'><div class='titulo-archivo col-md-10'><span style='color: #327BBA'>Archivo:</span> " + ar.name + "</div></div>");
+        var row1 = $("<div class='resumen'>");
+        var row3 = $("<div class='botones'  style='text-align: right'>");
+        row3.append(" <a href='#' class='btn btn-gris subir' style='margin-right: 15px' clase='" + next + "'>" +
+            "<i class='fa fa-upload'></i> Subir Archivo</a>");
+        div.append("<div class='row' style='margin-top: 0px'><div class='titulo-archivo col-md-10'>" +
+            "<span style='color: #327BBA'>Archivo:</span> " + ar.name + "</div></div>");
         div.append(row1);
         div.append(row3);
         $("#files").append(div);
@@ -308,11 +309,7 @@
 
     }
 
-    var okContents = {
-        'image/png'  : "png",
-        'image/jpeg' : "jpeg",
-        'image/jpg'  : "jpg"
-    };
+    var okContents = {'image/png'  : "png", 'image/jpeg' : "jpeg", 'image/jpg'  : "jpg"};
 
 
     function revisarImas() {
@@ -339,7 +336,9 @@
         $("#btnClose").click(function () {
             window.close();
         });
+
         var effects = ["blind", "bounce", "clip", "drop", "explode", "fold", "highlight", "puff", "pulsate", "scale", "shake", "size", "slide"];
+
         $(".btn-delete").click(function () {
             var file = $(this).data("file");
             var i = $(this).data("i");

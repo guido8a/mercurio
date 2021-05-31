@@ -33,18 +33,22 @@
     <div class="row">
         <g:each in="${imagenes}" var="file" status="i">
             <div class="col-sm-3 ${i}">
-                <div class="thumbnail ${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal == '1' ? 'marco' : ''}">
-
-                    <g:if test="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal != '1'}">
-                        <a href="#" class="btn btn-rojo btn-sm btnPrincipal" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}" title="Asignar imagen principal">
+%{--                <div class="thumbnail ${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal == '1' ? 'marco' : ''}">--}%
+                <div class="thumbnail ${file.pncp == '1' ? 'marco' : ''}">
+%{--
+                   <g:if test="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal != '1'}">--}%
+                    <g:if test="${file.pncp != '1'}">
+                        <a href="#" class="btn btn-rojo btn-sm btnPrincipal" data-id="${file?.id}" title="Asignar imagen principal">
                             <i class="fa fa-parking"></i>
                         </a>
                     </g:if>
 
-                    <a href="#" class="btn btn-gris btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">
+                    <a href="#" class="btn btn-gris btn-sm btn-delete pull-right" title="Eliminar" data-idim="${file?.id}"
+                       data-i="${i}" style="margin-bottom: 5px">
                         <i class="fa fa-trash"></i>
                     </a>
-                    <a href="#" class="btn btn-gris btn-sm pull-right btnTexto" title="Texto de la imagen" data-id="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.id}" style="margin-bottom: 5px">
+                    <a href="#" class="btn btn-gris btn-sm pull-right btnTexto" title="Texto de la imagen"
+                       data-id="${file?.id}" style="margin-bottom: 5px">
                         <i class="fa fa-edit"></i>
                     </a>
                     <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"/>
@@ -138,15 +142,16 @@
     });
 
     $(".btn-delete").click(function () {
-        var file = $(this).data("file");
-        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i> Está seguro que desea borrar la imagen?", function (res) {
+        var idim = $(this).data("idim");
+        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i> " +
+            "Está seguro que desea borrar la imagenxxx?", function (res) {
             if (res) {
                 $.ajax({
                     type: 'POST',
                     url: '${createLink(controller: 'producto', action: 'deleteImagen_ajax')}',
                     data:{
                         id: '${producto?.id}',
-                        file: file
+                        idim: idim
                     },
                     success: function (msg) {
                         var parts = msg.split("_");

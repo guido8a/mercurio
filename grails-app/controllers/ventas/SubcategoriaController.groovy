@@ -70,7 +70,7 @@ class SubcategoriaController {
 
     def subcategoria_ajax(){
 
-        println("id " + params)
+//        println("subcategoria_ajax " + params)
 
         def categoria = Categoria.get(params.id)
         def subCategorias = Subcategoria.findAllByCategoria(categoria).sort{it.descripcion}
