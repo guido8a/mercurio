@@ -347,7 +347,7 @@
                             </g:if>
                             <g:else>
                                 <a href="#" class="btn btn-gris" id="btnAnteriorLista">
-                                    <i class="fa fa-arrow-left"></i> Regresar a la lista de productos
+                                    <i class="fa fa-arrow-left"></i> Regresar a la lista de Anuncios
                                 </a>
                             </g:else>
                         </g:else>
@@ -861,7 +861,7 @@ $("#ingresar").click(function () {
     $(document).ready(function () {
 
         $('#btnAnterior').click(function () {
-            location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}' + "&tipo=" + '${band}'
+            location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}'
         });
 
 

@@ -195,7 +195,7 @@
     });
 
     $(".btnVer").click(function () {
-        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&tipo=" + 1 + "&band=" + '${tipo}'
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&tipo=" + 1
     });
 
     ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
@@ -204,7 +204,7 @@
     ProgressBar.singleStepAnimation = 100;
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}'
     });
 
     $("#btnAprobacion").click(function () {
@@ -288,7 +288,7 @@
             success: function(msg){
                 a.modal("hide");
                 if(msg == 'ok'){
-                    publicarProducto();
+                    anuncioOk();
                 }else{
                     log("Error al guardar la información de contacto","error")
                 }
@@ -351,6 +351,24 @@
                     }else{
                         bootbox.alert('<i class="fa fa-times fa-3x pull-left text-warning text-shadow"></i>' +
                             '<p style="font-size: 14px; font-weight: bold">Error al publicar el producto </p>')
+                    }
+                }
+            }
+        });
+    }
+
+    function anuncioOk() {
+        bootbox.dialog({
+            title: "Confirmación",
+            message: "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i>" +
+                "<p style='font-size: 14px; font-weight: bold'> Su producto será revisado y publicado " +
+                "en las próximas 24 horas</p>",
+            buttons: {
+                aceptar: {
+                    label: "<i class='fa fa-check'></i> Aceptar",
+                    className: "btn-gris",
+                    callback: function () {
+                        location.href = "${createLink(controller: 'producto', action: 'list')}"
                     }
                 }
             }

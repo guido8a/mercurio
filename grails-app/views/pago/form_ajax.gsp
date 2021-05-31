@@ -6,14 +6,29 @@
 --%>
 
 <div class="container">
+    <div class="col-md-12" style="margin-bottom: 10px">
+        <div class="form-group ${hasErrors(bean: 'tipopago', field: 'pago', 'error')}">
+            <label class="col-md-2 control-label text-warning" style="font-size: 10pt">
+                Tipo de publicación o (selecciona gratis)
+            </label>
+            <div class="col-md-3 text-info">
+                <g:select name="periodo" from="${ventas.TipoPago.list([sort: 'orden'])}"
+                          class="form-control per required" optionValue="descripcion" optionKey="id"
+                          style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt"/>
+            </div>
+        </div>
+    </div>
+%{--
     <div class="col-md-12">
         <label class="col-md-2 control-label text-info">
             Período de publicación
         </label>
         <div class="col-md-3">
-            <g:select name="periodo" from="${ventas.TipoPago.list().sort{it.descripcion}}" class="form-control per" optionValue="descripcion" optionKey="id"/>
+            <g:select name="periodo" from="${ventas.TipoPago.list().sort{it.descripcion}}" class="form-control per"
+                      optionValue="descripcion" optionKey="id"/>
         </div>
     </div>
+--}%
 
     <div class="col-md-12" style="margin-top: 10px">
         <label class="col-md-2 control-label text-info">

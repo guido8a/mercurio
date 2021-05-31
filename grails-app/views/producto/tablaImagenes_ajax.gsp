@@ -62,7 +62,7 @@
 </g:if>
 <g:else>
     <br>
-    <div class="alert alert-warning">
+    <div class="alert alert-blanco">
         <i class="fa fa-exclamation-triangle fa-2x"></i>
         Aún no hay imágenes para su producto.
     </div>

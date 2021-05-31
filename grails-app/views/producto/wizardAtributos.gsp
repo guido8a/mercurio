@@ -96,7 +96,7 @@
 
 
                 <div class="col-md-10">
-                    <h3> Ingrese los atributos de su producto</h3>
+                    <h3> Ingrese los atributos de su producto '${producto.titulo}'</h3>
                     <div class="col-md-12" style="margin-bottom: 10px">
 
                         <div class="col-md-2"></div>
@@ -198,7 +198,7 @@
             success: function (msg) {
                 a.modal("hide");
                 if(msg == 'ok'){
-                    location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+                    location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}'
                 }else{
                 }
             }
@@ -206,11 +206,11 @@
     }
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + '${producto?.id}'
     });
 
     $(".btnSiguiente").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}'
     });
 
     $("#btnAgregarAt").click(function () {

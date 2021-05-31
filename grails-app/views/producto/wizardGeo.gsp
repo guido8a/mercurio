@@ -99,7 +99,7 @@
                 <h1 class="textoPaso">Localización</h1>
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <h3> Ingrese la localización del producto</h3>
+                        <h3> Ingrese la localización del producto '${producto.titulo}'</h3>
                         <div class="form-group">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
@@ -126,7 +126,7 @@
 
                     <div class="col-md-12">
                         <label class="col-md-3 control-label text-info">
-                           Sitio
+                           Sector o referencia
                         </label>
                         <div class="col-md-6 form-group ${hasErrors(bean: 'producto', field: 'sitio', 'error')}">
                             <g:textArea name="sitio" class="form-control" style="resize: none" value="${producto?.sitio ? producto?.sitio : producto?.padre?.sitio}"/>
@@ -257,9 +257,9 @@
                     if (parts[0] == "ok") {
                         setTimeout(function () {
                             if(tipo == '1'){
-                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&tipo=" + '${tipo}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1];
                             }else{
-                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&tipo=" + '${tipo}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1];
                             }
                         }, 500);
                     } else {

@@ -69,20 +69,21 @@ class ProductoController {
 
 
     def saveProducto(){
-
         println "saveProducto $params"
+        def persona = Persona.get(session.usuario.id)
+        def producto
 
-        def producto = Producto.get(params.id)
-
-//        if(params.id){
-//            producto = Producto.get(params.id)
-//        }else{
-//            producto = new Producto()
-//            params.estado = 'I'
-//            params.fecha = new Date()
-//            params.latitud = 0
-//            params.longitud = 0
-//        }
+        if(params.id){
+            producto = Producto.get(params.id)
+        }else{
+            producto = new Producto()
+            producto.persona = persona
+            producto.padre = null
+            params.estado = 'I'
+            params.fecha = new Date()
+            params.latitud = 0
+            params.longitud = 0
+        }
 
         producto.properties = params
 
@@ -457,6 +458,7 @@ class ProductoController {
         def persona = Persona.get(session.usuario.id)
         def padre
         def producto
+        def mnsj, anun, primero = true
 
         if(params.e){
             producto = Producto.get(params.id)
@@ -475,8 +477,19 @@ class ProductoController {
                     break;
                 case "2" :
                     producto = Producto.get(params.id)
-                    if(producto.estado == 'R') producto.estado = 'I'
-                    producto.save(flush:true)
+                    def anuncio = Anuncio.findAllByProductoAndEstado(producto, "R")
+                    anuncio.each { a ->
+                        if (primero) {
+                            a.estado = 'E'
+                            anun = a;
+                            primero = false
+                        } else {
+                            a.estado = 'X'
+                        }
+                        a.save(flush: true)
+                    }
+                    if (producto.estado == 'R') producto.estado = 'I'
+                    producto.save(flush: true)
                     break;
                 case "3" :
                     producto = new Producto()
@@ -584,38 +597,49 @@ class ProductoController {
 
     def delete_ajax(){
         def producto = Producto.get(params.id)
-
-        def atributos = Valores.findAllByProducto(producto)
-        def imagenes = Imagen.findAllByProducto(producto)
-
-        if(atributos){
-            atributos.each {a->
-                a.delete(flush:true)
-            }
-        }
-
-        if(imagenes){
-
-            imagenes.each {i->
-                i.delete(flush:true)
+        def aprobado = Anuncio.findAllByProductoAndEstadoIlike(producto, 'A')
+        def anuncios
+        if(aprobado.size() > 0) {
+            producto.estado = 'B'
+            producto.save(flush: true)
+        } else {
+            anuncios = Anuncio.findAllByProducto(producto)
+            anuncios.each { a ->
+                a.delete(flush: true)
             }
 
-            def path = "/var/ventas/productos/pro_" + producto.id + "/"
+            def atributos = Valores.findAllByProducto(producto)
+            def imagenes = Imagen.findAllByProducto(producto)
 
-            def imag = new File(path)
-            imag?.eachFileRecurse(FileType.FILES) { file ->
-                file.delete()
+            if(atributos){
+                atributos.each {a->
+                    a.delete(flush:true)
+                }
             }
-            println "imagen a borrar: $path --> $imag"
-            imag.delete()
-        }
 
-        try{
-            producto.delete(flush:true)
-            render "ok"
-        }catch(e){
-            println("error al borrar el producto " + producto.errors)
-            render "no"
+            if(imagenes){
+
+                imagenes.each {i->
+                    i.delete(flush:true)
+                }
+
+                def path = "/var/ventas/productos/pro_" + producto.id + "/"
+
+                def imag = new File(path)
+                imag?.eachFileRecurse(FileType.FILES) { file ->
+                    file.delete()
+                }
+                println "imagen a borrar: $path --> $imag"
+                imag.delete()
+            }
+
+            try{
+                producto.delete(flush:true)
+                render "ok"
+            }catch(e){
+                println("error al borrar el producto " + producto.errors)
+                render "no"
+            }
         }
     }
 
@@ -637,17 +661,56 @@ class ProductoController {
     }
 
     def guardarContacto_ajax(){
-        println"guardarContacto_ajax: $params"
+        println "guardarContacto_ajax: $params"
         def persona = Persona.get(session.usuario.id)
+        def producto = Producto.get(params.id)
+        def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
+        def anuncio
+
         persona.mailContacto = params.mail
         persona.contacto = params.contacto
         persona.telefonoContacto = params.telefono
 
-        if(!persona.save(flush:true)){
+        if (!persona.save(flush: true)) {
             println("error al guardar la información de contacto " + persona.errors)
             render "no"
-        }else{
-            render "ok"
+        } else {
+            anuncios.each { a ->
+                if (a.estado == 'E') {
+                    println "Anuncio en Espera..."
+                    anuncio = a
+                } else {
+                    if (anuncio && (a.estado == 'B')) {
+                        println "Anuncio extra dado de baja"
+                        a.delete(flush: true)
+                    } else if (a.estado == 'B') {
+                        println "Anuncio como dado de baja --> R"
+                        anuncio = a
+                    }
+                }
+            }
+
+            println "pago: -- ${params.pago.class} ${params.pago}"
+            if (anuncio) {
+                anuncio.fechaModificacion = new Date()
+            } else {
+                anuncio = new Anuncio()
+                anuncio.producto = producto
+                anuncio.fecha = new Date()
+            }
+
+            anuncio.estado = 'R'
+            anuncio.pago = (params.pago == '5' ? 'N' : 'S')  /* si es pagado o no */
+
+            if (!anuncio.save(flush: true)) {
+                println("error al crear el anuncio " + anuncio.errors)
+                render "no_Error al publicar el producto"
+            } else {
+                producto.estado = 'R'
+                producto.fechaModificacion = new Date()
+                producto.save(flush: true)
+                render "ok"
+            }
         }
     }
 
@@ -658,71 +721,45 @@ class ProductoController {
     def crearAnuncio_ajax(){
         println("params crear anuncio " + params)
         def producto = Producto.get(params.id)
-        def band = false
         def texto= ''
-        def activo
+        def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
+        def anuncio
 
-//        if(producto?.padre){
-//            def padre = Producto.get(producto?.padre?.id)
-//            activo = Anuncio.findByProductoAndEstado(padre,'A')
-//            if(activo){
-//                band = true
-//            }else{
-//                band = false
-//            }
-//        }else{
-//            band = false
-//        }
-
-        def anuncio = new Anuncio()
-
-        switch (params.tipo) {
-            case "1":
-                def padre = Producto.get(producto?.padre?.id)
-                activo = Anuncio.findByProductoAndEstado(padre,'A')
-                if(activo){
-                    band = true
-                    texto = 'Ya existe un anuncio activo. <br> Desea volver a publicar su producto con la información actual?'
-                }else{
-                    band = false
+        anuncios.each { a ->
+            if(a.estado == 'E') {
+                println "Anuncio en Espera..."
+                anuncio = a
+            } else {
+                if(anuncio && (a.estado == 'B')) {
+                    println "Anuncio extra dado de baja"
+                    a.delete(flush: true)
+                } else if(a.estado == 'B') {
+                    println "Anuncio como dado de baja --> R"
+                    anuncio = a
                 }
-                break;
-            case "2" :  /* editando el producto -- puede estar en revisión R si ya tiene anuncio */
-                def estados = ['R']
-                def anuncioExiste = Anuncio.findByProductoAndEstadoInList(producto, estados)
-                println "anuncioExiste: ${anuncioExiste}"
-
-                if(anuncioExiste){
-                    band = true
-                    texto = 'Su producto se encuentra actualmente en estado de revisión. <br> ' +
-                            'Desea publicar su producto con la información actual?'
-                }else{
-//                    productoOriginal.estado = 'B'
-//                    productoOriginal.save(flush:true)
-                    band = false
-                }
-                break;
-            case "3" :
-                band = false
-                break;
-        }
-
-        if(band){
-            render"er_${texto}"
-        }else{
-            anuncio.producto = producto
-            anuncio.estado = 'R'
-            anuncio.pago = 'N'
-            anuncio.fecha = new Date()
-            if(!anuncio.save(flush:true)){
-                println("error al crear el anuncio " + anuncio.errors)
-                render "no_Error al publicar el producto"
-            }else{
-                producto.estado = 'R'
-                producto.save(flush:true)
-                render "ok"
             }
         }
+
+        if(anuncio){
+            anuncio.estado = 'R'
+            anuncio.fechaModificacion = new Date()
+        } else {
+            anuncio = new Anuncio()
+            anuncio.producto = producto
+            anuncio.estado = 'R'
+            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
+            anuncio.fecha = new Date()
+        }
+
+        if(!anuncio.save(flush:true)){
+            println("error al crear el anuncio " + anuncio.errors)
+            render "no_Error al publicar el producto"
+        }else{
+            producto.estado = 'R'
+            producto.save(flush:true)
+            render "ok"
+        }
+
     }
 
     def reemplazar_ajax(){

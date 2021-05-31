@@ -220,7 +220,7 @@
                     var parts = msg.split("_");
                     if (parts[0] == "ok") {
                         if(band == 1){
-                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1] + "&tipo=" + '${tipo}';
+                            location.href="${createLink(controller: 'producto', action: 'wizardInfo')}?id=" + parts[1];
                         }else{
                             location.href="${createLink(controller: 'producto', action: 'list')}"
                         }

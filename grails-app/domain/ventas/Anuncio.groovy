@@ -10,6 +10,7 @@ class Anuncio {
     String pago
     Date fecha
     Date fechaAprobacion
+    Date fechaModificacion
     String observaciones
 
     static mapping = {
@@ -26,6 +27,7 @@ class Anuncio {
             pago column: 'anunpago'
             fecha column: 'anunfcha'
             fechaAprobacion column: 'anunfcap'
+            fechaModificacion column: 'anunfcmd'
             observaciones column: 'anunobsr'
         }
     }
@@ -34,9 +36,10 @@ class Anuncio {
         producto(blank:false, nullable: false)
         persona(blank:true, nullable: true)
         estado(blank:false, nullable: false)
-        pago(size:0..1,blank:true, nullable:true)
+        pago(size:0..1,blank:false, nullable:false)
         observaciones(size:0..255,blank:true, nullable:true)
-        fecha(blank:true, nullable: true)
+        fecha(blank:false, nullable: false)
+        fechaModificacion(blank:true, nullable: true)
         fechaAprobacion(blank:true, nullable: true)
     }
 

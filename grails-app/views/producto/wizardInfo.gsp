@@ -100,7 +100,7 @@
                 <h1 class="textoPaso">Información</h1>
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <h3> Ingrese la información de su producto</h3>
+                        <h3> Ingrese la información de su producto '${producto.titulo}'</h3>
                         <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
@@ -216,9 +216,9 @@
                         setTimeout(function () {
                             if(tipo == '1'){
                                 %{--location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + parts[1] + "&persona=" + '${persona?.id}';--}%
-                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1] + "&tipo=" + '${tipo}';
+                                location.href="${createLink(controller: 'producto', action: 'wizardGeo')}?id=" + parts[1];
                             }else{
-                                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&tipo=" + '${tipo}' + "&e=" + 1;
+                                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + parts[1] + "&e=" + 1;
                             }
                         }, 500);
                     } else {

@@ -11,6 +11,19 @@
 <head>
     <meta name="layout" content="main">
     <title>Lista de productos del usuario: ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</title>
+    <style>
+
+    .aviso{
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .caja50{
+        width: 100px !important;
+        height: 70px;
+        display: block;
+    }
+    </style>
+
 </head>
 <body>
 
@@ -32,30 +45,30 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 29%">Anuncio</th>
+        <th style="width: 25%">Anuncio</th>
         <th style="width: 15%">Categoria</th>
         <th style="width: 20%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
-        <th style="width: 7%">Estado</th>
-        <th style="width: 13%">Acciones</th>
-        <th style="width: 6%">Publicar</th>
+        <th style="width: 8%">Estado</th>
+        <th style="width: 12%">Acciones</th>
+        <th style="width: 10%">Publicar</th>
 %{--        <th style="width: 8%">Pagos</th>--}%
     </tr>
     </thead>
 </table>
 
-<div class=""  style="width: 99.7%;height: 350px; overflow-y: auto; margin-top: -20px">
+<div class=""  style="width: 100%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="producto">
-            <tr data-id="${producto?.id}" class="${ventas.Alerta.findAllByProducto(producto) ? 'tieneAlerta' : 'no'}" style="width: 100%">
-                <td style="width: 29%">${producto?.titulo}</td>
+            <tr data-id="${producto?.id}" style="width: 100%">
+                <td style="width: 25%">${producto?.titulo}</td>
                 <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
                 %{--                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>--}%
-                <td style="width: 7%; text-align: center; font-weight: bold; background-color: ${producto?.estado == 'A' ? '#67a153' : (producto?.estado == 'R' ? '#EEB51F' : ( producto?.estado == 'N' ? '#876945' :'#afafaf'))}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
-                <td style="width: 13%; text-align: center">
+                <td style="width: 8%; text-align: center; font-weight: bold; background-color: ${producto?.estado == 'A' ? '#67a153' : (producto?.estado == 'R' ? '#EEB51F' : ( producto?.estado == 'N' ? '#876945' :'#afafaf'))}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 12%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
                        data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto"
@@ -64,16 +77,18 @@
 %{--                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>--}%
                     <g:if test="${producto?.id}">
                         <g:if test="${!ventas.Alerta.findAllByProducto(producto)}">
-                            <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar producto" data-id="${producto?.id}"><i class="fa fa-trash"></i> </a>
+                            <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar producto"
+                               data-id="${producto?.id}" data-titulo="${producto?.titulo}"><i class="fa fa-trash"></i> </a>
                         </g:if>
                     </g:if>
                 </td>
-                <td style="width: 6%; text-align: center">
+                <td style="width: 10%; text-align: center">
                     <g:if test="${producto?.id}">
                         <g:if test="${producto?.estado == 'R'}">
                             <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
 %{--                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto gratuitamente" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>--}%
-                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar producto" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>
+                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar producto"
+                                   data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
                             </g:if>
                         </g:if>
                     </g:if>
@@ -123,11 +138,12 @@
         });
     }
 
+/*
     $(".btnPublicar").click(function () {
         var id = $(this).data("id");
         bootbox.dialog({
             title   : "Alerta",
-            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow'></i> " +
+            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow caja50'></i> " +
                 "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +
                 "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprobación</p>",
             buttons : {
@@ -147,6 +163,47 @@
             }
         });
     });
+*/
+
+    $(".btnPublicar").click(function () {
+        var id = $(this).data("id");
+        console.log('pago');
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'pago', action:'form_ajax')}",
+            data    : {
+                persona: '${persona?.id}',
+                id: id ? id : ''
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEdit",
+                    title   : "Publicar",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-rojo",
+                            callback  : function () {
+                                return submitForm();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    }) //createEdit
+
 
     $(".btnPagoPublicacion").click(function (){
         var id = $(this).data("id");
@@ -185,20 +242,21 @@
     $(".btnEditar").click(function () {
         var id = $(this).data("id");
         var estado = $(this).data("est");
-        var mensaje = "en Revisión";
+        var mensaje = "";
         console.log('..1', estado);
         if(estado == 'R' || estado == 'A'){
             if(estado == 'A') {
                 mensaje = "Publicado";
                 tipo = '1';
             } else {
-                mensaje = "en Revisión";
+                mensaje = "en Revisión para publicarse";
                 tipo = '2';
             }
             bootbox.dialog({
                 title   : "Alerta",
-                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow' style='width: 80px; height: 50px; display: block'></i>" +
-                    "<p style='font-size: 14px;'>" + "El producto se encuentra " + mensaje +
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow caja50'></i> " +
+                    // "style='width: 80px; height: 50px; display: block'></i>" +
+                    "<p style='font-size: 14px;'>" + "El producto se encuentra <strong>" + mensaje + "</strong>" +
                     "<br>Si hace cambios en el anuncio debe <strong>volver a publicarlo</strong>." + "<br>¿Desea continuar la edición?</p>",
                 buttons : {
                     cancelar : {
@@ -229,7 +287,9 @@
 
     $(".btnBorrar").click(function () {
         var id = $(this).data("id");
-        deleteRow(id)
+        var prod = $(this).data("titulo");
+        console.log('prod', prod, 'id', id)
+        deleteRow(id, prod)
     });
 
     var id = null;
@@ -259,10 +319,14 @@
             return false;
         } //else
     }
-    function deleteRow(itemId) {
+
+    function deleteRow(itemId, prod) {
         bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow'></i><p>&nbsp; ¿Está seguro que desea eliminar el producto seleccionado? Esta acción no se puede deshacer.</p>",
+            title   : 'Eliminar el Anunicio: "' + prod + '"',
+            message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow caja50'></i>" +
+                "<p class='aviso'>¿Está seguro que desea eliminar: <strong>" + prod + "</strong>?<br>" +
+                "Se eliminarán todos los datos del este anuncio incluyendo todas las imágenes.<br>" +
+                "<strong>Esta acción no se puede deshacer</strong>.</p>",
             buttons : {
                 cancelar : {
                     label     : "Cancelar",
@@ -298,6 +362,7 @@
             }
         });
     }
+
     function createEditRow(id) {
         var title = id ? "Editar" : "Crear";
         var data = id ? { id: id } : {};

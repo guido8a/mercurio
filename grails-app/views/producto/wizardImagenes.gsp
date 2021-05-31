@@ -223,7 +223,7 @@
         'Imágenes','progress-bar-wrapper');
 
     $(".btnAnterior").click(function () {
-        location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+        location.href="${createLink(controller: 'producto', action: 'wizardAtributos')}?id=" + '${producto?.id}'
     });
 
     $(".btnSiguiente").click(function () {
@@ -235,7 +235,7 @@
             },
             success: function(msg){
                 if(msg == 'ok'){
-                    location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+                    location.href="${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}'
                 }else{
                     bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i>&nbsp;" +
                         "<span style='font-size: 14px; font-weight: bold'>Debe ingrear al menos una imagen para su producto</span>")
@@ -260,7 +260,7 @@
             success: function (msg) {
                 a.modal("hide");
                 if(msg == 'ok'){
-                    location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+                    location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}'
                 }else{
                 }
             }
@@ -289,7 +289,7 @@
                             label     : "<i class='fa fa-times'></i> Cerrar",
                             className : "btn-gris",
                             callback  : function () {
-                                location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}' + "&tipo=" + '${tipo}'
+                                location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}'
                             }
                         }
                     } //buttons
