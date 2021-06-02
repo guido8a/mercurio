@@ -15,7 +15,8 @@
             <div class="col-md-5 text-info">
                 <select id="tipopago" class="form-control per required" style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt">
                     <g:each in="${ventas.TipoPago.list([sort: 'orden'])}" var="tp">
-                        <option value="${tp.id}" data-dias="${tp.dias}">${tp.descripcion} ${tp.tarifa? '- precio: $' + tp.tarifa:''}</option>
+                        <option value="${tp.id}" data-dias="${tp.dias}" selected="${tp.id == anuncio.id? 'selected' : ''}">
+                            ${tp.descripcion} ${tp.tarifa? '- precio: $' + tp.tarifa:''}</option>
                     </g:each>
                 </select>
 
@@ -29,8 +30,8 @@
                 Publicar desde
             </label>
             <div class="col-md-2 text-info">
-                <input name="fechaInicio" id='fechaInicio' type='text' required="" class="form-control required"
-                       value="${new Date().format("dd-MM-yyyy")}"/>
+                <input name="fechaInicio" id='fechaInicio' type='text' class="form-control datepicker required"
+                       value="${anuncio.fechaInicio? anuncio.fechaInicio.format('dd-MM-yyyy') : new Date().format('dd-MM-yyyy')}"/>
             </div>
 
             <label class="col-md-3 control-label" style="font-size: 10pt" id="fcHasta">
@@ -112,11 +113,12 @@
 %{--*/--}%
 
     $(function () {
+        console.log('min', moment().subtract(1, 'days'))
         $('#fechaInicio').datetimepicker({
             locale: 'es',
             format: 'DD-MM-YYYY',
             showClose: true,
-            minDate: moment().subtract(1, 'days'),
+            // minDate: moment().subtract(1, 'days'),
             icons: {
                 close: 'closeText'
             }
@@ -238,10 +240,13 @@
             $("#btnPagar").show()
             $("#btnPublicar").hide()
             $("#btnPagar").html("<i class='fa fa-dollar-sign'></i> Realizar el Pago" )
+            $("#btnPagar").focus()
         } else {
             $("#btnPublicar").show()
             $("#btnPagar").hide()
+            $("#btnPublicar").focus()
         }
+
     }
 
 

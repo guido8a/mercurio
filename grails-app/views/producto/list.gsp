@@ -57,54 +57,53 @@
     </thead>
 </table>
 
-<div class=""  style="width: 100%;height: 350px; overflow-y: auto; margin-top: -20px">
+<div class="" style="width: 100%;height: 350px; overflow-y: auto; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
-        <g:each in="${productos}" var="producto">
-            <tr data-id="${producto?.id}" style="width: 100%">
-                <td style="width: 25%">${producto?.titulo}</td>
-                <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
-                <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
-                <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
-                <td style="width: 8%; text-align: center; font-weight: bold; background-color: ${producto?.estado == 'A' ? '#67a153' : (producto?.estado == 'R' ? '#EEB51F' : ( producto?.estado == 'N' ? '#876945' :'#afafaf'))}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' :
-                    ( producto?.estado == 'N' ? 'Negado' : 'Inicial'))}</td>
+        <g:each in="${productos}" var="pd">
+            <tr data-id="${pd.prod__id}" style="width: 100%">
+                <td style="width: 25%">${pd.prodtitl}</td>
+                <td style="width: 15%">${pd.ctgrdscr}</td>
+                <td style="width: 20%">${pd.sbctdscr}</td>
+                <td style="width: 10%; text-align: center">${pd.prodfcha?.format("dd-MMM-yyyy")}</td>
+                <td style="width: 8%; text-align: center; font-weight: bold; background-color: ${pd?.prodetdo == 'A' ?
+                        '#67a153' : (pd?.prodetdo == 'R' ? '#EEB51F' : (pd?.prodetdo == 'N' ? '#876945' : '#afafaf'))}">
+                    ${pd.etdo}</td>
                 <td style="width: 12%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
-                       data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
+                       data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar anuncio"
-                       data-id="${producto?.id}" data-est="${producto?.estado}"><i class="fa fa-edit"></i></a>
-%{--                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"--}%
-%{--                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>--}%
-                    <g:if test="${producto?.id}">
-                        <g:if test="${!ventas.Anuncio.findByProductoAndEstadoIlike(producto, 'A')}">
-                            <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar anuncio"
-                               data-id="${producto?.id}" data-titulo="${producto?.titulo}"><i class="fa fa-trash"></i> </a>
-                        </g:if>
-                        <g:else>
-                            <a href="#" class="btn btn-xs btn-rojo btnQuitarAnuncio" title="Quitar anuncio"
-                                data-id="${producto?.id}" data-titulo="${producto?.titulo}"><i class="fas fa-skull-crossbones"></i> </a>
-                        </g:else>
-
+                       data-id="${pd?.prod__id}" data-est="${pd?.prodetdo}"><i class="fa fa-edit"></i></a>
+                %{--                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"--}%
+                %{--                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>--}%
+                    <g:if test="${pd?.anunetdo != 'A'}">
+                        <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar anuncio"
+                           data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i class="fa fa-trash"></i></a>
                     </g:if>
+                    <g:else>
+                        <a href="#" class="btn btn-xs btn-rojo btnQuitarAnuncio" title="Quitar anuncio"
+                           data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
+                                class="fas fa-skull-crossbones"></i></a>
+                    </g:else>
+
                 </td>
                 <td style="width: 10%; text-align: center">
-                    <g:if test="${producto?.id}">
-                        <g:if test="${producto?.estado == 'R'}">
-                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar anuncio"
-                                   data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
+                        <g:if test="${pd?.anunetdo == 'R'}">
+                            <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar anuncio"
+                               data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}">
+                                <i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
                         </g:if>
-                        <g:if test="${producto?.estado == 'A'}">
-                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Volver a Publicar anuncio"
-                                   data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> Volver a Publicar/Pagar</a>
+                        <g:if test="${pd?.anunnuvo == 'S'}">
+                            <a href="#" class="btn btn-xs btn-rojo btnRePublicar" title="Volver a Publicar anuncio"
+                               data-id="${pd?.prod__id}"><i class="fab fa-product-hunt"></i> Volver a Publicar</a>
                         </g:if>
-                    </g:if>
                 </td>
-%{--                <td style="width: 8%; text-align: center">--}%
-%{--                    <g:if test="${producto?.id}">--}%
-                    %{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"--}%
-                    %{--                           data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>--}%
-%{--                    </g:if>--}%
-%{--                </td>--}%
+                %{--                <td style="width: 8%; text-align: center">--}%
+                %{--                    <g:if test="${producto?.id}">--}%
+                %{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"--}%
+                %{--                           data-id="${producto?.id}"><i class="fa fa-dollar-sign"></i> Destacar</a>--}%
+                %{--                    </g:if>--}%
+                %{--                </td>--}%
             </tr>
         </g:each>
         </tbody>
@@ -173,12 +172,13 @@
 
     $(".btnPublicar").click(function () {
         var id = $(this).data("id");
+        var anun = $(this).data("anun");
         console.log('pago');
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'pago', action:'form_ajax')}",
             data    : {
-                persona: '${persona?.id}',
+                anun: anun,
                 id: id ? id : ''
             },
             success : function (msg) {

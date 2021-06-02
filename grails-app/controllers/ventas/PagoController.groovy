@@ -15,7 +15,9 @@ class PagoController {
 
     def form_ajax(){
         def producto = Producto.get(params.id)
-        return[producto:producto]
+        def anuncio = Anuncio.get(params.anun)
+        println "anuncio: $anuncio, fecha: ${anuncio.fechaInicio.format('dd-MM-yyyy')}"
+        return[producto: producto, anuncio: anuncio]
     }
 
     def valor_ajax(){

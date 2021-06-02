@@ -151,8 +151,8 @@
                                 Publicar desde
                             </label>
                             <div class="col-md-2 text-info">
-                                <input name="fechaInicio" id='fechaInicio' type='text' required="" class="form-control required"
-                                       value="${new Date().format("dd-MM-yyyy")}"/>
+                                <input name="fechaInicio" id='fechaInicio' type='text' required="" class="form-control required datepicker"
+                                       value="${new Date().format('dd-MM-yyyy')}"/>
                             </div>
 
                             <label class="col-md-4 control-label" style="font-size: 10pt" id="fcHasta">
@@ -315,7 +315,8 @@
                 contacto: $("#contacto").val(),
                 telefono: $("#telefonoContacto").val(),
                 mail: $("#mailContacto").val(),
-                pago: $("#tipopago").val()
+                pago: $("#tipopago").val(),
+                fecha: $("#fechaInicio").val()
             },
             success: function(msg){
                 a.modal("hide");

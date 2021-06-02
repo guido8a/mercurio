@@ -19,8 +19,11 @@ class ProductoController {
 
     def list(){
         println("params list" + params)
+        def cn = dbConnectionService.getConnection()
         def persona = Persona.get(session.usuario.id)
-        def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B', [sort: 'fecha', order: 'desc'])
+        def sql = "select * from anuncio(${persona.id})"
+        println "sql: $sql"
+        def productos = cn.rows(sql.toString())
         return[productos: productos, persona: persona]
     }
 
@@ -692,6 +695,11 @@ class ProductoController {
         def producto = Producto.get(params.id)
         def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
         def anuncio
+        def tppg = TipoPago.get(params.pago.toInteger())
+        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fecha + " 00:00:00")
+        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
 
         persona.mailContacto = params.mail
         persona.contacto = params.contacto
@@ -726,7 +734,9 @@ class ProductoController {
             }
 
             anuncio.estado = 'R'
-            anuncio.pago = (params.pago == '5' ? 'N' : 'S')  /* si es pagado o no */
+            anuncio.fechaInicio = fchaInicio
+            anuncio.fechaFin = fchaFin
+            anuncio.tipoPago = tppg
 
             if (!anuncio.save(flush: true)) {
                 println("error al crear el anuncio " + anuncio.errors)
