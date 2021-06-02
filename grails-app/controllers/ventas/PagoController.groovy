@@ -4,6 +4,7 @@ import geografia.Canton
 import groovy.io.FileType
 
 import javax.imageio.ImageIO
+import java.text.SimpleDateFormat
 
 
 class PagoController {
@@ -27,16 +28,18 @@ class PagoController {
         println("pago " + params)
         def producto = Producto.get(params.id)
         def tipo = TipoPago.get(params.tipo)
-        def fechaInicio = params.fi
-        def fechaFin = params.ff
+        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fcin)
+        def fechaFin  = fechaInicio.plus(tipo.dias.toInteger()).format("dd-MM-yyyy")
 
-        return[producto: producto, tipo: tipo, fi: fechaInicio, ff: fechaFin]
+        return[producto: producto, tipo: tipo, fi: fechaInicio.format("dd-MM-yyyy"), ff: fechaFin]
     }
 
     def tablaPagos_ajax(){
         def producto = Producto.get(params.id)
+        def anuncio = Anuncio.findByProducto(producto)
 
-        def path = "/var/ventas/pagos/pro_" + producto.id + "/"
+//        def path = "/var/ventas/pagos/pro_" + producto.id + "/"
+        def path = "/var/ventas/pagos/pro_" + producto.id + "/" + anuncio.id + "/"
         new File(path).mkdirs()
 
         def files = []
@@ -54,16 +57,28 @@ class PagoController {
             }
         }
 
+        println("--> " + files)
+
         return[imagenes: files, producto: producto]
     }
 
     def upload_ajax() {
         println ("params imas " +  params)
         def producto = Producto.get(params.id)
+        def anuncio = Anuncio.findByProducto(producto)
         def tipo = TipoPago.get(params.tipo)
-        def fi = new Date().parse("dd-MM-yyyy", params.fi)
-        def ff = new Date().parse("dd-MM-yyyy", params.ff)
+//        def fi = new Date().parse("dd-MM-yyyy", params.fi)
+        def fi = Date.parse("dd-MM-yyyy", params.fi)
+        def ff = Date.parse("dd-MM-yyyy", params.ff)
+        def di = new SimpleDateFormat("dd-MM-yyyy").parse(params.fi).format("dd-MM-yyyy")
+        def df = new SimpleDateFormat("dd-MM-yyyy").parse(params.ff).format("dd-MM-yyyy")
+//        def ff = new Date().parse("dd-MM-yyyy", params.ff)
+
+        println("fi " + di)
+        println("ff " + df)
+
         def path = "/var/ventas/pagos/pro_" + producto.id + "/"
+//        def path = "/var/ventas/pagos/anun_" + anuncio.id + "/"
         new File(path).mkdirs()
 
 //        def f = request.getFile('upload')
@@ -122,15 +137,17 @@ class PagoController {
                     try {
 //                        f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
                         def pago = new Pago()
-                        pago.producto = producto
+                        pago.anuncio = anuncio
                         pago.tipoPago = tipo
                         pago.fecha = new Date()
                         pago.fechaInicio = fi
                         pago.fechaFin = ff
                         pago.valor = tipo.tarifa
+                        pago.estado = 'R'
+                        pago.ruta = nombre
                         pago.save(flush:true)
 
-                        def path2 = "/var/ventas/pagos/pro_" + producto.id + "/" + pago.id + "/"
+                        def path2 = "/var/ventas/pagos/pro_" + producto.id + "/" + anuncio.id + "/"
                         new File(path2).mkdirs()
 
                         def pathFile2 = path2 + nombre
@@ -253,43 +270,49 @@ class PagoController {
         return[ff:ff]
     }
 
-    def deleteImagen_ajax() {
+    def deleteImagenPago_ajax() {
         println "params borrar comprobante" + params
         def producto = Producto.get(params.id)
-        def path = "/var/ventas/pago/pro_" + producto.id + "/"
+        def anuncio = Anuncio.findByProducto(producto)
+        def pagoActual = Pago.findByAnuncioAndRuta(anuncio, params.file)
+        def path = "/var/ventas/pago/pro_" + producto.id + "/" + anuncio.id + "/"
         def file = params.file
         def fileDel = new File(path + file)
 
-        def canti = []
-        def dir = new File(path)
-        dir.eachFileRecurse(FileType.FILES) { f ->
-            def img = ImageIO.read(f)
+        println("file " + fileDel)
 
-            if (img) {
-                canti.add([
-                        dir : path,
-                        file: f.name
-                ])
-            }
-        }
+//        def canti = []
+//        def dir = new File(path)
+//        dir.eachFileRecurse(FileType.FILES) { f ->
+//            def img = ImageIO.read(f)
+//            if (img) {
+//                canti.add([
+//                        dir : path,
+//                        file: f.name
+//                ])
+//            }
+//        }
 
+        if(pagoActual.estado == 'A'){
+            render "er_El estado del pago se encuentra activo, no es posible borrar el comprobante"
+        }else{
             try{
-                def pago = Pago.findByProducto(producto)
-                if(pago){
+                if(pagoActual){
                     fileDel.delete()
-                    pago.delete(flush: true)
+                    pagoActual.delete(flush: true)
                     render "ok"
                 }else{
                     render  "no"
                 }
             }catch(e){
-                println("error al borrar la imagen " + e)
+                println("error al borrar el comprobante " + e)
                 render "no"
             }
+        }
     }
 
     def getImage() {
-        println "params get image $params"
+//        println "params get image $params"
         byte[] imageInBytes = im(params.id, params.format, params.pro)
         response.with{
             setHeader('Content-length', imageInBytes.length.toString())
@@ -301,7 +324,9 @@ class PagoController {
 
     byte[] im(nombre,ext,producto) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        ImageIO.write(ImageIO.read(new File("/var/ventas/pagos/pro_" + producto + "/" + nombre + "." + ext)), ext.toString(), baos)
+        def pro = Producto.get(producto)
+        def anuncio = Anuncio.findByProducto(pro)
+        ImageIO.write(ImageIO.read(new File("/var/ventas/pagos/pro_" + pro.id + "/" + anuncio.id + "/" + nombre + "." + ext)), ext.toString(), baos)
         baos.toByteArray()
     }
 

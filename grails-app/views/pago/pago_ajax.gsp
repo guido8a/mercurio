@@ -122,20 +122,21 @@
     <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
 </span>
 
-<div class="alert alert-warning" style="margin-top: 5px;">
+<div class="alert alert-blanco" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
     <strong>El pago se realiza mediante transferencia bancaria</strong>
     <br>
-    <i class="fa fa-info-circle fa-2x"></i>
     <strong>Datos para la transferencia bancaria:</strong>
     <br>
-    ...............
+    <span class="col-md-2" style="font-weight: bold"> Banco:</span> <span class="col-md-6">${utilitarios.Parametros.list()[0].banco}</span>
     <br>
-    ...............
+    <span class="col-md-2" style="font-weight: bold">Tipo de Cuenta:</span> <span class="col-md-6">${utilitarios.Parametros.list()[0].tipoCuenta}</span>
     <br>
-    ...............
+    <span class="col-md-2" style="font-weight: bold">Número de Cuenta:</span><span class="col-md-6"> ${utilitarios.Parametros.list()[0].cuenta}</span>
     <br>
-    ...............
+    <span class="col-md-2" style="font-weight: bold">RUC: </span> <span class="col-md-6">${utilitarios.Parametros.list()[0].ruc}</span>
+    <br>
+    <span class="col-md-2" style="font-weight: bold">A nombre de :</span> <span class="col-md-6">${utilitarios.Parametros.list()[0].nombre}</span>
     <br>
 </div>
 
@@ -317,11 +318,10 @@
                 return false;
             }
         }else{
-            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> No es posible agregar más imágenes", function(){
+            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i> Ya se encuentra subido un comprobante, No es posible agregar más", function(){
                 cargarTablaImagenes();
             });
         }
-
     }
 
     var okContents = {
@@ -349,7 +349,6 @@
             }
         });
     }
-
 
     $(function () {
         $("#btnClose").click(function () {

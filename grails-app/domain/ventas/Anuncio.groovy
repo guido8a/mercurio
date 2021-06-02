@@ -46,8 +46,8 @@ class Anuncio {
         pago(size:0..1,blank:false, nullable:false)
         observaciones(size:0..255,blank:true, nullable:true)
         fecha(blank:false, nullable: false)
-        fechaInicio(blank:false, nullable: false)
-        fechaFin(blank:false, nullable: false)
+        fechaInicio(blank:true, nullable: true)
+        fechaFin(blank:true, nullable: true)
         fechaModificacion(blank:true, nullable: true)
         fechaAprobacion(blank:true, nullable: true)
     }

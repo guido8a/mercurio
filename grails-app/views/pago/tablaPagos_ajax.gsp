@@ -58,11 +58,11 @@
 
     $(".btn-delete").click(function () {
         var file = $(this).data("file");
-        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i> Está seguro que desea borrar la imagen?", function (res) {
+        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-2x text-warning'></i> Está seguro que desea borrar el comprobante?", function (res) {
             if (res) {
                 $.ajax({
                     type: 'POST',
-                    url: '${createLink(controller: 'pago', action: 'deleteImagen_ajax')}',
+                    url: '${createLink(controller: 'pago', action: 'deleteImagenPago_ajax')}',
                     data:{
                         id: '${producto?.id}',
                         file: file
@@ -70,13 +70,13 @@
                     success: function (msg) {
                         var parts = msg.split("_");
                         if(parts[0] == 'ok'){
-                            log("Imagen borrada correctamente","success");
+                            log("Comprobante borrado correctamente","success");
                             cargarTablaImagenes();
                         }else{
                             if(parts[0] == 'er'){
                                 bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-danger'></i>" + parts[1])
                             }else{
-                                log("Error al borrar la imagen","error")
+                                log("Error al borrar el comprobante","error")
                             }
 
                         }

@@ -94,22 +94,22 @@
 
     // cargarFechaFin($("#datetimepicker1").val());
 
-/*
-    function cargarFechaFin(inicio){
-        var tipo = $("#periodo option:selected").val();
-        $.ajax({
-            type: 'POST',
-            url:'${createLink(controller: 'pago', action: 'fin_ajax')}',
-            data:{
-                inicio:inicio,
-                tipo:tipo
-            },
-            success: function(msg){
-                $("#divFin").html(msg)
-            }
-        });
-    }
-*/
+%{--/*--}%
+%{--    function cargarFechaFin(inicio){--}%
+%{--        var tipo = $("#periodo option:selected").val();--}%
+%{--        $.ajax({--}%
+%{--            type: 'POST',--}%
+%{--            url:'${createLink(controller: 'pago', action: 'fin_ajax')}',--}%
+%{--            data:{--}%
+%{--                inicio:inicio,--}%
+%{--                tipo:tipo--}%
+%{--            },--}%
+%{--            success: function(msg){--}%
+%{--                $("#divFin").html(msg)--}%
+%{--            }--}%
+%{--        });--}%
+%{--    }--}%
+%{--*/--}%
 
     $(function () {
         $('#fechaInicio').datetimepicker({
@@ -125,7 +125,7 @@
 
     $("#btnPagar").click(function () {
         var prod = $(this).data("id");
-        console.log('prod:', prod)
+        // console.log('prod:', prod)
         if($("#fechaInicio").val() == '' || $("#fechaInicio").val() == null){
            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'>" +
                "</i>&nbsp; <strong style='font-size: 15px'>Ingrese una fecha de inicio</strong>");
