@@ -15,11 +15,12 @@ import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
 
 class ProductoController {
 
+    def dbConnectionService
+
     def list(){
         println("params list" + params)
         def persona = Persona.get(session.usuario.id)
-        def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B')
-
+        def productos = Producto.findAllByPersonaAndEstadoNotEqual(persona,'B', [sort: 'fecha', order: 'desc'])
         return[productos: productos, persona: persona]
     }
 
@@ -595,18 +596,18 @@ class ProductoController {
         producto.save(flush:true)
     }
 
+    /* si hay anuncios en proceso de aprobación o revisión se los da de baja */
     def delete_ajax(){
         def producto = Producto.get(params.id)
-        def aprobado = Anuncio.findAllByProductoAndEstadoIlike(producto, 'A')
-        def anuncios
-        if(aprobado.size() > 0) {
+        def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'R'])
+        if(anuncios.size() > 0) {
             producto.estado = 'B'
             producto.save(flush: true)
-        } else {
-            anuncios = Anuncio.findAllByProducto(producto)
             anuncios.each { a ->
-                a.delete(flush: true)
+                a.estado = 'B'
+                a.save(flush: true)
             }
+        } else {
 
             def atributos = Valores.findAllByProducto(producto)
             def imagenes = Imagen.findAllByProducto(producto)
@@ -641,6 +642,31 @@ class ProductoController {
                 render "no"
             }
         }
+    }
+
+    /* Se pone publfcfn = now() para dejar de publicar */
+    def quitarAnuncio_ajax(){
+        def cn = dbConnectionService.getConnection()
+        def fcha = new Date().format('yyyy-MM-dd HH:mm:ss')
+        def sql = "update publ set publfcfn = '${fcha}' where '${fcha}' between publfcin and publfcfn and " +
+                "anun__id in (select anun__id from anun where prod__id = ${params.id})"
+        println "sql: $sql"
+
+        render "ok"
+
+/*
+        try {
+            cn.execute(sql.toString())
+            if (cn.updateCount > 0) {
+                render "ok"
+            } else {
+                render "no"
+            }
+        } catch (Exception ex) {
+            println "Error al insertar $ex"
+            render "no"
+        }
+*/
     }
 
 

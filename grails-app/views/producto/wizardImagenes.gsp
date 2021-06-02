@@ -148,7 +148,7 @@
                 <h1 class="textoPaso">Imágenes</h1>
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <h3> Agregar imágenes de su producto</h3>
+                        <h3> Agregar imágenes de su producto '${producto.titulo}'</h3>
 
                         <a href="#" class="btn btn-rojo" id="btnImasProducto" title="Imágenes asociadas al producto">
                             <i class="fa fa-images"></i> Agregar o Editar las imágenes

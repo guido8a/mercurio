@@ -66,30 +66,36 @@
                 <td style="width: 15%">${producto?.subcategoria?.categoria?.descripcion}</td>
                 <td style="width: 20%">${producto?.subcategoria?.descripcion}</td>
                 <td style="width: 10%; text-align: center">${producto?.fecha?.format("dd-MMM-yyyy")}</td>
-                %{--                <td style="width: 7%; text-align: center; background-color: ${producto?.estado == 'A' ? '#67a153' : '#afafaf'}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>--}%
-                <td style="width: 8%; text-align: center; font-weight: bold; background-color: ${producto?.estado == 'A' ? '#67a153' : (producto?.estado == 'R' ? '#EEB51F' : ( producto?.estado == 'N' ? '#876945' :'#afafaf'))}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' : ( producto?.estado == 'N' ? 'Negado' : 'Inactivo'))}</td>
+                <td style="width: 8%; text-align: center; font-weight: bold; background-color: ${producto?.estado == 'A' ? '#67a153' : (producto?.estado == 'R' ? '#EEB51F' : ( producto?.estado == 'N' ? '#876945' :'#afafaf'))}">${producto?.estado == 'A' ? 'Activo' : (producto?.estado == 'R' ? 'En Revisión' :
+                    ( producto?.estado == 'N' ? 'Negado' : 'Inicial'))}</td>
                 <td style="width: 12%; text-align: center">
-                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar producto"
+                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${producto?.id}" data-per="${producto.persona.id}"><i class="fa fa-search"></i></a>
-                    <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar producto"
+                    <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar anuncio"
                        data-id="${producto?.id}" data-est="${producto?.estado}"><i class="fa fa-edit"></i></a>
 %{--                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"--}%
 %{--                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>--}%
                     <g:if test="${producto?.id}">
-                        <g:if test="${!ventas.Alerta.findAllByProducto(producto)}">
-                            <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar producto"
+                        <g:if test="${!ventas.Anuncio.findByProductoAndEstadoIlike(producto, 'A')}">
+                            <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar anuncio"
                                data-id="${producto?.id}" data-titulo="${producto?.titulo}"><i class="fa fa-trash"></i> </a>
                         </g:if>
+                        <g:else>
+                            <a href="#" class="btn btn-xs btn-rojo btnQuitarAnuncio" title="Quitar anuncio"
+                                data-id="${producto?.id}" data-titulo="${producto?.titulo}"><i class="fas fa-skull-crossbones"></i> </a>
+                        </g:else>
+
                     </g:if>
                 </td>
                 <td style="width: 10%; text-align: center">
                     <g:if test="${producto?.id}">
                         <g:if test="${producto?.estado == 'R'}">
-                            <g:if test="${ventas.Imagen.findAllByProducto(ventas.Producto.get(producto?.id))}">
-%{--                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" ${producto?.estado == 'A' ? 'disabled=""' : ''} title="Publicar producto gratuitamente" data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> </a>--}%
-                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar producto"
+                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar anuncio"
                                    data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
-                            </g:if>
+                        </g:if>
+                        <g:if test="${producto?.estado == 'A'}">
+                                <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Volver a Publicar anuncio"
+                                   data-id="${producto?.id}"><i class="fab fa-product-hunt"></i> Volver a Publicar/Pagar</a>
                         </g:if>
                     </g:if>
                 </td>
@@ -178,7 +184,7 @@
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : "Publicar",
+                    title   : "Pagar el Anuncio",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -186,7 +192,9 @@
                             className : "btn-primary",
                             callback  : function () {
                             }
-                        },
+                        }
+/*
+                        ,
                         guardar  : {
                             id        : "btnSave",
                             label     : "<i class='fa fa-save'></i> Guardar",
@@ -195,6 +203,7 @@
                                 return submitForm();
                             } //callback
                         } //guardar
+*/
                     } //buttons
                 }); //dialog
                 setTimeout(function () {
@@ -236,8 +245,13 @@
 
     $(".btnRevisar").click(function (){
         var id = $(this).data("id");
-        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+        %{--location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;--}%
+        visualizar(id);
     });
+
+    function visualizar(id){
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+    };
 
     $(".btnEditar").click(function () {
         var id = $(this).data("id");
@@ -292,6 +306,13 @@
         deleteRow(id, prod)
     });
 
+    $(".btnQuitarAnuncio").click(function () {
+        var id = $(this).data("id");
+        var prod = $(this).data("titulo");
+        console.log('prod', prod, 'id', id)
+        quitarAnuncio(id, prod)
+    });
+
     var id = null;
     function submitForm() {
         var $form = $("#frmProducto");
@@ -342,6 +363,48 @@
                         $.ajax({
                             type    : "POST",
                             url     : '${createLink(action:'delete_ajax')}',
+                            data    : {
+                                id : itemId
+                            },
+                            success : function (msg) {
+                                l1.modal("hide");
+                                if (msg == "ok") {
+                                    log("Producto borrado correctamente","success");
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
+                                } else {
+                                    log("Error al borrar el producto","error");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function quitarAnuncio(itemId, prod) {
+        bootbox.dialog({
+            title   : 'Dejar de Publicar: "' + prod + '"',
+            message : "<i class='fas fa-skull-crossbones fa-3x pull-left text-danger text-shadow caja50'></i>" +
+                "<p class='aviso'>¿Está seguro que desea dejar de publicar: <strong>" + prod + "</strong>?<br>" +
+                "<strong>Esta acción no se puede deshacer</strong>.</p>",
+            buttons : {
+                cancelar : {
+                    label     : "Cancelar",
+                    className : "btn-primary",
+                    callback  : function () {
+                    }
+                },
+                eliminar : {
+                    label     : "<i class='fas fa-skull-crossbones'></i> Quitar Publicación",
+                    className : "btn-danger",
+                    callback  : function () {
+                        var l1 = cargarLoader("Eliminando");
+                        $.ajax({
+                            type    : "POST",
+                            url     : '${createLink(action:'quitarAnuncio_ajax')}',
                             data    : {
                                 id : itemId
                             },
@@ -435,127 +498,117 @@
             return false;
         });
 
-        %{--$("tbody tr").contextMenu({--}%
-        %{--    items  : {--}%
-        %{--        header   : {--}%
-        %{--            label  : "Acciones",--}%
-        %{--            header : true--}%
-        %{--        },--}%
-        %{--        ver      : {--}%
-        %{--            label  : "Ver",--}%
-        %{--            icon   : "fa fa-search",--}%
-        %{--            action : function ($element) {--}%
-        %{--                var id = $element.data("id");--}%
-        %{--                location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;--}%
-        %{--            }--}%
-        %{--        },--}%
-        %{--        editar   : {--}%
-        %{--            label  : "Editar",--}%
-        %{--            icon   : "fa fa-edit",--}%
-        %{--            action : function ($element) {--}%
-        %{--                var id = $element.data("id");--}%
-        %{--                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'--}%
-        %{--            }--}%
-        %{--        },--}%
-        %{--        imas : {--}%
-        %{--            label            : "Imágenes",--}%
-        %{--            icon             : "fa fa-image",--}%
-        %{--            separator_before : true,--}%
-        %{--            action           : function ($element) {--}%
-        %{--                var id = $element.data("id");--}%
-        %{--                cargarImagenes(id)--}%
-        %{--            }--}%
-        %{--        },--}%
-        %{--        eliminar : {--}%
-        %{--            label            : "Eliminar",--}%
-        %{--            icon             : "fa fa-trash",--}%
-        %{--            separator_before : true,--}%
-        %{--            action           : function ($element) {--}%
-        %{--                var id = $element.data("id");--}%
-        %{--                deleteRow(id);--}%
-        %{--            }--}%
-        %{--        }--}%
-        %{--    },--}%
-        %{--    onShow : function ($element) {--}%
-        %{--        $element.addClass("trHighlight");--}%
-        %{--    },--}%
-        %{--    onHide : function ($element) {--}%
-        %{--        $(".trHighlight").removeClass("trHighlight");--}%
-        %{--    }--}%
-        %{--});--}%
+        $("tbody tr").contextMenu({
+            items  : {
+                header   : {
+                    label  : "Acciones",
+                    header : true
+                },
+                ver      : {
+                    label  : "Ver",
+                    icon   : "fa fa-search",
+                    action : function ($element) {
+                        var id = $element.data("id");
+                        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+                    }
+                },
+                editar   : {
+                    label  : "Editar",
+                    icon   : "fa fa-edit",
+                    action : function ($element) {
+                        var id = $element.data("id");
+                        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
+                    }
+                },
+                imas : {
+                    label            : "Imágenes",
+                    icon             : "fa fa-image",
+                    separator_before : true,
+                    action           : function ($element) {
+                        var id = $element.data("id");
+                        cargarImagenes(id)
+                    }
+                },
+                eliminar : {
+                    label            : "Eliminar",
+                    icon             : "fa fa-trash",
+                    separator_before : true,
+                    action           : function ($element) {
+                        var id = $element.data("id");
+                        deleteRow(id);
+                    }
+                }
+            },
+            onShow : function ($element) {
+                $element.addClass("trHighlight");
+            },
+            onHide : function ($element) {
+                $(".trHighlight").removeClass("trHighlight");
+            }
+        });
 
 
-        %{--function createContextMenu(node) {--}%
-        %{--    var $tr = $(node);--}%
+        function createContextMenu(node) {
+            var $tr = $(node);
+        //
+            var items = {
+                header : {
+                    label  : "Acciones",
+                    header : true
+                }
+            };
+        //
+            var id = $tr.data("id");
+            var alerta = $tr.hasClass("tieneAlerta");
+        //
+            var editar = {
+                label           : 'Editar',
+                icon            : "fa fa-pen",
+                separator_after : true,
+                action          : function (e) {
+                    var id = $tr.data("id");
+                    location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
+                }
+            };
 
-        %{--    var items = {--}%
-        %{--        header : {--}%
-        %{--            label  : "Acciones",--}%
-        %{--            header : true--}%
-        %{--        }--}%
-        %{--    };--}%
-
-        %{--    var id = $tr.data("id");--}%
-        %{--    var alerta = $tr.hasClass("tieneAlerta");--}%
-
-        %{--    var ver = {--}%
-        %{--        label  : 'Ver',--}%
-        %{--        icon   : "fa fa-search",--}%
-        %{--        action : function () {--}%
-        %{--            var id = $tr.data("id");--}%
-        %{--            location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;--}%
-        %{--        }--}%
-        %{--    };--}%
-
-        %{--    var editar = {--}%
-        %{--        label           : 'Editar',--}%
-        %{--        icon            : "fa fa-pen",--}%
-        %{--        separator_after : true,--}%
-        %{--        action          : function (e) {--}%
-        %{--            var id = $tr.data("id");--}%
-        %{--            location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'--}%
-        %{--        }--}%
-        %{--    };--}%
-
-        %{--    var imas = {--}%
-        %{--        label           : 'Imágenes',--}%
-        %{--        icon            : "fa fa-image",--}%
-        %{--        separator_after : true,--}%
-        %{--        action          : function (e){--}%
-        %{--            var id = $tr.data("id");--}%
-        %{--            cargarImagenes(id)--}%
-        %{--        }--}%
-        %{--    };--}%
-
-        %{--    var eliminar = {--}%
-        %{--        label            : 'Eliminar',--}%
-        %{--        icon             : "fa fa-trash text-warning",--}%
-        %{--        action           : function (e) {--}%
-        %{--            var id = $tr.data("id");--}%
-        %{--            deleteRow(id);--}%
-        %{--        }--}%
-        %{--    };--}%
-
-        %{--    items.ver = ver;--}%
-        %{--    items.editar = editar;--}%
-        %{--    items.imas = imas;--}%
-
-        %{--    if (!alerta) {--}%
-        %{--        items.eliminar = eliminar;--}%
-        %{--    }--}%
-
-        %{--    return items;--}%
-        %{--}--}%
-
-        %{--$("tr").contextMenu({--}%
-        %{--    items  : createContextMenu,--}%
-        %{--    onShow : function ($element) {--}%
-        %{--        $element.addClass("trHighlight");--}%
-        %{--    },--}%
-        %{--    onHide : function ($element) {--}%
-        %{--        $(".trHighlight").removeClass("trHighlight");--}%
-        %{--    }--}%
-        %{--});--}%
+            var revisar = {
+                label           : 'Visualizar el anuncio',
+                icon            : "fa fa-image",
+                separator_after : true,
+                action          : function (e){
+                    var id = $tr.data("id");
+                    visualizar(id)
+                }
+            };
+        //
+            var eliminar = {
+                label            : 'Eliminar',
+                icon             : "fa fa-trash text-warning",
+                action           : function (e) {
+                    var id = $tr.data("id");
+                    deleteRow(id);
+                }
+            };
+        //
+            items.editar = editar;
+            items.imas = revisar;
+        //
+            if (!alerta) {
+                items.eliminar = eliminar;
+            }
+        //
+            return items;
+        }
+        //
+        $("tr").contextMenu({
+            items  : createContextMenu,
+            onShow : function ($element) {
+                $element.addClass("trHighlight");
+            },
+            onHide : function ($element) {
+                $(".trHighlight").removeClass("trHighlight");
+            }
+        });
 
 
 

@@ -56,7 +56,7 @@
         -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
         -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
         box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-        height: 370px;
+        height: 540px;
     }
 
 
@@ -85,13 +85,13 @@
 
         <div class="col-md-3 btn-group">
             <a href="#" class="btn btn-gris btnAnterior" ><i class="fa fa-arrow-left"></i> Anterior</a>
-            <a href="#" class="btn btn-rojo" id="btnAprobacion" > Publicar &nbsp;<i class="fa fa-check"></i></a>
+            <a href="#" class="btn btn-rojo btnAprobacion" > Publicar el Anuncio &nbsp;<i class="fa fa-check"></i></a>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            .
+            &nbsp;
         </div>
         <div class="card-body">
         </div>
@@ -105,7 +105,7 @@
                 <h1 class="textoPaso">Información de contacto</h1>
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <h3> Ingrese la información de contacto</h3>
+                        <h3> A quien contactar para comprar: '${producto.titulo}'</h3>
                         <div class="form-group ${hasErrors(bean: 'persona', field: 'contacto', 'error')}">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
@@ -122,7 +122,7 @@
                         <div class="form-group ${hasErrors(bean: 'persona', field: 'telefonoContacto', 'error')}">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
-                                    Teléfono de contacto
+                                    Teléfonos de contacto
                                 </label>
                                 <div class="col-md-6">
                                     <g:textField name="telefonoContacto" maxlength="63" class="form-control" title="Teléfono de contacto"
@@ -131,7 +131,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-12" style="margin-bottom: 10px">
+                    <div class="col-md-12" style="margin-bottom: 20px">
                         <div class="form-group ${hasErrors(bean: 'persona', field: 'mailContacto', 'error')}">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
@@ -144,19 +144,51 @@
                             </span>
                         </div>
                     </div>
+
                     <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'fechaInicio', field: 'pago', 'error')}">
+                            <label class="col-md-3 control-label text-warning" style="font-size: 10pt">
+                                Publicar desde
+                            </label>
+                            <div class="col-md-2 text-info">
+                                <input name="fechaInicio" id='fechaInicio' type='text' required="" class="form-control required"
+                                       value="${new Date().format("dd-MM-yyyy")}"/>
+                            </div>
+
+                            <label class="col-md-4 control-label" style="font-size: 10pt" id="fcHasta">
+                                Hasta:
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-bottom: 40px">
                         <div class="form-group ${hasErrors(bean: 'tipopago', field: 'pago', 'error')}">
                             <label class="col-md-3 control-label text-warning" style="font-size: 10pt">
                                 Seleccione su tipo de publicación
                             </label>
                             <div class="col-md-6 text-info">
-                                <g:select name="tipopago" from="${ventas.TipoPago.list([sort: 'orden'])}"
-                                          class="form-control per required" optionValue="descripcion" optionKey="id"
-                                          style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt"/>
+%{--                                <g:select name="tipopago" from="${ventas.TipoPago.list([sort: 'orden'])}"--}%
+%{--                                          class="form-control per required" optionValue="descripcion" optionKey="id"--}%
+%{--                                          dataAttrs="[dias: it.dias]"--}%
+%{--                                          style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt"/>--}%
+                                <select id="tipopago" class="form-control per required" style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt">
+                                    <g:each in="${ventas.TipoPago.list([sort: 'orden'])}" var="tp">
+                                        <option value="${tp.id}" data-dias="${tp.dias}">${tp.descripcion} ${tp.tarifa? '- precio: $' + tp.tarifa:''}</option>
+                                    </g:each>
+                                </select>
+
                             </div>
                         </div>
                     </div>
+
                 </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 20px; font-size: 10pt" id="textoAnuncio">
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 20px">
+                <a href="#" class="btn btn-rojo btnAprobacion" > Publicar el Anuncio &nbsp;<i class="fa fa-check"></i></a>
             </div>
         </div>
     </div>
@@ -207,7 +239,7 @@
         location.href="${createLink(controller: 'producto', action: 'wizardImagenes')}?id=" + '${producto?.id}'
     });
 
-    $("#btnAprobacion").click(function () {
+    $(".btnAprobacion").click(function () {
         var $form = $("#frmContacto");
         if ($form.valid()) {
             $.ajax({
@@ -412,6 +444,63 @@
         });
     }
 
+    $(function () {
+        $('#fechaInicio').datetimepicker({
+            locale: 'es',
+            format: 'DD-MM-YYYY',
+            showClose: true,
+            minDate: moment().subtract(1, 'days'),
+            icons: {
+                close: 'closeText'
+            }
+        });
+    });
+
+    format = function date2str(x, y) {
+        var z = {
+            M: x.getMonth() + 1,
+            d: x.getDate(),
+            h: x.getHours(),
+            m: x.getMinutes(),
+            s: x.getSeconds()
+        };
+        y = y.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
+            return ((v.length > 1 ? "0" : "") + z[v.slice(-1)]).slice(-2)
+        });
+
+        return y.replace(/(y+)/g, function(v) {
+            return x.getFullYear().toString().slice(-v.length)
+        });
+    }
+
+
+    $('#fechaInicio').on('dp.change', function(e){
+        calculaDias()
+    })
+
+    $('#tipopago').change(function(){
+        calculaDias()
+    })
+
+    function calculaDias() {
+        var fcha = $("#fechaInicio").val()
+        var dias = $( "#tipopago option:selected" ).attr('data-dias');
+        dias = parseInt(dias);
+        console.log("cambio2", fcha, dias)
+        var parts = fcha.split("-");
+        var fecha = new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+        fecha.setDate(fecha.getDate() + dias-1);
+        console.log(format(fecha, 'dd-MM-yyyy'))
+        $("#fcHasta").html("Hasta el " + format(fecha, 'dd-MM-yyyy') + " (" + dias + " días)");
+        if(dias > 5) {
+            $("#textoAnuncio").html("<i class='far fa-thumbs-up fa-2x'></i><p> Luego de hacer clic en 'Publicar el Anuncio' " +
+                "use la opción 'Pagar anuncio' en la <strong>Lista de anuncios</strong> para " +
+                "registrar el pago o para modificar el <strong>Tipo de publicación</strong>.</p>" )
+        } else {
+            $("#textoAnuncio").html("<i class='far fa-thumbs-up fa-2x'></i><p> Use la opción pagar anuncio en la <strong>Lista de anuncios</strong> para " +
+                "registrar para modificar el <strong>Tipo de publicación</strong>.</p>" )
+        }
+    }
 
     %{--function submitFormProducto(tipo) {--}%
 

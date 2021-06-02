@@ -29,6 +29,7 @@ class PagoController {
         def tipo = TipoPago.get(params.tipo)
         def fechaInicio = params.fi
         def fechaFin = params.ff
+
         return[producto: producto, tipo: tipo, fi: fechaInicio, ff: fechaFin]
     }
 
