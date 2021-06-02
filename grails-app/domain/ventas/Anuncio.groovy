@@ -6,9 +6,12 @@ class Anuncio {
 
     Producto producto
     Persona persona
+    TipoPago tipoPago
     String estado
     String pago
     Date fecha
+    Date fechaInicio
+    Date fechaFin
     Date fechaAprobacion
     Date fechaModificacion
     String observaciones
@@ -22,10 +25,13 @@ class Anuncio {
         columns {
             id          column: 'anun__id'
             producto column: 'prod__id'
+            tipoPago column: 'tppg__id'
             persona column: 'prsn__id'
             estado column: 'anunetdo'
             pago column: 'anunpago'
             fecha column: 'anunfcha'
+            fechaInicio column: 'anunfcin'
+            fechaFin column: 'anunfcfn'
             fechaAprobacion column: 'anunfcap'
             fechaModificacion column: 'anunfcmd'
             observaciones column: 'anunobsr'
@@ -35,10 +41,13 @@ class Anuncio {
     static constraints = {
         producto(blank:false, nullable: false)
         persona(blank:true, nullable: true)
+        tipoPago(blank:true, nullable: true)
         estado(blank:false, nullable: false)
         pago(size:0..1,blank:false, nullable:false)
         observaciones(size:0..255,blank:true, nullable:true)
         fecha(blank:false, nullable: false)
+        fechaInicio(blank:false, nullable: false)
+        fechaFin(blank:false, nullable: false)
         fechaModificacion(blank:true, nullable: true)
         fechaAprobacion(blank:true, nullable: true)
     }

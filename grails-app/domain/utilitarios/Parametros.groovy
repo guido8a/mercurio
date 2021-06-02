@@ -5,7 +5,12 @@ import audita.Auditable
 class Parametros implements Auditable {
     static auditable = true
 
-    String pagado
+    String banco
+    String tipoCuenta
+    String cuenta
+    String ruc
+    String mail
+    String nombre
 
     static mapping = {
         table 'prax'
@@ -14,10 +19,20 @@ class Parametros implements Auditable {
         id generator: 'identity'
         version false
         columns {
-            pagado column: 'praxpago'
+            banco column: 'praxbnco'
+            tipoCuenta column: 'praxtpct'
+            cuenta column: 'praxcnta'
+            ruc column: 'prax_ruc'
+            mail column: 'praxmail'
+            nombre column: 'praxnmbr'
         }
     }
     static constraints = {
-        pagado(blank: false, nullable: false, attributes: [title: 'Pagado'])
+        banco(blank: false, nullable: false, attributes: [title: 'Pagado'])
+        tipoCuenta(blank: false, nullable: false)
+        cuenta(blank: false, nullable: false)
+        ruc(blank: false, nullable: false)
+        mail(blank: false, nullable: false)
+        nombre(blank: false, nullable: false)
     }
 }
