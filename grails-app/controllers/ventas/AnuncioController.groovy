@@ -128,33 +128,6 @@ class AnuncioController {
         }
     }
 
-    def forzarAnuncio () {
-
-        def anuncio
-        def alerta = Alerta.get(params.id)
-        def producto = alerta.producto
-
-        def existe = Anuncio.findByProducto(producto)
-
-        if(existe){
-            render "er_Ya existe un anuncio creado para este producto"
-        }else{
-            anuncio = new Anuncio()
-            anuncio.producto = producto
-            anuncio.estado = 'N'
-        }
-
-        anuncio.titulo = producto.titulo
-        anuncio.subtitulo = producto.subtitulo
-        anuncio.texto = producto.texto
-
-        if(!anuncio.save(flush:true)){
-            println("error al guardar el anuncio " + anuncio.errors)
-            render "no"
-        }else{
-            render "ok"
-        }
-    }
 //
 //    def form_ajax(){
 //        def promotor = Promotor.get(params.promotor)

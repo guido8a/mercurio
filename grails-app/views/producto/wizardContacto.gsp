@@ -329,6 +329,7 @@
         });
     }
 
+/*
     function publicarProducto(){
         var a = cargarLoader("Procesando...");
         $.ajax({
@@ -389,6 +390,7 @@
             }
         });
     }
+*/
 
     function anuncioOk() {
         bootbox.dialog({
@@ -408,6 +410,7 @@
         });
     }
 
+/*
     function reemplazarAnuncio(){
         var a = cargarLoader("Procesando...");
         $.ajax({
@@ -444,6 +447,7 @@
             }
         });
     }
+*/
 
     $(function () {
         $('#fechaInicio').datetimepicker({

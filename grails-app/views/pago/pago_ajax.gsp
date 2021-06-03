@@ -234,7 +234,8 @@
     var tam = 0;
 
     function upload(indice) {
-        var tramite = "${producto.id}";
+        var producto = "${producto.id}";
+        var anuncio = "${anuncio.id}";
         var tipo = "${tipo.id}";
         var fechaIni = "${fi}";
         var fechaF = "${ff}";
@@ -255,7 +256,8 @@
                 var mb = kb / 1000;
                 if (mb <= 5) {
                     formData.append("file", file.files[indice]);
-                    formData.append("id", tramite);
+                    formData.append("id", producto);
+                    formData.append("anun", anuncio);
                     formData.append("tipo", tipo);
                     formData.append("fi", fechaIni);
                     formData.append("ff", fechaF);

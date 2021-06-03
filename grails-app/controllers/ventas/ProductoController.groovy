@@ -750,10 +750,10 @@ class ProductoController {
         }
     }
 
-    /*
-    * Si ya existe un anuncio ne estado en revisión: R se cambia el estado a 'I' para que se vuelva a publicar una vez
-    * completada la edición --Avisar antes de editar */
 
+    /*
+    * Si ya existe un anuncio en estado en revisión: R se cambia el estado a 'I' para que se vuelva a publicar una vez
+    * completada la edición --Avisar antes de editar */
     def crearAnuncio_ajax(){
         println("params crear anuncio " + params)
         def producto = Producto.get(params.id)

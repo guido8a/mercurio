@@ -15,7 +15,7 @@
             <div class="col-md-5 text-info">
                 <select id="tipopago" class="form-control per required" style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt">
                     <g:each in="${ventas.TipoPago.list([sort: 'orden'])}" var="tp">
-                        <option value="${tp.id}" data-dias="${tp.dias}" selected="${tp.id == anuncio.id? 'selected' : ''}">
+                        <option value="${tp.id}" data-dias="${tp.dias}" ${tp.id == anuncio.tipoPago.id? 'selected' : ''}>
                             ${tp.descripcion} ${tp.tarifa? '- precio: $' + tp.tarifa:''}</option>
                     </g:each>
                 </select>
@@ -136,12 +136,52 @@
         }
     });
 
+    $("#btnPublicar").click(function () {
+        var prod = $(this).data("id");
+        if($("#fechaInicio").val() == '' || $("#fechaInicio").val() == null){
+           bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'>" +
+               "</i>&nbsp; <strong style='font-size: 15px'>Ingrese una fecha de inicio</strong>");
+        }else{
+            publicarGratis(prod)
+        }
+    });
+
+    function publicarGratis(id) {
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'pago', action:'actualizaAnuncio_ajax')}",
+            data    : {
+                id: id,
+                anun: "${anuncio.id}",
+                fcin: $("#fechaInicio").val(),
+                tipo: $( "#tipopago option:selected" ).val() //$("#periodo option:selected").val()
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgP",
+                    title   : "Pago",
+                    class : "modal-lg",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-check'></i> Aceptar",
+                            className : "btn-gris",
+                            callback  : function () {
+                                location.href = "${createLink(controller: 'producto', action: 'list')}"
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    } //createEdit
+
     function cargarPago(id) {
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'pago', action:'pago_ajax')}",
             data    : {
-                id: id,
+                anun: "${anuncio.id}",
                 fcin: $("#fechaInicio").val(),
                 tipo: $( "#tipopago option:selected" ).val() //$("#periodo option:selected").val()
             },
@@ -156,7 +196,7 @@
                             label     : "<i class='fa fa-times'></i> Salir",
                             className : "btn-gris",
                             callback  : function () {
-
+                                location.href = "${createLink(controller: 'producto', action: 'list')}"
                             }
                         }
                     } //buttons

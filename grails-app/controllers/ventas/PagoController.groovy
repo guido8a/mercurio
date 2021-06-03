@@ -2,6 +2,7 @@ package ventas
 
 import geografia.Canton
 import groovy.io.FileType
+import seguridad.Persona
 
 import javax.imageio.ImageIO
 import java.text.SimpleDateFormat
@@ -16,7 +17,7 @@ class PagoController {
     def form_ajax(){
         def producto = Producto.get(params.id)
         def anuncio = Anuncio.get(params.anun)
-        println "anuncio: $anuncio, fecha: ${anuncio.fechaInicio.format('dd-MM-yyyy')}"
+        println "anuncio: ${anuncio.id}, tipo: ${anuncio.tipoPago.descripcion} fecha: ${anuncio.fechaInicio.format('dd-MM-yyyy')}"
         return[producto: producto, anuncio: anuncio]
     }
 
@@ -28,12 +29,30 @@ class PagoController {
 
     def pago_ajax(){
         println("pago " + params)
-        def producto = Producto.get(params.id)
-        def tipo = TipoPago.get(params.tipo)
-        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fcin)
-        def fechaFin  = fechaInicio.plus(tipo.dias.toInteger()).format("dd-MM-yyyy")
+//        def producto = Producto.get(params.id)
+//        def tipo = TipoPago.get(params.tipo)
+//        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fcin)
+//        def fechaFin  = fechaInicio.plus(tipo.dias.toInteger()).format("dd-MM-yyyy")
 
-        return[producto: producto, tipo: tipo, fi: fechaInicio.format("dd-MM-yyyy"), ff: fechaFin]
+        /******************/
+        def anuncio = Anuncio.get(params.anun.toInteger())
+        def tppg = TipoPago.get(params.tipo.toInteger())
+        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fcin + " 00:00:00")
+        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+        anuncio.fechaModificacion = new Date()
+        anuncio.fechaInicio = fchaInicio
+        anuncio.fechaFin = fchaFin
+        anuncio.tipoPago = tppg
+
+        if (!anuncio.save(flush: true)) {
+            println("error al crear el anuncio " + anuncio.errors)
+        }
+        /******************/
+
+        return[producto: anuncio.producto, anuncio: anuncio, tipo: tppg, fi: fchaInicio.format("dd-MM-yyyy"), ff: fchaFin]
     }
 
     def tablaPagos_ajax(){
@@ -62,22 +81,45 @@ class PagoController {
         return[imagenes: files, producto: producto]
     }
 
+    def actualizaAnuncio_ajax(){
+        println "actualizaAnuncio_ajax: $params"
+        def anuncio = Anuncio.get(params.anun.toInteger())
+        def tppg = TipoPago.get(params.tipo.toInteger())
+        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fcin + " 00:00:00")
+        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+        anuncio.fechaModificacion = new Date()
+        anuncio.fechaInicio = fchaInicio
+        anuncio.fechaFin = fchaFin
+        anuncio.tipoPago = tppg
+
+        if (!anuncio.save(flush: true)) {
+            println("error al crear el anuncio " + anuncio.errors)
+            render "no_Error al publicar el producto"
+        } else {
+            render "<p>Su producto será revisado y publicado en las próximas 24 horas</p>"
+        }
+    }
+
+
+
     def upload_ajax() {
         println ("params imas " +  params)
         def producto = Producto.get(params.id)
-        def anuncio = Anuncio.findByProducto(producto)
+//        def anuncio = Anuncio.findByProducto(producto)
+        def anuncio = Anuncio.get(params.anun.toInteger())
         def tipo = TipoPago.get(params.tipo)
 //        def fi = new Date().parse("dd-MM-yyyy", params.fi)
-        def fi = Date.parse("dd-MM-yyyy", params.fi)
-        def ff = Date.parse("dd-MM-yyyy", params.ff)
-        def di = new SimpleDateFormat("dd-MM-yyyy").parse(params.fi).format("dd-MM-yyyy")
-        def df = new SimpleDateFormat("dd-MM-yyyy").parse(params.ff).format("dd-MM-yyyy")
-//        def ff = new Date().parse("dd-MM-yyyy", params.ff)
+//        def fi = Date.parse("dd-MM-yyyy", params.fi)
+//        def ff = Date.parse("dd-MM-yyyy", params.ff)
+//        def di = new SimpleDateFormat("dd-MM-yyyy").parse(params.fi).format("dd-MM-yyyy")
+//        def df = new SimpleDateFormat("dd-MM-yyyy").parse(params.ff).format("dd-MM-yyyy")
 
-//        println("fi " + di)
-//        println("ff " + df)
 
-        def path = "/var/ventas/pagos/pro_" + producto.id + "/"
+
+        def path = "/var/ventas/pagos/pro_" + anuncio.producto.id + "/"
 //        def path = "/var/ventas/pagos/anun_" + anuncio.id + "/"
         new File(path).mkdirs()
 
@@ -138,16 +180,16 @@ class PagoController {
 //                        f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
                         def pago = new Pago()
                         pago.anuncio = anuncio
-                        pago.tipoPago = tipo
+//                        pago.tipoPago = tipo
                         pago.fecha = new Date()
-                        pago.fechaInicio = fi
-                        pago.fechaFin = ff
+//                        pago.fechaInicio = fi
+//                        pago.fechaFin = ff
                         pago.valor = tipo.tarifa
                         pago.estado = 'R'
                         pago.ruta = nombre
                         pago.save(flush:true)
 
-                        def path2 = "/var/ventas/pagos/pro_" + producto.id + "/" + anuncio.id + "/"
+                        def path2 = "/var/ventas/pagos/pro_" + anuncio.producto.id + "/" + anuncio.id + "/"
                         new File(path2).mkdirs()
 
                         def pathFile2 = path2 + nombre
@@ -162,7 +204,7 @@ class PagoController {
                     }
 
                     /* fin resize */
-//                def pathReturn = "/var/ventas/productos/pro_" + producto.id + "/" + nombre
+//                def pathReturn = "/var/ventas/productos/pro_" + anuncio.producto.id + "/" + nombre
                     def output = '<html>' +
                             '<body>' +
                             '<script type="text/javascript">' +
