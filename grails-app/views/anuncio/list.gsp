@@ -11,6 +11,11 @@
 <head>
     <meta name="layout" content="main">
     <title>Lista de anuncios en revisión</title>
+
+    <style>
+
+
+    </style>
 </head>
 <body>
 
@@ -53,7 +58,7 @@
                     <td style="width: 10%; text-align: center">${anuncio?.fecha?.format("dd-MM-yyyy")}</td>
                     <td style="width: 10%; text-align: center; font-weight: bold">
 %{--                        <g:if test="${ventas.Pago.findByAnuncio(ventas.Anuncio.get(anuncio.id))}">--}%
-                        <g:if test="${anuncio.pago == 'S'}">
+                        <g:if test="${anuncio.pago == 'R'}">
                             <a href="#" class="btn btn-rojo btn-sm btnVerPago" title="Pago del producto" data-id="${anuncio?.id}"><i class="fa fa-dollar-sign"></i> </a>
                         </g:if>
                         <g:else>
@@ -78,6 +83,33 @@
 </div>
 
 <script type="text/javascript">
+
+    $(".btnVerPago").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'anuncio', action:'revisarPago_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgRevisaPago",
+                    title   : "Ver comprobante de Pago",
+                    message : msg,
+                    // class : "modal-lg",
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
 
     $(".btnRevisar").click(function () {
         var id = $(this).data("id");

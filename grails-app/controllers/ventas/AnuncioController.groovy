@@ -378,4 +378,33 @@ class AnuncioController {
         return[anuncios:anuncios]
     }
 
+    def revisarPago_ajax(){
+
+//        def producto = Producto.get(params.id)
+//        def anuncio = Anuncio.findByProducto(producto)
+        def anuncio = Anuncio.get(params.id)
+
+        def path = "/var/ventas/pagos/pro_" + anuncio.producto.id + "/" + anuncio.id + "/"
+        new File(path).mkdirs()
+
+        def files = []
+
+        def dir = new File(path)
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            def img = ImageIO.read(file)
+            if (img) {
+                files.add([
+                        dir : path,
+                        file: file.name,
+                        w   : 400,
+                        h   : 500,
+                ])
+            }
+        }
+
+        return[imagenes: files, producto: anuncio.producto]
+
+
+    }
+
 }

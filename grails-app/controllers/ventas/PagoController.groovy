@@ -59,8 +59,6 @@ class PagoController {
             }
         }
 
-        println("--> " + files)
-
         return[imagenes: files, producto: producto]
     }
 
@@ -76,8 +74,8 @@ class PagoController {
         def df = new SimpleDateFormat("dd-MM-yyyy").parse(params.ff).format("dd-MM-yyyy")
 //        def ff = new Date().parse("dd-MM-yyyy", params.ff)
 
-        println("fi " + di)
-        println("ff " + df)
+//        println("fi " + di)
+//        println("ff " + df)
 
         def path = "/var/ventas/pagos/pro_" + producto.id + "/"
 //        def path = "/var/ventas/pagos/anun_" + anuncio.id + "/"
@@ -155,6 +153,9 @@ class PagoController {
                         def pathFile2 = path2 + nombre
 
                         f.transferTo(new File(pathFile2)) // guarda el archivo subido al nuevo path
+
+                        anuncio.pago = 'R'
+                        anuncio.save(flush:true)
 
                     } catch (e) {
                         println ("error al subir la imagen del comprobante" + e)
@@ -267,7 +268,7 @@ class PagoController {
         ff  = fi.plus(tipoPago.dias.toInteger()).format("dd-MM-yyyy")
 
 
-        println("params ff " + ff)
+//        println("params ff " + ff)
 
         return[ff:ff]
     }
@@ -277,38 +278,23 @@ class PagoController {
         def producto = Producto.get(params.id)
         def anuncio = Anuncio.findByProducto(producto)
         def pagoActual = Pago.findByAnuncioAndRuta(anuncio, params.file)
-        def path = "/var/ventas/pago/pro_" + producto.id + "/" + anuncio.id + "/"
+        def path = "/var/ventas/pagos/pro_" + producto.id + "/" + anuncio.id + "/"
         def file = params.file
         def fileDel = new File(path + file)
-
-        println("file " + fileDel)
-
-//        def canti = []
-//        def dir = new File(path)
-//        dir.eachFileRecurse(FileType.FILES) { f ->
-//            def img = ImageIO.read(f)
-//            if (img) {
-//                canti.add([
-//                        dir : path,
-//                        file: f.name
-//                ])
-//            }
-//        }
 
         if(pagoActual.estado == 'A'){
             render "er_El estado del pago se encuentra activo, no es posible borrar el comprobante"
         }else{
-            try{
-                if(pagoActual){
+            if(pagoActual){
+                try{
                     fileDel.delete()
                     pagoActual.delete(flush: true)
                     render "ok"
-                }else{
-                    render  "no"
+                }catch(e){
+                    println("error al borrar el comprobante " + e + imag.errors)
                 }
-            }catch(e){
-                println("error al borrar el comprobante " + e)
-                render "no"
+            }else{
+                render  "no"
             }
         }
     }
