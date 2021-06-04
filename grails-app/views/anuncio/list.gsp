@@ -72,9 +72,9 @@
                         </g:else>
                     </td>
                     <td style="width: 16%; text-align: center">
-                        <a href="#" class="btn btn-gris btn-sm btnRevisar" title="Revisar producto" data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}"><i class="fa fa-search"></i> </a>
-                        <a href="#" class="btn btn-rojo btn-sm btnAceptar" title="Aceptar producto" data-id="${anuncio?.id}"><i class="fa fa-thumbs-up"></i> </a>
-                        <a href="#" class="btn btn-gris btn-sm btnNegar" title="Negar producto" data-id="${anuncio?.id}"><i class="fa fa-thumbs-down"></i> </a>
+                        <a href="#" class="btn btn-gris btn-sm btnRevisar" title="Revisar el anuncio" data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}"><i class="fa fa-search"></i> </a>
+                        <a href="#" class="btn btn-rojo btn-sm btnAceptar" title="Aceptar el anuncio" data-id="${anuncio?.id}"><i class="fa fa-thumbs-up"></i> </a>
+                        <a href="#" class="btn btn-gris btn-sm btnNegar" title="Negar el anuncio" data-id="${anuncio?.id}"><i class="fa fa-thumbs-down"></i> </a>
                     </td>
                 </tr>
             </g:each>

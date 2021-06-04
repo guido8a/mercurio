@@ -49,9 +49,9 @@
         <th style="width: 15%">Categoria</th>
         <th style="width: 20%">Subcategoria</th>
         <th style="width: 10%">Fecha creación</th>
-        <th style="width: 8%">Estado</th>
+        <th style="width: 5%">Info.</th>
         <th style="width: 12%">Acciones</th>
-        <th style="width: 10%">Publicar</th>
+        <th style="width: 12%">Publicar</th>
 %{--        <th style="width: 8%">Pagos</th>--}%
     </tr>
     </thead>
@@ -61,39 +61,40 @@
     <table class="table-bordered table-condensed table-hover" width="100%">
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="pd">
-            <tr data-id="${pd.prod__id}" style="width: 100%">
+            <tr data-id="${pd.prod__id}" style="width: 100%" title="${pd.etdo}">
                 <td style="width: 25%">${pd.prodtitl}</td>
                 <td style="width: 15%">${pd.ctgrdscr}</td>
                 <td style="width: 20%">${pd.sbctdscr}</td>
                 <td style="width: 10%; text-align: center">${pd.prodfcha?.format("dd-MMM-yyyy")}</td>
-                <td style="width: 8%; text-align: center; font-weight: bold; background-color: ${pd?.prodetdo == 'A' ?
+                <td style="width: 5%; text-align: center; font-weight: bold; background-color: ${pd?.prodetdo == 'A' ?
                         '#67a153' : (pd?.prodetdo == 'R' ? '#EEB51F' : (pd?.prodetdo == 'N' ? '#876945' : '#afafaf'))}">
-                    ${pd.etdo}</td>
+                    <a href="#" class="btn btn-xs btn-rojo btnInfo" title="Información del Anuncio"
+                       data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
+                            class="fas fa-exclamation-triangle"></i></a></td>
                 <td style="width: 12%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
+
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar anuncio"
                        data-id="${pd?.prod__id}" data-est="${pd?.prodetdo}"><i class="fa fa-edit"></i></a>
-                %{--                    <a href="#" class="btn btn-xs btn-gris btnImagenes" title="Imágenes del producto"--}%
-                %{--                       data-id="${producto?.id}"><i class="fa fa-image"></i></a>--}%
+
                     <g:if test="${pd?.anunetdo != 'A'}">
                         <a href="#" class="btn btn-xs btn-rojo btnBorrar" title="Borrar anuncio"
                            data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i class="fa fa-trash"></i></a>
                     </g:if>
-                    <g:else>
+                    <g:if test="${pd?.anunactv == 'S'}">
                         <a href="#" class="btn btn-xs btn-rojo btnQuitarAnuncio" title="Quitar anuncio"
                            data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
                                 class="fas fa-skull-crossbones"></i></a>
-                    </g:else>
-
+                    </g:if>
                 </td>
-                <td style="width: 10%; text-align: center">
+                <td style="width: 12%; text-align: center">
                         <g:if test="${pd?.anunetdo == 'R'}">
                             <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar anuncio"
                                data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}">
                                 <i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
                         </g:if>
-                        <g:if test="${pd?.anunnuvo == 'S'}">
+                        <g:if test="${pd?.anunnuvo == 'N'}">
                             <a href="#" class="btn btn-xs btn-rojo btnRePublicar" title="Volver a Publicar anuncio"
                                data-id="${pd?.prod__id}"><i class="fab fa-product-hunt"></i> Volver a Publicar</a>
                         </g:if>
@@ -260,17 +261,17 @@
         console.log('..1', estado);
         if(estado == 'R' || estado == 'A'){
             if(estado == 'A') {
-                mensaje = "Publicado";
+                mensaje = "ya se ha Publicado";
                 tipo = '1';
             } else {
-                mensaje = "en Revisión para publicarse";
+                mensaje = "está en Revisión para publicarse";
                 tipo = '2';
             }
             bootbox.dialog({
                 title   : "Alerta",
                 message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow caja50'></i> " +
                     // "style='width: 80px; height: 50px; display: block'></i>" +
-                    "<p style='font-size: 14px;'>" + "El producto se encuentra <strong>" + mensaje + "</strong>" +
+                    "<p style='font-size: 14px;'>" + "El producto <strong>" + mensaje + "</strong>" +
                     "<br>Si hace cambios en el anuncio debe <strong>volver a publicarlo</strong>." + "<br>¿Desea continuar la edición?</p>",
                 buttons : {
                     cancelar : {
@@ -302,14 +303,21 @@
     $(".btnBorrar").click(function () {
         var id = $(this).data("id");
         var prod = $(this).data("titulo");
-        console.log('prod', prod, 'id', id)
+        // console.log('prod', prod, 'id', id)
         deleteRow(id, prod)
     });
 
     $(".btnQuitarAnuncio").click(function () {
         var id = $(this).data("id");
         var prod = $(this).data("titulo");
-        console.log('prod', prod, 'id', id)
+        // console.log('prod', prod, 'id', id)
+        quitarAnuncio(id, prod)
+    });
+
+    $(".btnRePublicar").click(function () {
+        var id = $(this).data("id");
+        var prod = $(this).data("titulo");
+        // console.log('prod', prod, 'id', id)
         quitarAnuncio(id, prod)
     });
 
@@ -410,13 +418,57 @@
                             },
                             success : function (msg) {
                                 l1.modal("hide");
+                                console.log('msg', msg)
                                 if (msg == "ok") {
-                                    log("Producto borrado correctamente","success");
+                                    log("Anuncio eliminado correctamente","success");
                                     setTimeout(function () {
                                         location.reload(true);
                                     }, 1000);
                                 } else {
-                                    log("Error al borrar el producto","error");
+                                    log("Error al desactivar el Anuncio","error");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function rePublicar(itemId, prod) {
+        bootbox.dialog({
+            title   : 'Dejar de Publicar: "' + prod + '"',
+            message : "<i class='fas fa-skull-crossbones fa-3x pull-left text-danger text-shadow caja50'></i>" +
+                "<p class='aviso'>¿Está seguro que desea dejar de publicar: <strong>" + prod + "</strong>?<br>" +
+                "<strong>Esta acción no se puede deshacer</strong>.</p>",
+            buttons : {
+                cancelar : {
+                    label     : "Cancelar",
+                    className : "btn-primary",
+                    callback  : function () {
+                    }
+                },
+                eliminar : {
+                    label     : "<i class='fas fa-skull-crossbones'></i> Quitar Publicación",
+                    className : "btn-danger",
+                    callback  : function () {
+                        var l1 = cargarLoader("Eliminando");
+                        $.ajax({
+                            type    : "POST",
+                            url     : '${createLink(action:'quitarAnuncio_ajax')}',
+                            data    : {
+                                id : itemId
+                            },
+                            success : function (msg) {
+                                l1.modal("hide");
+                                console.log('msg', msg)
+                                if (msg == "ok") {
+                                    log("Anuncio eliminado correctamente","success");
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
+                                } else {
+                                    log("Error al desactivar el Anuncio","error");
                                 }
                             }
                         });

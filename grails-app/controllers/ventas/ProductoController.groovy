@@ -651,25 +651,24 @@ class ProductoController {
     def quitarAnuncio_ajax(){
         def cn = dbConnectionService.getConnection()
         def fcha = new Date().format('yyyy-MM-dd HH:mm:ss')
-        def sql = "update publ set publfcfn = '${fcha}' where '${fcha}' between publfcin and publfcfn and " +
+        def sql = "update anun set anunfcfn = '${fcha}', anunfcmd = '${fcha}' " +
+                "where '${fcha}' between anunfcin and anunfcfn and " +
                 "anun__id in (select anun__id from anun where prod__id = ${params.id})"
-        println "sql: $sql"
 
-        render "ok"
-
-/*
         try {
-            cn.execute(sql.toString())
-            if (cn.updateCount > 0) {
+            def data = cn.executeUpdate(sql.toString())
+            if(data) {
+                flash.message = "Se han actualizado ${data} anuncios"
                 render "ok"
             } else {
+                flash.message = "Error en la actualización"
+                flash.tipo = "error"
                 render "no"
             }
         } catch (Exception ex) {
             println "Error al insertar $ex"
             render "no"
         }
-*/
     }
 
 
