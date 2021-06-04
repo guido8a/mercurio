@@ -737,6 +737,7 @@ class ProductoController {
             anuncio.fechaInicio = fchaInicio
             anuncio.fechaFin = fchaFin
             anuncio.tipoPago = tppg
+            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
 
             if (!anuncio.save(flush: true)) {
                 println("error al crear el anuncio " + anuncio.errors)
