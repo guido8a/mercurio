@@ -8,7 +8,7 @@ class Anuncio {
     Persona persona
     TipoPago tipoPago
     String estado
-    String pago
+//    String pago
     Date fecha
     Date fechaInicio
     Date fechaFin
@@ -28,7 +28,7 @@ class Anuncio {
             tipoPago column: 'tppg__id'
             persona column: 'prsn__id'
             estado column: 'anunetdo'
-            pago column: 'anunpago'
+//            pago column: 'anunpago'
             fecha column: 'anunfcha'
             fechaInicio column: 'anunfcin'
             fechaFin column: 'anunfcfn'
@@ -43,7 +43,7 @@ class Anuncio {
         persona(blank:true, nullable: true)
         tipoPago(blank:true, nullable: true)
         estado(blank:false, nullable: false)
-        pago(size:0..1,blank:false, nullable:false)
+//        pago(size:0..1,blank:false, nullable:false)
         observaciones(size:0..255,blank:true, nullable:true)
         fecha(blank:false, nullable: false)
         fechaInicio(blank:true, nullable: true)

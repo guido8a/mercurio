@@ -38,11 +38,14 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 20%">Usuario</th>
-        <th style="width: 40%">Producto</th>
-        <th style="width: 10%">Fecha Ingreso</th>
+        <th style="width: 15%">Usuario</th>
+        <th style="width: 20%">Anuncio</th>
+        <th style="width: 15%">Tipo de Anuncio</th>
+        <th style="width: 8%">Fecha Ingreso</th>
+        <th style="width: 8%">Fecha Inicio</th>
+        <th style="width: 8%">Fecha Fin</th>
         <th style="width: 10%">Pago</th>
-        <th style="width: 20%">Acciones</th>
+        <th style="width: 16%">Acciones</th>
     </tr>
     </thead>
 </table>
@@ -53,19 +56,22 @@
         <g:if test="${anuncios.size() > 0}">
             <g:each in="${anuncios}" var="anuncio">
                 <tr data-id="${anuncio?.id}" data-per="${anuncio.producto.persona.id}" data-pr="${anuncio?.producto?.id}" style="width: 100%">
-                    <td style="width: 20%; text-align: center">${anuncio?.producto?.persona?.nombre}</td>
-                    <td style="width: 40%">${anuncio?.producto?.titulo}</td>
-                    <td style="width: 10%; text-align: center">${anuncio?.fecha?.format("dd-MM-yyyy")}</td>
+                    <td style="width: 15%;">${anuncio?.producto?.persona?.nombres}</td>
+                    <td style="width: 20%">${anuncio?.producto?.titulo}</td>
+                    <td style="width: 15%">${anuncio?.tipoPago?.descripcion}</td>
+                    <td style="width: 8%; text-align: center">${anuncio?.fecha?.format("dd-MM-yyyy")}</td>
+                    <td style="width: 8%; text-align: center">${anuncio?.fechaInicio?.format("dd-MM-yyyy")}</td>
+                    <td style="width: 8%; text-align: center">${anuncio?.fechaFin?.format("dd-MM-yyyy")}</td>
                     <td style="width: 10%; text-align: center; font-weight: bold">
 %{--                        <g:if test="${ventas.Pago.findByAnuncio(ventas.Anuncio.get(anuncio.id))}">--}%
-                        <g:if test="${anuncio.pago == 'R'}">
+                        <g:if test="${anuncio?.tipoPago?.id != 5}">
                             <a href="#" class="btn btn-rojo btn-sm btnVerPago" title="Pago del producto" data-id="${anuncio?.id}"><i class="fa fa-dollar-sign"></i> </a>
                         </g:if>
                         <g:else>
                             Sin Pago
                         </g:else>
                     </td>
-                    <td style="width: 20%; text-align: center">
+                    <td style="width: 16%; text-align: center">
                         <a href="#" class="btn btn-gris btn-sm btnRevisar" title="Revisar producto" data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}"><i class="fa fa-search"></i> </a>
                         <a href="#" class="btn btn-rojo btn-sm btnAceptar" title="Aceptar producto" data-id="${anuncio?.id}"><i class="fa fa-thumbs-up"></i> </a>
                         <a href="#" class="btn btn-gris btn-sm btnNegar" title="Negar producto" data-id="${anuncio?.id}"><i class="fa fa-thumbs-down"></i> </a>

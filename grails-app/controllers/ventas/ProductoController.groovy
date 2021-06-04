@@ -737,7 +737,7 @@ class ProductoController {
             anuncio.fechaInicio = fchaInicio
             anuncio.fechaFin = fchaFin
             anuncio.tipoPago = tppg
-            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
+//            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
 
             if (!anuncio.save(flush: true)) {
                 println("error al crear el anuncio " + anuncio.errors)
@@ -784,7 +784,7 @@ class ProductoController {
             anuncio = new Anuncio()
             anuncio.producto = producto
             anuncio.estado = 'R'
-            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
+//            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
             anuncio.fecha = new Date()
         }
 
@@ -830,7 +830,7 @@ class ProductoController {
                     anuncio.producto = producto
                     anuncio.estado = 'R'
                     anuncio.fecha = new Date()
-                    anuncio.pago = 'N'
+//                    anuncio.pago = 'N'
                     anuncio.save(flush:true)
 
                     break;
@@ -840,7 +840,7 @@ class ProductoController {
                     if(activo2){
                         activo2.estado = 'R'
                         activo2.fecha = new Date()
-                        activo2.pago = 'N'
+//                        activo2.pago = 'N'
                         activo2.observaciones = 'Anuncio editado el ' + new Date().format("dd-MM-yyyy")
                         activo2.save(flush:true)
                     }
