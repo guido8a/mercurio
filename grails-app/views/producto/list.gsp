@@ -45,11 +45,12 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 25%">Anuncio</th>
+        <th style="width: 22%">Anuncio</th>
         <th style="width: 15%">Categoria</th>
-        <th style="width: 20%">Subcategoria</th>
-        <th style="width: 8%">Fecha creación</th>
-        <th style="width: 14%">Acciones</th>
+        <th style="width: 15%">Subcategoria</th>
+        <th style="width: 8%">Fecha inicio</th>
+        <th style="width: 8%">Fecha fin</th>
+        <th style="width: 15%">Acciones</th>
         <th style="width: 12%">Publicar</th>
         <th style="width: 5%">Info.</th>
 %{--        <th style="width: 8%">Pagos</th>--}%
@@ -62,11 +63,12 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="pd">
             <tr data-id="${pd.prod__id}" style="width: 100%" title="${pd.etdo}">
-                <td style="width: 25%">${pd.prodtitl}</td>
+                <td style="width: 22%">${pd.prodtitl}</td>
                 <td style="width: 15%">${pd.ctgrdscr}</td>
-                <td style="width: 20%">${pd.sbctdscr}</td>
-                <td style="width: 8%; text-align: center">${pd.prodfcha?.format("dd-MMM-yyyy")}</td>
-                <td style="width: 14%; text-align: center">
+                <td style="width: 15%">${pd.sbctdscr}</td>
+                <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>
+                <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>
+                <td style="width: 15%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
 

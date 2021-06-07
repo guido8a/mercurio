@@ -356,10 +356,8 @@ class AnuncioController {
     }
 
     def revisarPago_ajax(){
-
-//        def producto = Producto.get(params.id)
-//        def anuncio = Anuncio.findByProducto(producto)
         def anuncio = Anuncio.get(params.id)
+        println "revisarPago_ajax: $params, --> ${anuncio?.id}"
 
         def path = "/var/ventas/pagos/pro_" + anuncio.producto.id + "/" + anuncio.id + "/"
         new File(path).mkdirs()

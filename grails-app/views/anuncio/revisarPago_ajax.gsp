@@ -33,7 +33,7 @@
     -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-    height: 420px;
+    height: auto;
 }
 
 </style>
@@ -43,9 +43,6 @@
         <g:each in="${imagenes}" var="file" status="i">
             <div class="card2">
                 <div class="thumbnail">
-%{--                    <a href="#" class="btn btn-gris btn-sm btn-delete pull-right" title="Eliminar" data-file="${file.file}" data-i="${i}" style="margin-bottom: 5px">--}%
-%{--                        <i class="fa fa-trash"></i>--}%
-%{--                    </a>--}%
                     <img src="${createLink(controller: 'pago', action: 'getImage', params: [id: file.file, pro: producto?.id] )}" />
                     <div>
                         <p>${file.file}</p>
@@ -54,6 +51,8 @@
             </div>
         </g:each>
     </div>
+
+
 </g:if>
 <g:else>
     <br>

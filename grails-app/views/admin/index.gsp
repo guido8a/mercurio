@@ -110,7 +110,7 @@
 </div>
 
 <div style="margin-top: 30px; min-height: 650px" class="vertical-container">
-    <p class="css-vertical-text">Anuncios de la Categoria</p>
+    <p class="css-vertical-text">Anuncios por Categoria</p>
 
     <div class="linea"></div>
     <table class="table table-bordered table-hover table-condensed" style="width: 1070px">
@@ -122,7 +122,8 @@
             <th class="alinear" style="width: 8%">Fecha Ingreso</th>
             <th class="alinear" style="width: 8%">Inicio</th>
             <th class="alinear" style="width: 8%">Fin</th>
-            <th class="alinear" style="width: 10%">Pago</th>
+            <th class="alinear" style="width: 5%">Estado</th>
+            <th class="alinear" style="width: 5%">Pago</th>
             <th class="alinear" style="width: 16%">Acciones</th>
         </tr>
         </thead>
@@ -221,6 +222,17 @@ como máximo 30
             }
         };
 
+        var pago = {
+            label: "Pagos",
+            icon: "fa fa-dollar-sign",
+            separator_before : true,
+            action : function ($element) {
+                var id = $element.data("id");
+                console.log('pago--id', id)
+                verPago(id);
+            }
+        };
+
 /*
         var administrar = {
             label: "Administrar",
@@ -234,6 +246,7 @@ como máximo 30
 
         // items.administrar = administrar;
         items.detalle = detalle;
+        if("{data.pago__id}") items.pago = pago;
 
         return items
     }
@@ -305,6 +318,41 @@ como máximo 30
     $(document).ready(function() {
         $("#buscador_con").change();
     });
+
+    function verPago(id){
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'anuncio', action:'revisarPago_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgRevisaPago",
+                    title   : "Ver comprobante de Pago",
+                    message : msg,
+                    // class : "modal-lg",
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        },
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-success",
+                            callback  : function () {
+                                return submitFormPago();
+                            } //callback
+                        } //guardar
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    };
+
 
     function createEditRow(id) {
         var title = id ? "Editar" : "Nueva";

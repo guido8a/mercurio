@@ -17,7 +17,8 @@ class AdminController {
                 "sbct__id in (select sbct__id from prod) order by ctgrordn, sbctordn"
         def categoria = cn.rows(sql.toString())
         categoria.add([id:0, descripcion: 'Todas...'])
-        def estados = ['A': 'Aprobados', 'R': 'En Revisión', 'N': 'Negados', 'I': 'Inactivos', 'T': 'Todos']
+        categoria = categoria.sort{it.id}
+        def estados = ['T': 'Todos', 'A': 'Aprobados', 'R': 'En Revisión', 'N': 'Negados', 'I': 'Inactivos']
 
         println "actual: ${params}"
         return[actual: params.actual, estados: estados, categoria: categoria]

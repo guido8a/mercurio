@@ -116,17 +116,9 @@
 
 </style>
 
-<span class="btn btn-gris fileinput-button" style="position: relative;margin-top: 5px">
-    <i class="glyphicon glyphicon-plus"></i>
-    <span>Agregar comprobante de pago</span>
-    <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
-</span>
-
 <div class="alert alert-blanco" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
-    <strong>El pago se realiza mediante transferencia bancaria</strong>
-    <br>
-    <strong>Datos para la transferencia bancaria:</strong>
+    <strong>El pago se realiza mediante transferencia bancaria con los siguientes datos:</strong>
     <br>
     <span class="col-md-2" style="font-weight: bold"> Banco:</span> <span class="col-md-6">${utilitarios.Parametros.list()[0].banco}</span>
     <br>
@@ -140,6 +132,12 @@
     <br>
 </div>
 
+<span class="btn btn-gris fileinput-button" style="position: relative;margin-top: 5px">
+    <i class="glyphicon glyphicon-plus"></i>
+    <span>Agregar comprobante de pago</span>
+    <input type="file" name="file" id="file" class="file" multiple accept=".jpeg, .jpg, .png">
+</span>
+
 <div class="alert alert-warning" style="margin-top: 5px;">
     <i class="fa fa-info-circle fa-2x"></i>
     La imagen del comprobante debe ser de tipo <strong>.jpeg, .jpg, .png</strong>
@@ -151,7 +149,7 @@
 <div id="anexos">
 </div>
 
-<div class=""  style="width: 100%;height: 350px; overflow-x: auto; margin-top: -20px">
+<div class=""  style="height: 270px; margin-top: 20px">
     <div id="divImagenes">
     </div>
 </div>
