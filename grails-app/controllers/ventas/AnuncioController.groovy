@@ -8,7 +8,7 @@ import javax.imageio.ImageIO
 class AnuncioController {
 
     def aceptarAnuncio_ajax(){
-
+        println "aceptaAnuncio_ajax: $params"
         def personaAprueba = Persona.get(session.usuario.id)
 
         def anuncio = Anuncio.get(params.id)
@@ -18,45 +18,23 @@ class AnuncioController {
         anuncio.persona = personaAprueba
         anuncio.fechaAprobacion = new Date()
 
+        def fecha_hoy = new Date().clearTime()
+        println "hoy: $fecha_hoy, inicio: ${anuncio.fechaInicio}"
+        if(anuncio.fechaInicio < fecha_hoy) {
+            def dif = fecha_hoy - anuncio.fechaInicio.clearTime()
+            println "dif: $dif"
+            anuncio.fechaInicio = anuncio.fechaInicio + dif
+            anuncio.fechaFin = anuncio.fechaFin + dif
+        }
+
+        println "anuncio: ${anuncio.fechaInicio} - ${anuncio.fechaFin}"
         if(!anuncio.save(flush:true)){
             println("error al aceptar el anuncio " + anuncio.errors)
             render "no"
         }else{
             producto.estado = 'A'
             producto.save(flush:true)
-
-/*
-            def nuevaPublicacion
-            def publicacionActual = Publicacion.findByAnuncioAndEstado(anuncio,"A")
-
-            if(publicacionActual){
-                publicacionActual.estado = 'N'
-                publicacionActual.save(flush:true)
-            }
-
-            nuevaPublicacion = new Publicacion()
-            nuevaPublicacion.anuncio = anuncio
-            nuevaPublicacion.estado = 'A'
-*/
-
-/*
-            if(anuncio.pago == 'S'){
-                def pago = Pago.findByAnuncioAndEstado(anuncio, 'A')
-                nuevaPublicacion.fechaInicio = pago.fechaInicio
-                nuevaPublicacion.fechaFin = pago.fechaFin
-                nuevaPublicacion.pago = pago
-            }else{
-                nuevaPublicacion.fechaInicio = new Date()
-                nuevaPublicacion.fechaFin = new Date() + 6
-            }
-
-            if(!nuevaPublicacion.save(flush:true)){
-                println("error al crear la nueva publicacion " + nuevaPublicacion.error)
-                render "no"
-            }else{
-                render "ok"
-            }
-*/
+            render "ok"
         }
     }
 

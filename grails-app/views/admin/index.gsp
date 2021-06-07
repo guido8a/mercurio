@@ -14,6 +14,15 @@
     .alinear {
         text-align: center !important;
     }
+    .aviso{
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .caja50{
+        width: 100px !important;
+        height: 70px;
+        display: block;
+    }
     </style>
 
 </head>
@@ -116,15 +125,15 @@
     <table class="table table-bordered table-hover table-condensed" style="width: 1070px">
         <thead>
         <tr>
-            <th class="alinear" style="width: 15%">Usuario</th>
+            <th class="alinear" style="width: 18%">Usuario</th>
             <th class="alinear" style="width: 20%">Anuncio</th>
-            <th class="alinear" style="width: 15%">Tipo de Anuncio</th>
+            <th class="alinear" style="width: 18%">Tipo de Anuncio</th>
             <th class="alinear" style="width: 8%">Fecha Ingreso</th>
             <th class="alinear" style="width: 8%">Inicio</th>
             <th class="alinear" style="width: 8%">Fin</th>
-            <th class="alinear" style="width: 5%">Estado</th>
-            <th class="alinear" style="width: 5%">Pago</th>
-            <th class="alinear" style="width: 16%">Acciones</th>
+            <th class="alinear" style="width: 6%">Estado</th>
+%{--            <th class="alinear" style="width: 5%">Pago</th>--}%
+            <th class="alinear" style="width: 14%">Acciones</th>
         </tr>
         </thead>
     </table>
@@ -329,7 +338,7 @@ como máximo 30
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgRevisaPago",
-                    title   : "Ver comprobante de Pago",
+                    title   : "Ver constancia de Pago y Aprobaciónde anuncio",
                     message : msg,
                     // class : "modal-lg",
                     buttons : {
@@ -339,12 +348,12 @@ como máximo 30
                             callback  : function () {
                             }
                         },
-                        guardar  : {
+                        Aceptar : {
                             id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
+                            label     : "<i class='fa fa-save'></i> Aceptar el Anuncio",
                             className : "btn-success",
                             callback  : function () {
-                                return submitFormPago();
+                                return aceptarAnuncio(id);
                             } //callback
                         } //guardar
                     } //buttons
@@ -354,248 +363,142 @@ como máximo 30
     };
 
 
-    function createEditRow(id) {
-        var title = id ? "Editar" : "Nueva";
-        var data = id ? { id: id } : {};
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller:'persona', action:'form_ajax')}",
-            data    : data,
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgCreateEdit",
-                    title   : title + " Persona",
-                    class   : "long",
-//                    size   :  'large',
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
-                                return submitFormPersona();
-                            } //callback
-                        } //guardar
-                    } //buttons
-                }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 500);
-            } //success
-        }); //ajax
-    } //createEdit
 
-    function submitFormPersona() {
-        var $form = $("#frmPersona");
-        var $btn = $("#dlgCreateEdit").find("#btnSave");
-        if ($form.valid()) {
-            $btn.replaceWith(spinner);
-            openLoader("Guardando Persona");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : $form.serialize(),
-                success : function (msg) {
-                    if(msg == 'ok'){
-                        log("Persona guardada correctamente","success");
-                        setTimeout(function() {
-                            spinner.replaceWith($btn);
-                            closeLoader();
-                            cargarBusqueda();
-                        }, 100);
-                    }else{
-                        log("Error al guardar la información de persona","error")
-                        closeLoader();
+    function aceptarAnuncio(id) {
+        bootbox.dialog({
+            title   : "Aceptar producto",
+            message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i>" +
+                "<span style='font-size: 14px; font-weight: bold'>&nbsp;¿Está seguro que desea aceptar " +
+                "el anuncio de este producto?.</span>",
+            buttons : {
+                cancelar : {
+                    label     : "<i class='fa fa-times'></i> Cancelar",
+                    className : "btn-gris",
+                    callback  : function () {
+                    }
+                },
+                aceptar : {
+                    label     : "<i class='fa fa-check'></i> Aceptar",
+                    className : "btn-rojo",
+                    callback  : function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '${createLink(controller: 'anuncio', action: 'aceptarAnuncio_ajax')}',
+                            data:{
+                                id: id
+                            },
+                            success: function (msg){
+                                if(msg == 'ok'){
+                                    bootbox.dialog({
+                                        title   : "Confirmación",
+                                        message : "<i class='fa fa-thumbs-up fa-3x pull-left text-warning text-shadow'>" +
+                                            "</i><p>&nbsp; Anuncio revisado correctamente</p>",
+                                        buttons : {
+                                            aceptar : {
+                                                label     : "<i class='fa fa-check'></i> Aceptar",
+                                                className : "btn-gris",
+                                                callback  : function () {
+                                                    %{--location.href="${createLink(controller: 'anuncio', action: 'revisados')}?id=" + id--}%
+                                                    location.reload()
+                                                }
+                                            }
+                                        }
+                                    });
+                                }else{
+                                    bootbox.alert("<i class='fa fa-times fa-3x pull-left text-warning text-shadow'>" +
+                                        "</i><span style='font-size: 14px; font-weight: bold'>" +
+                                        "&nbsp;Error al aceptar anuncio del producto</span>")
+                                }
+                            }
+                        })
                     }
                 }
-            });
-        } else {
-            return false;
-        } //else
+            }
+        });
     }
 
-    function asignarPerfil (id) {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller:'persona', action:'perfil_ajax')}",
-            data    : {
-                id: id
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgAsignarPerfil",
-                    title   : "Asignar Perfil",
-//                    class   : "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 100);
-            } //success
-        }); //ajax
-    }
-
-    function alicuotaEdit (id) {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller:'alicuota', action:'form_ajax')}",
-            data    : {
-                id: id
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgAsignarPerfilxx",
-                    title   : "Alícuota",
-//                    class   : "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-success",
-                            callback  : function () {
-                                return submitFormAlicuota();
-                            } //callback
-                        }
-                    } //buttons
-                }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 100);
-            } //success
-        }); //ajax
-    }
-
-    function submitFormAlicuota() {
-        var $form = $("#frmAlicuota");
-        var $btn = $("#dlgCreateEdit").find("#btnSave");
-        if ($form.valid()) {
-            $btn.replaceWith(spinner);
-            openLoader("Guardando Alicuota");
-            $.ajax({
-                type    : "POST",
-                url     : $form.attr("action"),
-                data    : $form.serialize(),
-                success : function (msg) {
-                    var parts = msg.split("*");
-                    log(parts[1], parts[0] == "SUCCESS" ? "success" : "error"); // log(msg, type, title, hide)
-                    setTimeout(function() {
-                        if (parts[0] == "SUCCESS") {
-                            spinner.replaceWith($btn);
-                            closeLoader();
-                            cargarBusqueda();
-                            return false;
-
-//                            location.reload(true);
-                        } else {
-                            spinner.replaceWith($btn);
-                            return false;
-                        }
-                    }, 100);
+    function negarProducto(id) {
+        bootbox.dialog({
+            title   : "Negar producto",
+            message : "<i class='fa fa-user-slash fa-2x pull-left text-warning text-shadow'></i><span style='font-size: 14px; font-weight: bold'>&nbsp; ¿Está seguro que desea negar el anuncio de este producto?.</span>",
+            buttons : {
+                cancelar : {
+                    label     : "<i class='fa fa-times'></i> Cancelar",
+                    className : "btn-gris",
+                    callback  : function () {
+                    }
+                },
+                aceptar : {
+                    label     : "<i class='fa fa-check'></i> Aceptar",
+                    className : "btn-rojo",
+                    callback  : function () {
+                        $.ajax({
+                            type    : "POST",
+                            url     : "${createLink(controller: 'anuncio', action:'negarAnuncio_ajax')}",
+                            data    : {
+                                id:id
+                            },
+                            success : function (msg) {
+                                if(msg == 'ok'){
+                                    log("Producto negado correctamente","success");
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
+                                }else{
+                                    log("Error al negar el producto","error")
+                                }
+                            } //success
+                        }); //ajax
+                    }
                 }
-            });
-        } else {
-            return false;
-        } //else
-    }
+            }
+        });
+    } //createEdit
 
-    function pagoAlicuota (id) {
-        var url = "${createLink(controller:'ingreso', action:'pendiente')}";
-        location.href = url + "/?id=" + id;
-    }
-
-    function tablaAlicuotas (id) {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller:'alicuota', action:'tablaAlicuotas_ajax')}",
-            data    : {
-                id: id
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgTablaAlicuotas",
-                    title   : "Tabla de Alícuotas",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-primary",
-                            callback  : function () {
+    function quitarAnuncio(itemId, prod) {
+        bootbox.dialog({
+            title   : 'Dejar de Publicar: "' + prod + '"',
+            message : "<i class='fas fa-skull-crossbones fa-3x pull-left text-danger text-shadow caja50'></i>" +
+                "<p class='aviso'>¿Está seguro que desea dejar de publicar: <strong>" + prod + "</strong>?<br>" +
+                "<strong>Esta acción no se puede deshacer</strong>.</p>",
+            buttons : {
+                cancelar : {
+                    label     : "Cancelar",
+                    className : "btn-primary",
+                    callback  : function () {
+                    }
+                },
+                eliminar : {
+                    label     : "<i class='fas fa-skull-crossbones'></i> Quitar Publicación",
+                    className : "btn-danger",
+                    callback  : function () {
+                        var l1 = cargarLoader("Eliminando");
+                        $.ajax({
+                            type    : "POST",
+                            url     : '${createLink(controller: 'producto', action:'quitarAnuncio_ajax')}',
+                            data    : {
+                                id : itemId
+                            },
+                            success : function (msg) {
+                                l1.modal("hide");
+                                console.log('msg', msg)
+                                if (msg == "ok") {
+                                    log("Anuncio eliminado correctamente","success");
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
+                                } else {
+                                    log("Error al desactivar el Anuncio","error");
+                                }
                             }
-                        }
-                    } //buttons
-                }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 100);
-            } //success
-        }); //ajax
+                        });
+                    }
+                }
+            }
+        });
     }
 
-    function imprimirExpensas (id) {
-        location.href = "${g.createLink(controller:'reportes', action: 'certificadoExpensas')}?id=" + id
-    }
 
-    function seleccionarAlicuotas (id) {
-        $.ajax({
-            type    : "POST",
-            url     : "${createLink(controller:'reportes', action:'alicuotas_ajax')}",
-            data    : {
-                id: id
-            },
-            success : function (msg) {
-                var b = bootbox.dialog({
-                    id      : "dlgSeleccionarAlicuotas",
-                    title   : "Seleccionar Alícuotas",
-//                    class   : "modal-lg",
-                    message : msg,
-                    buttons : {
-                        cancelar : {
-                            label     : "<i class='fa fa-times'></i> Cerrar",
-                            className : "btn-primary",
-                            callback  : function () {
-                            }
-                        },
-                        aceptar : {
-                            label     : "<i class='fa fa-print'></i> Imprimir",
-                            className : "btn-success",
-                            callback  : function () {
-                                openLoader("Espere...");
-                                var vlor = $("#valorHasta").val();
-                                %{--location.href = "${g.createLink(controller: 'reportes', action: 'imprimirSolicitudes')}?vlor=" + vlor;--}%
-                                location.href = "${g.createLink(controller: 'reportes', action: 'reporteSolicitudPago')}?vlor=" + vlor + "&id=" + id;
-                                closeLoader();
-                            }
-                        }
-                    } //buttons
-                }); //dialog
-                setTimeout(function () {
-                    b.find(".form-control").first().focus()
-                }, 100);
-            } //success
-        }); //ajax
-    }
 
 </script>
 

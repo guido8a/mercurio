@@ -12,8 +12,13 @@ th, td {
 }
 
 .conAnuncio {
-    background-color: #fffff8;
+    /*background-color: #fffff8;*/
     color: #444;
+}
+.pagado {
+    /*background-color: #f8fff8;*/
+    color: #000;
+    /*font-weight: bold;*/
 }
 .sinAnuncio {
     background-color: #efefef;
@@ -21,7 +26,7 @@ th, td {
 }
 .retrasado {
     background-color: #ffe0e0;
-    color: #444;
+    /*color: #444;*/
 }
 .externo {
     background-color: #ffdede;
@@ -40,56 +45,84 @@ th, td {
 }
 </style>
 
-<g:set var="clase" value="${'conAnuncio'}"/>
-<g:set var="clase2" value="${'sinAnuncio'}"/>
-<g:set var="claseR" value="${'retrasado'}"/>
-
 <div class="" style="width: 99.7%;height: ${msg == '' ? 600 : 575}px; overflow-y: auto;float: right; margin-top: -20px">
     <table class="table-bordered table-condensed table-hover" width="1060px">
         <g:each in="${data}" var="dato" status="z">
+            <g:set var="clase" value="${''}"/>
+            <g:if test="${dato.tppg__id == 5}">
+                <g:set var="clase" value="${''}"/>
+            </g:if>
+            <g:else>
+                <g:if test="${dato.tppg__id}">
+                    <g:set var="clase" value="${'pagado'}"/>
+                </g:if>
+            </g:else>
+            <g:if test="${dato?.anunadmn == 'R'}">
+                <g:set var="clase" value="${clase + ' retrasado'}"/>
+            </g:if>
+            <g:if test="${!dato?.anun__id}">
+                <g:set var="clase" value="${clase + ' sinAnuncio'}"/>
+            </g:if>
 
             <tr id="${dato.prsn__id}" data-id="${dato.anun__id}" data-prod="${dato.prod__id}"
-                class="${dato.anunetdo == 'R'? claseR : dato.anun__id? clase: ''}">
-                <td width="15%">
+                class="${clase}">
+                <td width="18%">
                     ${dato?.prsnnmbr}
                 </td>
 
-                <td width="20%" class="text-info">
+                <td width="20%">
                     ${dato?.prodtitl}
                 </td>
 
-                <td width="15%" style="color:#186063">
+                <td width="18%">
                     ${dato?.tppgdscr}
                 </td>
                 <td width="8%">
                     ${dato.prodfcmd?.format("dd-MMM-yyyy")}
                 </td>
 
-                <td width="8%" class="text-info">
+                <td width="8%">
                     ${dato?.anunfcin?.format("dd-MMM-yyyy")}
                 </td>
 
-                <td width="8%" class="text-info">
+                <td width="8%">
                     ${dato.anunfcfn?.format("dd-MMM-yyyy")}
                 </td>
 
-                <td width="5%" class="centrado">
+                <td width="6%" class="centrado">
                     ${dato.anunetdo}
                 </td>
-                <td width="5%" class="text-info">
-%{--                    ${dato.pagofcha}--}%
+%{--
+                <td width="5%" class="centrado">
                     <g:if test="${dato?.pago__id}">
                         <a href="#" class="btn btn-rojo btn-xs btnVerPago" title="Pago del producto"
                            data-id="${dato?.anun__id}"><i class="fa fa-dollar-sign"></i> </a>
                     </g:if>
-                    <g:else>
-                        NA
-                    </g:else>
-
                 </td>
+--}%
 
-                <td width="16%" class="text-info">
-                    Acciones
+                <td width="14%" class="centrado">
+                    <a href="#" class="btn btn-xs btn-gris btn-sm btnRevisar" title="Revisar el anuncio"
+                       data-id="${dato?.prod__id}"><i class="fa fa-search"></i> </a>
+
+                    <g:if test="${dato?.anunetdo == 'R'}">
+                        <g:if test="${dato?.pago__id}">
+                            <a href="#" class="btn btn-rojo btn-xs btnVerPago" title="Pago del producto"
+                               data-id="${dato?.anun__id}"><i class="far fa-thumbs-up"fa fa-dollar-sign"></i> </a>
+                        </g:if>
+                        <g:else>
+                            <a href="#" class="btn btn-xs btn-rojo btn-sm btnAceptar" title="Aceptar el anuncio"
+                               data-id="${dato?.anun__id}"><i class="fas fa-thumbs-up"></i> </a>
+                        </g:else>
+                        <a href="#" class="btn btn-xs btn-gris btn-sm btnNegar" title="Negar el anuncio"
+                           data-id="${dato?.anun__id}"><i class="fa fa-thumbs-down"></i> </a>
+
+                    </g:if>
+                <g:if test="${dato?.anunactv == 'S'}">
+                    <a href="#" class="btn btn-xs btn-rojo btnQuitarAnuncio" title="Quitar anuncio"
+                       data-id="${dato?.prod__id}" data-titulo="${dato?.prodtitl}"><i
+                            class="fas fa-skull-crossbones"></i></a>
+                </g:if>
                 </td>
 
             </tr>
@@ -116,7 +149,28 @@ th, td {
             verPago(id);
         });
 
-    });
+        $(".btnRevisar").click(function () {
+            var id = $(this).data("id");
+            var persona = $(this).data("per");
+            location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + persona + "&tipo=" + 4;
+        });
 
+        $(".btnAceptar").click(function () {
+            var id = $(this).data("id");
+            aceptarAnuncio(id)
+        });
+
+        $(".btnNegar").click(function () {
+            var id = $(this).data("id");
+            negarProducto(id)
+        });
+
+        $(".btnQuitarAnuncio").click(function () {
+            var id = $(this).data("id");
+            var prod = $(this).data("titulo");
+            // console.log('prod', prod, 'id', id)
+            quitarAnuncio(id, prod)
+        });
+    });
 
 </script>
