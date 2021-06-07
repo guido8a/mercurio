@@ -751,6 +751,81 @@ class ProductoController {
     }
 
 
+/*
+    def publicar_ajax(){
+        def producto = Producto.get(params.id)
+        return [producto:producto]
+    }
+*/
+
+    /*
+    * Crea otro anuncio para este producto con nuevas fechas y tipo de pago
+    */
+    def rePublicar_ajax(){
+        println "rePublicar_ajax: $params"
+        def persona = Persona.get(session.usuario.id)
+        def producto = Producto.get(params.id)
+        def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
+        def anuncio
+        def tppg = TipoPago.get(params.pago.toInteger())
+        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fecha + " 00:00:00")
+        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+        persona.mailContacto = params.mail
+        persona.contacto = params.contacto
+        persona.telefonoContacto = params.telefono
+
+        if (!persona.save(flush: true)) {
+            println("error al guardar la información de contacto " + persona.errors)
+            render "no"
+        } else {
+            anuncios.each { a ->
+                if (a.estado == 'E') {
+                    println "Anuncio en Espera..."
+                    anuncio = a
+                } else {
+                    if (anuncio && (a.estado == 'B')) {
+                        println "Anuncio extra dado de baja"
+                        a.delete(flush: true)
+                    } else if (a.estado == 'B') {
+                        println "Anuncio como dado de baja --> R"
+                        anuncio = a
+                    }
+                }
+            }
+
+            println "pago: -- ${params.pago.class} ${params.pago}"
+            if (anuncio) {
+                anuncio.fechaModificacion = new Date()
+            } else {
+                anuncio = new Anuncio()
+                anuncio.producto = producto
+                anuncio.fecha = new Date()
+            }
+
+            anuncio.estado = 'R'
+            anuncio.fechaInicio = fchaInicio
+            anuncio.fechaFin = fchaFin
+            anuncio.tipoPago = tppg
+//            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
+
+            if (!anuncio.save(flush: true)) {
+                println("error al crear el anuncio " + anuncio.errors)
+                render "no_Error al publicar el producto"
+            } else {
+                producto.estado = 'R'
+                producto.fechaModificacion = new Date()
+                producto.save(flush: true)
+                render "ok"
+            }
+        }
+    }
+
+
+
+
     /*
     * Si ya existe un anuncio en estado en revisión: R se cambia el estado a 'I' para que se vuelva a publicar una vez
     * completada la edición --Avisar antes de editar */

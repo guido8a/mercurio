@@ -25,12 +25,17 @@
 <div class="btn-toolbar toolbar" style="margin-top: 5px">
     <div class="btn-group">
         <g:link controller="anuncio" action="revisados" class="btn btn-rojo btnRevisadas">
-            <i class="fa fa-user-check"></i> Publicaciones
+            <i class="far fa-eye"></i> Publicaciones
         </g:link>
     </div>
     <div class="btn-group">
         <g:link controller="anuncio" action="negados" class="btn btn-gris btnNegados">
-            <i class="fa fa-user-slash"></i> Anuncios negados
+            <i class="far fa-eye-slash"></i> Anuncios negados
+        </g:link>
+    </div>
+    <div class="btn-group">
+        <g:link controller="anuncio" action="negados" class="btn btn-gris btnNegados">
+            <i class="fas fa-eye"></i> Anuncios inactivos
         </g:link>
     </div>
 </div>
@@ -72,9 +77,15 @@
                         </g:else>
                     </td>
                     <td style="width: 16%; text-align: center">
-                        <a href="#" class="btn btn-gris btn-sm btnRevisar" title="Revisar el anuncio" data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}"><i class="fa fa-search"></i> </a>
-                        <a href="#" class="btn btn-rojo btn-sm btnAceptar" title="Aceptar el anuncio" data-id="${anuncio?.id}"><i class="fa fa-thumbs-up"></i> </a>
-                        <a href="#" class="btn btn-gris btn-sm btnNegar" title="Negar el anuncio" data-id="${anuncio?.id}"><i class="fa fa-thumbs-down"></i> </a>
+                        <a href="#" class="btn btn-gris btn-sm btnRevisar" title="Revisar el anuncio"
+                           data-id="${anuncio?.producto?.id}" data-per="${anuncio.producto.persona.id}">
+                            <i class="fa fa-search"></i> </a>
+
+                        <a href="#" class="btn btn-rojo btn-sm btnAceptar" title="Aceptar el anuncio"
+                           data-id="${anuncio?.id}"><i class="fa fa-thumbs-up"></i> </a>
+
+                        <a href="#" class="btn btn-gris btn-sm btnNegar" title="Negar el anuncio"
+                           data-id="${anuncio?.id}"><i class="fa fa-thumbs-down"></i> </a>
                     </td>
                 </tr>
             </g:each>

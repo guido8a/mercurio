@@ -29,12 +29,6 @@ class PagoController {
 
     def pago_ajax(){
         println("pago " + params)
-//        def producto = Producto.get(params.id)
-//        def tipo = TipoPago.get(params.tipo)
-//        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fcin)
-//        def fechaFin  = fechaInicio.plus(tipo.dias.toInteger()).format("dd-MM-yyyy")
-
-        /******************/
         def anuncio = Anuncio.get(params.anun.toInteger())
         def tppg = TipoPago.get(params.tipo.toInteger())
         def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fcin + " 00:00:00")
@@ -50,10 +44,46 @@ class PagoController {
         if (!anuncio.save(flush: true)) {
             println("error al crear el anuncio " + anuncio.errors)
         }
-        /******************/
 
         return[producto: anuncio.producto, anuncio: anuncio, tipo: tppg, fi: fchaInicio.format("dd-MM-yyyy"), ff: fchaFin]
     }
+
+    def republicar_ajax(){
+        def producto = Producto.get(params.id)
+        def anuncio = Anuncio.get(params.anun)
+        println "anuncio: ${anuncio.id}, tipo: ${anuncio.tipoPago.descripcion} fecha: ${anuncio.fechaInicio.format('dd-MM-yyyy')}"
+        return[producto: producto, anuncio: anuncio]
+    }
+
+    def pago_republicar_ajax(){
+        println("pago_republicar_ajax " + params)
+        def anterior = Anuncio.get(params.anun.toInteger())
+        def anuncio = new Anuncio(anterior.properties)
+        def tppg = TipoPago.get(params.tipo.toInteger())
+        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fcin + " 00:00:00")
+        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+        anuncio.fecha = new Date()
+        anuncio.fechaModificacion = null
+        anuncio.fechaInicio = fchaInicio
+        anuncio.fechaFin = fchaFin
+        anuncio.tipoPago = tppg
+        anuncio.observaciones = "Vuelve a publicar"
+
+
+        anterior.estado = 'B'
+        anterior.save(flush: true)
+
+        if (!anuncio.save(flush: true)) {
+            println("error al crear el anuncio " + anuncio.errors)
+        }
+
+        return[producto: anuncio.producto, anuncio: anuncio, tipo: tppg, fi: fchaInicio.format("dd-MM-yyyy"), ff: fchaFin]
+    }
+
+
 
     def tablaPagos_ajax(){
         def producto = Producto.get(params.id)
@@ -103,7 +133,33 @@ class PagoController {
         }
     }
 
+    def actualizaNuevoAnuncio_ajax(){
+        println "actualizaAnuncio_ajax: $params"
+        def anterior = Anuncio.get(params.anun.toInteger())
+        def anuncio = new Anuncio(anterior.properties)
+        def tppg = TipoPago.get(params.tipo.toInteger())
+        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fcin + " 00:00:00")
+        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
 
+        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+        anuncio.fecha = new Date()
+        anuncio.fechaModificacion = null
+        anuncio.fechaInicio = fchaInicio
+        anuncio.fechaFin = fchaFin
+        anuncio.tipoPago = tppg
+        anuncio.observaciones = "Vuelve a publicar"
+
+        anterior.estado = 'B'
+        anterior.save(flush: true)
+
+        if (!anuncio.save(flush: true)) {
+            println("error al crear el anuncio " + anuncio.errors)
+            render "no_Error al publicar el producto"
+        } else {
+            render "<p>Su producto será revisado y publicado en las próximas 24 horas</p>"
+        }
+    }
 
     def upload_ajax() {
         println ("params imas " +  params)

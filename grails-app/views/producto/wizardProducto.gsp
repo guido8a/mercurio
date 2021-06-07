@@ -123,7 +123,7 @@
                                     Categoría
                                 </label>
                                 <div class="col-md-6">
-                                    <g:select name="categoria" from="${ventas.Categoria.list().sort{it.descripcion}}" class="form-control"
+                                    <g:select name="categoria" from="${ventas.Categoria.list([sort: 'orden'])}" class="form-control"
                                               optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id ? producto?.subcategoria?.categoria?.id : producto?.padre?.subcategoria?.categoria?.id}"/>
                                 </div>
                             </span>

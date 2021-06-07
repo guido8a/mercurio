@@ -25,6 +25,7 @@ class AnuncioController {
             producto.estado = 'A'
             producto.save(flush:true)
 
+/*
             def nuevaPublicacion
             def publicacionActual = Publicacion.findByAnuncioAndEstado(anuncio,"A")
 
@@ -36,7 +37,9 @@ class AnuncioController {
             nuevaPublicacion = new Publicacion()
             nuevaPublicacion.anuncio = anuncio
             nuevaPublicacion.estado = 'A'
+*/
 
+/*
             if(anuncio.pago == 'S'){
                 def pago = Pago.findByAnuncioAndEstado(anuncio, 'A')
                 nuevaPublicacion.fechaInicio = pago.fechaInicio
@@ -53,6 +56,7 @@ class AnuncioController {
             }else{
                 render "ok"
             }
+*/
         }
     }
 

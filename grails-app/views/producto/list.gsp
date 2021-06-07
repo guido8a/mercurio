@@ -48,10 +48,10 @@
         <th style="width: 25%">Anuncio</th>
         <th style="width: 15%">Categoria</th>
         <th style="width: 20%">Subcategoria</th>
-        <th style="width: 10%">Fecha creación</th>
-        <th style="width: 5%">Info.</th>
-        <th style="width: 12%">Acciones</th>
+        <th style="width: 8%">Fecha creación</th>
+        <th style="width: 14%">Acciones</th>
         <th style="width: 12%">Publicar</th>
+        <th style="width: 5%">Info.</th>
 %{--        <th style="width: 8%">Pagos</th>--}%
     </tr>
     </thead>
@@ -65,13 +65,8 @@
                 <td style="width: 25%">${pd.prodtitl}</td>
                 <td style="width: 15%">${pd.ctgrdscr}</td>
                 <td style="width: 20%">${pd.sbctdscr}</td>
-                <td style="width: 10%; text-align: center">${pd.prodfcha?.format("dd-MMM-yyyy")}</td>
-                <td style="width: 5%; text-align: center; font-weight: bold; background-color: ${pd?.prodetdo == 'A' ?
-                        '#67a153' : (pd?.prodetdo == 'R' ? '#EEB51F' : (pd?.prodetdo == 'N' ? '#876945' : '#afafaf'))}">
-                    <a href="#" class="btn btn-xs btn-rojo btnInfo" title="Información del Anuncio"
-                       data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
-                            class="fas fa-exclamation-triangle"></i></a></td>
-                <td style="width: 12%; text-align: center">
+                <td style="width: 8%; text-align: center">${pd.prodfcha?.format("dd-MMM-yyyy")}</td>
+                <td style="width: 14%; text-align: center">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
 
@@ -94,11 +89,16 @@
                                data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}">
                                 <i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
                         </g:if>
-                        <g:if test="${pd?.anunnuvo == 'N'}">
+                        <g:if test="${pd?.anunetdo == 'A' && pd?.anunnuvo == 'N'}">
                             <a href="#" class="btn btn-xs btn-rojo btnRePublicar" title="Volver a Publicar anuncio"
-                               data-id="${pd?.prod__id}"><i class="fab fa-product-hunt"></i> Volver a Publicar</a>
+                               data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}"><i class="fab fa-product-hunt"></i> Volver a Publicar</a>
                         </g:if>
                 </td>
+                <td style="width: 5%; text-align: center; font-weight: bold;">
+                    <a href="#" class="btn btn-xs btn-rojo btnInfo" title="Información del Anuncio"
+                       data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
+                            class="fas fa-exclamation-triangle"></i></a></td>
+
                 %{--                <td style="width: 8%; text-align: center">--}%
                 %{--                    <g:if test="${producto?.id}">--}%
                 %{--                        <a href="#" class="btn btn-xs btn-rojo btnPagoPublicacion" title="Destacar Anuncio"--}%
@@ -186,6 +186,49 @@
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
                     title   : "Pagar el Anuncio",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+/*
+                        ,
+                        guardar  : {
+                            id        : "btnSave",
+                            label     : "<i class='fa fa-save'></i> Guardar",
+                            className : "btn-rojo",
+                            callback  : function () {
+                                return submitForm();
+                            } //callback
+                        } //guardar
+*/
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    }) //createEdit
+
+    $(".btnRePublicar").click(function () {
+        var id = $(this).data("id");
+        var anun = $(this).data("anun");
+        console.log('pago');
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'pago', action:'republicar_ajax')}",
+            data    : {
+                anun: anun,
+                id: id ? id : ''
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEdit",
+                    title   : "Volver a Publicar el Anuncio",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -314,13 +357,6 @@
         quitarAnuncio(id, prod)
     });
 
-    $(".btnRePublicar").click(function () {
-        var id = $(this).data("id");
-        var prod = $(this).data("titulo");
-        // console.log('prod', prod, 'id', id)
-        quitarAnuncio(id, prod)
-    });
-
     var id = null;
     function submitForm() {
         var $form = $("#frmProducto");
@@ -435,10 +471,11 @@
         });
     }
 
+/*
     function rePublicar(itemId, prod) {
         bootbox.dialog({
-            title   : 'Dejar de Publicar: "' + prod + '"',
-            message : "<i class='fas fa-skull-crossbones fa-3x pull-left text-danger text-shadow caja50'></i>" +
+            title   : 'Volver a Publicar: "' + prod + '"',
+            message : "<i class='fas fa-eye pull-left text-danger text-shadow caja50'></i>" +
                 "<p class='aviso'>¿Está seguro que desea dejar de publicar: <strong>" + prod + "</strong>?<br>" +
                 "<strong>Esta acción no se puede deshacer</strong>.</p>",
             buttons : {
@@ -449,7 +486,7 @@
                     }
                 },
                 eliminar : {
-                    label     : "<i class='fas fa-skull-crossbones'></i> Quitar Publicación",
+                    label     : "<i class='fa fa-check'></i> Publicar",
                     className : "btn-danger",
                     callback  : function () {
                         var l1 = cargarLoader("Eliminando");
@@ -463,12 +500,12 @@
                                 l1.modal("hide");
                                 console.log('msg', msg)
                                 if (msg == "ok") {
-                                    log("Anuncio eliminado correctamente","success");
+                                    log("Anuncio vuelto a publicar correctamente","success");
                                     setTimeout(function () {
                                         location.reload(true);
                                     }, 1000);
                                 } else {
-                                    log("Error al desactivar el Anuncio","error");
+                                    log("Error al volver a publicar el Anuncio","error");
                                 }
                             }
                         });
@@ -477,6 +514,7 @@
             }
         });
     }
+*/
 
     function createEditRow(id) {
         var title = id ? "Editar" : "Crear";
