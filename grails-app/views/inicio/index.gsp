@@ -163,7 +163,7 @@
 
     <div class="row mbr-justify-content-center">
 
-    <a href= "${createLink(controller:'alerta', action: 'list')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'admin', action: 'index')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">
@@ -205,21 +205,21 @@
         </div>
     </a>
 
-    <a href= "${createLink(controller:'promotor', action: 'list')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'link', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">
                     <asset:image src="apli/proyecto.png" title="Períodos y semáforos por cantón"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Promotores o Clientes</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Revisión de Promotores y Clientes</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Acceso a Consultas</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Enlaces a consultas de interés general</p>
                 </div>
             </div>
         </div>
     </a>
 
-    <a href= "${createLink(controller:'semaforo', action: 'arbol')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'tipoPago', action: 'list')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">
