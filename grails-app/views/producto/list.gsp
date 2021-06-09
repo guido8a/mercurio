@@ -40,6 +40,10 @@
            class="btn btn-rojo" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
     </div>
+    <a href="#" class="btn btn-gris btnReporte" title="reporte prueba"><i class="fa fa-print"></i> Reporte
+    </a>
+    <a href="#" class="btn btn-gris btnReporteExcel" title="reporte prueba"><i class="fa fa-print"></i> Reporte Excel
+    </a>
 </div>
 
 <table class="table table-condensed table-bordered">
@@ -115,6 +119,18 @@
 
 
 <script type="text/javascript">
+
+    $(".btnReporteExcel").click(function () {
+        openLoader("Cargando...");
+        location.href = "${g.createLink(controller: 'pdf', action: 'reportePruebaExcel')}";
+        closeLoader();
+    });
+
+    $(".btnReporte").click(function () {
+        openLoader("Cargando...");
+        location.href = "${g.createLink(controller: 'pdf', action: 'reportePrueba')}";
+        closeLoader();
+    });
 
     function publicarGratis(id){
         $.ajax({
