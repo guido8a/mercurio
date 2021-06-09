@@ -1030,4 +1030,10 @@ class ProductoController {
 
     }
 
+    def info_ajax(){
+        def producto = Producto.get(params.id)
+        def anuncio = Anuncio.findByProducto(producto)
+        return[anuncio:anuncio, producto: producto]
+    }
+
 }

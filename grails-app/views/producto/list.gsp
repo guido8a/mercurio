@@ -118,6 +118,36 @@
 
 <script type="text/javascript">
 
+    $(".btnInfo").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'producto', action:'info_ajax')}",
+            data    : {
+                    id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgCreateEdit",
+                    title   : "Información del Anuncio",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+
+    });
+
     $(".btnReporteExcel").click(function () {
         openLoader("Cargando...");
         location.href = "${g.createLink(controller: 'pdf', action: 'reportePruebaExcel')}";
