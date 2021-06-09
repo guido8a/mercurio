@@ -7,6 +7,8 @@ import javax.imageio.ImageIO
 
 class AnuncioController {
 
+    def mailService
+
     def aceptarAnuncio_ajax(){
         println "aceptaAnuncio_ajax: $params"
         def personaAprueba = Persona.get(session.usuario.id)
@@ -34,7 +36,28 @@ class AnuncioController {
         }else{
             producto.estado = 'A'
             producto.save(flush:true)
-            render "ok"
+
+
+            def mail = producto.persona.mailContacto
+            def errores = ''
+
+            try{
+                mailService.sendMail {
+                    to mail
+                    subject "Confirmación de publicación del producto: ${producto?.titulo}"
+                    body "Este mail de confirmación es para comunicarle que su producto: ${producto?.titulo} , ha sido exitosamente publicado!" +
+                            "\n Si possee alguna duda comuniquese con el administrador del sistema "
+                }
+            }catch (e){
+                println("Error al enviar el mail: " + e)
+                errores += e
+            }
+
+            if(errores == ''){
+                render "ok"
+            }else{
+                render "no"
+            }
         }
     }
 

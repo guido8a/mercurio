@@ -16,6 +16,7 @@ import static java.awt.RenderingHints.VALUE_INTERPOLATION_BICUBIC
 class ProductoController {
 
     def dbConnectionService
+    def mailService
 
     def list(){
         println("params list" + params)
@@ -649,6 +650,7 @@ class ProductoController {
 
     /* Se pone publfcfn = now() para dejar de publicar */
     def quitarAnuncio_ajax(){
+        def producto = Producto.get(params.id)
         def cn = dbConnectionService.getConnection()
         def fcha = new Date().format('yyyy-MM-dd HH:mm:ss')
         def sql = "update anun set anunfcfn = '${fcha}', anunfcmd = '${fcha}' " +
@@ -659,7 +661,29 @@ class ProductoController {
             def data = cn.executeUpdate(sql.toString())
             if(data) {
                 flash.message = "Se han actualizado ${data} anuncios"
-                render "ok"
+
+
+                def mail = producto.persona.mailContacto
+                def errores = ''
+
+                try{
+                    mailService.sendMail {
+                        to mail
+                        subject "Confirmación de cancelación del anuncio del producto: ${producto?.titulo}"
+                        body "Este mail de confirmación es para comunicarle que su producto: ${producto?.titulo} , ha sido dado de baja en su publicación" +
+                                "\n Si possee alguna duda comuniquese con el administrador del sistema "
+                    }
+                }catch (e){
+                    println("Error al enviar el mail: " + e)
+                    errores += e
+                }
+
+                if(errores == ''){
+                    render "ok"
+                }else{
+                    render "no"
+                }
+
             } else {
                 flash.message = "Error en la actualización"
                 flash.tipo = "error"

@@ -5,51 +5,52 @@
   Time: 12:23
 --%>
 
-<div class="container">
-    <div class="form-group ${hasErrors(bean: 'tipoPago', field: 'descripcion', 'error')} required">
-        <span class="grupo">
-            <label for="descripcion" class="col-md-2 control-label text-info">
-                Descripción
-            </label>
-            <div class="col-md-8">
-                <g:textField name="descripcion" maxlength="63" required="" class="form-control required" value="${tipoPago?.descripcion}"/>
-            </div>
-        </span>
-    </div>
-
-    <div class="form-group ${hasErrors(bean: 'tipoPago', field: 'dias', 'error')}">
+<g:form class="form-horizontal" name="frmVer" role="form">
+    <div class="form-group">
         <span class="grupo">
             <label class="col-md-2 control-label text-info">
-                Días
+                Titulo
             </label>
-            <div class="col-md-3">
-                <g:textField name="dias" maxlength="2" required="" class="form-control required" value="${tipoPago?.dias}"/>
+            <div class="col-md-9">
+                ${producto?.titulo}
             </div>
         </span>
     </div>
 
-    <div class="form-group ${hasErrors(bean: 'tipoPago', field: 'tarifa', 'error')} required">
-        <span class="grupo">
-            <label for="tarifa" class="col-md-2 control-label text-info">
-                Tarifa
-            </label>
-            <div class="col-md-3">
-                <g:textField name="tarifa" required="" class="form-control required" value="${tipoPago?.tarifa}"/>
-            </div>
-        </span>
-    </div>
-
-    <div class="form-group ${hasErrors(bean: 'tipoPago', field: 'orden', 'error')}">
+    <div class="form-group">
         <span class="grupo">
             <label class="col-md-2 control-label text-info">
-                Orden
+                Fecha Inicio Publicación
             </label>
-            <div class="col-md-3">
-                <g:textField name="orden" required="" class="digits form-control required" value="${tipoPago?.orden}"/>
+            <div class="col-md-9">
+                ${anuncio?.fechaInicio?.format("dd-MM-yyyy")}
             </div>
         </span>
     </div>
 
-</div>
+    <div class="form-group">
+        <span class="grupo">
+            <label class="col-md-2 control-label text-info">
+                Fecha Fin Publicación
+            </label>
+            <div class="col-md-9">
+                ${anuncio?.fechaFin?.format("dd-MM-yyyy")}
+            </div>
+        </span>
+    </div>
+
+    <div class="form-group">
+        <span class="grupo">
+            <label class="col-md-2 control-label text-info">
+                Estado
+            </label>
+            <div class="col-md-9">
+                ${producto?.estado == 'A' ? 'ACTIVO' : (producto?.estado == 'R' ? 'REVISIÓN' : 'INACTIVO')}
+            </div>
+        </span>
+    </div>
+
+</g:form>
+
 
 
