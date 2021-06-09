@@ -93,7 +93,7 @@ class PrincipalController {
 
         anuncios.each {pb ->
             def ls = [tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.prodtitl,
-                      sb: pb.prodsbtl, t: pb.prodtxto, id: pb.prod__id,
+                      sb: pb.prodsbtl, t: pb.prodtxto, id: pb.anun__id,
                       gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)]
             if(pb.tppg__id != 5) {
                 destacados.add(ls)
@@ -176,11 +176,11 @@ class PrincipalController {
     }
 
     def getImgnCarrusel(){
-        println "getImgnCarrusel: $params"
+//        println "getImgnCarrusel: $params"
         def path = params.ruta
         def fileext = path.substring(path.indexOf(".")+1, path.length())
 
-        println "ruta: $path, fileext $fileext"
+//        println "ruta: $path, fileext $fileext"
 
         BufferedImage imagen = ImageIO.read(new File(path));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

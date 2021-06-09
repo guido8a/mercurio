@@ -330,8 +330,13 @@
                 <g:else>
                     <g:if test="${tipo == '4'}">
                         <a href="${createLink(controller: 'admin', action: 'index')}" class="btn btn-gris" >
-                            <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
+                            <i class="fa fa-arrow-left"></i> Regresar a la lista de Anuncios
                         </a>
+                        <g:if test="${anuncio?.tipoPago?.id != 5 && anuncio.estado == 'R'}">
+                            <a href="${createLink(controller: 'admin', action: 'enviaMail')}" class="btn btn-rojo" >
+                                <i class="fa fa-check"></i> Aprobar el Anuncio para Pago
+                            </a>
+                        </g:if>
                     </g:if>
                     <g:else>
                         <g:if test="${tipo == '5'}">
@@ -356,7 +361,7 @@
             </g:else>
         </g:if>
 
-        <g:if test="${publicaciones > 0}">
+        <g:if test="${anuncio.estado == 'A'}">
             <a href="#" class="btn buscar" id="btnContactar">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
@@ -576,7 +581,7 @@
         </g:else>
     </g:if>
 
-    <g:if test="${publicaciones > 0}">
+    <g:if test="${anuncio.estado == 'A'}">
         <a href="#" class="btn buscar" id="btnContactar">
             <i class="fa fa-phone"></i> Contactar con el vendedor
         </a>
@@ -850,12 +855,8 @@ $("#ingresar").click(function () {
         }
     }
 
-    %{--$("#btnAnterior").click(function () {--}%
-    %{--    location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}' + "&persona=" + '${persona?.id}'--}%
-    %{--});--}%
-
     $("#btnAnteriorLista").click(function () {
-        location.href = "${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+        location.href = "${createLink(controller: 'producto', action: 'list')}"
     });
 
     $(document).ready(function () {

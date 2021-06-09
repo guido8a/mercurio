@@ -40,10 +40,8 @@
            class="btn btn-rojo" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
     </div>
-    <a href="#" class="btn btn-gris btnReporte" title="reporte prueba"><i class="fa fa-print"></i> Reporte
-    </a>
-    <a href="#" class="btn btn-gris btnReporteExcel" title="reporte prueba"><i class="fa fa-print"></i> Reporte Excel
-    </a>
+%{--    <a href="#" class="btn btn-gris btnReporte" title="reporte prueba"><i class="fa fa-print"></i> Reporte</a>--}%
+%{--    <a href="#" class="btn btn-gris btnReporteExcel" title="reporte prueba"><i class="fa fa-print"></i> Reporte Excel</a>--}%
 </div>
 
 <table class="table table-condensed table-bordered">
@@ -312,7 +310,7 @@
     });
 
     function visualizar(id){
-        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
+        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&tipo=" + 2;
     };
 
     $(".btnEditar").click(function () {

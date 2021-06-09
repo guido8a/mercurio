@@ -416,7 +416,7 @@
                     <g:each in="${destacados}" var="prod" status="i">
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 marcoDestacados">
-                                <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [id: prod.id, tipo: 3])}">
+                                <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [anun: prod.id, tipo: 3])}">
                                     <img width="253px" height="auto" style="padding: 1px"
                                          src="${request.contextPath}/principal/getImgnProd?ruta=${prod.rt}&tp=${prod.tp}&id=${prod.p}"/>
                                 </a>
@@ -424,7 +424,7 @@
                                 <div class="card-body">
                                     <h4 class="titulo2">
                                         <a href="${createLink(controller: 'ver', action: 'carrusel',
-                                                params: [id: prod.id, tipo: 3])}">${prod.tt}</a>
+                                                params: [anun: prod.id, tipo: 3])}">${prod.tt}</a>
                                     </h4>
                                     <h5 class="titulo3">${prod.sb ?: 'Sin descripción'}</h5>
                                     <div class="normal">${prod.gf}</div>

@@ -103,7 +103,7 @@ th, td {
 
                 <td width="14%" class="centrado">
                     <a href="#" class="btn btn-xs btn-gris btn-sm btnRevisar" title="Revisar el anuncio"
-                       data-id="${dato?.prod__id}"><i class="fa fa-search"></i> </a>
+                       data-id="${dato?.prod__id}" data-anun="${dato?.anun__id}"><i class="fa fa-search"></i> </a>
 
                     <g:if test="${dato?.anunetdo == 'R'}">
                         <g:if test="${dato?.pago__id}">
@@ -151,8 +151,8 @@ th, td {
 
         $(".btnRevisar").click(function () {
             var id = $(this).data("id");
-            var persona = $(this).data("per");
-            location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + persona + "&tipo=" + 4;
+            var anun = $(this).data("anun");
+            location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&anun=" + anun + "&tipo=" + 4;
         });
 
         $(".btnAceptar").click(function () {
