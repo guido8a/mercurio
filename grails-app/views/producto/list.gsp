@@ -101,7 +101,7 @@
                 <td style="width: 5%; text-align: center; font-weight: bold;">
                     <a href="#" class="btn btn-xs btn-rojo btnInfo" title="Información del Anuncio"
                        data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
-                            class="fas fa-exclamation-triangle"></i></a></td>
+                            class="fas fa-info-circle"></i></a></td>
 
                 %{--                <td style="width: 8%; text-align: center">--}%
                 %{--                    <g:if test="${producto?.id}">--}%
@@ -538,7 +538,7 @@
                         var l1 = cargarLoader("Eliminando");
                         $.ajax({
                             type    : "POST",
-                            url     : '${createLink(action:'quitarAnuncio_ajax')}',
+                            %{--url     : '${createLink(action:'quitarAnuncio_ajax')}',--}%
                             data    : {
                                 id : itemId
                             },
@@ -634,54 +634,54 @@
             return false;
         });
 
-        $("tbody tr").contextMenu({
-            items  : {
-                header   : {
-                    label  : "Acciones",
-                    header : true
-                },
-                ver      : {
-                    label  : "Ver",
-                    icon   : "fa fa-search",
-                    action : function ($element) {
-                        var id = $element.data("id");
-                        location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;
-                    }
-                },
-                editar   : {
-                    label  : "Editar",
-                    icon   : "fa fa-edit",
-                    action : function ($element) {
-                        var id = $element.data("id");
-                        location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
-                    }
-                },
-                imas : {
-                    label            : "Imágenes",
-                    icon             : "fa fa-image",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        cargarImagenes(id)
-                    }
-                },
-                eliminar : {
-                    label            : "Eliminar",
-                    icon             : "fa fa-trash",
-                    separator_before : true,
-                    action           : function ($element) {
-                        var id = $element.data("id");
-                        deleteRow(id);
-                    }
-                }
-            },
-            onShow : function ($element) {
-                $element.addClass("trHighlight");
-            },
-            onHide : function ($element) {
-                $(".trHighlight").removeClass("trHighlight");
-            }
-        });
+        %{--$("tbody tr").contextMenu({--}%
+        %{--    items  : {--}%
+        %{--        header   : {--}%
+        %{--            label  : "Acciones",--}%
+        %{--            header : true--}%
+        %{--        },--}%
+        %{--        ver      : {--}%
+        %{--            label  : "Ver",--}%
+        %{--            icon   : "fa fa-search",--}%
+        %{--            action : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&persona=" + '${persona?.id}' + "&tipo=" + 2;--}%
+        %{--            }--}%
+        %{--        },--}%
+        %{--        editar   : {--}%
+        %{--            label  : "Editar",--}%
+        %{--            icon   : "fa fa-edit",--}%
+        %{--            action : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'--}%
+        %{--            }--}%
+        %{--        },--}%
+        %{--        imas : {--}%
+        %{--            label            : "Imágenes",--}%
+        %{--            icon             : "fa fa-image",--}%
+        %{--            separator_before : true,--}%
+        %{--            action           : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                cargarImagenes(id)--}%
+        %{--            }--}%
+        %{--        },--}%
+        %{--        eliminar : {--}%
+        %{--            label            : "Eliminar",--}%
+        %{--            icon             : "fa fa-trash",--}%
+        %{--            separator_before : true,--}%
+        %{--            action           : function ($element) {--}%
+        %{--                var id = $element.data("id");--}%
+        %{--                deleteRow(id);--}%
+        %{--            }--}%
+        %{--        }--}%
+        %{--    },--}%
+        %{--    onShow : function ($element) {--}%
+        %{--        $element.addClass("trHighlight");--}%
+        %{--    },--}%
+        %{--    onHide : function ($element) {--}%
+        %{--        $(".trHighlight").removeClass("trHighlight");--}%
+        %{--    }--}%
+        %{--});--}%
 
 
         function createContextMenu(node) {
@@ -693,45 +693,46 @@
                     header : true
                 }
             };
-        //
-            var id = $tr.data("id");
-            var alerta = $tr.hasClass("tieneAlerta");
-        //
+        %{--//--}%
+        %{--    var id = $tr.data("id");--}%
+        %{--    var alerta = $tr.hasClass("tieneAlerta");--}%
+        %{--//--}%
             var editar = {
-                label           : 'Editar',
-                icon            : "fa fa-pen",
-                separator_after : true,
+                label           : 'Use los botones para ejecutar una acción sobre su producto!',
+                icon            : "fa fa-info",
+                // separator_after : true,
+                // separator_before : true,
                 action          : function (e) {
-                    var id = $tr.data("id");
-                    location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'
+                    // var id = $tr.data("id");
+                    %{--location.href="${createLink(controller: 'producto', action: 'wizardProducto')}?id=" + id + "&persona=" + '${persona?.id}'--}%
                 }
             };
 
-            var revisar = {
-                label           : 'Visualizar el anuncio',
-                icon            : "fa fa-image",
-                separator_after : true,
-                action          : function (e){
-                    var id = $tr.data("id");
-                    visualizar(id)
-                }
-            };
-        //
-            var eliminar = {
-                label            : 'Eliminar',
-                icon             : "fa fa-trash text-warning",
-                action           : function (e) {
-                    var id = $tr.data("id");
-                    deleteRow(id);
-                }
-            };
-        //
+        %{--    var revisar = {--}%
+        %{--        label           : 'Visualizar el anuncio',--}%
+        %{--        icon            : "fa fa-image",--}%
+        %{--        separator_after : true,--}%
+        %{--        action          : function (e){--}%
+        %{--            var id = $tr.data("id");--}%
+        %{--            visualizar(id)--}%
+        %{--        }--}%
+        %{--    };--}%
+        %{--//--}%
+        %{--    var eliminar = {--}%
+        %{--        label            : 'Eliminar',--}%
+        %{--        icon             : "fa fa-trash text-warning",--}%
+        %{--        action           : function (e) {--}%
+        %{--            var id = $tr.data("id");--}%
+        %{--            deleteRow(id);--}%
+        %{--        }--}%
+        %{--    };--}%
+        %{--//--}%
             items.editar = editar;
-            items.imas = revisar;
-        //
-            if (!alerta) {
-                items.eliminar = eliminar;
-            }
+        %{--    items.imas = revisar;--}%
+        %{--//--}%
+        %{--    if (!alerta) {--}%
+        %{--        items.eliminar = eliminar;--}%
+        %{--    }--}%
         //
             return items;
         }
