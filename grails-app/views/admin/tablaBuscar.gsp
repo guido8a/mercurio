@@ -43,6 +43,13 @@ th, td {
     text-align: center;
     font-weight: bold;
 }
+
+.activo {
+    background-color: #8bb474;
+    color: #444;
+}
+
+
 </style>
 
 <div class="" style="width: 99.7%;height: ${msg == '' ? 600 : 575}px; overflow-y: auto;float: right; margin-top: -20px">
@@ -60,13 +67,16 @@ th, td {
             <g:if test="${dato?.anunadmn == 'R'}">
                 <g:set var="clase" value="${clase + ' retrasado'}"/>
             </g:if>
+            <g:if test="${dato?.anunetdo == 'A'}">
+                <g:set var="clase" value="${clase + ' activo'}"/>
+            </g:if>
             <g:if test="${!dato?.anun__id}">
                 <g:set var="clase" value="${clase + ' sinAnuncio'}"/>
             </g:if>
 
             <tr id="${dato.prsn__id}" data-id="${dato.anun__id}" data-prod="${dato.prod__id}"
                 class="${clase}">
-                <td width="18%">
+                <td width="15%">
                     ${dato?.prsnnmbr}
                 </td>
 
@@ -74,8 +84,20 @@ th, td {
                     ${dato?.prodtitl}
                 </td>
 
-                <td width="18%">
-                    ${dato?.tppgdscr}
+                <td width="21%">
+                    <g:if test="${dato.tppg__id == 5}">
+                        ${dato?.tppgdscr}
+                    </g:if>
+                    <g:else>
+
+                            ${dato?.tppgdscr}
+                        <span style="float: right">
+                            <g:if test="${dato?.anunetdo == 'A'}">
+                                <a href="#" class="btn btn-xs btn-rojo btn-sm btnRevisarPago" title="Revisar el pago"
+                                   data-id="${dato?.prod__id}" data-anun="${dato?.anun__id}"><i class="fab fa-product-hunt"></i> </a>
+                            </g:if>
+                        </span>
+                    </g:else>
                 </td>
                 <td width="8%">
                     ${dato.prodfcmd?.format("dd-MMM-yyyy")}

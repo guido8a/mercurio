@@ -365,6 +365,7 @@ como máximo 30
 
 
     function aceptarAnuncio(id) {
+        var l1 = cargarLoader("Procesando...");
         bootbox.dialog({
             title   : "Aceptar producto",
             message : "<i class='fa fa-check fa-3x pull-left text-warning text-shadow'></i>" +
@@ -388,6 +389,7 @@ como máximo 30
                                 id: id
                             },
                             success: function (msg){
+                                l1.modal("hide");
                                 if(msg == 'ok'){
                                     bootbox.dialog({
                                         title   : "Confirmación",
@@ -432,6 +434,7 @@ como máximo 30
                     label     : "<i class='fa fa-check'></i> Aceptar",
                     className : "btn-rojo",
                     callback  : function () {
+                        var l2 = cargarLoader("Procesando...");
                         $.ajax({
                             type    : "POST",
                             url     : "${createLink(controller: 'anuncio', action:'negarAnuncio_ajax')}",
@@ -439,6 +442,7 @@ como máximo 30
                                 id:id
                             },
                             success : function (msg) {
+                                l2.modal("hide")
                                 if(msg == 'ok'){
                                     log("Producto negado correctamente","success");
                                     setTimeout(function () {
@@ -481,7 +485,7 @@ como máximo 30
                             },
                             success : function (msg) {
                                 l1.modal("hide");
-                                console.log('msg', msg)
+                                // console.log('msg', msg)
                                 if (msg == "ok") {
                                     log("Anuncio eliminado correctamente","success");
                                     setTimeout(function () {
