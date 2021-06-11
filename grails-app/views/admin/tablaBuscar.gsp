@@ -89,7 +89,6 @@ th, td {
                         ${dato?.tppgdscr}
                     </g:if>
                     <g:else>
-
                             ${dato?.tppgdscr}
                         <span style="float: right">
                             <g:if test="${dato?.anunetdo == 'A'}">
@@ -154,6 +153,35 @@ th, td {
 
 
 <script type="text/javascript">
+
+    $(".btnRevisarPago").click(function () {
+        var id = $(this).data("anun");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'anuncio', action:'revisarPago_ajax')}",
+            data    : {
+                id: id
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    id      : "dlgRevisaPago",
+                    title   : "Ver comprobante de Pago",
+                    message : msg,
+                    // class : "modal-lg",
+                    buttons : {
+                        cancelar : {
+                            label     : "Cancelar",
+                            className : "btn-primary",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    });
+
+
     $(function () {
         $("tr").contextMenu({
             items  : createContextMenu,

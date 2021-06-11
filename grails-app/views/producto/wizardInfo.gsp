@@ -101,7 +101,7 @@
                 <div class="col-md-10">
                     <div class="col-md-12" style="margin-bottom: 10px">
                         <h3> Ingrese la información de su producto '${producto.titulo}'</h3>
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')} hidden">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
                                     Anuncio (Título)
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')} hidden">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
                                     Descripción resumida

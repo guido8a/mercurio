@@ -151,7 +151,7 @@
                                 Publicar desde
                             </label>
                             <div class="col-md-2 text-info">
-                                <input name="fechaInicio" id='fechaInicio' type='text' required="" class="form-control required datepicker"
+                                <input name="fechaInicio" id='fechaInicio' type='text' ${producto.estado == 'T' ? 'disabled=""' : ''} required="" class="form-control required datepicker"
                                        value="${new Date().format('dd-MM-yyyy')}"/>
                             </div>
 
@@ -172,7 +172,7 @@
 %{--                                          class="form-control per required" optionValue="descripcion" optionKey="id"--}%
 %{--                                          dataAttrs="[dias: it.dias]"--}%
 %{--                                          style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt"/>--}%
-                                <select id="tipopago" class="form-control per required" style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt">
+                                <select id="tipopago" ${producto.estado == 'T' ? 'disabled=""' : ''} class="form-control per required" style="color: #4F1B00; border-bottom-style: solid; border-color: #AF5B00; font-size: 12pt">
                                     <g:each in="${ventas.TipoPago.list([sort: 'orden'])}" var="tp">
                                         <option value="${tp.id}" data-dias="${tp.dias}">${tp.descripcion} ${tp.tarifa? '- precio: $' + tp.tarifa:''}</option>
                                     </g:each>
@@ -345,10 +345,10 @@
         var a = cargarLoader("Procesando...");
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'producto', action: 'crearAnuncio_ajax')}',
+            %{--url: '${createLink(controller: 'producto', action: 'crearAnuncio_ajax')}',--}%
             data:{
                 id: $("#id").val(),
-                tipo: '${tipo}'
+                %{--tipo: '${tipo}'--}%
             },
             success: function (msg) {
                 a.modal("hide");
@@ -364,7 +364,7 @@
                                 label     : "<i class='fa fa-check'></i> Aceptar",
                                 className : "btn-gris",
                                 callback  : function () {
-                                    location.href="${createLink(controller: 'producto', action: 'list')}"
+                                    %{--location.href="${createLink(controller: 'producto', action: 'list')}"--}%
                                 }
                             }
                         }
@@ -426,11 +426,11 @@
         var a = cargarLoader("Procesando...");
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'producto', action: 'reemplazar_ajax')}',
+            %{--url: '${createLink(controller: 'producto', action: 'reemplazar_ajax')}',--}%
             data:{
                 id: $("#id").val(),
                 persona: $("#persona").val(),
-                tipo: '${tipo}'
+                %{--tipo: '${tipo}'--}%
             },
             success: function (msg) {
                 a.modal("hide");
@@ -446,7 +446,7 @@
                                 label     : "<i class='fa fa-check'></i> Aceptar",
                                 className : "btn-gris",
                                 callback  : function () {
-                                    location.href="${createLink(controller: 'producto', action: 'list')}"
+                                    %{--location.href="${createLink(controller: 'producto', action: 'list')}"--}%
                                 }
                             }
                         }
