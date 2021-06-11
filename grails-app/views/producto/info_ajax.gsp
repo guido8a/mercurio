@@ -23,7 +23,7 @@
                 Fecha Inicio Publicación
             </label>
             <div class="col-md-9">
-                ${anuncio?.fechaInicio?.format("dd-MM-yyyy")}
+                ${res?.anunfcin?.format("dd-MM-yyyy")}
             </div>
         </span>
     </div>
@@ -34,7 +34,7 @@
                 Fecha Fin Publicación
             </label>
             <div class="col-md-9">
-                ${anuncio?.fechaFin?.format("dd-MM-yyyy")}
+                ${res?.anunfcfn?.format("dd-MM-yyyy")}
             </div>
         </span>
     </div>
@@ -45,7 +45,7 @@
                 Estado
             </label>
             <div class="col-md-9">
-                ${producto?.estado == 'A' ? 'ACTIVO' : (producto?.estado == 'R' ? 'REVISIÓN' : 'INACTIVO')}
+                ${res?.anunetdo == 'A' ? 'ACTIVO' : (res?.anunetdo == 'R' ? 'REVISIÓN' : 'INACTIVO')}
             </div>
         </span>
     </div>

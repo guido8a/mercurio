@@ -40,8 +40,8 @@
            class="btn btn-rojo" title="Crear un nuevo Anuncio"><i class="fa fa-file"></i> Nuevo Anuncio
         </a>
     </div>
-%{--    <a href="#" class="btn btn-gris btnReporte" title="reporte prueba"><i class="fa fa-print"></i> Reporte</a>--}%
-%{--    <a href="#" class="btn btn-gris btnReporteExcel" title="reporte prueba"><i class="fa fa-print"></i> Reporte Excel</a>--}%
+    %{--    <a href="#" class="btn btn-gris btnReporte" title="reporte prueba"><i class="fa fa-print"></i> Reporte</a>--}%
+    %{--    <a href="#" class="btn btn-gris btnReporteExcel" title="reporte prueba"><i class="fa fa-print"></i> Reporte Excel</a>--}%
 </div>
 
 <table class="table table-condensed table-bordered">
@@ -51,12 +51,13 @@
         <th style="width: 15%">Categoria</th>
         <th style="width: 15%">Subcategoria</th>
         <th style="width: 10%">Estado</th>
-%{--        <th style="width: 8%">Fecha inicio</th>--}%
-%{--        <th style="width: 8%">Fecha fin</th>--}%
+        <th style="width: 5%">Info.</th>
+        %{--        <th style="width: 8%">Fecha inicio</th>--}%
+        %{--        <th style="width: 8%">Fecha fin</th>--}%
         <th style="width: 15%">Acciones</th>
         <th style="width: 12%">Publicar</th>
-        <th style="width: 5%">Info.</th>
-%{--        <th style="width: 8%">Pagos</th>--}%
+
+        %{--        <th style="width: 8%">Pagos</th>--}%
     </tr>
     </thead>
 </table>
@@ -69,13 +70,17 @@
                 <td style="width: 28%">${pd.prodtitl}</td>
                 <td style="width: 15%">${pd.ctgrdscr}</td>
                 <td style="width: 15%">${pd.sbctdscr}</td>
-                <td style="width: 10%">${pd.anunetdo == 'R' ? 'Revisión' : (pd.anunetdo == 'A' ? 'Publicándose' : 'Inactivo')}</td>
-%{--                <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>--}%
-%{--                <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>--}%
+                <td style="width: 10%; text-align: center; font-weight: bold; background-color:${pd.anunetdo == 'R' ? '#afafaf' : (pd.anunetdo == 'A' ? '#EEB51F' : '')}">${pd.anunetdo == 'R' ? 'Revisión' : (pd.anunetdo == 'A' ? 'Publicándose' : 'Inactivo')}</td>
+                %{--                <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>--}%
+                %{--                <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>--}%
+                <td style="width: 5%; text-align: center; font-weight: bold;">
+                    <a href="#" class="btn btn-xs btn-rojo btnInfo" title="Información del Anuncio"
+                       data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
+                            class="fas fa-info-circle"></i></a></td>
                 <td style="width: 15%; text-align: center">
                     <g:if test="${pd?.prodimag > 0}">
-                    <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
-                       data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
+                        <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
+                           data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
                     </g:if>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar anuncio"
                        data-id="${pd?.prod__id}" data-est="${pd?.prodetdo}"><i class="fa fa-edit"></i></a>
@@ -91,20 +96,17 @@
                     </g:if>
                 </td>
                 <td style="width: 12%; text-align: center">
-                        <g:if test="${pd?.anunetdo == 'R'}">
-                            <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar anuncio"
-                               data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}">
-                                <i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
-                        </g:if>
-                        <g:if test="${pd?.anunetdo == 'A' && pd?.anunnuvo == 'N'}">
-                            <a href="#" class="btn btn-xs btn-gris btnRePublicar" title="Volver a Publicar anuncio"
-                               data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}"><i class="fa fa-sync"></i> Volver a Publicar</a>
-                        </g:if>
+                    <g:if test="${pd?.anunetdo == 'R'}">
+                        <a href="#" class="btn btn-xs btn-rojo btnPublicar" title="Publicar anuncio"
+                           data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}">
+                            <i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
+                    </g:if>
+                    <g:if test="${pd?.anunetdo == 'A' && pd?.anunnuvo == 'N'}">
+                        <a href="#" class="btn btn-xs btn-gris btnRePublicar" title="Programar siguiente publicación"
+                           data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}"><i class="fa fa-sync"></i> Reprogramar</a>
+                    </g:if>
                 </td>
-                <td style="width: 5%; text-align: center; font-weight: bold;">
-                    <a href="#" class="btn btn-xs btn-rojo btnInfo" title="Información del Anuncio"
-                       data-id="${pd?.prod__id}" data-titulo="${pd?.prodtitl}"><i
-                            class="fas fa-info-circle"></i></a></td>
+
 
                 %{--                <td style="width: 8%; text-align: center">--}%
                 %{--                    <g:if test="${producto?.id}">--}%
@@ -127,7 +129,8 @@
             type    : "POST",
             url     : "${createLink(controller: 'producto', action:'info_ajax')}",
             data    : {
-                    id: id
+                id: id,
+                persona: '${persona?.id}'
             },
             success : function (msg) {
                 var b = bootbox.dialog({
@@ -193,32 +196,32 @@
         });
     }
 
-/*
-    $(".btnPublicar").click(function () {
-        var id = $(this).data("id");
-        bootbox.dialog({
-            title   : "Alerta",
-            message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow caja50'></i> " +
-                "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +
-                "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprobación</p>",
-            buttons : {
-                cancelar : {
-                    label     : "<i class='fa fa-times'></i> Cancelar",
-                    className : "btn-gris",
-                    callback  : function () {
-                    }
-                },
-                publicar : {
-                    label     : "<i class='fa fa-check'></i> Publicar",
-                    className : "btn-rojo",
-                    callback  : function () {
-                        publicarGratis(id);
+    /*
+        $(".btnPublicar").click(function () {
+            var id = $(this).data("id");
+            bootbox.dialog({
+                title   : "Alerta",
+                message : "<i class='fa fa-clipboard-check fa-3x pull-left text-warning text-shadow caja50'></i> " +
+                    "<p style='font-size: 14px; font-weight: bold'>&nbsp; * El producto será publicado con la " +
+                    "información guardada hasta el momento.</p><p style='font-size: 14px'>&nbsp; * El producto será publicado durante el período de <strong>una semana</strong> a partir de su aprobación</p>",
+                buttons : {
+                    cancelar : {
+                        label     : "<i class='fa fa-times'></i> Cancelar",
+                        className : "btn-gris",
+                        callback  : function () {
+                        }
+                    },
+                    publicar : {
+                        label     : "<i class='fa fa-check'></i> Publicar",
+                        className : "btn-rojo",
+                        callback  : function () {
+                            publicarGratis(id);
+                        }
                     }
                 }
-            }
+            });
         });
-    });
-*/
+    */
 
     $(".btnPublicar").click(function () {
         var id = $(this).data("id");
@@ -243,17 +246,17 @@
                             callback  : function () {
                             }
                         }
-/*
-                        ,
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-rojo",
-                            callback  : function () {
-                                return submitForm();
-                            } //callback
-                        } //guardar
-*/
+                        /*
+                                                ,
+                                                guardar  : {
+                                                    id        : "btnSave",
+                                                    label     : "<i class='fa fa-save'></i> Guardar",
+                                                    className : "btn-rojo",
+                                                    callback  : function () {
+                                                        return submitForm();
+                                                    } //callback
+                                                } //guardar
+                        */
                     } //buttons
                 }); //dialog
                 setTimeout(function () {
@@ -286,17 +289,17 @@
                             callback  : function () {
                             }
                         }
-/*
-                        ,
-                        guardar  : {
-                            id        : "btnSave",
-                            label     : "<i class='fa fa-save'></i> Guardar",
-                            className : "btn-rojo",
-                            callback  : function () {
-                                return submitForm();
-                            } //callback
-                        } //guardar
-*/
+                        /*
+                                                ,
+                                                guardar  : {
+                                                    id        : "btnSave",
+                                                    label     : "<i class='fa fa-save'></i> Guardar",
+                                                    className : "btn-rojo",
+                                                    callback  : function () {
+                                                        return submitForm();
+                                                    } //callback
+                                                } //guardar
+                        */
                     } //buttons
                 }); //dialog
                 setTimeout(function () {
@@ -520,28 +523,28 @@
         });
     }
 
-/*
-    function rePublicar(itemId, prod) {
-        bootbox.dialog({
-            title   : 'Volver a Publicar: "' + prod + '"',
-            message : "<i class='fas fa-eye pull-left text-danger text-shadow caja50'></i>" +
-                "<p class='aviso'>¿Está seguro que desea dejar de publicar: <strong>" + prod + "</strong>?<br>" +
-                "<strong>Esta acción no se puede deshacer</strong>.</p>",
-            buttons : {
-                cancelar : {
-                    label     : "Cancelar",
-                    className : "btn-primary",
-                    callback  : function () {
-                    }
-                },
-                eliminar : {
-                    label     : "<i class='fa fa-check'></i> Publicar",
-                    className : "btn-danger",
-                    callback  : function () {
-                        var l1 = cargarLoader("Eliminando");
-                        $.ajax({
-                            type    : "POST",
-                            %{--url     : '${createLink(action:'quitarAnuncio_ajax')}',--}%
+    /*
+        function rePublicar(itemId, prod) {
+            bootbox.dialog({
+                title   : 'Volver a Publicar: "' + prod + '"',
+                message : "<i class='fas fa-eye pull-left text-danger text-shadow caja50'></i>" +
+                    "<p class='aviso'>¿Está seguro que desea dejar de publicar: <strong>" + prod + "</strong>?<br>" +
+                    "<strong>Esta acción no se puede deshacer</strong>.</p>",
+                buttons : {
+                    cancelar : {
+                        label     : "Cancelar",
+                        className : "btn-primary",
+                        callback  : function () {
+                        }
+                    },
+                    eliminar : {
+                        label     : "<i class='fa fa-check'></i> Publicar",
+                        className : "btn-danger",
+                        callback  : function () {
+                            var l1 = cargarLoader("Eliminando");
+                            $.ajax({
+                                type    : "POST",
+%{--url     : '${createLink(action:'quitarAnuncio_ajax')}',--}%
                             data    : {
                                 id : itemId
                             },
@@ -689,17 +692,17 @@
 
         function createContextMenu(node) {
             var $tr = $(node);
-        //
+            //
             var items = {
                 header : {
                     label  : "Acciones",
                     header : true
                 }
             };
-        %{--//--}%
-        %{--    var id = $tr.data("id");--}%
-        %{--    var alerta = $tr.hasClass("tieneAlerta");--}%
-        %{--//--}%
+            %{--//--}%
+            %{--    var id = $tr.data("id");--}%
+            %{--    var alerta = $tr.hasClass("tieneAlerta");--}%
+            %{--//--}%
             var editar = {
                 label           : 'Use los botones para ejecutar una acción sobre su producto!',
                 icon            : "fa fa-info",
@@ -711,32 +714,32 @@
                 }
             };
 
-        %{--    var revisar = {--}%
-        %{--        label           : 'Visualizar el anuncio',--}%
-        %{--        icon            : "fa fa-image",--}%
-        %{--        separator_after : true,--}%
-        %{--        action          : function (e){--}%
-        %{--            var id = $tr.data("id");--}%
-        %{--            visualizar(id)--}%
-        %{--        }--}%
-        %{--    };--}%
-        %{--//--}%
-        %{--    var eliminar = {--}%
-        %{--        label            : 'Eliminar',--}%
-        %{--        icon             : "fa fa-trash text-warning",--}%
-        %{--        action           : function (e) {--}%
-        %{--            var id = $tr.data("id");--}%
-        %{--            deleteRow(id);--}%
-        %{--        }--}%
-        %{--    };--}%
-        %{--//--}%
+            %{--    var revisar = {--}%
+            %{--        label           : 'Visualizar el anuncio',--}%
+            %{--        icon            : "fa fa-image",--}%
+            %{--        separator_after : true,--}%
+            %{--        action          : function (e){--}%
+            %{--            var id = $tr.data("id");--}%
+            %{--            visualizar(id)--}%
+            %{--        }--}%
+            %{--    };--}%
+            %{--//--}%
+            %{--    var eliminar = {--}%
+            %{--        label            : 'Eliminar',--}%
+            %{--        icon             : "fa fa-trash text-warning",--}%
+            %{--        action           : function (e) {--}%
+            %{--            var id = $tr.data("id");--}%
+            %{--            deleteRow(id);--}%
+            %{--        }--}%
+            %{--    };--}%
+            %{--//--}%
             items.editar = editar;
-        %{--    items.imas = revisar;--}%
-        %{--//--}%
-        %{--    if (!alerta) {--}%
-        %{--        items.eliminar = eliminar;--}%
-        %{--    }--}%
-        //
+            %{--    items.imas = revisar;--}%
+            %{--//--}%
+            %{--    if (!alerta) {--}%
+            %{--        items.eliminar = eliminar;--}%
+            %{--    }--}%
+            //
             return items;
         }
         //

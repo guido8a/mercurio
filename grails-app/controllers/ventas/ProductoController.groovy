@@ -1108,9 +1108,16 @@ class ProductoController {
     }
 
     def info_ajax(){
+
+        println("params " + params)
         def producto = Producto.get(params.id)
-        def anuncio = Anuncio.findByProducto(producto)
-        return[anuncio:anuncio, producto: producto]
+        def persona = Persona.get(params.persona)
+
+        def cn = dbConnectionService.getConnection()
+        def sql = "select * from anuncio(${persona?.id}) where prod__id = ${producto?.id}"
+        def res = cn.rows(sql.toString())
+
+        return[producto: producto, res: res[0]]
     }
 
 }
