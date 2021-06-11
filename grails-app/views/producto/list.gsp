@@ -47,11 +47,12 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 22%">Anuncio</th>
+        <th style="width: 28%">Anuncio</th>
         <th style="width: 15%">Categoria</th>
         <th style="width: 15%">Subcategoria</th>
-        <th style="width: 8%">Fecha inicio</th>
-        <th style="width: 8%">Fecha fin</th>
+        <th style="width: 10%">Estado</th>
+%{--        <th style="width: 8%">Fecha inicio</th>--}%
+%{--        <th style="width: 8%">Fecha fin</th>--}%
         <th style="width: 15%">Acciones</th>
         <th style="width: 12%">Publicar</th>
         <th style="width: 5%">Info.</th>
@@ -65,11 +66,12 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="pd">
             <tr data-id="${pd.prod__id}" style="width: 100%" title="${pd.etdo}">
-                <td style="width: 22%">${pd.prodtitl}</td>
+                <td style="width: 28%">${pd.prodtitl}</td>
                 <td style="width: 15%">${pd.ctgrdscr}</td>
                 <td style="width: 15%">${pd.sbctdscr}</td>
-                <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>
-                <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>
+                <td style="width: 10%">${pd.anunetdo == 'R' ? 'Revisión' : (pd.anunetdo == 'A' ? 'Publicándose' : 'Inactivo')}</td>
+%{--                <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>--}%
+%{--                <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>--}%
                 <td style="width: 15%; text-align: center">
                     <g:if test="${pd?.prodimag > 0}">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
@@ -95,8 +97,8 @@
                                 <i class="fab fa-product-hunt"></i> Publicar/Pagar</a>
                         </g:if>
                         <g:if test="${pd?.anunetdo == 'A' && pd?.anunnuvo == 'N'}">
-                            <a href="#" class="btn btn-xs btn-rojo btnRePublicar" title="Volver a Publicar anuncio"
-                               data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}"><i class="fab fa-product-hunt"></i> Volver a Publicar</a>
+                            <a href="#" class="btn btn-xs btn-gris btnRePublicar" title="Volver a Publicar anuncio"
+                               data-id="${pd?.prod__id}" data-anun="${pd?.anun__id}"><i class="fa fa-sync"></i> Volver a Publicar</a>
                         </g:if>
                 </td>
                 <td style="width: 5%; text-align: center; font-weight: bold;">
@@ -436,7 +438,7 @@
         bootbox.dialog({
             title   : 'Eliminar el Anunicio: "' + prod + '"',
             message : "<i class='fa fa-trash fa-3x pull-left text-danger text-shadow caja50'></i>" +
-                "<p class='aviso'>¿Está seguro que desea eliminar: <strong>" + prod + "</strong>?<br>" +
+                "<p class='aviso'>¿Está seguro que desea eliminar: <strong>" + (prod ? prod : 'este producto ') + "</strong>?<br>" +
                 "Se eliminarán todos los datos del este anuncio incluyendo todas las imágenes.<br>" +
                 "<strong>Esta acción no se puede deshacer</strong>.</p>",
             buttons : {

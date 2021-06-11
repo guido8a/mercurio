@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <div class="card" style="width: 100%; height: 330px">
+    <div class="card" style="width: 100%; height: 230px">
         <div class="card-body">
 
             <div style="margin-top: 10px">
