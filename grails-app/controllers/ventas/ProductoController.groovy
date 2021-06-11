@@ -84,13 +84,22 @@ class ProductoController {
             producto = new Producto()
             producto.persona = persona
             producto.padre = null
-            params.estado = 'I'
+            params.estado = (params.padre? 'T':'I')
             params.fecha = new Date()
             params.latitud = 0
             params.longitud = 0
+            println "padre--> ${params.padre}"
         }
 
         producto.properties = params
+//        if(producto.padre && !params.id){
+//            Imagen.findAllByProducto(producto.padre).each {im ->
+//                def imagen = new Imagen()
+//                imagen.producto = producto
+//                imagen.estado = estado
+//                imagen.ruta =
+//            }
+//        }
 
         if(!producto.save(flush:true)){
             println("error al guardar el producto " + producto.errors)
@@ -474,6 +483,7 @@ class ProductoController {
                     padre = Producto.get(params.id)
                     producto.padre = padre
                     producto.persona = persona
+                    producto.subcategoria = padre.subcategoria
                     producto.estado = 'I'
                     producto.fecha = new Date()
                     producto.latitud = 0
@@ -600,6 +610,14 @@ class ProductoController {
         producto.save(flush:true)
     }
 
+    def borrar_temporal(){
+        if(params.id) {
+           borrar_producto(params.id)
+        }
+
+        redirect(action: 'list')
+    }
+
     /* si hay anuncios en proceso de aprobación o revisión se los da de baja */
     def delete_ajax(){
         def producto = Producto.get(params.id)
@@ -611,41 +629,35 @@ class ProductoController {
                 a.estado = 'B'
                 a.save(flush: true)
             }
-        } else {
-
-            def atributos = Valores.findAllByProducto(producto)
-            def imagenes = Imagen.findAllByProducto(producto)
-
-            if(atributos){
-                atributos.each {a->
-                    a.delete(flush:true)
-                }
-            }
-
-            if(imagenes){
-
-                imagenes.each {i->
-                    i.delete(flush:true)
-                }
-
-                def path = "/var/ventas/productos/pro_" + producto.id + "/"
-
-                def imag = new File(path)
-                imag?.eachFileRecurse(FileType.FILES) { file ->
-                    file.delete()
-                }
-                println "imagen a borrar: $path --> $imag"
-                imag.delete()
-            }
-
-            try{
-                producto.delete(flush:true)
-                render "ok"
-            }catch(e){
-                println("error al borrar el producto " + producto.errors)
-                render "no"
-            }
         }
+        try{
+            borrar_producto(producto.id)
+            render "ok"
+        }catch(e){
+             println("error al borrar el producto " + producto.errors)
+             render "no"
+        }
+    }
+
+    def borrar_producto(id){
+        def cn = dbConnectionService.getConnection()
+        def sql = "select imagruta from imag where prod__id = ${id}"
+        def imagenes = cn.rows(sql.toString())
+        if(imagenes){
+            def path = "/var/ventas/productos/pro_" + producto.id + "/"
+            def imag = new File(path)
+            imag?.eachFileRecurse(FileType.FILES) { file ->
+                file.delete()
+            }
+            imag.delete()
+            cn.execute("delete from imag where prod__id = $id")
+        }
+
+        sql = "delete from atvl where prod__id = ${id}"
+        cn.execute(sql.toString())
+
+        sql = "delete from prod where prod__id = ${id}"
+        cn.execute(sql.toString())
     }
 
     /* Se pone publfcfn = now() para dejar de publicar */
@@ -662,7 +674,6 @@ class ProductoController {
             if(data) {
                 flash.message = "Se han actualizado ${data} anuncios"
 
-
                 def mail = producto.persona.mailContacto
                 def errores = ''
 
@@ -670,7 +681,8 @@ class ProductoController {
                     mailService.sendMail {
                         to mail
                         subject "Confirmación de cancelación del anuncio del producto: ${producto?.titulo}"
-                        body "Este mail de confirmación es para comunicarle que su producto: ${producto?.titulo} , ha sido dado de baja en su publicación" +
+                        body "Este mail de confirmación es para comunicarle que su producto: ${producto?.titulo} ," +
+                                " ha sido dado de baja en su publicación." +
                                 "\n Si possee alguna duda comuniquese con el administrador del sistema "
                     }
                 }catch (e){
@@ -712,75 +724,115 @@ class ProductoController {
         return [producto:producto]
     }
 
+    /*
+    * Se debe inhabilitar el producto anterior y cambiar el estado a 'R' del actual.
+    * Si hay anuncio pagado se debe apsar el apgo a este anuncio y fijar las echa por el resto de la publicación
+    */
     def guardarContacto_ajax(){
         println "guardarContacto_ajax: $params"
         def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
-        def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
-        def anuncio
-        def tppg = TipoPago.get(params.pago.toInteger())
-        def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fecha + " 00:00:00")
-        def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
-
-        println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
 
         persona.mailContacto = params.mail
         persona.contacto = params.contacto
         persona.telefonoContacto = params.telefono
 
-        if (!persona.save(flush: true)) {
-            println("error al guardar la información de contacto " + persona.errors)
-            render "no"
+        if(producto.estado == 'T') {
+            def mnsj = inhabilitaAnterior(producto)
+            println "mnsj: $mnsj"
+            render mnsj
         } else {
-            anuncios.each { a ->
-                if (a.estado == 'E') {
-                    println "Anuncio en Espera..."
-                    anuncio = a
-                } else {
-                    if (anuncio && (a.estado == 'B')) {
-                        println "Anuncio extra dado de baja"
-                        a.delete(flush: true)
-                    } else if (a.estado == 'B') {
-                        println "Anuncio como dado de baja --> R"
+            def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
+            def anuncio
+            def tppg = TipoPago.get(params.pago.toInteger())
+            def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fecha + " 00:00:00")
+            def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+            println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+            if (!persona.save(flush: true)) {
+                println("error al guardar la información de contacto " + persona.errors)
+                render "no"
+            } else {
+                anuncios.each { a ->
+                    if (a.estado == 'E') {
+                        println "Anuncio en Espera..."
                         anuncio = a
+                    } else {
+                        if (anuncio && (a.estado == 'B')) {
+                            println "Anuncio extra dado de baja"
+                            a.delete(flush: true)
+                        } else if (a.estado == 'B') {
+                            println "Anuncio como dado de baja --> R"
+                            anuncio = a
+                        }
                     }
+                }
+
+                println "pago: -- ${params.pago.class} ${params.pago}"
+                if (anuncio) {
+                    anuncio.fechaModificacion = new Date()
+                } else {
+                    anuncio = new Anuncio()
+                    anuncio.producto = producto
+                    anuncio.fecha = new Date()
+                }
+
+                anuncio.estado = 'R'
+                anuncio.fechaInicio = fchaInicio
+                anuncio.fechaFin = fchaFin
+                anuncio.tipoPago = tppg
+//            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
+
+                if (!anuncio.save(flush: true)) {
+                    println("error al crear el anuncio " + anuncio.errors)
+                    render "no_Error al publicar el producto"
+                } else {
+                    producto.estado = 'R'
+                    producto.fechaModificacion = new Date()
+                    producto.save(flush: true)
+                    render "ok"
                 }
             }
 
-            println "pago: -- ${params.pago.class} ${params.pago}"
-            if (anuncio) {
-                anuncio.fechaModificacion = new Date()
-            } else {
-                anuncio = new Anuncio()
-                anuncio.producto = producto
-                anuncio.fecha = new Date()
-            }
-
-            anuncio.estado = 'R'
-            anuncio.fechaInicio = fchaInicio
-            anuncio.fechaFin = fchaFin
-            anuncio.tipoPago = tppg
-//            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
-
-            if (!anuncio.save(flush: true)) {
-                println("error al crear el anuncio " + anuncio.errors)
-                render "no_Error al publicar el producto"
-            } else {
-                producto.estado = 'R'
-                producto.fechaModificacion = new Date()
-                producto.save(flush: true)
-                render "ok"
-            }
         }
     }
 
+    def inhabilitaAnterior(prod) {
+        println "inhabilitaAnterior: $prod"
 
-/*
-    def publicar_ajax(){
-        def producto = Producto.get(params.id)
-        return [producto:producto]
+        def anuncio = Anuncio.findByProductoAndEstadoInList(prod.padre, ['A'])
+        def nuevo
+//        def diff = anuncio.fechaFin - new Date().clearTime()
+
+        println "Anuncio: ${anuncio?.id}"
+
+        if (anuncio) {
+            anuncio.fechaModificacion = new Date()
+            anuncio.estado = 'B'
+            nuevo = new Anuncio()
+            nuevo.producto = prod
+            nuevo.fecha = new Date()
+            nuevo.estado = 'R'
+            nuevo.tipoPago = anuncio.tipoPago
+            nuevo.fechaInicio = new Date()
+            nuevo.fechaFin = anuncio.fechaFin
+            nuevo.observaciones = "Modificación del anuncio original: ${anuncio.id}"
+
+            if (!anuncio.save(flush: true)) {
+                println("error al crear el anuncio " + anuncio.errors)
+                return "no"
+            } else {
+                nuevo.save(flush: true)
+                prod.estado = 'R'
+                prod.padre.estado = 'B'
+                prod.padre.fechaModificacion = new Date()
+                prod.save(flush: true)
+                prod.padre.save(flush: true)
+                return "ok"
+            }
+        }
     }
-*/
 
     /*
     * Crea otro anuncio para este producto con nuevas fechas y tipo de pago

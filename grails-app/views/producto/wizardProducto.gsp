@@ -88,6 +88,32 @@
                     <h3> Título del anuncio y categoría para su producto</h3>
 
                     <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                            <span class="grupo">
+                                <label for="categoria" class="col-md-3 control-label text-info">
+                                    Categoría
+                                </label>
+                                <div class="col-md-6">
+                                    <g:select name="categoria" from="${ventas.Categoria.list([sort: 'orden'])}" class="form-control"
+                                              optionKey="id" optionValue="descripcion"
+                                              value="${producto?.subcategoria?.categoria?.id}"/>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 10px">
+                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
+                            <span class="grupo">
+                                <label class="col-md-3 control-label text-info">
+                                    Subcategoría
+                                </label>
+                                <div class="col-md-6" id="divSubcategoria">
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-bottom: 10px">
                         <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
                             <span class="grupo">
                                 <label class="col-md-3 control-label text-info">
@@ -115,32 +141,6 @@
                         </div>
                     </div>
 
-
-                    <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-                            <span class="grupo">
-                                <label for="categoria" class="col-md-3 control-label text-info">
-                                    Categoría
-                                </label>
-                                <div class="col-md-6">
-                                    <g:select name="categoria" from="${ventas.Categoria.list([sort: 'orden'])}" class="form-control"
-                                              optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.categoria?.id ? producto?.subcategoria?.categoria?.id : producto?.padre?.subcategoria?.categoria?.id}"/>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">
-                            <span class="grupo">
-                                <label class="col-md-3 control-label text-info">
-                                    Subcategoría
-                                </label>
-                                <div class="col-md-6" id="divSubcategoria">
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="col-md-12" style="margin-bottom: 10px">
@@ -161,7 +161,7 @@
 <script type="text/javascript">
 
     $(".btnRetornar").click(function () {
-        %{--if(${tipo == '1'}){--}%
+        if(${tipo == '1'}){
             bootbox.dialog({
                 title   : "Alerta",
                 message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
@@ -178,18 +178,18 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}"
+                            location.href="${createLink(controller: 'producto', action: 'borrar_temporal')}?id=${producto?.id}"
                         }
                     }
                 }
             });
-        %{--}else{--}%
-        %{--    if(${tipo == '3'}){--}%
-        %{--        submitFormProducto(3);--}%
-        %{--    }else{--}%
-        %{--        location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'--}%
-        %{--    }--}%
-        %{--}--}%
+        }else{
+            if(${tipo == '3'}){
+                submitFormProducto(3);
+            }else{
+                location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+            }
+        }
     });
 
     ProgressBar.init(['Categoría', 'Información', 'Localización', 'Atributos', 'Imágenes','Contacto'],
@@ -202,6 +202,7 @@
     function submitFormProducto(band) {
         var $form = $("#frmProducto");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
+        var pdre = "${producto.padre.id}";
         if ($form.valid()) {
             $btn.replaceWith(spinner);
             var l = cargarLoader("Grabando...");
@@ -213,7 +214,8 @@
                     persona: $("#persona").val(),
                     titulo: $("#titulo").val(),
                     subtitulo: $("#subtitulo").val(),
-                    subcategoria: $("#subcategoria").val()
+                    subcategoria: $("#subcategoria").val(),
+                    padre: pdre
                 },
                 success : function (msg) {
                     l.modal("hide");
@@ -240,6 +242,7 @@
 
     $("#categoria").change(function () {
         var id = $(this).val();
+        var subct = "${producto.subcategoria.id}"
         cargarSubcategoria(id)
     });
 
@@ -251,7 +254,8 @@
             url: '${createLink(controller: 'subcategoria', action: 'subcategoria_ajax')}',
             data:{
                 id: id,
-                producto: $("#id").val()
+                producto: $("#id").val(),
+                sbct: "${producto.subcategoria.id}"
             },
             success: function (msg) {
                 $("#divSubcategoria").html(msg)

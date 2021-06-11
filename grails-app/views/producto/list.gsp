@@ -71,9 +71,10 @@
                 <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>
                 <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>
                 <td style="width: 15%; text-align: center">
+                    <g:if test="${pd?.prodimag > 0}">
                     <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
                        data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
-
+                    </g:if>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar anuncio"
                        data-id="${pd?.prod__id}" data-est="${pd?.prodetdo}"><i class="fa fa-edit"></i></a>
 
@@ -350,17 +351,17 @@
         console.log('..1', estado);
         if(estado == 'R' || estado == 'A'){
             if(estado == 'A') {
-                mensaje = "ya se ha Publicado";
+                mensaje = "ya está Publicado";
                 tipo = '1';
             } else {
                 mensaje = "está en Revisión para publicarse";
                 tipo = '2';
             }
             bootbox.dialog({
-                title   : "Alerta",
+                title   : "Confirmación de Edición del Anuncio",
                 message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow caja50'></i> " +
                     // "style='width: 80px; height: 50px; display: block'></i>" +
-                    "<p style='font-size: 14px;'>" + "El producto <strong>" + mensaje + "</strong>" +
+                    "<p style='font-size: 14px;'>" + "El producto que desea editar <strong>" + mensaje + "</strong>" +
                     "<br>Si hace cambios en el anuncio debe <strong>volver a publicarlo</strong>." + "<br>¿Desea continuar la edición?</p>",
                 buttons : {
                     cancelar : {

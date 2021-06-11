@@ -5,4 +5,6 @@
   Time: 12:03
 --%>
 
-<g:select name="subcategoria" from="${subCategorias}" class="form-control required" optionKey="id" optionValue="descripcion" value="${producto?.subcategoria?.id ? producto?.subcategoria?.id : producto?.padre?.subcategoria?.id}" required=""/>
+<g:select name="subcategoria" from="${subCategorias}" class="form-control required" optionKey="id"
+          optionValue="descripcion"
+          value="${producto?.subcategoria?.id}" required=""/>

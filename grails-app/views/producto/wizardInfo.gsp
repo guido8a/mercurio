@@ -150,7 +150,7 @@
 <script type="text/javascript">
 
     $(".btnRetornar").click(function () {
-        if(${tipo == '1'}){
+        if(${producto.estado == 'T'}){
             bootbox.dialog({
                 title   : "Alerta",
                 message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
@@ -167,7 +167,7 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}"
+                            location.href="${createLink(controller: 'producto', action: 'borrar_temporal')}?id=${producto.id}"
                         }
                     }
                 }

@@ -201,10 +201,12 @@
 <script type="text/javascript">
 
     $(".btnRetornar").click(function () {
-        if(${tipo == '1'}){
+        if(${producto.estado == 'T'}){
             bootbox.dialog({
                 title   : "Alerta",
-                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i><p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
+                    "<p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La edición del producto no se " +
+                    "encuentra completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
@@ -216,7 +218,7 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
+                            location.href="${createLink(controller: 'producto', action: 'borrar_temporal')}?id=${producto.id}"
                         }
                     }
                 }
@@ -304,6 +306,15 @@
             }
         });
     }
+
+    /*
+    * Si se trata de una copia para editar un producto aprobado, se debe:
+    * Poner 'B' el padre.
+    * Cambiar el estado al actual a 'R'
+    * Dar de baja el anuncio actual
+    * Crear un nuevo anuncio en Revisión
+    * Si ya ha pagado el anuncio que se da de baja se debe aprobar el nuevo para el plazo que reste de publicar
+    * **/
 
     function guardarContacto(){
         var a = cargarLoader("Procesando...");

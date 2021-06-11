@@ -192,7 +192,7 @@
 <script type="text/javascript">
 
     $(".btnRetornar").click(function () {
-        if(${tipo == '1'}){
+        if(${producto.estado == 'T'}){
             bootbox.dialog({
                 title   : "Alerta",
                 message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
@@ -209,7 +209,7 @@
                         label     : "<i class='fa fa-check'></i> Aceptar",
                         className : "btn-rojo",
                         callback  : function () {
-                            location.href="${createLink(controller: 'producto', action: 'list')}"
+                            location.href="${createLink(controller: 'producto', action:'borrar_temporal')}?id=${producto.id}"
                         }
                     }
                 }
@@ -244,8 +244,8 @@
         });
     });
 
-    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
-    copiarImagenes();
+    <g:if test="${producto.estado == 'T'}">
+        copiarImagenes();
     </g:if>
 
     function copiarImagenes(){
