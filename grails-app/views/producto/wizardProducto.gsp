@@ -203,6 +203,7 @@
                             className : "btn-rojo",
                             callback  : function () {
                                 %{--location.href="${createLink(controller: 'producto', action: 'borrar_temporal')}?id=${producto?.id}"--}%
+                                location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
                             }
                         }
                     }
