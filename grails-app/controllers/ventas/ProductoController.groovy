@@ -642,6 +642,7 @@ class ProductoController {
     def borrar_producto(id){
         def cn = dbConnectionService.getConnection()
         def sql = "select imagruta from imag where prod__id = ${id}"
+        def producto = Producto.get(id)
         def imagenes = cn.rows(sql.toString())
         if(imagenes){
             def path = "/var/ventas/productos/pro_" + producto.id + "/"
@@ -650,8 +651,8 @@ class ProductoController {
                 file.delete()
             }
             imag.delete()
-            cn.execute("delete from imag where prod__id = $id")
         }
+        cn.execute("delete from imag where prod__id = ${producto.id}".toString())
 
         sql = "delete from atvl where prod__id = ${id}"
         cn.execute(sql.toString())
