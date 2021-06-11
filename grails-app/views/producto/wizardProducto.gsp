@@ -113,33 +113,33 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">
-                            <span class="grupo">
-                                <label class="col-md-3 control-label text-info">
-                                    Anuncio (Título)
-                                </label>
-                                <div class="col-md-6">
-                                    <g:textField name="titulo" maxlength="255" class="form-control required" title="Texto principal del anuncio"
-                                                 value="${producto?.titulo ?  producto?.titulo : producto?.padre?.titulo}" style="background-color: #ffffef"/>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
+%{--                    <div class="col-md-12" style="margin-bottom: 10px">--}%
+%{--                        <div class="form-group ${hasErrors(bean: 'producto', field: 'titulo', 'error')}">--}%
+%{--                            <span class="grupo">--}%
+%{--                                <label class="col-md-3 control-label text-info">--}%
+%{--                                    Anuncio (Título)--}%
+%{--                                </label>--}%
+%{--                                <div class="col-md-6">--}%
+%{--                                    <g:textField name="titulo" maxlength="255" class="form-control required" title="Texto principal del anuncio"--}%
+%{--                                                 value="${producto?.titulo ?  producto?.titulo : producto?.padre?.titulo}" style="background-color: #ffffef"/>--}%
+%{--                                </div>--}%
+%{--                            </span>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
 
-                    <div class="col-md-12" style="margin-bottom: 10px">
-                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
-                            <span class="grupo">
-                                <label class="col-md-3 control-label text-info">
-                                    Descripción resumida
-                                </label>
-                                <div class="col-md-6">
-                                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"
-                                                 value="${producto?.subtitulo ?  producto?.subtitulo : producto?.padre?.subtitulo}"/>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
+%{--                    <div class="col-md-12" style="margin-bottom: 10px">--}%
+%{--                        <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">--}%
+%{--                            <span class="grupo">--}%
+%{--                                <label class="col-md-3 control-label text-info">--}%
+%{--                                    Descripción resumida--}%
+%{--                                </label>--}%
+%{--                                <div class="col-md-6">--}%
+%{--                                    <g:textField name="subtitulo" maxlength="255" class="form-control" title="Segunda línea del anuncio"--}%
+%{--                                                 value="${producto?.subtitulo ?  producto?.subtitulo : producto?.padre?.subtitulo}"/>--}%
+%{--                                </div>--}%
+%{--                            </span>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
 
                 </div>
 
@@ -185,7 +185,29 @@
             });
         }else{
             if(${tipo == '3'}){
-                submitFormProducto(3);
+
+                bootbox.dialog({
+                    title   : "Alerta",
+                    message : "<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" +
+                        "<p style='font-size: 14px; font-weight: bold'>" + "&nbsp; La creación del producto no se encuentra " +
+                        "completa. <br> &nbsp; Desea volver a su lista de productos?." + "</p>",
+                    buttons : {
+                        cancelar : {
+                            label     : "<i class='fa fa-times'></i> Cancelar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        },
+                        aceptar : {
+                            label     : "<i class='fa fa-check'></i> Aceptar",
+                            className : "btn-rojo",
+                            callback  : function () {
+                                %{--location.href="${createLink(controller: 'producto', action: 'borrar_temporal')}?id=${producto?.id}"--}%
+                            }
+                        }
+                    }
+                });
+                // submitFormProducto(3);
             }else{
                 location.href="${createLink(controller: 'producto', action: 'list')}?id=" + '${persona?.id}'
             }
@@ -202,7 +224,7 @@
     function submitFormProducto(band) {
         var $form = $("#frmProducto");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
-        var pdre = "${producto.padre.id}";
+        var pdre = "${producto?.padre?.id}";
         if ($form.valid()) {
             $btn.replaceWith(spinner);
             var l = cargarLoader("Grabando...");
@@ -242,7 +264,7 @@
 
     $("#categoria").change(function () {
         var id = $(this).val();
-        var subct = "${producto.subcategoria.id}"
+        var subct = "${producto?.subcategoria?.id}"
         cargarSubcategoria(id)
     });
 
@@ -255,7 +277,7 @@
             data:{
                 id: id,
                 producto: $("#id").val(),
-                sbct: "${producto.subcategoria.id}"
+                sbct: "${producto?.subcategoria?.id}"
             },
             success: function (msg) {
                 $("#divSubcategoria").html(msg)
