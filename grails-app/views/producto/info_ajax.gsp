@@ -45,7 +45,8 @@
                 Estado
             </label>
             <div class="col-md-9">
-                ${res?.anunetdo == 'A' ? 'ACTIVO' : (res?.anunetdo == 'R' ? 'REVISIÓN' : 'INACTIVO')}
+%{--                ${res?.anunetdo == 'A' ? 'ACTIVO' : (res?.anunetdo == 'R' ? 'REVISIÓN' : 'INACTIVO')}--}%
+                ${res?.etdo}
             </div>
         </span>
     </div>

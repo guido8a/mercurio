@@ -30,7 +30,7 @@
                 Publicar desde
             </label>
             <div class="col-md-2 text-info">
-                <input name="fechaInicio" id='fechaInicio' type='text' class="form-control datepicker required"
+                <input name="fechaInicio" id='fechaInicio' type='text' class="form-control datepicker required fi"
                        value="${anuncio.fechaInicio? anuncio.fechaInicio.format('dd-MM-yyyy') : new Date().format('dd-MM-yyyy')}"/>
             </div>
 
@@ -42,11 +42,11 @@
     </div>
 
     <div style="width: 560px; margin-top: 10px; text-align: center">
-        <a href="#" class="btn btn-rojo" id="btnPagar" title="Pagar" data-id="${producto?.id}">
+        <a href="#" class="btn btn-rojo hide" id="btnPagar" title="Pagar" data-id="${producto?.id}">
             <i class="fa fa-dollar-sign"></i> Pagar...</a>
     </div>
     <div style="width: 560px; margin-top: 10px; display: flex; justify-content: center;">
-        <a href="#" class="btn btn-rojo" id="btnPublicar" title="Publicar Gratis" data-id="${producto?.id}">
+        <a href="#" class="btn btn-rojo hide" id="btnPublicar" title="Publicar Gratis" data-id="${producto?.id}">
             <i class="fa fa-check"></i> Publicar Gratis</a>
     </div>
 </div>
@@ -73,16 +73,18 @@
 %{--*/--}%
 
     $(function () {
-        console.log('min', moment().subtract(1, 'days'))
-        $('#fechaInicio').datetimepicker({
+        // console.log('min', moment().subtract(1, 'days'))
+        $('.fi').datetimepicker({
             locale: 'es',
             format: 'DD-MM-YYYY',
             showClose: true,
+            %{--defaultDate: "${anuncio.fechaFin + 1}",--}%
             minDate: "${anuncio.fechaFin + 1}",
             icons: {
                 close: 'closeText'
             }
         });
+
     });
 
     $("#btnPagar").click(function () {
@@ -170,7 +172,7 @@
     function valor(s){
         $.ajax({
             type:'POST',
-            url:'${createLink(controller: 'pago', action: 'valor_ajax')}',
+            %{--url:'${createLink(controller: 'pago', action: 'valor_ajax')}',--}%
             data:{
                 valor: s
             },
@@ -213,16 +215,32 @@
         return y.replace(/(y+)/g, function(v) {
             return x.getFullYear().toString().slice(-v.length)
         });
+    };
+
+    // calculaDias();
+
+    if($("#fechaInicio").val() == '' || $("#fechaInicio").val() == null){
+
+    }else{
+        calculaDias()
     }
 
-    calculaDias();
-
     $('#fechaInicio').on('dp.change', function(e){
-        calculaDias()
-    })
+        if($("#fechaInicio").val() == '' || $("#fechaInicio").val() == null){
+            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'>" +
+                "</i>&nbsp; <strong style='font-size: 15px'>Ingrese una fecha de inicio</strong>");
+        }else{
+            calculaDias()
+        }
+    });
 
     $('#tipopago').change(function(){
-        calculaDias()
+        if($("#fechaInicio").val() == '' || $("#fechaInicio").val() == null){
+            bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning'>" +
+                "</i>&nbsp; <strong style='font-size: 15px'>Ingrese una fecha de inicio</strong>");
+        }else{
+            calculaDias()
+        }
     })
 
     function calculaDias() {
@@ -237,13 +255,22 @@
         $("#fcHasta").html("Hasta el " + format(fecha, 'dd-MM-yyyy') + " (" + dias + " días)");
 
         if(dias > 5) {
-            $("#btnPagar").show()
-            $("#btnPublicar").hide()
+            // $("#btnPagar").show()
+            // $("#btnPublicar").hide()
+
+            $("#btnPagar").removeClass('hide')
+            $("#btnPublicar").addClass('hide')
+
             $("#btnPagar").html("<i class='fa fa-dollar-sign'></i> Realizar el Pago" )
             $("#btnPagar").focus()
         } else {
-            $("#btnPublicar").show()
-            $("#btnPagar").hide()
+            // $("#btnPublicar").show()
+            // $("#btnPagar").hide()
+
+
+            $("#btnPublicar").removeClass('hide')
+            $("#btnPagar").addClass('hide')
+
             $("#btnPublicar").focus()
         }
 
