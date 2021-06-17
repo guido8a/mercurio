@@ -768,17 +768,17 @@ $("#ingresar").click(function () {
             bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning text-shadow'></i> Debe ingresar una pregunta!")
         }else{
             bootbox.dialog({
-                message : "<i class='fa fa-envelope fa-2x text-info text-shadow'></i> <strong style='font-size: 14px; font-weight: bold'> Esta seguro de enviar esta pregunta al vendedor?</strong>",
+                message : "<i class='fa fa-envelope fa-2x text-warning text-shadow'></i> <strong style='font-size: 14px; font-weight: bold'> Esta seguro de enviar esta pregunta al vendedor?</strong>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
-                        className : "btn-primary",
+                        className : "btn-gris",
                         callback  : function () {
                         }
                     },
                     enviar : {
                         label     : "<i class='fa fa-envelope'></i> Enviar",
-                        className : "btn-success",
+                        className : "btn-rojo",
                         callback  : function () {
                             enviarPregunta();
                         }
