@@ -8,6 +8,7 @@ import javax.imageio.ImageIO
 class AnuncioController {
 
     def mailService
+    def dbConnectionService
 
     def aceptarAnuncio_ajax(){
         println "aceptaAnuncio_ajax: $params"
@@ -381,6 +382,32 @@ class AnuncioController {
         return[imagenes: files, producto: anuncio.producto]
 
 
+    }
+
+    def anuncio() {
+        println "anuncio params: $params"
+        def cn = dbConnectionService.getConnection()
+        def destacados = []
+        def campos = "prod.prod__id, prodtitl, prodsbtl, prodtxto, " +
+                "provnmbr||' - '||cntnnmbr lugar, prod.cntn__id, prod.sbct__id, imagruta "
+
+        def sql = "select ${campos} from prod, cntn, prov, imag " +
+                "where prod.prod__id = ${params.id} and cntn.cntn__id = prod.cntn__id and " +
+                "prov.prov__id = cntn.prov__id and imag.prod__id = prod.prod__id and imagpncp = '1'"
+
+        println "sql: $sql"
+        def anuncios = cn.rows(sql.toString())
+        println "anuncios: ${anuncios.size()}"
+
+        anuncios.each {pb ->
+            def ls = [tp: 'p', rt: pb.imagruta, p: pb.prod__id, tt: pb.prodtitl,
+                      sb: pb.prodsbtl, t: pb.prodtxto, id: 0,
+                      gf: ((pb.cntn__id == 226)? 'Ecuador' : pb.lugar)]
+            destacados.add(ls)
+        }
+        println "destacados: ${destacados.rt}"
+
+        return [prod: destacados[0]]
     }
 
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Anuncios por Categoria</title>
+    <title>Preguntas al Anunciante</title>
 
     <style type="text/css">
 
@@ -30,7 +30,7 @@
 <body>
 
 <div style="text-align: center; margin-top: -20px;margin-bottom:20px">
-    <h3>Administración de Anuncios</h3>
+    <h3>Administración de Preguntas</h3>
 </div>
 
 <elm:flashMessage tipo="${flash.tipo}" icon="${flash.icon}"
@@ -125,13 +125,14 @@
     <table class="table table-bordered table-hover table-condensed" style="width: 1070px">
         <thead>
         <tr>
-            <th class="alinear" style="width: 15%">Usuario</th>
+            <th class="alinear" style="width: 18%">Usuario</th>
             <th class="alinear" style="width: 20%">Anuncio</th>
-            <th class="alinear" style="width: 22%">Tipo de Anuncio</th>
+            <th class="alinear" style="width: 18%">Tipo de Anuncio</th>
             <th class="alinear" style="width: 8%">Fecha Ingreso</th>
             <th class="alinear" style="width: 8%">Inicio</th>
             <th class="alinear" style="width: 8%">Fin</th>
-            <th class="alinear" style="width: 5%">Estado</th>
+            <th class="alinear" style="width: 6%">Estado</th>
+%{--            <th class="alinear" style="width: 5%">Pago</th>--}%
             <th class="alinear" style="width: 14%">Acciones</th>
         </tr>
         </thead>

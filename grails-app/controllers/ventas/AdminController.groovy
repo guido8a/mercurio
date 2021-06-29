@@ -81,5 +81,44 @@ class AdminController {
     }
 
 
+    def preg() {
+        params.ordenar = "anunfcha"
+        def cn = dbConnectionService.getConnection()
+        def sql = "select sbct__id id, sbctdscr descripcion from sbct, ctgr where ctgr.ctgr__id = sbct.ctgr__id and " +
+                "sbct__id in (select sbct__id from prod) order by ctgrordn, sbctordn"
+        def categoria = cn.rows(sql.toString())
+        categoria.add([id:0, descripcion: 'Todas...'])
+        categoria = categoria.sort{it.id}
+        def estados = ['T': 'Todos', 'A': 'Aprobados', 'R': 'En Revisión', 'N': 'Negados', 'I': 'Inactivos']
+
+        println "actual: ${params}"
+        return[actual: params.actual, estados: estados, categoria: categoria]
+    }
+
+    def tablaPreg() {
+        println "buscar .... $params"
+        def cn = dbConnectionService.getConnection()
+        params.old = params.criterio
+        params.criterio = buscadorService.limpiaCriterio(params.criterio)
+        params.ordenar  = buscadorService.limpiaCriterio(params.ordenar)
+
+        def sql = armaSql(params)
+        params.criterio = params.old
+        println "sql: $sql"
+        def data = cn.rows(sql.toString())
+
+        def msg = ""
+        if(data?.size() > 50){
+            data.pop()   //descarta el último puesto que son 21
+            msg = "<div class='alert-danger' style='margin-top:-20px; diplay:block; height:25px;margin-bottom: 20px;'>" +
+                    " <i class='fa fa-warning fa-2x pull-left'></i> Su búsqueda ha generado más de 50 resultados. " +
+                    "Use más letras para especificar mejor la búsqueda.</div>"
+        }
+        cn.close()
+
+        return [data: data, msg: msg]
+    }
+
+
 
 }

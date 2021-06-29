@@ -2303,7 +2303,7 @@ th {
 }
 .table-hover > tbody > tr:hover {
   /*background-color: #bcc3e5;  --gdo*/
-  background-color: #EFEBEA;
+  background-color: #e5b596;
 }
 table col[class*="col-"] {
   position: static;

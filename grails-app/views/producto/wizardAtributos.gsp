@@ -99,9 +99,9 @@
                     <h3> Ingrese los atributos de su producto '${producto.titulo}'</h3>
                     <div class="col-md-12" style="margin-bottom: 10px">
 
-                        <div class="col-md-2"></div>
+                        <div class="col-md-1"></div>
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-10">
 
                             <g:if test="${producto?.id}">
 
@@ -123,16 +123,17 @@
                                             Valor
                                         </label>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <g:textField name="valor" maxlength="63" class="form-control"/>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <a href="#" class="btn btn-rojo" id="btnAgregarAt" title="Agregar atributo"><i class="fa fa-plus"></i></a>
                                     </div>
 
                                 </div>
 
-                                <div class="col-md-12" id="tablaAtributos" style="max-height: 300px; margin-top: 30px; margin-left: 30px; text-align: center; width: 90%;">
+                                <div class="col-md-12" id="tablaAtributos" style="max-height: 300px; margin-top: 30px;
+                                margin-left: 30px; text-align: center; width: 90%;">
 
                                 </div>
                             </g:if>
@@ -182,7 +183,7 @@
     ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
         'Atributos','progress-bar-wrapper');
 
-    <g:if test="${tipo == '1' && (producto?.subcategoria?.categoria?.id == producto?.padre?.subcategoria?.categoria?.id)}">
+    <g:if test="${atributos == 0 && producto.padre && producto.estado == 'T'}">
     copiarAtributos();
     </g:if>
 

@@ -1,21 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 10/03/21
-  Time: 13:23
---%>
-
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <ckeditor:resources/>
     <meta name="layout" content="main">
     <title>Información del producto</title>
 
     <asset:stylesheet src="/bar/main.css"/>
     <asset:javascript src="/bar/progress-bar.js"/>
 
+    <asset:javascript src="/trix.js"/>
+    <asset:stylesheet src="/trix.css"/>
+
+    <link rel="canonical" href="https://webspellchecker.com/wsc-scayt-ckeditor4/">
     <style>
 
     .numeroPaso{
@@ -115,6 +110,7 @@
                             </span>
                         </div>
                     </div>
+
                     <div class="col-md-12" style="margin-bottom: 10px">
                         <div class="form-group ${hasErrors(bean: 'producto', field: 'subtitulo', 'error')}">
                             <span class="grupo">
@@ -133,8 +129,10 @@
                         <label class="col-md-3 control-label text-info">
                             Detalles o Especificaciones
                         </label>
-                        <div class="col-md-7 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}">
-                            <textarea id="texto" class="editor">${producto?.texto ?  producto?.texto : producto?.padre?.texto}</textarea>
+                        <div class="col-md-8 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}"
+                             style=" margin-left:5px; border-radius: 4px; border-style: solid; border-color: #888; border-width: 1px; padding: 5px;">
+%{--                            <textarea id="texto" class="editor">${producto?.texto ?  producto?.texto : producto?.padre?.texto}</textarea>--}%
+                            <trix:editor name="texto" class="editor" value="${producto?.texto ?  producto?.texto : producto?.padre?.texto}"/>
                         </div>
                     </div>
                 </div>
@@ -142,6 +140,8 @@
         </div>
     </div>
 </g:form>
+
+
 
 <div class="col-md-12">
     .
@@ -190,7 +190,9 @@
 
     function submitFormProducto(tipo) {
 
-        var texto = CKEDITOR.instances.texto.getData();
+        // var texto = CKEDITOR.instances.texto.getData();
+        var texto = $("#texto").val();
+        console.log('texto', texto)
 
         var $form = $("#frmProducto");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
@@ -238,7 +240,10 @@
             toolbar                 : [
                 ['Scayt', '-', 'Cut', 'Copy', 'Paste', 'PasteFromWord', '-', 'Bold', 'Italic', 'Underline'],
                 ['NumberedList', 'BulletedList', '-']
-            ]
+            ],
+            scayt_maxSuggestions: 3,
+            scayt_customerId: '1:Eebp63-lWHbt2-ASpHy4-AYUpy2-fo3mk4-sKrza1-NsuXy4-I1XZC2-0u2F54-aqYWd1-l3Qf14-umd',
+            scayt_sLang: 'es'
         });
 
         CKEDITOR.on('instanceReady', function (ev) {
@@ -247,6 +252,14 @@
                 ev.data.preventDefault(true);
             });
         });
+        CKEDITOR.config.scayt_autoStartup = true;
+        // CKEDITOR.config.grayt_autoStartup = true;
+        // CKEDITOR.config.scayt_sLang ="en_US";
+        CKEDITOR.config.scayt_sLang = 'es_ES';
+        // CKEDITOR.config.wsc_lang = 'en_GB';
+        CKEDITOR.config.language = 'es';
+        CKEDITOR.config.disableNativeSpellChecker = false;
+        // CKEDITOR.config.browserContextMenuOnCtrl = true;
     });
 
 

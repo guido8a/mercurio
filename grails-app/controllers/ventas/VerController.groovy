@@ -18,7 +18,7 @@ class VerController {
             producto = anuncio.producto
         } else {
             producto = Producto.get(params.id)
-            anuncio = Anuncio.findAllByProducto(producto, [sort: 'fecha', order: 'desc'])?.first()
+//            anuncio = Anuncio.findAllByProducto(producto, [sort: 'fecha', order: 'desc'])?.first()
         }
         def sql = "select provnmbr||' - '||cntnnmbr lugar, prod.cntn__id from prod, cntn, prov " +
                 "where cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and prod__id = ${producto.id}"

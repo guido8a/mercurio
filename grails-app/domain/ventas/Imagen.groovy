@@ -5,7 +5,7 @@ class Imagen {
     Producto producto
     String ruta
     String texto
-    String estado
+//    String estado
     String principal
 
     static mapping = {
@@ -19,7 +19,7 @@ class Imagen {
             producto column: 'prod__id'
             ruta column: 'imagruta'
             texto column: 'imagtxto'
-            estado column: 'imagetdo'
+//            estado column: 'imagetdo'
             principal column: 'imagpncp'
         }
     }
@@ -28,6 +28,6 @@ class Imagen {
         ruta(blank:false,size:4..255)
         texto(blank: true, nullable: true)
         principal(blank: true, nullable: true)
-        estado(blank:false, nullable: false)
+//        estado(blank:false, nullable: false)
     }
 }

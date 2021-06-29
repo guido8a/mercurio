@@ -140,7 +140,7 @@ class ProductoController {
     def upload_ajax() {
         println ("params imas " +  params)
         def producto = Producto.get(params.id)
-        def imagenes = Imagen.findAllByProductoAndEstado(producto, '1')
+        def imagenes = Imagen.findAllByProducto(producto)
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(path).mkdirs()
 
@@ -205,7 +205,6 @@ class ProductoController {
                         f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
                         def imagenNueva = new Imagen()
                         imagenNueva.producto = producto
-                        imagenNueva.estado = 1
                         imagenNueva.ruta = nombre
 
                         if(canti.size() == 0){
@@ -272,7 +271,7 @@ class ProductoController {
     def revisarImas_ajax(){
         println "revisarImas_ajax $params"
         def producto = Producto.get(params.id)
-        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
+        def imagenes = Imagen.findAllByProducto(producto)
         if(imagenes.size() < 5){
             render "ok"
         }else{
@@ -322,7 +321,7 @@ class ProductoController {
 
     def tablaImagenes_ajax(){
         def producto = Producto.get(params.id)
-        def imagenes = Imagen.findAllByProductoAndEstado(producto,'1')
+        def imagenes = Imagen.findAllByProducto(producto)
 
         def path = "/var/ventas/productos/pro_" + producto.id + "/"
         new File(path).mkdirs()
@@ -533,17 +532,19 @@ class ProductoController {
         println "wizardAtributos: $params"
         def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
-        return[producto: producto, persona: persona, tipo: params.tipo]
+        def atributos = Valores.findAllByProducto(producto)
+        return[producto: producto, persona: persona, tipo: params.tipo, atributos: atributos?.size()?:0]
     }
 
     def wizardImagenes() {
         println "wizardImagenes: $params"
         def persona = Persona.get(session.usuario.id)
         def producto = Producto.get(params.id)
-        def imas = Imagen.findAllByProductoAndEstado(producto, '1')
+        def imas = Imagen.findAllByProducto(producto)
 
         def imagenes = []
 
+        println "producto: ${producto?.id}"
         /**** imágenes ****/
         if(producto?.id){
             def path = "/var/ventas/productos/pro_" + producto.id + "/"
@@ -1009,47 +1010,27 @@ class ProductoController {
     }
 
     def copiarAtributos_ajax(){
+        println "copiarAtributos_ajax: $params"
         def producto = Producto.get(params.id)
-        def padre
-//        if(params.tipo == '1'){
-            padre = producto.padre
-//        }else{
-//            padre = Producto.get(producto.anterior)
-//        }
         def atributos = Valores.findAllByProducto(producto)
-        def atributosPadre = Valores.findAllByProducto(padre)
+        def cn = dbConnectionService.getConnection()
+        def sql = "insert into atvl(prod__id, atvlordn, atct__id, atvlvlor) " +
+                "select ${producto.id}, atvlordn, atct__id, atvlvlor from atvl where prod__id = ${producto.padre.id}"
 
         if(atributos.size() == 0){
-
-            if(atributosPadre.size() != 0){
-                atributosPadre.each {
-                    def atr = new Valores()
-                    atr.producto = producto
-                    atr.valor = it.valor
-                    atr.orden = it.orden
-                    atr.atributoCategoria = it.atributoCategoria
-
-                    atr.save(flush:true)
-                }
-
-                render "ok"
-            }else{
-                render "no"
-            }
+            cn.execute(sql.toString())
+            render "ok"
         }else{
             render "no"
         }
-
     }
 
     def copiarImagenes_ajax(){
+        def cn = dbConnectionService.getConnection()
         def producto = Producto.get(params.id)
-        def padre
-//        if(params.tipo == '1'){
-            padre = producto.padre
-//        }else{
-//            padre = Producto.get(producto.anterior.toInteger())
-//        }
+        def padre = producto.padre
+        def sql = "insert into imag(prod__id, imagruta, imagtxto, imagpncp) " +
+                "select ${producto.id}, imagruta, imagtxto, imagpncp from imag where prod__id = ${padre.id}"
 
         def nmbr = "", arch = ""
 
@@ -1057,20 +1038,10 @@ class ProductoController {
         new File(pathHijo).mkdirs()
         def pathPadre = "/var/ventas/productos/pro_" + padre.id + "/"
 
-        def imasHijo = []
-        def dir = new File(pathHijo)
-        dir.eachFileRecurse(FileType.FILES) { file ->
-            def img = ImageIO.read(file)
-            if (img) {
-                imasHijo.add([
-                        dir : pathPadre,
-                        file: file.name
-                ])
-            }
-        }
-
-        if(imasHijo.size() == 0){
-
+        def imasHijo = Imagen.countByProducto(producto)
+        println "conteo: ${imasHijo}"
+        if(imasHijo == 0){
+/*
             def band = 0
             def dirPadre = new File(pathPadre)
             dirPadre.eachFileRecurse(FileType.FILES) { file ->
@@ -1089,6 +1060,8 @@ class ProductoController {
                     band ++
                 }
             }
+*/
+            cn.execute(sql.toString())
 
             new File(pathPadre).traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*/) { ar ->
                 nmbr = ar.toString() - pathPadre
@@ -1103,21 +1076,14 @@ class ProductoController {
         }else{
             render "no"
         }
-
-
     }
 
     def info_ajax(){
-
-        println("params " + params)
-        def producto = Producto.get(params.id)
-        def persona = Persona.get(params.persona)
-
         def cn = dbConnectionService.getConnection()
-        def sql = "select * from anuncio(${persona?.id}) where prod__id = ${producto?.id}"
-        def res = cn.rows(sql.toString())
-
-        return[producto: producto, res: res[0]]
+        def persona = Persona.get(session.usuario.id)
+        def sql = "select * from anuncio(${persona?.id}) where prod__id = ${params?.id}"
+        def data = cn.rows(sql.toString())[0]
+        return[data: data]
     }
 
 }

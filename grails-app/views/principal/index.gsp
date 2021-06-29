@@ -57,7 +57,7 @@
 
     .cs900 {
         width: 800px;
-        height: 350px;
+        height: 470px;
         align-content: center;
         /*background-color: #B4BAC0;*/
         background-color: var(--gris);
@@ -72,9 +72,10 @@
     }
 
     .imag-item {
-        height: 350px;
+        padding-top: 20px;
+        height: 420px;
         width: auto;
-        max-height: 350px;
+        max-height: 420px;
         margin: 0;
     }
 
@@ -297,31 +298,7 @@
 <body>
 
 <mn:menuNuevo search="${params.bscr?:''}"/>
-%{--<mn:menuHg activo="${activo}"/>--}%
 
-
-
-%{--
-<div class="container" style="margin-top: 30px">
-    <div class="row">
-        <div class="input-group col-md-6">
-            <div class="input-group-text text-info">Texto</div>
-            <input type="text" class="form-control estilo" id="inlineFormInputGroupUsername"
-                   placeholder="texto a buscar...">
-        </div>
-
-        <div class="input-group col-md-4">
-            <div class="input-group-text text-info">Categoría</div>
-            <g:select name="categoriaBuscar" from="${ventas.Categoria.list().sort { it.descripcion }}"
-                      class="form-control" optionValue="descripcion" optionKey="id" noSelection="[0: 'Todas']"/>
-        </div>
-
-        <div class="col-md-2">
-            <a href="#" class="btn btn-info"><i class="fa fa-search"></i> Buscar</a>
-        </div>
-    </div>
-</div>
---}%
 
 <!-- Page Content -->
 <div class="container" style="background-color: #efefef">
@@ -330,26 +307,11 @@
 
         <div class="col-lg-3">
             <div id="categorias"></div>
-            %{--
-                        <h2 class="titulo">Categorías</h2>
-                        <div class="list-group">
-                            <g:each in="${ventas.Categoria.findAll([sort: 'orden'])}" var="ct">
-                                <a href="#" class="item_cat categoria" id="ct_${ct?.id}">${ct.descripcion}</a>
-                                <g:if test="${ct?.id == activo}">
-                                    <g:each in="${ventas.Subcategoria.findAllByCategoria(ct, [sort: 'orden'])}" var="sbct">
-                                        <a href="#" class="categoria subcat ${sbct.orden==1?'activo': ''}" id="ct_${sbct?.id}">${sbct.descripcion}</a>
-                                    </g:each>
-                                </g:if>
-                            </g:each>
-                        </div>
-            --}%
-            %{--            <div style="height: 20px"></div>--}%
 
             <h2 class="my-4 titulo0">Consultas</h2>
 
             <div class="list-group">
                 <g:each in="${consultas}" var="cs">
-                %{--                    <a href="${cs?.link}" class="lista-item consulta" title="${cs.texto}">--}%
                     <a href="#" class="lista-item consulta" title="${cs.texto}" onclick="guardarConsulta('${cs?.id}','${cs?.link}')">
                         <img src="${request.contextPath}/principal/getImgnCnsl?ruta=${cs.logo}"
                              style='float:left; height:20px'>
@@ -382,9 +344,12 @@
 
                     <g:each in="${carrusel}" var="carr" status="i">
                         <div class="carousel-item ${i == 0 ? 'active' : ''}">
-                            <img class="img-fluid imag-item" alt="First slide"
-                                 src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
-                            %{--                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>--}%
+                            <a href="${createLink(controller: 'ver', action: 'carrusel',  params: [anun: carr.id, tipo: 3])}">
+                                <img class="img-fluid imag-item" alt="First slide"
+                                     src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>
+                            </a>
+%{--                            <img class="img-fluid imag-item" alt="First slide"--}%
+%{--                                 src="${request.contextPath}/principal/getImgnProd?ruta=${carr.ruta}&tp=${carr.tp}&id=${carr.prod}"/>--}%
                         </div>
                     </g:each>
                 </div>

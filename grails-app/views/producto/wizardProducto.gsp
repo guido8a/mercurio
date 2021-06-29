@@ -85,7 +85,7 @@
                 <p class="numeroPaso">1</p>
                 <h1 class="textoPaso">Categoría</h1>
                 <div class="col-md-10">
-                    <h3> Título del anuncio y categoría para su producto</h3>
+                    <h3> Seleccione la categoría para su producto</h3>
 
                     <div class="col-md-12" style="margin-bottom: 10px">
                         <div class="form-group ${hasErrors(bean: 'producto', field: 'subcategoria', 'error')}">

@@ -32,11 +32,11 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 80%">
-        <th style="width: 70%" colspan="3">Atributos del producto</th>
+        <th style="width: 100%" colspan="3">Atributos del producto</th>
     </tr>
     <tr style="width: 80%">
-        <th style="width: 70%">Nombre</th>
-        <th style="width: 20%">Valor</th>
+        <th style="width: 40%">Nombre</th>
+        <th style="width: 50%">Valor</th>
         <th style="width: 10%">Acciones </th>
     </tr>
     </thead>
@@ -48,10 +48,10 @@
         <tbody id="tabla_bandeja">
         <g:each in="${atributos}" var="atributo">
             <tr style="width: 100%">
-                <td style="width: 70%; text-align: left">
+                <td style="width: 40%; text-align: left">
                     <span>${atributo?.atributoCategoria?.atributo?.descripcion}</span>
                 </td>
-                <td style="width: 20%">${atributo?.valor}</td>
+                <td style="width: 50%; text-align: left">${atributo?.valor}</td>
                 <td style="width: 10%">
                     <a href="#" class="btn btn-xs btn-gris btnQuitarAt" data-id="${atributo?.id}" title="Borrar atributo"><i class="fa fa-trash"></i> </a>
                 </td>

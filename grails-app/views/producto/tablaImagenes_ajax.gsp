@@ -10,6 +10,9 @@
 
 .marco{
     border-color: #AF5B00;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
 }
 
 .btn-rojo {
@@ -26,6 +29,15 @@
     margin: 2px;
 }
 
+.imag_pq {
+    width: 185px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 </style>
 
 %{--<g:if test="${imagenes.size() > 0}">--}%
@@ -33,12 +45,10 @@
     <div class="row">
         <g:each in="${imagenes}" var="file" status="i">
             <div class="col-sm-3 ${i}">
-%{--                <div class="thumbnail ${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal == '1' ? 'marco' : ''}">--}%
-                <div class="thumbnail ${file.pncp == '1' ? 'marco' : ''}">
-%{--
-                   <g:if test="${ventas.Imagen.findByProductoAndRuta(ventas.Producto.get(producto?.id), file.file)?.principal != '1'}">--}%
+                <div class="imag_pq ${file.pncp == '1' ? 'marco' : ''}">
                     <g:if test="${file.pncp != '1'}">
-                        <a href="#" class="btn btn-rojo btn-sm btnPrincipal" data-id="${file?.id}" title="Asignar imagen principal">
+                        <a href="#" class="btn btn-rojo btn-sm btnPrincipal" data-id="${file?.id}"
+                           title="Asignar imagen principal">
                             <i class="fa fa-parking"></i>
                         </a>
                     </g:if>
@@ -51,8 +61,9 @@
                        data-id="${file?.id}" style="margin-bottom: 5px">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"/>
-                    <div class="caption">
+                    <img src="${createLink(controller: 'producto', action: 'getImage', params: [id: file.file, pro: producto?.id] )}"
+                         class="imag_pq"/>
+                    <div class="caption" style="text-align: center">
                         <p>${file.file}</p>
                     </div>
                 </div>

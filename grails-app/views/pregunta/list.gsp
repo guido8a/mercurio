@@ -31,6 +31,15 @@
 
 <h3>Preguntas del usuario: ${persona?.nombre}</h3>
 
+<div class="btn-toolbar toolbar" style="margin-top: 5px">
+    <div class="btn-group">
+        <g:link controller="admin" action="index" class="btn btn-gris" title="Volver a Adminsitración">
+            <i class="fa fa-arrow-left"></i> Volver a Administración
+        </g:link>
+    </div>
+</div>
+
+
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
@@ -54,8 +63,10 @@
                     <td style="width: 10%; text-align: center">${pregunta?.fecha?.format("dd-MM-yyyy")}</td>
                     <td style="width: 10%; text-align: center; background-color: ${pregunta?.respuesta ? '#67A153' : '#afafaf'}">${pregunta?.respuesta ? 'SI' : 'NO'}</td>
                     <td style="width: 10%; text-align: center">
-                        <a href="#" class="btn btn-sm btn-rojo btnResponder" title="Respuesta" data-id="${pregunta.id}"><i class="fa fa-bullhorn"></i> </a>
-                        <a href="#" class="btn btn-sm btn-gris btnEliminar" title="Eliminar pregunta" data-id="${pregunta?.id}"><i class="fa fa-trash"></i> </a>
+                        <a href="#" class="btn btn-sm btn-rojo btnResponder" title="Respuesta" data-id="${pregunta.id}">
+                            <i class="fa fa-bullhorn"></i> </a>
+                        <a href="#" class="btn btn-sm btn-gris btnEliminar" title="Eliminar pregunta"
+                           data-id="${pregunta?.id}"><i class="fa fa-trash"></i> </a>
                     </td>
                 </tr>
             </g:each>

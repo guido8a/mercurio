@@ -79,7 +79,9 @@
                             class="fas fa-info-circle"></i></a></td>
                 <td style="width: 15%; text-align: center">
                     <g:if test="${pd?.prodimag > 0}">
-                        <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar anuncio"
+                        <a href="#" class="btn btn-xs btn-gris btnAnun" title="Ver anuncio"
+                           data-id="${pd?.prod__id}"><i class="far fa-sticky-note"></i></a>
+                        <a href="#" class="btn btn-xs btn-gris btnRevisar" title="Revisar todo el anuncio"
                            data-id="${pd?.prod__id}"><i class="fa fa-search"></i></a>
                     </g:if>
                     <a href="#" class="btn btn-xs btn-rojo btnEditar" title="Editar anuncio"
@@ -139,8 +141,8 @@
                     message : msg,
                     buttons : {
                         cancelar : {
-                            label     : "Cancelar",
-                            className : "btn-primary",
+                            label     : "Aceptar",
+                            className : "btn-gris",
                             callback  : function () {
                             }
                         }
@@ -151,7 +153,6 @@
                 }, 500);
             } //success
         }); //ajax
-
     });
 
     $(".btnReporteExcel").click(function () {
@@ -633,6 +634,38 @@
         }); //ajax
     } //createEdit
 
+    $(".btnAnun").click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'anuncio', action:'anuncio')}",
+            data    : {
+                id: id,
+                persona: '${persona?.id}'
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    // id      : "dlgCreateEdit",
+                    size    : 'large',
+                    title   : "Información del Anuncio",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Aceptar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    });
+
+
     $(function () {
 
         $(".btnCrear").click(function() {
@@ -752,8 +785,6 @@
                 $(".trHighlight").removeClass("trHighlight");
             }
         });
-
-
 
     });
 </script>

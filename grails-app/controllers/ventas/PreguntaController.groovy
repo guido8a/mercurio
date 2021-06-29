@@ -53,4 +53,19 @@ class PreguntaController {
         }
     }
 
+    def editor() {
+        def persona = Persona.get(session.usuario.id)
+        def productos, preguntas
+
+        if(session.perfil.codigo == 'ADMN'){
+            preguntas = Pregunta.list([sort: 'fecha'])
+        } else {
+            productos = Producto.findAllByPersona(persona, [sort: 'fecha'])
+            preguntas = Pregunta.findAllByProductoInList(productos)
+        }
+//        def preguntas = Pregunta.findAllByProductoInList(productos, [sort: 'fecha'])
+
+        return[preguntas:preguntas, persona:persona]
+    }
+
 }

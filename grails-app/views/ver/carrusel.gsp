@@ -54,7 +54,7 @@
 
     .cs900 {
         width: 800px;
-        height: 350px;
+        height: 470px;
         align-content: center;
         /*background-color: #B4BAC0;*/
         background-color: var(--gris);
@@ -69,9 +69,10 @@
     }
 
     .imag-item {
-        height: 350px;
+        padding-top: 20px;
+        height: 420px;
         width: auto;
-        max-height: 350px;
+        max-height: 420px;
         margin: 0;
     }
 
@@ -332,7 +333,7 @@
                         <a href="${createLink(controller: 'admin', action: 'index')}" class="btn btn-gris" >
                             <i class="fa fa-arrow-left"></i> Regresar a la lista de Anuncios
                         </a>
-                        <g:if test="${anuncio?.tipoPago?.id != 5 && anuncio.estado == 'R'}">
+                        <g:if test="${anuncio?.tipoPago?.id != 5 && anuncio?.estado == 'R'}">
                             <a href="${createLink(controller: 'admin', action: 'enviaMail')}" class="btn btn-rojo" >
                                 <i class="fa fa-check"></i> Aprobar el Anuncio para Pago
                             </a>
@@ -361,7 +362,7 @@
             </g:else>
         </g:if>
 
-        <g:if test="${anuncio.estado == 'A'}">
+        <g:if test="${anuncio?.estado == 'A'}">
             <a href="#" class="btn buscar" id="btnContactar">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
@@ -386,6 +387,15 @@
     <div class="col-lg-9" style="float: left; background-color: #dfdfdf; border-style: solid;
     border-color: #ddd; border-width: 1px">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 100%">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                %{--                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>--}%
+                %{--                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>--}%
+            </ol>
             <div class="carousel-inner cs900">
 
                 <g:each in="${carrusel}" var="carr" status="i">
@@ -420,17 +430,17 @@
 
 <div class="container" style="min-width: 60% !important; overflow-y: hidden">
 
-    <div class="col-lg-6 columnas">
+    <div class="col-lg-5 columnas">
         <div class="alert alert-dark" role="alert" style="text-align: center">
-            Características
+            <strong>Características</strong>
         </div>
-        <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
+        <table class="table-bordered table-striped table-hover table-active table-condensed" style="width: 100%">
             <g:each in="${atributos}" var="at" status="i">
                 <tr>
-                    <td class="alert alert-dark" role="alert">
+                    <td class="alert" role="alert">
                         ${at.atributoCategoria.atributo.descripcion}
                     </td>
-                    <td style="text-align: right"  class="alert alert-dark" role="alert">
+                    <td style="text-align: right"  class="alert" role="alert">
                         ${at.valor}
                     </td>
                 </tr>
@@ -439,10 +449,10 @@
 
     </div>
     <g:if test="${producto.texto}">
-        <div class="col-lg-6 columnas">
+        <div class="col-lg-7 columnas">
 
             <div class="alert alert-dark" role="alert" style="text-align: center">
-                Descripción del Bien o Servicio
+                <strong>Descripción del Bien o Servicio</strong>
             </div>
             <g:applyCodec encodeAs="none">
                 ${producto.texto}
@@ -581,7 +591,7 @@
         </g:else>
     </g:if>
 
-    <g:if test="${anuncio.estado == 'A'}">
+    <g:if test="${anuncio?.estado == 'A'}">
         <a href="#" class="btn buscar" id="btnContactar">
             <i class="fa fa-phone"></i> Contactar con el vendedor
         </a>
@@ -768,17 +778,18 @@ $("#ingresar").click(function () {
             bootbox.alert("<i class='fa fa-exclamation-triangle fa-2x text-warning text-shadow'></i> Debe ingresar una pregunta!")
         }else{
             bootbox.dialog({
-                message : "<i class='fa fa-envelope fa-2x text-warning text-shadow'></i> <strong style='font-size: 14px; font-weight: bold'> Esta seguro de enviar esta pregunta al vendedor?</strong>",
+                message : "<i class='fa fa-envelope fa-3x text-warning text-shadow'></i> " +
+                    "<strong style='font-size: 14px; font-weight: bold'> ¿Está seguro de enviar esta pregunta al vendedor?</strong>",
                 buttons : {
                     cancelar : {
                         label     : "<i class='fa fa-times'></i> Cancelar",
-                        className : "btn-gris",
+                        className : "btn-rojo",
                         callback  : function () {
                         }
                     },
                     enviar : {
                         label     : "<i class='fa fa-envelope'></i> Enviar",
-                        className : "btn-rojo",
+                        className : "btn-gris",
                         callback  : function () {
                             enviarPregunta();
                         }

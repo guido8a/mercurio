@@ -25,7 +25,7 @@ th, td {
     color: #444;
 }
 .retrasado {
-    background-color: #ffe0e0;
+    background-color: #fff0f0;
     /*color: #444;*/
 }
 .externo {
@@ -45,7 +45,7 @@ th, td {
 }
 
 .activo {
-    background-color: #8bb474;
+    background-color: #efffef;
     color: #444;
 }
 
@@ -67,7 +67,7 @@ th, td {
             <g:if test="${dato?.anunadmn == 'R'}">
                 <g:set var="clase" value="${clase + ' retrasado'}"/>
             </g:if>
-            <g:if test="${dato?.anunetdo == 'A'}">
+            <g:if test="${dato?.anunactv == 'S'}">
                 <g:set var="clase" value="${clase + ' activo'}"/>
             </g:if>
             <g:if test="${!dato?.anun__id}">
@@ -75,7 +75,7 @@ th, td {
             </g:if>
 
             <tr id="${dato.prsn__id}" data-id="${dato.anun__id}" data-prod="${dato.prod__id}"
-                class="${clase}">
+                class="${clase}" title="${dato.etdo}">
                 <td width="15%">
                     ${dato?.prsnnmbr}
                 </td>
@@ -84,7 +84,7 @@ th, td {
                     ${dato?.prodtitl}
                 </td>
 
-                <td width="21%">
+                <td width="22%">
                     <g:if test="${dato.tppg__id == 5}">
                         ${dato?.tppgdscr}
                     </g:if>
@@ -110,7 +110,7 @@ th, td {
                     ${dato.anunfcfn?.format("dd-MMM-yyyy")}
                 </td>
 
-                <td width="6%" class="centrado">
+                <td width="5%" class="centrado">
                     ${dato.anunetdo}
                 </td>
 %{--
@@ -143,6 +143,11 @@ th, td {
                     <a href="#" class="btn btn-xs btn-rojo btnQuitarAnuncio" title="Quitar anuncio"
                        data-id="${dato?.prod__id}" data-titulo="${dato?.prodtitl}"><i
                             class="fas fa-skull-crossbones"></i></a>
+                </g:if>
+                <g:if test="${dato?.prodpreg > 0}">
+                    <a href="#" class="btn btn-xs btn-rojo btnPreguntas" title="Preguntas al anunciante"
+                       data-id="${dato?.prod__id}" data-titulo="${dato?.prodtitl}"><i
+                            class="fas fa-question-circle"></i></a>
                 </g:if>
                 </td>
 
@@ -203,6 +208,11 @@ th, td {
             var id = $(this).data("id");
             var anun = $(this).data("anun");
             location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&anun=" + anun + "&tipo=" + 4;
+        });
+
+        $(".btnPreguntas").click(function () {
+            var id = $(this).data("id");
+            location.href="${createLink(controller: 'pregunta', action: 'list')}";
         });
 
         $(".btnAceptar").click(function () {

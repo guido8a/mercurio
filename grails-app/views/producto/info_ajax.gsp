@@ -1,52 +1,77 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 09/06/21
-  Time: 12:23
---%>
-
 <g:form class="form-horizontal" name="frmVer" role="form">
     <div class="form-group">
         <span class="grupo">
-            <label class="col-md-2 control-label text-info">
+            <label class="col-md-4 control-label text-info">
+                Categoría:
+            </label>
+            <div class="col-md-8">
+                ${data?.ctgrdscr}
+            </div>
+        </span>
+    </div>
+
+    <div class="form-group">
+        <span class="grupo">
+            <label class="col-md-4 control-label text-info">
+                Subcategoría:
+            </label>
+            <div class="col-md-8">
+                ${data?.sbctdscr}
+            </div>
+        </span>
+    </div>
+
+    <div class="form-group">
+        <span class="grupo">
+            <label class="col-md-4 control-label text-info">
                 Titulo
             </label>
-            <div class="col-md-9">
-                ${producto?.titulo}
+            <div class="col-md-8">
+                ${data?.prodtitl}
             </div>
         </span>
     </div>
 
     <div class="form-group">
         <span class="grupo">
-            <label class="col-md-2 control-label text-info">
+            <label class="col-md-4 control-label text-info">
+                Subtítulo
+            </label>
+            <div class="col-md-8">
+                ${data?.prodsbtl}
+            </div>
+        </span>
+    </div>
+
+    <div class="form-group">
+        <span class="grupo">
+            <label class="col-md-4 control-label text-info">
                 Fecha Inicio Publicación
             </label>
-            <div class="col-md-9">
-                ${res?.anunfcin?.format("dd-MM-yyyy")}
+            <div class="col-md-8">
+                ${data?.anunfcin?.format("dd-MM-yyyy")}
             </div>
         </span>
     </div>
 
     <div class="form-group">
         <span class="grupo">
-            <label class="col-md-2 control-label text-info">
+            <label class="col-md-4 control-label text-info">
                 Fecha Fin Publicación
             </label>
-            <div class="col-md-9">
-                ${res?.anunfcfn?.format("dd-MM-yyyy")}
+            <div class="col-md-8">
+                ${data?.anunfcfn?.format("dd-MM-yyyy")}
             </div>
         </span>
     </div>
 
     <div class="form-group">
         <span class="grupo">
-            <label class="col-md-2 control-label text-info">
+            <label class="col-md-4 control-label text-info">
                 Estado
             </label>
-            <div class="col-md-9">
-%{--                ${res?.anunetdo == 'A' ? 'ACTIVO' : (res?.anunetdo == 'R' ? 'REVISIÓN' : 'INACTIVO')}--}%
-                ${res?.etdo}
+            <div class="col-md-8">
+                ${data?.etdo}
             </div>
         </span>
     </div>

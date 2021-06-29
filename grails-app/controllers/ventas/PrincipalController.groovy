@@ -21,7 +21,7 @@ class PrincipalController {
         def cn = dbConnectionService.getConnection()
         def busqueda = ""
         def enCategoria = ""
-        params.sbct = params.sbct?:"sbct_1"
+        params.sbct = params.sbct?:"sbct_12"  /* subcategoría por defecto */
         params.bscr = params.bscr != 'undefined'? params.bscr : ''
         def sbct_id = params.sbct.split("_")[1]
         def consultas = Link.findAllByActivo('A')
@@ -33,16 +33,16 @@ class PrincipalController {
 
         def sql = ""
 
-        def sqlDs = "select imagruta, anun.prod__id, provnmbr||' - '||cntnnmbr lugar " +
+        def sqlDs = "select imagruta, anun.prod__id, provnmbr||' - '||cntnnmbr lugar, anun__id " +
                 "from anun, imag, prod, cntn, prov " +
-                "where now()::date between anunfcin and anunfcfn and " +
+                "where now() between anunfcin and anunfcfn and " +
                 "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1' and anunetdo = 'A' and " +
                 "cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id"
 
 //        println "Carrusel destacados: $sqlDs"
         def publ = cn.rows(sqlDs + " and tppg__id <> 5".toString())
         publ.each {pb ->
-            carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.prod__id])
+            carrusel.add([tp: 'p', ruta: pb.imagruta, prod: pb.prod__id, id: pb.anun__id])
             pagados += pagados? ",${pb.prod__id}" : pb.prod__id
         }
 
@@ -50,12 +50,12 @@ class PrincipalController {
         println "Cantidad destacados: ${carrusel.size()}"
 
         sql = "select ${campos} from anun, prod, cntn, prov, imag " +
-                "where now()::date between anunfcin and anunfcfn and anunetdo = 'A' and " +
+                "where now() between anunfcin and anunfcfn and anunetdo = 'A' and " +
                 "prod.sbct__id = ${sbct_id} and cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and " +
                 "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1'"
 
         def sqlBs = "select ${campos} from anun, sbct, cntn, prov, prod, imag " +
-                "where now()::date between anunfcin and anunfcfn and anunetdo = 'A' and " +
+                "where now() between anunfcin and anunfcfn and anunetdo = 'A' and " +
                 "sbct.sbct__id = prod.sbct__id and cntn.cntn__id = prod.cntn__id and prov.prov__id = cntn.prov__id and " +
                 "prod.prod__id = anun.prod__id and imag.prod__id = prod.prod__id and imagpncp = '1'"
 

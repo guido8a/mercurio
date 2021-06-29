@@ -80,7 +80,8 @@
         </div>
 
         <div class="col-md-4 btn-group" >
-            <a href="#" class="btn btn-rojo btnVer" ><i class="fa fa-search"></i> Pre-visualizar</a>
+            <a href="#" class="btn btn-gris btnAnun" ><i class="fa fa-search"></i> Ver anuncio</a>
+            <a href="#" class="btn btn-rojo btnVer" ><i class="fa fa-search"></i> Previsualizar</a>
         </div>
 
         <div class="col-md-3 btn-group">
@@ -231,6 +232,38 @@
     $(".btnVer").click(function () {
         location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + '${producto?.id}' + "&tipo=" + 1
     });
+
+    $(".btnAnun").click(function () {
+        var id = '${producto?.id}'
+        $.ajax({
+            type    : "POST",
+            url     : "${createLink(controller: 'anuncio', action:'anuncio')}",
+            data    : {
+                id: id,
+                persona: '${persona?.id}'
+            },
+            success : function (msg) {
+                var b = bootbox.dialog({
+                    // id      : "dlgCreateEdit",
+                    size    : 'large',
+                    title   : "Información del Anuncio",
+                    message : msg,
+                    buttons : {
+                        cancelar : {
+                            label     : "Aceptar",
+                            className : "btn-gris",
+                            callback  : function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+                setTimeout(function () {
+                    b.find(".form-control").not(".datepicker").first().focus()
+                }, 500);
+            } //success
+        }); //ajax
+    });
+
 
     ProgressBar.init(['Categoría','Información','Localización','Atributos','Imágenes','Contacto'],
         'Contacto','progress-bar-wrapper');
