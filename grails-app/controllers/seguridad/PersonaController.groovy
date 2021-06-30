@@ -1244,6 +1244,9 @@ class PersonaController {
             def persona = new Persona()
             persona.properties = params
 
+            def pass = crearContrasenia()
+            persona.password = pass.encodeAsMD5()
+
             if(!persona.save(flush:true)){
                 println("error al crear el usuario " + persona.errors)
                 render "no"
@@ -1260,7 +1263,7 @@ class PersonaController {
                 }else{
                     println("persona p " + persona)
 
-                    def ec = enviarCorreoRegistro(persona)
+                    def ec = enviarCorreoRegistro(persona.mail, pass)
                     if(ec){
                         render "ok"
                     }else{
@@ -1273,15 +1276,7 @@ class PersonaController {
 
     }
 
-    def enviarCorreoRegistro(Persona per){
-
-//        println("persona -> " + per)
-
-        def pass = crearContrasenia()
-        per.password = pass.encodeAsMD5()
-        per.save(flush: true)
-
-        def mail = per.mail
+    def enviarCorreoRegistro(mail, pass){
         def errores = ''
 
         try{
@@ -1289,9 +1284,10 @@ class PersonaController {
                 to mail
                 subject "Correo de verificación desde VENTAS"
                 body "Datos de ingreso: " +
-                        "\n Usuario: ${per.mail} " +
+                        "\n Usuario: ${mail} " +
                         "\n Contraseña: ${pass} "
             }
+            println "Enviado mail a: ${mail}"
         }catch (e){
             println("Error al enviar el mail: " + e)
             errores += e
@@ -1305,9 +1301,8 @@ class PersonaController {
     }
 
     def crearContrasenia(){
-
         String charset = (('A'..'Z') + ('0'..'9')).join()
-        Integer length = 9
+        Integer length = 8
         String randomString = org.apache.commons.lang.RandomStringUtils.random(length, charset.toCharArray())
 
         println("--> " + randomString)

@@ -32,7 +32,7 @@
 
                 <div class="col-md-8 input-group">
                     <span class="input-group-text" id="basic-addon2"><i class="fa fa-user"></i></span>
-                    <g:textField name="nombre" minlength="5" maxlength="31" required="" class="form-control input-sm required"/>
+                    <g:textField name="nombre" minlength="3" maxlength="31" required="" class="form-control input-sm required"/>
                 </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
 
                 <div class="col-md-8 input-group">
                     <span class="input-group-text" id="basic-addon3"><i class="fa fa-id-card"></i></span>
-                    <g:textField name="apellido" minlength="5" maxlength="31" class="form-control input-sm"/>
+                    <g:textField name="apellido" minlength="3" maxlength="31" class="form-control input-sm"/>
                 </div>
         </div>
     </div>

@@ -125,7 +125,8 @@ environments:
     development:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://127.0.0.1:5432/ventas
+#            url: jdbc:postgresql://127.0.0.1:5432/ventas
+            url: jdbc:postgresql://127.0.0.1:5432/ventas_brre
             username: postgres
             password: 'postgres'
 
