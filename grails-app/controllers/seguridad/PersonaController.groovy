@@ -1281,6 +1281,7 @@ class PersonaController {
 
         try{
             mailService.sendMail {
+
                 to mail
                 subject "Correo de verificación desde VENTAS"
                 body "Datos de ingreso: " +

@@ -42,7 +42,7 @@ class AccionesController {
             resultado[0] = ['0'] + ['no hay acciones'] + [''] + [''] + ['']
         }
         cn.close()
-        println "--> $resultado"
+//        println "--> $resultado"
         return [datos: resultado, mdlo__id: mdlo, tpac__id: tipo, titulos: titulos]
     }
 

@@ -89,7 +89,7 @@ class LoginController {
                 sendMail {
                     to mail
                     subject "Recuperación de contraseña"
-                    body 'Hola ' + persona.login + ", tu nueva contraseña es " + newPass + "."
+                    body 'Hola, su usuario es: ' + persona.login + " y su nueva contraseña es " + newPass + "."
                 }
                 msg = "OK*Se ha enviado un email a la dirección " + mail + " con una nueva contraseña."
             } else {
