@@ -6,15 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <script type="text/javascript"
-            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpasnhIQUsHfgCvC3qeJpEgcB9_ppWQI0&sensor=true"></script>
-
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    <title>Ventas</title>
-
     <asset:stylesheet src="/merc/bootstrap.min.css"/>
     <asset:stylesheet src="/apli/shop-homepage.css"/>
-
     <asset:stylesheet src="/apli/anuncio.css"/>
 
     <asset:javascript src="/merc/jquery.min.js"/>
@@ -27,6 +20,12 @@
     <asset:javascript src="/apli/loader.js"/>
     <asset:javascript src="/apli/fontawesome.all.min.js"/>
 
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
+    <title>Anuncio</title>
+
+        <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpasnhIQUsHfgCvC3qeJpEgcB9_ppWQI0&sensor=true"></script>
+
 </head>
 
 <body>
@@ -37,47 +36,26 @@
 <g:else>
     <mn:menuNuevo search="${params.bscr?:''}"/>
 </g:else>
-%{--<mn:menuNuevo search="${params.bscr?:''}"/>--}%
 
-%{--<div class="container" style="min-width: 60% !important; overflow-y: hidden">--}%
 <div class="container" style="min-width: 60% !important; overflow-y: hidden">
+    <div class="btn-group bordeRojo alert fondo-rojo" style="width: 100%; margin-top: 15px">
+        <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
+                class="fa fa-arrow-left"></i> Regresar</a>
+        <a href="#" class="btn ${params.dstc == '1' ? ' btn-rojo' : ' btn-gris'}" id="btnPublicar"><i
+                class="fa fa-check-square"></i><strong> Publicar ${params.dstc == '1' ? ' Destacado' : ' Gratis'}</strong></a>
 
+        <div class="btn-group" style="margin-left: 100px">
+            <span class="btn btn-gris-inv">Disponibles una vez publicado el anuncio
+                <i class="fa fa-arrow-right"></i></span>
+        <a class="btn btn-gris disabled" href="#" title="Comparte en Facebook --Inactivo"><i class="fab fa-facebook-square text-info"></i></a>
+                <a class="btn btn-gris disabled" href="#" title="Comparte en Twitter --Inactivo"><i class="fab fa-twitter text-info"></i></a>
+                <a class="btn btn-gris disabled" href="#" title="Comparte en Whatsapp --Inactivo"><i class="fab fa-whatsapp text-success"></i></a>
 
-    <div class="btn-group" style="margin-top: 5px">
-        <g:if test="${tipo}">
-            <g:if test="${tipo == '1'}">
-                <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
-                        class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
-            </g:if>
-            <g:else>
-                <g:if test="${tipo == '3'}">
-                    <a href="#" class="btn btn-gris btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
-                            class="fa fa-arrow-left"></i> Regresar</a>
+        </div>
 
-                    <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">
-                        <i class="fa fa-columns"></i> Principal
-                    </a>
-
-                </g:if>
-            </g:else>
-        </g:if>
-
-%{--        <g:if test="${anuncio?.estado == 'A'}">--}%
-            <a href="#" class="btn buscar" id="btnContactar">
-                <i class="fa fa-phone"></i> Contactar con el vendedor
-            </a>
-%{--        </g:if>--}%
-        <g:if test="${tipo}">
-            <g:if test="${tipo == '3'}">
-                <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
-                <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
-                <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
-            </g:if>
-        </g:if>
     </div>
 
-
-    <div class="alert alert-dark" style="margin-top: 20px; text-align: center">
+    <div class="alert alert-dark ${params.dstc == '1' ? 'bordeRojo' : ''}" style="margin-top: 20px; text-align: center">
         <h3>${producto.titulo}</h3>
         <div><strong>${producto.subtitulo}</strong></div>
         <div style="margin-top: 5px">Lugar: ${lugar}</div>
@@ -160,53 +138,6 @@
 
         </div>
     </g:if>
-%{--    <g:if test="${publicaciones > 0}">--}%
-%{--        <div class="col-lg-5 columnas" style="float: right; margin-top: 2em">--}%
-
-%{--            <a href="#" class="btn buscar" id="btnContactar" style="float: right;">--}%
-%{--                <i class="fa fa-phone"></i> Contactar con el vendedor--}%
-%{--            </a>--}%
-%{--        </div>--}%
-%{--    </g:if>--}%
-%{--
-    <div id="textos" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
-        <div class="col-md-12">
-        <div class="col-md-6">
-            <div class="alert alert-dark" role="alert" style="text-align: center">
-                Características
-            </div>
-            <table class="table-bordered table-striped table-hover table-active" style="width: 100%">
-                <g:each in="${atributos}" var="at" status="i">
-                    <tr>
-                        <td class="alert alert-dark" role="alert">
-                            ${at.atributoCategoria.atributo.descripcion}
-                        </td>
-                        <td style="text-align: right"  class="alert alert-dark" role="alert">
-                            ${at.valor}
-                        </td>
-                    </tr>
-                </g:each>
-            </table>
-        </div>
-
-        <g:if test="${producto.texto}">
-            <div class="col-md-5">
-                <div id="divDescripcion">
-                    <div class="col-lg-12" style="float: left; padding: 1%; background-color: #efefef; border-style: solid; border-width: thin; border-color: #ddd">
-                        <div class="alert alert-primary" role="alert" style="text-align: center">
-                            Descripción
-                        </div>
-                    <g:applyCodec encodeAs="none">
-                        ${producto.texto}
-                    </g:applyCodec>
-                </div>
-            </div>
-            </div>
-        </g:if>
-
-        </div>
-    </div>
---}%
 
      <g:if test="${producto?.subcategoria?.categoria?.id == 1}">
          <div id="local" class="col-lg-12" style="display: block; float: left; padding: 1%; border: #ddd; border-style: solid;  border-width: thin" >
@@ -243,73 +174,6 @@
         </div>
     </div>
 
-</div>
-
-<div class="container" style="min-width: 60% !important; overflow-y: hidden">
-<div class="btn-group" style="margin-top: 5px;">
-    <g:if test="${tipo}">
-        <g:if test="${tipo == '1'}">
-            <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
-                    class="fa fa-arrow-left"></i> Regresar al Anuncio para <strong>Publicar</strong></a>
-        </g:if>
-        <g:if test="${tipo == '2'}">
-            <a href="#" class="btn btn-gris borre" id="btnAnterior"><i
-                    class="fa fa-arrow-left"></i> Regresar al Producto</a>
-            <a href="#" class="btn btn-gris borre" id="btnPublicar"><i
-                    class="fa fa-arrow-left"></i><strong>Publicar</strong></a>
-        </g:if>
-        <g:else>
-            <g:if test="${tipo == '3'}">
-                <a href="#" class="btn btn-gris btn-outline" onclick="anterior()" style="margin-right: 5px;"><i
-                        class="fa fa-arrow-left"></i> Regresar</a>
-
-                <a href="${createLink(controller: 'principal', action: 'index')}" class="btn btn-gris">
-                    <i class="fa fa-columns"></i> Principal
-                </a>
-
-            </g:if>
-            <g:else>
-                <g:if test="${tipo == '4'}">
-                    <a href="${createLink(controller: 'alerta', action: 'list')}" class="btn btn-gris" >
-                        <i class="fa fa-arrow-left"></i> Regresar a la lista de alertas
-                    </a>
-                </g:if>
-                <g:else>
-                    <g:if test="${tipo == '5'}">
-                        <a href="${createLink(controller: 'anuncio', action: 'list')}" class="btn btn-gris" >
-                            <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
-                        </a>
-                    </g:if>
-                    <g:else>
-                        <g:if test="${tipo == '6'}">
-                            <a href="${createLink(controller: 'alerta', action: 'revisadas')}" class="btn btn-gris" >
-                                <i class="fa fa-arrow-left"></i> Regresar a la lista alertas revisadas
-                            </a>
-                        </g:if>
-                        <g:else>
-                            <a href="#" class="btn btn-gris" id="btnAnteriorLista">
-                                <i class="fa fa-arrow-left"></i> Regresar a la lista de productos
-                            </a>
-                        </g:else>
-                    </g:else>
-                </g:else>
-            </g:else>
-        </g:else>
-    </g:if>
-
-%{--    <g:if test="${anuncio?.estado == 'A'}">--}%
-        <a href="#" class="btn buscar" id="btnContactar">
-            <i class="fa fa-phone"></i> Contactar con el vendedor
-        </a>
-%{--    </g:if>--}%
-    <g:if test="${tipo}">
-        <g:if test="${tipo == '3'}">
-            <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
-            <a class="btn btn-gris" href="https://twitter.com/intent/tweet?text=Ventas%20&url=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}&hashtags=tedein" title="Comparte en Twitter"><i class="fab fa-twitter text-info"></i></a>
-            <a class="btn btn-gris" href="https://api.whatsapp.com/send?text=Ventas%20http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Whatsapp"><i class="fab fa-whatsapp text-success"></i></a>
-        </g:if>
-    </g:if>
-</div>
 </div>
 
 
@@ -580,6 +444,7 @@ $("#ingresar").click(function () {
 
         $('#btnAnterior').click(function () {
             location.href = "${createLink(controller: 'producto', action: 'wizardContacto')}?id=" + '${producto?.id}'
+            %{--location.href = "${createLink(controller: 'producto', action: 'list')}?id=" + '${producto?.id}'--}%
         });
 
 
@@ -633,6 +498,37 @@ $("#ingresar").click(function () {
         event.preventDefault()
         $('#bsca').val('');
     });
+
+
+
+
+    $("#btnPublicar").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "${createLink(controller: 'anuncio', action: 'publicar_ajax')}",
+            data: {
+                producto: '${producto?.id}',
+                dstc: '${params.dstc}',
+                fcha: '${params.fc}',
+                dias: '${params.dd}'
+            },
+            success: function (msg) {
+                var b = bootbox.dialog({
+                    id: "dlgCargarCliente",
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "<i class='fa fa-times'></i> Salir",
+                            className: "btn-gris",
+                            callback: function () {
+                            }
+                        }
+                    } //buttons
+                }); //dialog
+            } //success
+        }); //ajax
+    }) //createEdit
+
 
 </script>
 

@@ -47,9 +47,10 @@
 <table class="table table-condensed table-bordered">
     <thead>
     <tr style="width: 100%">
-        <th style="width: 28%">Anuncio</th>
-        <th style="width: 15%">Categoria</th>
-        <th style="width: 15%">Subcategoria</th>
+        <th style="width: 10%">Anuncio</th>
+        <th style="width: 25%">Anuncio</th>
+        <th style="width: 10%">Categoria</th>
+        <th style="width: 13%">Subcategoria</th>
         <th style="width: 10%">Estado</th>
         <th style="width: 5%">Info.</th>
         %{--        <th style="width: 8%">Fecha inicio</th>--}%
@@ -67,9 +68,13 @@
         <tbody id="tabla_bandeja">
         <g:each in="${productos}" var="pd">
             <tr data-id="${pd.prod__id}" style="width: 100%" title="${pd.etdo}">
-                <td style="width: 28%">${pd.prodtitl}</td>
-                <td style="width: 15%">${pd.ctgrdscr}</td>
-                <td style="width: 15%">${pd.sbctdscr}</td>
+                <td style="width: 10%">
+                    <img class="img-fluid imag-item" alt="First slide" style="max-width: 100px"
+                         src="${request.contextPath}/principal/getImgnCarrusel?ruta=/var/ventas/productos/pro_${pd.prod__id}/${pd.imagruta}"/>
+                </td>
+                <td style="width: 25%">${pd.prodtitl}</td>
+                <td style="width: 10%">${pd.ctgrdscr}</td>
+                <td style="width: 13%">${pd.sbctdscr}</td>
                 <td style="width: 10%; text-align: center; font-weight: bold; background-color:${pd.anunetdo == 'R' ? '#afafaf' : (pd.anunetdo == 'A' ? '#EEB51F' : '')}">${pd.anunetdo == 'R' ? 'Revisión' : (pd.anunetdo == 'A' ? 'Publicándose' : 'Inactivo')}</td>
                 %{--                <td style="width: 8%; text-align: center">${pd.anunfcin?.format("dd-MMM-yyyy")}</td>--}%
                 %{--                <td style="width: 8%; text-align: center">${pd.anunfcfn?.format("dd-MMM-yyyy")}</td>--}%
@@ -348,6 +353,7 @@
 
     function visualizar(id){
         location.href="${createLink(controller: 'ver', action: 'carrusel')}?id=" + id + "&tipo=" + 2;
+        %{--location.href="${createLink(controller: 'ver', action: 'verEditar')}?id=" + id + "&tipo=" + 2;--}%
     };
 
     $(".btnEditar").click(function () {

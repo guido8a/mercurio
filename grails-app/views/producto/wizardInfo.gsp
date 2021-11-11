@@ -50,7 +50,7 @@
         -webkit-box-shadow : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
         -moz-box-shadow    : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
         box-shadow         : 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
-        height: 450px;
+        height: 550px;
     }
 
     </style>
@@ -130,7 +130,8 @@
                             Detalles o Especificaciones
                         </label>
                         <div class="col-md-8 form-group ${hasErrors(bean: 'producto', field: 'texto', 'error')}"
-                             style=" margin-left:5px; border-radius: 4px; border-style: solid; border-color: #888; border-width: 1px; padding: 5px;">
+                             style=" margin-left:5px; border-radius: 4px; border-style: solid; border-color: #888;
+                             border-width: 1px; padding: 5px">
 %{--                            <textarea id="texto" class="editor">${producto?.texto ?  producto?.texto : producto?.padre?.texto}</textarea>--}%
                             <trix:editor name="texto" class="editor" value="${producto?.texto ?  producto?.texto : producto?.padre?.texto}"/>
                         </div>

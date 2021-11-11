@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <ckeditor:resources/>
     <meta name="layout" content="main">
     <title>Producto del usuario: ${persona?.tipoPersona == 'N' ?  (persona?.nombre + " " + persona?.apellido) :  persona?.nombre}</title>
 

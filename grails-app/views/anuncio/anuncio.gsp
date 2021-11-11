@@ -1,8 +1,9 @@
 <table style="padding: 10px">
     <tr>
         <td>
+            <a href="${createLink(controller: 'ver', action: 'verEditar',  params: [id: prod.p, dstc: 1, fc: fcha, dd:dias])}"
+               style="text-decoration: none">
             <span  class="titulo1" >Su Anuncio Destacado</span>
-%{--            <g:each in="${destacados}" var="prod" status="i">--}%
                 <div>
                     <div class="card h-100 marcoDestacados">
                         <img width="253px" height="auto" style="padding: 1px"
@@ -15,12 +16,13 @@
                         </div>
                     </div>
                 </div>
-%{--            </g:each>--}%
+            </a>
         </td>
         <td style="width: 30px">&nbsp;</td>
         <td>
+            <a href="${createLink(controller: 'ver', action: 'verEditar',  params: [id: prod.p, fc: fcha, dd:dias])}"
+               style="text-decoration: none">
             <span  class="titulo1n" >Su Anuncio Gratuito</span>
-%{--            <g:each in="${destacados}" var="prod" status="i">--}%
                 <div style="display: inline">
                     <div class="card h-100 marcoNormal">
                         <img width="253px" height="auto" style="padding: 1px"
@@ -36,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-%{--            </g:each>--}%
+            </a>
         </td>
     </tr>
 </table>

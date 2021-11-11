@@ -453,7 +453,7 @@ class MenuTagLib {
             if(perfil.codigo != 'ADMN') {
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
                         "href='${g.createLink(controller: 'producto', action: 'list')}' " +
-                        "style='color:#222'><i class='fa fa-paste'></i> Sus Anuncios</a></span>"
+                        "style='color:#222'><i class='fa fa-paste'></i> Mis Anuncios</a></span>"
                 html += "<span class='nav-item btn-rojo'><a class='nav-link' " +
                         "href='${g.createLink(controller: 'pregunta', action: 'list')}' " +
                         "style='color:#222'><i class='far fa-comment-alt'></i> Sus Preguntas</a></span>"
@@ -463,7 +463,7 @@ class MenuTagLib {
                         '<i class="fa fa-user"></i>' + '  ' + usuario?.nombres + ' <b class="caret"></b></a>'
                 html += '<div class="dropdown-menu">'
                 html += '<a class="dropdown-item" href="' + g.createLink(controller: 'producto', action: 'list', id: session.usuario?.id) +
-                        '"><i class="fa fa-edit"></i> Sus Anuncios</a>'
+                        '"><i class="fa fa-edit"></i> Mis Anuncios</a>'
                 html += '<a class="dropdown-item" href="' + g.createLink(controller: 'pregunta', action: 'list', id: session.usuario?.id) +
                         '"><i class="far fa-file-alt"></i> Sus Preguntas</a>'
                 html += '<hr>'

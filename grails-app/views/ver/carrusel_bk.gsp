@@ -59,14 +59,45 @@
                     </a>
 
                 </g:if>
+                <g:else>
+                    <g:if test="${tipo == '4'}">
+                        <a href="${createLink(controller: 'admin', action: 'index')}" class="btn btn-gris" >
+                            <i class="fa fa-arrow-left"></i> Regresar a la lista de Anuncios
+                        </a>
+                        <g:if test="${anuncio?.tipoPago?.id != 5 && anuncio?.estado == 'R'}">
+                            <a href="${createLink(controller: 'admin', action: 'enviaMail')}" class="btn btn-rojo" >
+                                <i class="fa fa-check"></i> Aprobar el Anuncio para Pago
+                            </a>
+                        </g:if>
+                    </g:if>
+                    <g:else>
+                        <g:if test="${tipo == '5'}">
+                            <a href="${createLink(controller: 'anuncio', action: 'revisados')}" class="btn btn-gris" >
+                                <i class="fa fa-arrow-left"></i> Regresar a la lista de anuncios
+                            </a>
+                        </g:if>
+                        <g:else>
+                            <g:if test="${tipo == '6'}">
+                                <a href="${createLink(controller: 'alerta', action: 'revisadas')}" class="btn btn-gris" >
+                                    <i class="fa fa-arrow-left"></i> Regresar a la lista alertas revisadas
+                                </a>
+                            </g:if>
+                            <g:else>
+                                <a href="#" class="btn btn-gris" id="btnAnteriorLista">
+                                    <i class="fa fa-arrow-left"></i> Regresar a la lista de Anuncios
+                                </a>
+                            </g:else>
+                        </g:else>
+                    </g:else>
+                </g:else>
             </g:else>
         </g:if>
 
-%{--        <g:if test="${anuncio?.estado == 'A'}">--}%
+        <g:if test="${anuncio?.estado == 'A'}">
             <a href="#" class="btn buscar" id="btnContactar">
                 <i class="fa fa-phone"></i> Contactar con el vendedor
             </a>
-%{--        </g:if>--}%
+        </g:if>
         <g:if test="${tipo}">
             <g:if test="${tipo == '3'}">
                 <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>
@@ -297,11 +328,11 @@
         </g:else>
     </g:if>
 
-%{--    <g:if test="${anuncio?.estado == 'A'}">--}%
+    <g:if test="${anuncio?.estado == 'A'}">
         <a href="#" class="btn buscar" id="btnContactar">
             <i class="fa fa-phone"></i> Contactar con el vendedor
         </a>
-%{--    </g:if>--}%
+    </g:if>
     <g:if test="${tipo}">
         <g:if test="${tipo == '3'}">
             <a class="btn btn-gris" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tedein.com.ec/ventas/ver/carrusel/${producto?.id}?tipo=${tipo}" title="Comparte en Facebook"><i class="fab fa-facebook-square text-info"></i></a>

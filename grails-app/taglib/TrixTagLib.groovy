@@ -10,6 +10,6 @@ class TrixTagLib {
             out << " value=\"${attrs.value.encodeAsHTML()}\""
         }
         out << ' />'
-        out << "<trix-editor input=\"${id}\"></trix-editor>"
+        out << "<trix-editor input=\"${id}\" style='height:250px; overflow:auto'></trix-editor>"
     }
 }

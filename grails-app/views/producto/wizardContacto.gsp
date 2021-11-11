@@ -9,7 +9,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <ckeditor:resources/>
     <meta name="layout" content="main">
     <title>Contacto</title>
 
@@ -188,8 +187,11 @@
 
             <div style="display: flex; justify-content: center; width: 100%; margin-top: 20px; font-size: 10pt" id="textoAnuncio">
             </div>
-            <div style="display: flex; justify-content: center; width: 100%; margin-top: 20px">
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 20px" class="col-md-2">
                 <a href="#" class="btn btn-rojo btnAprobacion" > Publicar el Anuncio &nbsp;<i class="fa fa-check"></i></a>
+            </div>
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: 20px">
+                <a href="#" class="btn btn-gris btnAnun" > Publicar Nuevo &nbsp;<i class="fa fa-check"></i></a>
             </div>
         </div>
     </div>
@@ -234,19 +236,25 @@
     });
 
     $(".btnAnun").click(function () {
-        var id = '${producto?.id}'
+        %{--var id = '${producto?.id}'--}%
         $.ajax({
             type    : "POST",
             url     : "${createLink(controller: 'anuncio', action:'anuncio')}",
             data    : {
-                id: id,
-                persona: '${persona?.id}'
+                // id: id,
+                persona: '${persona?.id}',
+                id: '${producto?.id}',
+                contacto: $("#contacto").val(),
+                telefono: $("#telefonoContacto").val(),
+                mail: $("#mailContacto").val(),
+                pago: $("#tipopago").val(),
+                fecha: $("#fechaInicio").val()
             },
             success : function (msg) {
                 var b = bootbox.dialog({
                     // id      : "dlgCreateEdit",
                     size    : 'large',
-                    title   : "Información del Anuncio",
+                    title   : "Opciones para Publicar su Anuncio",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -353,7 +361,8 @@
         var a = cargarLoader("Procesando...");
         $.ajax({
             type: 'POST',
-            url: '${createLink(controller: 'producto', action: 'guardarContacto_ajax')}',
+            %{--url: '${createLink(controller: 'producto', action: 'guardarContacto_ajax')}',--}%
+            url: '${createLink(controller: 'producto', action: 'publicarNuevo_ajax')}',  /*nuevo*/
             data:{
                 id: '${producto?.id}',
                 contacto: $("#contacto").val(),

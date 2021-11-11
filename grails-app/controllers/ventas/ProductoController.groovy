@@ -1086,4 +1086,78 @@ class ProductoController {
         return[data: data]
     }
 
+    /** No genera anuncio, crea un registro en PUBL y detalle en DTPB, si había publicación activa se la da de baja y
+     * se activa la actual **/
+    def publicarNuevo_ajax(){
+        println "publicarNuevo_ajax: $params"
+        def persona = Persona.get(session.usuario.id)
+        def producto = Producto.get(params.id)
+
+        persona.mailContacto = params.mail
+        persona.contacto = params.contacto
+        persona.telefonoContacto = params.telefono
+
+        if(producto.estado == 'T') {
+            def mnsj = inhabilitaAnterior(producto)
+            println "mnsj: $mnsj"
+            render mnsj
+        } else {
+            def anuncios = Anuncio.findAllByProductoAndEstadoInList(producto, ['E', 'B'])
+            def anuncio
+            def tppg = TipoPago.get(params.pago.toInteger())
+            def fchaInicio = new Date().parse('dd-MM-yyyy HH:mm:ss', params.fecha + " 00:00:00")
+            def fchaFin = new Date().parse("dd-MM-yyyy HH:mm:ss", (fchaInicio + (tppg.dias - 1)).format('dd-MM-yyyy') + " 23:59:00")
+
+            println "fcha: $fchaInicio, tppg: $tppg, fechaFin: $fchaFin"
+
+            if (!persona.save(flush: true)) {
+                println("error al guardar la información de contacto " + persona.errors)
+                render "no"
+            } else {
+                anuncios.each { a ->
+                    if (a.estado == 'E') {
+                        println "Anuncio en Espera..."
+                        anuncio = a
+                    } else {
+                        if (anuncio && (a.estado == 'B')) {
+                            println "Anuncio extra dado de baja"
+                            a.delete(flush: true)
+                        } else if (a.estado == 'B') {
+                            println "Anuncio como dado de baja --> R"
+                            anuncio = a
+                        }
+                    }
+                }
+
+                println "pago: -- ${params.pago.class} ${params.pago}"
+                if (anuncio) {
+                    anuncio.fechaModificacion = new Date()
+                } else {
+                    anuncio = new Anuncio()
+                    anuncio.producto = producto
+                    anuncio.fecha = new Date()
+                }
+
+                anuncio.estado = 'R'
+                anuncio.fechaInicio = fchaInicio
+                anuncio.fechaFin = fchaFin
+                anuncio.tipoPago = tppg
+//            anuncio.pago = (params.pago == '5'? 'N' : 'S')  /* si es pagado o no */
+
+                if (!anuncio.save(flush: true)) {
+                    println("error al crear el anuncio " + anuncio.errors)
+                    render "no_Error al publicar el producto"
+                } else {
+                    producto.estado = 'R'
+                    producto.fechaModificacion = new Date()
+                    producto.save(flush: true)
+//                    render "ok"
+                    redirect(controller:"anuncio", action: "anuncio")
+                }
+            }
+
+        }
+    }
+
+
 }
